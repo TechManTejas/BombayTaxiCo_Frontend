@@ -1,4 +1,5 @@
 import React from "react";
+import ServiceCard from "../components/ServiceCard";
 
 const About: React.FC<{}> = () => {
   return (
@@ -33,6 +34,16 @@ const About: React.FC<{}> = () => {
         <img className="w-96 rounded-md" src="https://images.pexels.com/photos/8247/pexels-photo.jpg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="" />
       </div>
 
+      <div className="py-20 bg-gray-100">
+
+        <div className="flex items-center justify-around">
+        <ServiceCard />
+        <ServiceCard />
+        <ServiceCard />
+        </div>
+
+      </div>
+
       <div className="bg-amber-400 text-center py-14">
         <h6 className="text-gray-800 text-sm font-semibold mb-2">
           Call 24 hour available service
@@ -61,6 +72,7 @@ const About: React.FC<{}> = () => {
           </p>
         </h3>
       </div>
+
     </div>
   );
 };
