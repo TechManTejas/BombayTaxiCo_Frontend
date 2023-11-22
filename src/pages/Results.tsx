@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Results: React.FC = () => {
+const Results: React.FC<{}> = () => {
   return (
     <div>Results</div>
   );
