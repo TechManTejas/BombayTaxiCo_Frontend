@@ -79,9 +79,9 @@ const App: React.FC = () => {
       <Router>
         <Routes>
           {/* User Route  */}
-          <Route path="/*" element={<UserRoutes />} />
+          <Route path="/admin/*" element={<UserRoutes />} />
           {/* Admin Route  */}
-          <Route path="/admin/*" element={<AdminRoutes />} />
+          <Route path="/*" element={<AdminRoutes />} />
         </Routes>
       </Router>
     </ThemeProvider>
