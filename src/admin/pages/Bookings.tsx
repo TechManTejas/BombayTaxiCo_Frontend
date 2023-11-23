@@ -58,7 +58,7 @@ const columns: ColumnsType<DataType> = [
         dataIndex: 'actions', // Replace 'actions' with the actual dataIndex for Actions
         key: 'actions',
         fixed: 'right',
-        width: 200,
+        width: 100,
         render: () =>
             <>
                 <Button
@@ -80,10 +80,10 @@ const columns: ColumnsType<DataType> = [
                 <Button
                     icon={<EyeOutlined />}
                     size={'small'}
-                    className='w-56'
+                    className='w-28'
                     style={{ backgroundColor: '#1890ff', borderColor: '#1890ff', color: '#fff' }}
                 >
-                    VIEW DETAILS
+                    VIEW
                 </Button>
             </>,
     },
