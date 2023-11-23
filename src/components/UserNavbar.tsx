@@ -1,7 +1,7 @@
 import React from 'react';
 import Logo from "../assets/images/logo.webp"
 
-const Navbar: React.FC = () => {
+const UserNavbar: React.FC = () => {
     return (
         <>
             <div className="bg-[#2A2A2A]">
@@ -161,4 +161,4 @@ const Navbar: React.FC = () => {
     );
 };
 
-export default Navbar;
+export default UserNavbar;
