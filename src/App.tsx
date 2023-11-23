@@ -9,7 +9,17 @@ import Signin from './pages/Signin';
 import Signup from './pages/Signup';
 import Results from './pages/Results';
 import Details from './pages/Details';
-import Navbar from './components/Navbar';
+import UserNavbar from './components/UserNavbar';
+import { ThemeProvider } from './theme/ThemeContext';
+import Sidebar from './admin/components/Sidebar';
+import Bookings from './admin/pages/Bookings';
+import Taxis from './admin/pages/Taxis';
+import Drivers from './admin/pages/Drivers';
+import Coupons from './admin/pages/Coupons';
+import Invoices from './admin/pages/Invoices';
+import Settings from './admin/pages/Settings';
+import RoutesPage from './admin/pages/RoutesPage';
+import AdminNavbar from './admin/components/Navbar';
 
 // Assume you have an authentication check function, you can replace it with your actual authentication logic.
 const isAuthenticated = () => {
@@ -17,29 +27,64 @@ const isAuthenticated = () => {
   return true; // For demonstration purposes, always consider the user as authenticated
 };
 
-const App: React.FC = () => {
+const UserRoutes: React.FC = () => {
   return (
     <>
-      <Navbar/>
+      <UserNavbar />
+      <Routes>
+        {isAuthenticated() && (
+          <>
+            <Route path="/results" element={<Results />} />
+            <Route path="/details" element={<Details />} />
+            <Route path="/signin" element={<Navigate to="/home" />} />
+            <Route path="/signup" element={<Navigate to="/home" />} />
+          </>
+        )}
+        <Route path="/" element={<Navigate to="/home" />} />
+        <Route path="/home" element={<Home />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/contact" element={<Contact />} />
+        <Route path="/signin" element={<Signin />} />
+        <Route path="/signup" element={<Signup />} />
+      </Routes>
+    </>
+  )
+}
+
+const AdminRoutes: React.FC = () => {
+  return (
+    <>
+            <AdminNavbar />
+            <div className='flex'>
+                <Sidebar />
+                <Routes>
+                    <Route path="/" element={<Navigate to={"bookings"} />} />
+                    <Route path="/bookings" element={<Bookings />} />
+                    <Route path="/routes" element={<RoutesPage />} />
+                    <Route path="/taxis" element={<Taxis />} />
+                    <Route path="/drivers" element={<Drivers />} />
+                    <Route path="/coupons" element={<Coupons />} />
+                    <Route path="/invoices" element={<Invoices />} />
+                    <Route path="/settings" element={<Settings />} />
+                </Routes>
+            </div>
+        </>
+  )
+}
+
+
+const App: React.FC = () => {
+  return (
+    <ThemeProvider>
       <Router>
         <Routes>
-          {isAuthenticated() && (
-            <>
-              <Route path="/results" element={<Results />} />
-              <Route path="/details" element={<Details />} />
-              <Route path="/signin" element={<Navigate to="/home" />} />
-              <Route path="/signup" element={<Navigate to="/home" />} />
-            </>
-          )}
-          <Route path="/" element={<Navigate to="/home" />} />
-          <Route path="/home" element={<Home />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/contact" element={<Contact />} />
-          <Route path="/signin" element={<Signin />} />
-          <Route path="/signup" element={<Signup />} />
+          {/* User Route  */}
+          <Route path="/*" element={<UserRoutes />} />
+          {/* Admin Route  */}
+          <Route path="/admin/*" element={<AdminRoutes />} />
         </Routes>
       </Router>
-    </>
+    </ThemeProvider>
   );
 };
 
