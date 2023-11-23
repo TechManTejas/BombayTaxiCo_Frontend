@@ -307,6 +307,7 @@ const Bookings: React.FC = () => {
         // Do something based on the selected tab key
         console.log(`Tab changed to: ${key}`);
         setActiveTab(key);
+        console.log(activeTab);
     };
 
     return (
