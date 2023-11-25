@@ -1,7 +1,8 @@
-import React from 'react';
-import { Button, Table } from 'antd';
+import React, { useState } from 'react';
+import { Button, Table, Modal } from 'antd';
 import { PlusOutlined, SearchOutlined } from '@ant-design/icons';
 import { ColumnsType } from 'antd/es/table';
+import AddEditRoute from '../components/AddEditRoute';
 
 interface DataType {
   route?: string;
@@ -116,6 +117,16 @@ const newData: DataType[] = [
 
 const Routes: React.FC = () => {
 
+  const [isModalVisible, setIsModalVisible] = useState(false);
+
+  const handleAddNew = () => {
+    setIsModalVisible(true);
+  };
+
+  const handleModalCancel = () => {
+    setIsModalVisible(false);
+  };
+
   return (
     <div className='px-10 py-6'>
       <div className=''>
@@ -127,7 +138,7 @@ const Routes: React.FC = () => {
 
             <Button icon={<SearchOutlined />} size={'large'}/>
             <div>
-              <Button icon={<PlusOutlined />} size={'large'} className='bg-yellow-500 font-bold text-md'>
+              <Button icon={<PlusOutlined />} size={'large'} className='bg-yellow-500 font-bold text-md' onClick={handleAddNew}>
                 ADD NEW
               </Button>
             </div>
@@ -144,6 +155,15 @@ const Routes: React.FC = () => {
             y: 600
           }}
         />
+        <Modal
+          title='Add New Route'
+          open={isModalVisible}
+          onCancel={handleModalCancel}
+          footer={null}
+          width={1200}
+        >
+          <AddEditRoute/>
+        </Modal>
       </div>
     </div>
   )
