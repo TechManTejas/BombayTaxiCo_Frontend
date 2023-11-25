@@ -1,7 +1,12 @@
 import React from 'react';
 import Logo from "../assets/images/logo.webp"
+import { Button } from 'antd';
+import { useNavigate } from 'react-router-dom';
 
 const UserNavbar: React.FC = () => {
+
+    const navigate = useNavigate()
+
     return (
         <>
             <div className="bg-[#2A2A2A]">
@@ -129,6 +134,9 @@ const UserNavbar: React.FC = () => {
                             />
                         </span>
                     </h1>
+                    <Button className='bg-red-600 text-white font-bold' onClick={()=>{
+                        navigate('/admin')
+                    }}>Admin (test purpose only)</Button>
                     <div className="text-xl font-bold hidden md:block">
                         LOGIN
                     </div>
