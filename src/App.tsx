@@ -10,7 +10,7 @@ import Signup from './pages/Signup';
 import Results from './pages/Results';
 import Details from './pages/Details';
 import UserNavbar from './components/UserNavbar';
-import { ThemeProvider } from './theme/ThemeContext';
+// import { ThemeProvider } from './theme/ThemeContext';
 import Sidebar from './admin/components/Sidebar';
 import Bookings from './admin/pages/Bookings';
 import Taxis from './admin/pages/Taxis';
@@ -20,6 +20,7 @@ import Invoices from './admin/pages/Invoices';
 import Settings from './admin/pages/Settings';
 import RoutesPage from './admin/pages/RoutesPage';
 import AdminNavbar from './admin/components/Navbar';
+import { ConfigProvider } from 'antd';
 
 // Assume you have an authentication check function, you can replace it with your actual authentication logic.
 const isAuthenticated = () => {
@@ -54,37 +55,51 @@ const UserRoutes: React.FC = () => {
 const AdminRoutes: React.FC = () => {
   return (
     <>
-            <AdminNavbar />
-            <div className='flex'>
-                <Sidebar />
-                <Routes>
-                    <Route path="/" element={<Navigate to={"bookings"} />} />
-                    <Route path="/bookings" element={<Bookings />} />
-                    <Route path="/routes" element={<RoutesPage />} />
-                    <Route path="/taxis" element={<Taxis />} />
-                    <Route path="/drivers" element={<Drivers />} />
-                    <Route path="/coupons" element={<Coupons />} />
-                    <Route path="/invoices" element={<Invoices />} />
-                    <Route path="/settings" element={<Settings />} />
-                </Routes>
-            </div>
-        </>
+      <AdminNavbar />
+      <div className='flex'>
+        <Sidebar />
+        <Routes>
+          <Route path="/" element={<Navigate to={"bookings"} />} />
+          <Route path="/bookings" element={<Bookings />} />
+          <Route path="/routes" element={<RoutesPage />} />
+          <Route path="/taxis" element={<Taxis />} />
+          <Route path="/drivers" element={<Drivers />} />
+          <Route path="/coupons" element={<Coupons />} />
+          <Route path="/invoices" element={<Invoices />} />
+          <Route path="/settings" element={<Settings />} />
+        </Routes>
+      </div>
+    </>
   )
 }
 
 
 const App: React.FC = () => {
   return (
-    <ThemeProvider>
+    <ConfigProvider
+      theme={{
+        token: {
+
+        },
+        components: {
+          Tabs: {
+            inkBarColor: "black",
+            itemActiveColor: "black",
+            titleFontSize: 18,
+            itemSelectedColor: 'black'
+          },
+        },
+      }}
+    >
       <Router>
         <Routes>
           {/* User Route  */}
-          <Route path="/admin/*" element={<UserRoutes />} />
+          <Route path="/*" element={<UserRoutes />} />
           {/* Admin Route  */}
-          <Route path="/*" element={<AdminRoutes />} />
+          <Route path="/admin/*" element={<AdminRoutes />} />
         </Routes>
       </Router>
-    </ThemeProvider>
+    </ConfigProvider>
   );
 };
 

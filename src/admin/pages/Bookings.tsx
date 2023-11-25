@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import { Button, Table, Tabs } from 'antd';
-import { CarOutlined, CheckCircleOutlined, ClockCircleOutlined, CloseCircleOutlined, EyeOutlined, InboxOutlined, PlusOutlined } from '@ant-design/icons';
+import { CarOutlined, CheckCircleOutlined, ClockCircleOutlined, CloseCircleOutlined, InboxOutlined, SearchOutlined } from '@ant-design/icons';
 import { ColumnsType } from 'antd/es/table';
-import Search from 'antd/es/input/Search';
 
 const { TabPane } = Tabs;
 
@@ -39,19 +38,19 @@ const columns: ColumnsType<DataType> = [
         title: 'TRIP DATES',
         dataIndex: 'tripDates', // Replace 'tripDates' with the actual dataIndex for Trip Dates
         key: 'tripDates',
-        width: 200
+        width: 120
     },
     {
         title: 'CUSTOMER',
         dataIndex: 'customer', // Replace 'customer' with the actual dataIndex for Customer
         key: 'customer',
-        width: 200
+        width: 100
     },
     {
         title: 'PAYMENT',
         dataIndex: 'payment', // Replace 'payment' with the actual dataIndex for Payment
         key: 'payment',
-        width: 100
+        width: 60
     },
     {
         title: 'ACTIONS',
@@ -60,32 +59,23 @@ const columns: ColumnsType<DataType> = [
         fixed: 'right',
         width: 100,
         render: () =>
-            <>
-                <Button
-                    icon={<CheckCircleOutlined />}
-                    size={'small'}
-                    className='w-28'
-                    style={{ backgroundColor: '#52c41a', borderColor: '#52c41a', color: '#fff' }}
-                >
+            <div className='text-amber-500 font-bold flex flex-wrap space-x-1'>
+                <a>
                     CONFIRM
-                </Button>
-                <Button
-                    icon={<CloseCircleOutlined />}
-                    size={'small'}
-                    className='w-28'
-                    style={{ backgroundColor: '#f5222d', borderColor: '#f5222d', color: '#fff' }}
-                >
+                </a>
+                <div>
+                    |
+                </div>
+                <a>
                     CANCEL
-                </Button>
-                <Button
-                    icon={<EyeOutlined />}
-                    size={'small'}
-                    className='w-28'
-                    style={{ backgroundColor: '#1890ff', borderColor: '#1890ff', color: '#fff' }}
-                >
-                    VIEW
-                </Button>
-            </>,
+                </a>
+                <div>
+                    |
+                </div>
+                <a>
+                    VIEW DETAILS
+                </a>
+            </div>
     },
 ];
 
@@ -310,23 +300,26 @@ const Bookings: React.FC = () => {
         console.log(activeTab);
     };
 
+    const operations = <Button icon={<SearchOutlined />} size={'large'}/>
+
     return (
-        <>
+        <div className='px-10 py-6'>
             <Tabs
-                className='flex flex-1'
+                tabBarExtraContent={operations}
+                className='font-light'
                 defaultActiveKey="1"
-                tabPosition="left"
+                tabPosition="top"
                 onChange={handleTabChange}
             >
-                <TabPane tab={<span><InboxOutlined />All</span>} key="1" />
-                <TabPane tab={<span><InboxOutlined />New</span>} key="2" />
-                <TabPane tab={<span><ClockCircleOutlined />Confirmed</span>} key="3" />
-                <TabPane tab={<span><CarOutlined />On Ride</span>} key="4" />
-                <TabPane tab={<span><CheckCircleOutlined />Completed</span>} key="5" />
-                <TabPane tab={<span><CloseCircleOutlined />Cancelled</span>} key="6" />
+                <TabPane tab={<span><InboxOutlined />All (10)</span>} key="1" />
+                <TabPane tab={<span><InboxOutlined />New (4)</span>} key="2" />
+                <TabPane tab={<span><ClockCircleOutlined />Confirmed (5)</span>} key="3" />
+                <TabPane tab={<span><CarOutlined />On Ride (6)</span>} key="4" />
+                <TabPane tab={<span><CheckCircleOutlined />Completed (10)</span>} key="5" />
+                <TabPane tab={<span><CloseCircleOutlined />Cancelled (23)</span>} key="6" />
             </Tabs >
-            <div className='my-6 mr-6'>
-                <div className='flex justify-between items-center w-full gap-x-4'>
+            <div className=''>
+                {/* <div className='flex justify-between items-center w-full gap-x-4'>
                     <div className='text-2xl font-thin'>
                         BOOKINGS
                     </div>
@@ -338,7 +331,7 @@ const Bookings: React.FC = () => {
                             ADD NEW
                         </Button>
                     </div>
-                </div>
+                </div> */}
                 <Table
                     columns={columns}
                     dataSource={sampleData}
@@ -347,11 +340,11 @@ const Bookings: React.FC = () => {
                         pageSize: 10
                     }}
                     scroll={{
-                        y: 700
+                        y: 600
                     }}
                 />
             </div>
-        </>
+        </div>
     )
 };
 
