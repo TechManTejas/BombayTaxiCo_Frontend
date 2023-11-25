@@ -21,6 +21,8 @@ import Settings from './admin/pages/Settings';
 import RoutesPage from './admin/pages/RoutesPage';
 import AdminNavbar from './admin/components/Navbar';
 import { ConfigProvider } from 'antd';
+import TaxiDetails from './admin/pages/TaxiDetails';
+import DriverDetails from './admin/pages/DriverDetails';
 
 // Assume you have an authentication check function, you can replace it with your actual authentication logic.
 const isAuthenticated = () => {
@@ -63,7 +65,9 @@ const AdminRoutes: React.FC = () => {
           <Route path="/bookings" element={<Bookings />} />
           <Route path="/routes" element={<RoutesPage />} />
           <Route path="/taxis" element={<Taxis />} />
+          <Route path="/taxis/details" element={<TaxiDetails />} />
           <Route path="/drivers" element={<Drivers />} />
+          <Route path="/drivers/details" element={<DriverDetails />} />
           <Route path="/coupons" element={<Coupons />} />
           <Route path="/invoices" element={<Invoices />} />
           <Route path="/settings" element={<Settings />} />
