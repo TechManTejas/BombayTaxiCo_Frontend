@@ -70,7 +70,7 @@ const AddEditRoute: React.FC = () => {
     return (
         <div>
             <Space direction="vertical">
-                {routes.map((route, index) => (
+                {routes.map((_, index) => (
                     <Space key={index} direction="vertical">
                         <Space>
                             <Form.Item
