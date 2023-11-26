@@ -17,6 +17,14 @@ export const confirmation = (message: string): Promise<boolean> => {
       content: message,
       onOk: handleConfirm,
       onCancel: handleCancel,
+      okButtonProps: {
+        className: 'bg-yellow-500',
+      },
+      cancelButtonProps: {
+        className: 'bg-yellow-500',
+      },
+      okText: 'Yes',
+      cancelText: 'Cancel',
     });
   });
 };
