@@ -24,6 +24,11 @@ import { ConfigProvider } from 'antd';
 import TaxiDetails from './admin/pages/TaxiDetails';
 import DriverDetails from './admin/pages/DriverDetails';
 
+import dayjs from 'dayjs';
+import 'dayjs/locale/en'; // Import the desired locale
+
+dayjs.locale('en');
+
 // Assume you have an authentication check function, you can replace it with your actual authentication logic.
 const isAuthenticated = () => {
   // Replace this with your authentication logic

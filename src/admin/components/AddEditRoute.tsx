@@ -160,7 +160,7 @@ const AddEditRoute: React.FC = () => {
             {/* Settings Modal */}
             <Modal
                 title="Manage From and To"
-                visible={isSettingsModalVisible}
+                open={isSettingsModalVisible}
                 onCancel={handleSettingsModalVisible}
                 footer={null}
             >

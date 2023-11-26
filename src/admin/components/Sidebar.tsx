@@ -8,7 +8,7 @@ import {
     DollarOutlined,
     SettingOutlined,
 } from '@ant-design/icons';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import "./Sidebar.css"
 
 const { Sider } = Layout;
@@ -16,11 +16,27 @@ const { Sider } = Layout;
 const Sidebar: React.FC = () => {
 
     const navigate = useNavigate();
+    const location = useLocation();
+
+    // Extract the last part of the pathname after the last slash ("/")
+    const currentPath = location.pathname.split('/').pop() || '';
+    console.log(currentPath)
+
+    // Map the path to the corresponding menu key
+    const defaultSelectedKey = {
+        bookings: 'Bookings',
+        routes: 'Routes',
+        taxis: 'Taxis',
+        drivers: 'Drivers',
+        coupons: 'Coupons',
+        invoices: 'Invoices',
+        settings: 'Settings',
+    }[currentPath] || 'Bookings'; // Default to 'Bookings' if the path is not recognized
 
     const handleMenuClick = (key: string) => {
-        // Convert the key to lowercase and navigate to the respective route
-        navigate(`${key.toLowerCase()}`);
+        navigate(`/admin/${key.toLowerCase()}`);
     };
+
 
     return (
         <Sider
@@ -29,7 +45,7 @@ const Sidebar: React.FC = () => {
         >
             <Menu
                 mode="inline"
-                defaultSelectedKeys={['Bookings']}
+                defaultSelectedKeys={[defaultSelectedKey]}
                 className='h-full bg-inherit text-xl text-white'
                 onClick={({ key }) => handleMenuClick(key as string)}
             >
