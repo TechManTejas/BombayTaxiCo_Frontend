@@ -24,10 +24,14 @@ import { ConfigProvider } from 'antd';
 import TaxiDetails from './admin/pages/TaxiDetails';
 import DriverDetails from './admin/pages/DriverDetails';
 
-import dayjs from 'dayjs';
-import 'dayjs/locale/en'; // Import the desired locale
-
-dayjs.locale('en');
+import Citys from './admin/pages/Citys';
+import TaxtTypes from './admin/pages/TaxtTypes';
+import CitysAddEdit from './admin/pages/CitysAddExit';
+import CouponsAddEdit from './admin/pages/CouponsAddEdit';
+import DriversAddEdit from './admin/pages/DriversAddEdit';
+import TaxiTypesAddEdit from './admin/pages/TaxiTypesAddEdit';
+import TaxiAddEdit from './admin/pages/TaxiAddEdit';
+import RoutesAddEdit from './admin/pages/RoutesAddEdit';
 
 // Assume you have an authentication check function, you can replace it with your actual authentication logic.
 const isAuthenticated = () => {
@@ -69,12 +73,20 @@ const AdminRoutes: React.FC = () => {
           <Route path="/" element={<Navigate to={"bookings"} />} />
           <Route path="/bookings" element={<Bookings />} />
           <Route path="/routes" element={<RoutesPage />} />
+          <Route path="/routes/add-edit" element={<RoutesAddEdit />} />
           <Route path="/taxis" element={<Taxis />} />
           <Route path="/taxis/details" element={<TaxiDetails />} />
+          <Route path="/taxis/add-edit/" element={<TaxiAddEdit />} />
           <Route path="/drivers" element={<Drivers />} />
           <Route path="/drivers/details" element={<DriverDetails />} />
+          <Route path="/drivers/add-edit" element={<DriversAddEdit />} />
           <Route path="/coupons" element={<Coupons />} />
+          <Route path="/coupons/add-edit" element={<CouponsAddEdit />} />
           <Route path="/invoices" element={<Invoices />} />
+          <Route path="/cities" element={<Citys />} />
+          <Route path="/cities/add-edit" element={<CitysAddEdit />} />
+          <Route path="/taxi-types" element={<TaxtTypes />} />
+          <Route path="/taxi-types/add-edit" element={<TaxiTypesAddEdit />} />
           <Route path="/settings" element={<Settings />} />
         </Routes>
       </div>
@@ -88,7 +100,7 @@ const App: React.FC = () => {
     <ConfigProvider
       theme={{
         token: {
-
+          borderRadius: 3
         },
         components: {
           Tabs: {

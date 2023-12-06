@@ -1,31 +1,51 @@
-import { LeftOutlined, CheckCircleOutlined, ClockCircleOutlined, CarOutlined } from "@ant-design/icons";
+import { LeftOutlined, CheckCircleOutlined, CloseCircleOutlined, CarryOutOutlined, CarOutlined } from "@ant-design/icons";
 import { Button, Tag } from "antd";
+import { useLocation } from "react-router-dom";
+import { Taxi } from "../../types/taxi.types";
 
 
 export default function TaxiDetails() {
 
+    const { state } = useLocation()
+
+    const taxi: Taxi = state?.taxi
+    console.log(taxi)
+
     const goBack = () => {
         window.history.back();
+    };
+
+    const getStatusTag = (status: string | undefined) => {
+        switch (status) {
+          case 'Available':
+            return <Tag icon={<CheckCircleOutlined />} color="success">Available</Tag>;
+          case 'Unavailable':
+            return <Tag icon={<CloseCircleOutlined />} color="error">Unavailable</Tag>;
+          case 'Assigned':
+            return <Tag icon={<CarryOutOutlined />} color="warning">Assigned</Tag>;
+          case 'On a Trip':
+            return <Tag icon={<CarOutlined />} color="processing">On a Trip</Tag>;
+          default:
+            return null;
+        }
       };
 
     return (
         <div className='px-10 py-6 w-full'>
             <div className="space-y-2">
-                <Button icon={<LeftOutlined />} className="tracking-tight font-medium" onClick={goBack}>
+                <Button icon={<LeftOutlined />} className="tracking-tight font-medium mb-4" onClick={goBack}>
                     GO BACK
                 </Button>
                 <div className="text-xl flex space-x-3">
                     <div>
-                        MH03 CJ3004
+                        {taxi.taxi_no}
                     </div>
                     <div className="-mt-0.5">
-                        <Tag icon={<CheckCircleOutlined />} color="success">
-                            Available
-                        </Tag>
+                        {getStatusTag(taxi.taxi_status)}
                     </div>
                 </div>
                 <div>
-                    TAXI TYPE : ECONOMY HATCHBACK
+                    TAXI TYPE : {taxi.taxi_type_id.name}
                 </div>
             </div>
             <hr className="my-5" />
@@ -38,10 +58,18 @@ export default function TaxiDetails() {
                         <tbody className="bg-white divide-y divide-gray-200">
                             <tr>
                                 <td className="py-4 whitespace-nowrap">
-                                    <div className="text-sm font-medium text-gray-900">RATE PER</div>
+                                    <div className="text-sm font-medium text-gray-900">RATE PER KM</div>
                                 </td>
                                 <td className="px-6 py-4 whitespace-nowrap">
-                                    <div className="text-sm text-gray-500">120</div>
+                                    <div className="text-sm text-gray-500">{taxi.taxi_type_id.price_km}</div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td className="py-4 whitespace-nowrap">
+                                    <div className="text-sm font-medium text-gray-900">RATE PER HOUR</div>
+                                </td>
+                                <td className="px-6 py-4 whitespace-nowrap">
+                                    <div className="text-sm text-gray-500">{taxi.taxi_type_id.price_hour}</div>
                                 </td>
                             </tr>
                             <tr>
@@ -50,20 +78,15 @@ export default function TaxiDetails() {
                                 </td>
                                 <td className="px-6 py-4 whitespace-nowrap">
                                     <div className="text-sm text-gray-500 font-bold">
-                                        <Tag icon={<CarOutlined />} color="default">
-                                            AC
-                                        </Tag>
-                                        <Tag icon={<ClockCircleOutlined />} color="default">
-                                            4 Seater
-                                        </Tag></div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td className="py-4 whitespace-nowrap">
-                                    <div className="text-sm font-medium text-gray-900">FARE DETAILS</div>
-                                </td>
-                                <td className="px-6 py-4 whitespace-nowrap">
-                                    <div className="text-sm text-gray-500">details</div>
+                                        {taxi.taxi_type_id.car_features.map((feature) => {
+                                            return (
+                                                <Tag color="default">
+                                                    {feature.feature}
+                                                </Tag>
+                                            )
+                                        })
+                                        }
+                                    </div>
                                 </td>
                             </tr>
                             <tr>
@@ -71,7 +94,7 @@ export default function TaxiDetails() {
                                     <div className="text-sm font-medium text-gray-900">DRIVING LICENSE</div>
                                 </td>
                                 <td className="px-6 py-4 whitespace-nowrap">
-                                    <div className="text-sm text-gray-500">ANDH2563</div>
+                                    <div className="text-sm text-gray-500">{taxi.driving_license}</div>
                                 </td>
                             </tr>
                         </tbody>

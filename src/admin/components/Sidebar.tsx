@@ -34,7 +34,7 @@ const Sidebar: React.FC = () => {
     }[currentPath] || 'Bookings'; // Default to 'Bookings' if the path is not recognized
 
     const handleMenuClick = (key: string) => {
-        navigate(`/admin/${key.toLowerCase()}`);
+        navigate(`/admin/${key}`);
     };
 
 
@@ -46,16 +46,18 @@ const Sidebar: React.FC = () => {
             <Menu
                 mode="inline"
                 defaultSelectedKeys={[defaultSelectedKey]}
-                className='h-full bg-inherit text-xl text-white'
+                className='h-full bg-inherit text-xl text-white space-y-2'
                 onClick={({ key }) => handleMenuClick(key as string)}
             >
-                <Menu.Item key="Bookings" icon={<FileOutlined />}>Bookings</Menu.Item>
-                <Menu.Item key="Routes" icon={<EnvironmentOutlined />}>Routes</Menu.Item>
-                <Menu.Item key="Taxis" icon={<CarOutlined />}>Taxis</Menu.Item>
-                <Menu.Item key="Drivers" icon={<TeamOutlined />}>Drivers</Menu.Item>
-                <Menu.Item key="Coupons" icon={<DollarOutlined />}>Coupons</Menu.Item>
-                <Menu.Item key="Invoices" icon={<FileOutlined />}>Invoices</Menu.Item>
-                <Menu.Item key="Settings" icon={<SettingOutlined />}>Settings</Menu.Item>
+                <Menu.Item key="bookings" icon={<FileOutlined />}>Bookings</Menu.Item>
+                <Menu.Item key="routes" icon={<EnvironmentOutlined />}>Routes</Menu.Item>
+                <Menu.Item key="taxis" icon={<CarOutlined />}>Taxis</Menu.Item>
+                <Menu.Item key="drivers" icon={<TeamOutlined />}>Drivers</Menu.Item>
+                <Menu.Item key="coupons" icon={<DollarOutlined />}>Coupons</Menu.Item>
+                <Menu.Item key="invoices" icon={<FileOutlined />}>Invoices</Menu.Item>
+                <Menu.Item key="cities" icon={<EnvironmentOutlined />}>Cities</Menu.Item>
+                <Menu.Item key="taxi-types" icon={<CarOutlined />}>Taxi Types</Menu.Item>
+                <Menu.Item key="settings" icon={<SettingOutlined />}>Settings</Menu.Item>
             </Menu>
         </Sider>
     );

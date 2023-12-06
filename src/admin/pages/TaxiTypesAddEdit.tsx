@@ -1,0 +1,130 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+import React, { useEffect } from 'react';
+import { Button, Form, Input, Space, message } from 'antd';
+import axios from "../../api/axios"
+import { useLocation } from 'react-router-dom';
+import { CityFormValues } from '../../types/citys.types';
+import { TaxiType, TaxiTypeFormValues } from '../../types/taxiTypes.types';
+import { MinusOutlined, PlusOutlined } from '@ant-design/icons';
+
+const TaxiTypesAddEdit: React.FC = () => {
+    const { state } = useLocation()
+
+    const goBack = () => {
+        window.history.back();
+    };
+
+    const [form] = Form.useForm();
+    const taxiTypeToEdit: TaxiType = state?.taxiType;
+
+    // Extract id from editedCoupon or set it to undefined
+    const id = taxiTypeToEdit?._id || undefined;
+
+    // Set initial values for the form
+    const initialValues: TaxiTypeFormValues = {
+        name: '',
+        price_km: 0,
+        price_hour: 0,
+        car_features: []
+    };
+
+    useEffect(() => {
+        // If editedCoupon prop exists, set form fields with its details
+        if (taxiTypeToEdit) {
+            console.log(taxiTypeToEdit)
+            // Set form fields
+            form.setFieldsValue({
+                ...taxiTypeToEdit
+            });
+        } else {
+            // Set initial values for new coupons
+            form.setFieldsValue(initialValues);
+        }
+    }, [taxiTypeToEdit, form]);
+
+    const onFinish = async (values: CityFormValues) => {
+        console.log(values)
+
+        try {
+            if (id) {
+                // Edit existing coupon
+                await axios.put(`/taxi-types/${id}`, values);
+                message.success('Taxi Type Updated successfully!');
+            } else {
+                // Add new coupon
+                await axios.post('/taxi-types', values);
+                message.success('Taxi Type Added successfully!');
+                form.resetFields()
+            }
+
+            goBack()
+
+        } catch (error) {
+            console.error('Error:', error);
+            message.error('Error adding/updating taxi type');
+        }
+    };
+
+
+    return (
+        <div className='px-10 py-6'>
+            <div className='text-2xl font-light'>
+                {id ? 'EDIT TAXI TYPE' : 'ADD NEW TAXI TYPE'}
+            </div>
+            <Form form={form} onFinish={onFinish} layout="vertical" className="max-w-3xl mx-auto mt-8">
+
+                <Form.Item name="name" label="Taxi Type Name" rules={[{ required: true, message: 'Please enter the taxi type name' }]}>
+                    <Input className="w-full" />
+                </Form.Item>
+
+                <Space>
+                    <Form.Item name="price_km" label="Price Per Km" rules={[{ required: true, message: 'Please enter the taxi type name' }]}>
+                        <Input className="w-full" />
+                    </Form.Item>
+
+                    <Form.Item name="price_hour" label="Price Per Hr" rules={[{ required: true, message: 'Please enter the taxi type name' }]}>
+                        <Input className="w-full" />
+                    </Form.Item>
+                </Space>
+
+                <Form.List name="car_features">
+                    {(fields, { add, remove }) => (
+                        <>
+                            {fields.map(({ key, name, ...restField }) => (
+                                <Space key={key} style={{ display: 'flex', marginBottom: 8 }} align="baseline">
+                                    <Form.Item
+                                        {...restField}
+                                        name={[name, 'feature']}
+                                        rules={[{ required: true, message: 'Please enter a car feature' }]}
+                                    >
+                                        <Input placeholder="Car Feature" className="w-full" />
+                                    </Form.Item>
+                                    <Button type="dashed" onClick={() => remove(name)} icon={<MinusOutlined />} />
+                                </Space>
+                            ))}
+                            <Form.Item>
+                                <Button type="dashed" onClick={() => add()} icon={<PlusOutlined />}>
+                                    Add Car Feature
+                                </Button>
+                            </Form.Item>
+                        </>
+                    )}
+                </Form.List>
+
+
+                <Form.Item>
+                    <Space className='space-x-4'>
+                        <Button htmlType="submit" className="bg-yellow-500 hover:bg-yellow-600 text-black font-semibold w-28 h-10">
+                            {id ? 'SAVE' : 'ADD'}
+                        </Button>
+                        <Button className="font-semibold w-28 h-10" onClick={goBack}>
+                            CANCEL
+                        </Button>
+                    </Space>
+                </Form.Item>
+            </Form>
+        </div>
+    )
+};
+
+export default TaxiTypesAddEdit;
