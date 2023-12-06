@@ -1,32 +1,22 @@
 import React, { useEffect, useState } from 'react';
-import { Button, Table, Modal, message } from 'antd';
+import { Button, Table, message } from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
 import { ColumnsType } from 'antd/es/table';
 import axios from "../../api/axios"
-import moment from 'moment';
 import Search from 'antd/es/input/Search';
-import AddEditCoupon from '../components/AddEditCoupon';
 import { Coupon } from '../../types/coupons.types';
 import { confirmation } from '../components/Confirmation';
+import { useNavigate } from 'react-router-dom';
+import moment from 'moment';
 
 const Coupons: React.FC = () => {
 
+  const navigate = useNavigate()
+
   const [coupons, setCoupons] = useState<Coupon[]>([]);
   const [searchQuery, setSearchQuery] = useState<string>('');
-  const [isModalVisible, setIsModalVisible] = useState(false);
-  const [editedCouponDetails, setEditedCouponDetails] = useState<Coupon | null>(null);
   const [totalCoupons, setTotalCoupons] = useState<number>(0);
   const [currentPage, setCurrentPage] = useState<number>(1);
-
-  const handleAddNew = () => {
-    setEditedCouponDetails(null)
-    setIsModalVisible(true);
-  };
-
-  const handleModalCancel = () => {
-    setIsModalVisible(false);
-  };
-
 
   interface DataType {
     _id: string;
@@ -67,11 +57,15 @@ const Coupons: React.FC = () => {
       key: 'actions',
       fixed: 'right',
       width: 100,
-      render: (_, record) => (
+      render: (_, coupon) => (
         <div className='text-amber-500 font-bold flex flex-wrap space-x-1'>
-          <a onClick={() => handleEditCoupon(record._id)}>EDIT</a>
+          <a onClick={() => {
+            const couponToEdit = coupons.find((c) => c._id === coupon._id)
+            console.log(couponToEdit)
+            navigate('/admin/coupons/add-edit', { state: {coupon: couponToEdit}})
+          }}>EDIT</a>
           <div>|</div>
-          <a onClick={() => handleDeleteConfirmation(record._id)}>DELETE</a>
+          <a onClick={() => handleDeleteConfirmation(coupon._id)}>DELETE</a>
         </div>
       ),
     },
@@ -102,36 +96,6 @@ const Coupons: React.FC = () => {
   
   const handlePageChange = (page: number) => {
     fetchData(page);
-  };
-
-  const handleModifiedCouponList = (editedCoupon: Coupon) => {
-    setCoupons((prevCoupons) => {
-      // Check if the edited coupon already exists in the list
-      const couponExists = prevCoupons.some((coupon) => coupon._id === editedCoupon?._id);
-
-      if (couponExists) {
-        // Update the existing coupon
-        const updatedCoupons = prevCoupons.map((coupon) =>
-          coupon._id === editedCoupon._id ? editedCoupon : coupon
-        );
-        return updatedCoupons;
-      } else {
-        // Add the new coupon to the list
-        return [...prevCoupons, editedCoupon];
-      }
-    });
-  };
-
-  const handleEditCoupon = (couponId: string) => {
-    // Find the coupon with the given ID
-    const editedCoupon = coupons.find((coupon) => coupon._id === couponId);
-
-    // Check if the coupon is found
-    if (editedCoupon) {
-      // Open the AddEditCoupon modal and pass the coupon ID and details
-      setIsModalVisible(true);
-      setEditedCouponDetails(editedCoupon);
-    }
   };
 
   const handleDeleteCoupon = async (couponId: string) => {
@@ -168,9 +132,6 @@ const Coupons: React.FC = () => {
     timeline: string;
     status: string;
   }> => {
-
-    console.log(data)
-
     return data.map(coupon => ({
       _id: coupon?._id,
       coupon: coupon?.name,
@@ -197,7 +158,9 @@ const Coupons: React.FC = () => {
               // onSearch={fetchData} // Trigger fetchData on search
             />
             <div>
-              <Button icon={<PlusOutlined />} size={'large'} className='bg-yellow-500 font-bold text-md' onClick={handleAddNew}>
+              <Button icon={<PlusOutlined />} size={'large'} className='bg-yellow-500 font-bold text-md' onClick={()=>{
+                navigate('/admin/coupons/add-edit')
+              }}>
                 ADD NEW
               </Button>
             </div>
@@ -209,22 +172,13 @@ const Coupons: React.FC = () => {
           pagination={{
             position: ['bottomRight'],
             pageSize: 10,
-            total: totalCoupons, // Set the total number of coupons for accurate pagination
-            onChange: handlePageChange, // Handle page change event
+            total: totalCoupons,
+            onChange: handlePageChange,
           }}
           scroll={{
             y: 600
           }}
         />
-        <Modal
-          title='Manage Coupon'
-          open={isModalVisible}
-          onCancel={handleModalCancel}
-          footer={null}
-          width={600}
-        >
-          <AddEditCoupon onCouponEdited={handleModifiedCouponList} editedCoupon={editedCouponDetails}/>
-        </Modal>
       </div>
     </div>
   )
