@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Button, Table,message } from 'antd';
+import { Button, Table, message } from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
 import { ColumnsType } from 'antd/es/table';
 import axios from "../../api/axios"
@@ -12,6 +12,7 @@ const RoutesPage: React.FC = () => {
 
   const navigate = useNavigate()
 
+  const [loading, setLoading] = useState<boolean>(false);
   const [routes, setRoutes] = useState<IRoute[]>([]);
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [totatRoutes, setTotalCoupons] = useState<number>(0);
@@ -79,6 +80,8 @@ const RoutesPage: React.FC = () => {
 
   const fetchData = async (page: number = 1) => {
     try {
+      setLoading(true);
+
       const response = await axios.get('/routes', {
         params: {
           page: page,
@@ -93,6 +96,8 @@ const RoutesPage: React.FC = () => {
 
     } catch (error) {
       console.error('Error fetching data:', error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -186,6 +191,7 @@ const RoutesPage: React.FC = () => {
           scroll={{
             y: 600
           }}
+          loading={loading}
         />
       </div>
     </div>

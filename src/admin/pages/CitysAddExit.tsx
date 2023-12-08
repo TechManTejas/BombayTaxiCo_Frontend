@@ -75,7 +75,7 @@ const CitysAddEdit: React.FC = () => {
                 </Form.Item>
 
                 <Form.Item name="status" label="Status" rules={[{ required: true, message: 'Please select the status' }]}>
-                    <Switch checkedChildren="Active" unCheckedChildren="Inactive" className='bg-yellow-800' defaultChecked={cityToEdit.status === "Active"}/>
+                    <Switch checkedChildren="Active" unCheckedChildren="Inactive" className='bg-yellow-800' defaultChecked={cityToEdit?.status === "Active" || true}/>
                 </Form.Item>
 
                 <Form.Item>

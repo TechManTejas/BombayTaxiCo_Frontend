@@ -1,297 +1,99 @@
-import React, { useState } from 'react';
-import { Button, Table, Tabs } from 'antd';
-import { CarOutlined, CheckCircleOutlined, ClockCircleOutlined, CloseCircleOutlined, InboxOutlined, SearchOutlined } from '@ant-design/icons';
+import React, { useEffect, useState } from 'react';
+import { Table, Tabs, message } from 'antd';
+import { CarOutlined, CheckCircleOutlined, ClockCircleOutlined, CloseCircleOutlined, InboxOutlined } from '@ant-design/icons';
 import { ColumnsType } from 'antd/es/table';
+import axios from "../../api/axios"
+import Search from 'antd/es/input/Search';
+import { useNavigate } from 'react-router-dom';
+import moment from 'moment';
+import TabPane from 'antd/es/tabs/TabPane';
+import { BookingStatus, IBooking } from '../../types/bookings.types';
 
-const { TabPane } = Tabs;
+const Coupons: React.FC = () => {
 
-interface DataType {
-    bookingId: string;
-    status: string;
-    fromTo: string;
-    tripDates: string;
-    customer: string;
-    payment: string;
-    actions: string;
-}
+    const navigate = useNavigate()
 
-const columns: ColumnsType<DataType> = [
-    {
-        title: 'BOOKING ID',
-        dataIndex: 'bookingId', // Replace 'bookingId' with the actual dataIndex for Booking ID
-        key: 'bookingId',
-        width: 100
-    },
-    {
-        title: 'STATUS',
-        dataIndex: 'status', // Replace 'status' with the actual dataIndex for Status
-        key: 'status',
-        width: 100
-    },
-    {
-        title: 'FROM TO',
-        dataIndex: 'fromTo', // Replace 'fromTo' with the actual dataIndex for From-To
-        key: 'fromTo',
-        width: 100
-    },
-    {
-        title: 'TRIP DATES',
-        dataIndex: 'tripDates', // Replace 'tripDates' with the actual dataIndex for Trip Dates
-        key: 'tripDates',
-        width: 120
-    },
-    {
-        title: 'CUSTOMER',
-        dataIndex: 'customer', // Replace 'customer' with the actual dataIndex for Customer
-        key: 'customer',
-        width: 100
-    },
-    {
-        title: 'PAYMENT',
-        dataIndex: 'payment', // Replace 'payment' with the actual dataIndex for Payment
-        key: 'payment',
-        width: 60
-    },
-    {
-        title: 'ACTIONS',
-        dataIndex: 'actions', // Replace 'actions' with the actual dataIndex for Actions
-        key: 'actions',
-        fixed: 'right',
-        width: 100,
-        render: () =>
-            <div className='text-amber-500 font-bold flex flex-wrap space-x-1'>
-                <a>
-                    CONFIRM
-                </a>
-                <div>
-                    |
+    const [loading, setLoading] = useState<boolean>(false);
+    const [activeTab, setActiveTab] = useState<string>('All');
+    const [statusCounts, setStatusCounts] = useState<Record<string, number>>({});
+    const [bookings, setBookings] = useState<IBooking[]>([]);
+    const [searchQuery, setSearchQuery] = useState<string>('');
+    const [totalBookings, setTotalBookings] = useState<number>(0);
+
+    interface DataType {
+        _id: string;
+        status: BookingStatus;
+        fromTo: string;
+        tripDates: string;
+        customer: string;
+        payment: string;
+    }
+
+    const columns: ColumnsType<DataType> = [
+        {
+            title: 'BOOKING ID',
+            dataIndex: '_id',
+            key: '_id',
+            width: 100
+        },
+        {
+            title: 'STATUS',
+            dataIndex: 'status',
+            key: 'status',
+            width: 100
+        },
+        {
+            title: 'FROM TO',
+            dataIndex: 'fromTo',
+            key: 'fromTo',
+            width: 100
+        },
+        {
+            title: 'TRIP DATES',
+            dataIndex: 'tripDates',
+            key: 'tripDates',
+            width: 120
+        },
+        {
+            title: 'CUSTOMER',
+            dataIndex: 'customer',
+            key: 'customer',
+            width: 100
+        },
+        {
+            title: 'PAYMENT',
+            dataIndex: 'payment',
+            key: 'payment',
+            width: 60
+        },
+        {
+            title: 'ACTIONS',
+            dataIndex: 'actions',
+            key: 'actions',
+            fixed: 'right',
+            width: 100,
+            render: (_, booking) => (
+                <div className='text-amber-500 font-bold flex flex-wrap space-x-1'>
+                    {/* <a>
+                        CONFIRM
+                    </a>
+                    <div>
+                        |
+                    </div>
+                    <a>
+                        CANCEL
+                    </a>
+                    <div>
+                        |
+                    </div> */}
+                    <a onClick={() => {
+                        const bookingToEdit = bookings.find((b) => b._id === booking._id)
+                        navigate('/admin/bookings/details', { state: { booking: bookingToEdit } })
+                    }}>VIEW</a>
                 </div>
-                <a>
-                    CANCEL
-                </a>
-                <div>
-                    |
-                </div>
-                <a>
-                    VIEW DETAILS
-                </a>
-            </div>
-    },
-];
-
-const sampleData: DataType[] = [
-    {
-        bookingId: 'B001',
-        status: 'Confirmed',
-        fromTo: 'City A to City B',
-        tripDates: '2023-01-15 to 2023-01-20',
-        customer: 'John Doe',
-        payment: '$150.00',
-        actions: 'View/Edit',
-    },
-    {
-        bookingId: 'B002',
-        status: 'Pending',
-        fromTo: 'City C to City D',
-        tripDates: '2023-02-05 to 2023-02-10',
-        customer: 'Jane Doe',
-        payment: '$120.50',
-        actions: 'View/Edit',
-    },
-    {
-        bookingId: 'B003',
-        status: 'Cancelled',
-        fromTo: 'City E to City F',
-        tripDates: '2023-03-12 to 2023-03-18',
-        customer: 'Bob Smith',
-        payment: '$80.00',
-        actions: 'View/Edit',
-    },
-    {
-        bookingId: 'B004',
-        status: 'Confirmed',
-        fromTo: 'City G to City H',
-        tripDates: '2023-04-22 to 2023-04-28',
-        customer: 'Alice Johnson',
-        payment: '$200.00',
-        actions: 'View/Edit',
-    },
-    {
-        bookingId: 'B005',
-        status: 'Pending',
-        fromTo: 'City I to City J',
-        tripDates: '2023-05-03 to 2023-05-10',
-        customer: 'Sam Wilson',
-        payment: '$90.50',
-        actions: 'View/Edit',
-    },
-    {
-        bookingId: 'B006',
-        status: 'Confirmed',
-        fromTo: 'City K to City L',
-        tripDates: '2023-06-14 to 2023-06-20',
-        customer: 'Eva Martinez',
-        payment: '$180.00',
-        actions: 'View/Edit',
-    },
-    {
-        bookingId: 'B007',
-        status: 'Pending',
-        fromTo: 'City M to City N',
-        tripDates: '2023-07-01 to 2023-07-07',
-        customer: 'Chris Brown',
-        payment: '$110.25',
-        actions: 'View/Edit',
-    },
-    {
-        bookingId: 'B008',
-        status: 'Cancelled',
-        fromTo: 'City O to City P',
-        tripDates: '2023-08-09 to 2023-08-15',
-        customer: 'Emily White',
-        payment: '$75.00',
-        actions: 'View/Edit',
-    },
-    {
-        bookingId: 'B009',
-        status: 'Confirmed',
-        fromTo: 'City Q to City R',
-        tripDates: '2023-09-18 to 2023-09-25',
-        customer: 'David Taylor',
-        payment: '$160.00',
-        actions: 'View/Edit',
-    },
-    {
-        bookingId: 'B010',
-        status: 'Pending',
-        fromTo: 'City S to City T',
-        tripDates: '2023-10-05 to 2023-10-12',
-        customer: 'Sophia Lee',
-        payment: '$95.75',
-        actions: 'View/Edit',
-    },
-    {
-        bookingId: 'B010',
-        status: 'Pending',
-        fromTo: 'City S to City T',
-        tripDates: '2023-10-05 to 2023-10-12',
-        customer: 'Sophia Lee',
-        payment: '$95.75',
-        actions: 'View/Edit',
-    },
-    {
-        bookingId: 'B010',
-        status: 'Pending',
-        fromTo: 'City S to City T',
-        tripDates: '2023-10-05 to 2023-10-12',
-        customer: 'Sophia Lee',
-        payment: '$95.75',
-        actions: 'View/Edit',
-    },
-    {
-        bookingId: 'B010',
-        status: 'Pending',
-        fromTo: 'City S to City T',
-        tripDates: '2023-10-05 to 2023-10-12',
-        customer: 'Sophia Lee',
-        payment: '$95.75',
-        actions: 'View/Edit',
-    },
-    {
-        bookingId: 'B010',
-        status: 'Pending',
-        fromTo: 'City S to City T',
-        tripDates: '2023-10-05 to 2023-10-12',
-        customer: 'Sophia Lee',
-        payment: '$95.75',
-        actions: 'View/Edit',
-    },
-    {
-        bookingId: 'B010',
-        status: 'Pending',
-        fromTo: 'City S to City T',
-        tripDates: '2023-10-05 to 2023-10-12',
-        customer: 'Sophia Lee',
-        payment: '$95.75',
-        actions: 'View/Edit',
-    },
-    {
-        bookingId: 'B010',
-        status: 'Pending',
-        fromTo: 'City S to City T',
-        tripDates: '2023-10-05 to 2023-10-12',
-        customer: 'Sophia Lee',
-        payment: '$95.75',
-        actions: 'View/Edit',
-    },
-    {
-        bookingId: 'B010',
-        status: 'Pending',
-        fromTo: 'City S to City T',
-        tripDates: '2023-10-05 to 2023-10-12',
-        customer: 'Sophia Lee',
-        payment: '$95.75',
-        actions: 'View/Edit',
-    },
-    {
-        bookingId: 'B010',
-        status: 'Pending',
-        fromTo: 'City S to City T',
-        tripDates: '2023-10-05 to 2023-10-12',
-        customer: 'Sophia Lee',
-        payment: '$95.75',
-        actions: 'View/Edit',
-    },
-    {
-        bookingId: 'B010',
-        status: 'Pending',
-        fromTo: 'City S to City T',
-        tripDates: '2023-10-05 to 2023-10-12',
-        customer: 'Sophia Lee',
-        payment: '$95.75',
-        actions: 'View/Edit',
-    },
-    {
-        bookingId: 'B010',
-        status: 'Pending',
-        fromTo: 'City S to City T',
-        tripDates: '2023-10-05 to 2023-10-12',
-        customer: 'Sophia Lee',
-        payment: '$95.75',
-        actions: 'View/Edit',
-    },
-    {
-        bookingId: 'B010',
-        status: 'Pending',
-        fromTo: 'City S to City T',
-        tripDates: '2023-10-05 to 2023-10-12',
-        customer: 'Sophia Lee',
-        payment: '$95.75',
-        actions: 'View/Edit',
-    },
-    {
-        bookingId: 'B010',
-        status: 'Pending',
-        fromTo: 'City S to City T',
-        tripDates: '2023-10-05 to 2023-10-12',
-        customer: 'Sophia Lee',
-        payment: '$95.75',
-        actions: 'View/Edit',
-    },
-    {
-        bookingId: 'B010',
-        status: 'Pending',
-        fromTo: 'City S to City T',
-        tripDates: '2023-10-05 to 2023-10-12',
-        customer: 'Sophia Lee',
-        payment: '$95.75',
-        actions: 'View/Edit',
-    },
-];
-
-const Bookings: React.FC = () => {
-
-    const [activeTab, setActiveTab] = useState<string>('1');
+            ),
+        },
+    ];
 
     const handleTabChange = (key: string) => {
         // Do something based on the selected tab key
@@ -300,52 +102,130 @@ const Bookings: React.FC = () => {
         console.log(activeTab);
     };
 
-    const operations = <Button icon={<SearchOutlined />} size={'large'}/>
+    const fetchData = async (page: number = 1) => {
+        try {
+            const response = await axios.get('/bookings/booking-status-counts'); // Replace with your actual API endpoint
+            const data = response.data;
+
+            console.log(data);
+
+            // If the API returns an object with status counts, set it in the state
+            if (data && typeof data === 'object') {
+                setStatusCounts(data);
+            } else {
+                message.error('Invalid API response');
+            }
+        } catch (error) {
+            console.error('Error fetching data:', error);
+            message.error('Failed to fetch data');
+        }
+
+        try {
+            setLoading(true);
+
+            const response = await axios.get('/bookings', {
+                params: {
+                    page: page,
+                    pageSize: 10,
+                    filter: activeTab !== "All" ? JSON.stringify({ booking_status: activeTab }) : undefined,
+                    search: searchQuery,
+                },
+            });
+            console.log(response.data.bookings);
+            setBookings(response.data.bookings);
+            setTotalBookings(response.data.total);
+
+        } catch (error) {
+            console.error('Error fetching data:', error);
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    useEffect(() => {
+        fetchData();
+    }, [searchQuery, activeTab]);
+
+    const handlePageChange = (page: number) => {
+        fetchData(page);
+    };
+
+    const mapDataToTableFormat = (data: IBooking[]): Array<{
+        _id: string;
+        status: BookingStatus;
+        fromTo: string;
+        tripDates: string;
+        customer: string;
+        payment: string;
+    }> => {
+        return data.map(booking => {
+            const fromCity = booking.route_id?.from_id?.name || 'Unknown';
+            const toCity = booking.route_id?.to_id?.name || 'Unknown';
+            const fromTo = `${fromCity} to ${toCity}`;
+
+            return {
+                _id: booking?._id || '',
+                status: booking?.booking_status || BookingStatus.New,
+                fromTo,
+                tripDates: `${moment(booking?.pick_up_date).format('YYYY-MM-DD')} to ${moment(booking?.return_date).format('YYYY-MM-DD')}`,
+                customer: booking?.user_id?.name || '',
+                payment: "PAYMENT"
+            };
+        });
+    };
+
+    const formattedData = mapDataToTableFormat(bookings);
+
+    const renderTabTitle = (icon: React.ReactNode, label: string, countKey: string) => (
+        <span>
+            {icon}
+            {label} ({statusCounts[countKey] || 0})
+        </span>
+    );
 
     return (
         <div className='px-10 py-6'>
-            <Tabs
-                tabBarExtraContent={operations}
-                className='font-light'
-                defaultActiveKey="1"
-                tabPosition="top"
-                onChange={handleTabChange}
-            >
-                <TabPane tab={<span><InboxOutlined />All (10)</span>} key="1" />
-                <TabPane tab={<span><InboxOutlined />New (4)</span>} key="2" />
-                <TabPane tab={<span><ClockCircleOutlined />Confirmed (5)</span>} key="3" />
-                <TabPane tab={<span><CarOutlined />On Ride (6)</span>} key="4" />
-                <TabPane tab={<span><CheckCircleOutlined />Completed (10)</span>} key="5" />
-                <TabPane tab={<span><CloseCircleOutlined />Cancelled (23)</span>} key="6" />
-            </Tabs >
             <div className=''>
-                {/* <div className='flex justify-between items-center w-full gap-x-4'>
-                    <div className='text-2xl font-thin'>
-                        BOOKINGS
+                <div className='flex justify-between items-center w-full gap-x-4'>
+                    <Tabs
+                        className='font-light'
+                        defaultActiveKey="1"
+                        tabPosition="top"
+                        onChange={handleTabChange}
+                    >
+                        <TabPane tab={renderTabTitle(<InboxOutlined />, 'All', 'All')} key="All" />
+                        <TabPane tab={renderTabTitle(<InboxOutlined />, 'New', 'New')} key="New" />
+                        <TabPane tab={renderTabTitle(<ClockCircleOutlined />, 'Confirmed', 'Confirmed')} key="Confirmed" />
+                        <TabPane tab={renderTabTitle(<CarOutlined />, 'On Ride', 'On Ride')} key="On Ride" />
+                        <TabPane tab={renderTabTitle(<CheckCircleOutlined />, 'Completed', 'Completed')} key="Completed" />
+                        <TabPane tab={renderTabTitle(<CloseCircleOutlined />, 'Cancelled', 'Cancelled')} key="Cancelled" />
+                    </Tabs >
+                    <div className='flex space-x-3'>
+                        <Search
+                            size={'large'}
+                            placeholder="Search..."
+                            onChange={(e) => setSearchQuery(e.target.value)}
+                        // onSearch={fetchData} // Trigger fetchData on search
+                        />
                     </div>
-                    <div className='w-full'>
-                        <Search placeholder="Enter" size={'large'} />
-                    </div>
-                    <div>
-                        <Button icon={<PlusOutlined/>} size={'large'} className='bg-yellow-500 font-bold'>
-                            ADD NEW
-                        </Button>
-                    </div>
-                </div> */}
+                </div>
                 <Table
                     columns={columns}
-                    dataSource={sampleData}
+                    dataSource={formattedData}
                     pagination={{
                         position: ['bottomRight'],
-                        pageSize: 10
+                        pageSize: 10,
+                        total: totalBookings,
+                        onChange: handlePageChange,
                     }}
                     scroll={{
                         y: 600
                     }}
+                    loading={loading}
                 />
             </div>
         </div>
     )
 };
 
-export default Bookings;
+export default Coupons;
