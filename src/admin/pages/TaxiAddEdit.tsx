@@ -45,7 +45,7 @@ const TaxiAddEdit: React.FC = () => {
         // Fetch taxiTypes and populate the options
         const fetchTaxiTypes = async () => {
             try {
-                const response = await axios.get('/taxi-types');
+                const response = await axios.get('/taxitypes');
                 setTaxiTypes(response.data.taxitypes);
             } catch (error) {
                 console.error('Error fetching taxi types:', error);

@@ -12,6 +12,7 @@ const TaxiTypes: React.FC = () => {
 
     const navigate = useNavigate()
 
+    const [loading, setLoading] = useState<boolean>(false);
     const [taxiTypes, setTaxiTypes] = useState<TaxiType[]>([]);
     const [searchQuery, setSearchQuery] = useState<string>('');
     const [totalTaxiTypes, setTotalTaxiTypes] = useState<number>(0);
@@ -35,13 +36,13 @@ const TaxiTypes: React.FC = () => {
             title: 'PRICE PER KM',
             dataIndex: 'price_km',
             key: 'price_km',
-            width: 100
+            width: 50
         },
         {
             title: 'PRICE PER HOUR',
             dataIndex: 'price_hour',
             key: 'price_hour',
-            width: 100
+            width: 50
         },
         {
             title: 'CAR FEATURES',
@@ -54,9 +55,9 @@ const TaxiTypes: React.FC = () => {
                     ))}
                 </div>
             ),
-            width: 150,
+            width: 200,
         },
-        
+
         {
             title: 'ACTIONS',
             dataIndex: 'actions',
@@ -68,7 +69,7 @@ const TaxiTypes: React.FC = () => {
                     <a onClick={() => {
                         const taxiTypeToEdit = taxiTypes.find((t) => t._id === taxiType._id)
                         console.log(taxiTypeToEdit)
-                        navigate('/admin/taxi-types/add-edit', { state: { taxiType: taxiTypeToEdit } })
+                        navigate('/admin/taxitypes/add-edit', { state: { taxiType: taxiTypeToEdit } })
                     }}>EDIT</a>
                     <div>|</div>
                     <a onClick={() => handleDeleteConfirmation(taxiType._id)}>DELETE</a>
@@ -79,7 +80,9 @@ const TaxiTypes: React.FC = () => {
 
     const fetchData = async (page: number = 1) => {
         try {
-            const response = await axios.get('/taxi-types', {
+            setLoading(true);
+
+            const response = await axios.get('/taxitypes', {
                 params: {
                     page: page,
                     pageSize: 10,
@@ -95,6 +98,8 @@ const TaxiTypes: React.FC = () => {
 
         } catch (error) {
             console.error('Error fetching data:', error);
+        } finally {
+            setLoading(false);
         }
     };
 
@@ -109,7 +114,7 @@ const TaxiTypes: React.FC = () => {
     const handleDeleteCity = async (taxiTypeId: string) => {
         try {
             // Make axios call to delete the coupon
-            await axios.delete(`/taxi-types/${taxiTypeId}`);
+            await axios.delete(`/taxitypes/${taxiTypeId}`);
             // Update the list after successful deletion
             setTaxiTypes((prevTaxiTypes) => prevTaxiTypes.filter((taxiType) => taxiType._id !== taxiTypeId));
             // Fetch data for the current page to reflect the deletion
@@ -167,7 +172,7 @@ const TaxiTypes: React.FC = () => {
                         />
                         <div>
                             <Button icon={<PlusOutlined />} size={'large'} className='bg-yellow-500 font-bold text-md' onClick={() => {
-                                navigate('/admin/taxi-types/add-edit')
+                                navigate('/admin/taxitypes/add-edit')
                             }}>
                                 ADD NEW
                             </Button>
@@ -186,6 +191,7 @@ const TaxiTypes: React.FC = () => {
                     scroll={{
                         y: 600
                     }}
+                    loading={loading}
                 />
             </div>
         </div>

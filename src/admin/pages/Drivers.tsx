@@ -12,6 +12,7 @@ const Drivers: React.FC = () => {
 
   const navigate = useNavigate()
 
+  const [loading, setLoading] = useState<boolean>(false);
   const [drivers, setDrivers] = useState<Driver[]>([]);
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [totalDrivers, setTotalDrivers] = useState<number>(0);
@@ -77,7 +78,7 @@ const Drivers: React.FC = () => {
       width: 100,
       render: (_, driver) => (
         <div className='text-amber-500 font-bold flex flex-wrap space-x-1'>
-          <a onClick={() => {}}>ASSIGN</a>
+          <a onClick={() => { }}>ASSIGN</a>
           <div>|</div>
           <a onClick={() => {
             const driverToView = drivers.find((d) => d._id === driver._id)
@@ -99,6 +100,8 @@ const Drivers: React.FC = () => {
 
   const fetchData = async (page: number = 1) => {
     try {
+      setLoading(true);
+
       const response = await axios.get('/drivers', {
         params: {
           page: page,
@@ -115,6 +118,8 @@ const Drivers: React.FC = () => {
 
     } catch (error) {
       console.error('Error fetching data:', error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -204,6 +209,7 @@ const Drivers: React.FC = () => {
           scroll={{
             y: 600
           }}
+          loading={loading}
         />
       </div>
     </div>

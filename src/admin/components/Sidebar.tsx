@@ -24,14 +24,16 @@ const Sidebar: React.FC = () => {
 
     // Map the path to the corresponding menu key
     const defaultSelectedKey = {
-        bookings: 'Bookings',
-        routes: 'Routes',
-        taxis: 'Taxis',
-        drivers: 'Drivers',
-        coupons: 'Coupons',
-        invoices: 'Invoices',
-        settings: 'Settings',
-    }[currentPath] || 'Bookings'; // Default to 'Bookings' if the path is not recognized
+        bookings: 'bookings',
+        routes: 'routes',
+        taxis: 'taxis',
+        drivers: 'drivers',
+        coupons: 'coupons',
+        invoices: 'invoices',
+        cities: 'cities',
+        taxitypes: 'taxitypes',
+        settings: 'settings',
+    }[currentPath] || 'bookings'; // Default to 'Bookings' if the path is not recognized
 
     const handleMenuClick = (key: string) => {
         navigate(`/admin/${key}`);
@@ -56,7 +58,7 @@ const Sidebar: React.FC = () => {
                 <Menu.Item key="coupons" icon={<DollarOutlined />}>Coupons</Menu.Item>
                 <Menu.Item key="invoices" icon={<FileOutlined />}>Invoices</Menu.Item>
                 <Menu.Item key="cities" icon={<EnvironmentOutlined />}>Cities</Menu.Item>
-                <Menu.Item key="taxi-types" icon={<CarOutlined />}>Taxi Types</Menu.Item>
+                <Menu.Item key="taxitypes" icon={<CarOutlined />}>Taxi Types</Menu.Item>
                 <Menu.Item key="settings" icon={<SettingOutlined />}>Settings</Menu.Item>
             </Menu>
         </Sider>

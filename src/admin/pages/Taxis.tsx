@@ -12,6 +12,7 @@ const Taxis: React.FC = () => {
 
   const navigate = useNavigate()
 
+  const [loading, setLoading] = useState<boolean>(false);
   const [taxis, setTaxis] = useState<Taxi[]>([]);
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [totalTaxis, setTotalTaxis] = useState<number>(0);
@@ -98,6 +99,8 @@ const Taxis: React.FC = () => {
 
   const fetchData = async (page: number = 1) => {
     try {
+      setLoading(true);
+
       const response = await axios.get('/taxis', {
         params: {
           page: page,
@@ -114,6 +117,8 @@ const Taxis: React.FC = () => {
 
     } catch (error) {
       console.error('Error fetching data:', error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -205,6 +210,7 @@ const Taxis: React.FC = () => {
           scroll={{
             y: 600
           }}
+          loading={loading}
         />
       </div>
     </div>

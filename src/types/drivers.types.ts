@@ -1,3 +1,5 @@
+import { IBooking } from "./bookings.types";
+
 export interface Driver {
     _id: string;
     name: string;
@@ -6,6 +8,9 @@ export interface Driver {
     address: string;
     driving_license: string;
     driver_status: string;
+    current_trip?: IBooking
+    assigned_trips?: IBooking[];
+    completed_trips?: IBooking[];
 }
 
 export interface DriverFormValues {

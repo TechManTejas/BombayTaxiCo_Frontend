@@ -13,6 +13,7 @@ const Coupons: React.FC = () => {
 
   const navigate = useNavigate()
 
+  const [loading, setLoading] = useState<boolean>(false);
   const [coupons, setCoupons] = useState<Coupon[]>([]);
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [totalCoupons, setTotalCoupons] = useState<number>(0);
@@ -73,6 +74,8 @@ const Coupons: React.FC = () => {
 
   const fetchData = async (page: number = 1) => {
     try {
+      setLoading(true);
+
       const response = await axios.get('/coupons', {
         params: {
           page: page,
@@ -87,6 +90,8 @@ const Coupons: React.FC = () => {
       
     } catch (error) {
       console.error('Error fetching data:', error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -178,6 +183,7 @@ const Coupons: React.FC = () => {
           scroll={{
             y: 600
           }}
+          loading={loading}
         />
       </div>
     </div>

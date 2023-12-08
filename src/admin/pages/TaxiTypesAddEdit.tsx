@@ -25,6 +25,7 @@ const TaxiTypesAddEdit: React.FC = () => {
         name: '',
         price_km: 0,
         price_hour: 0,
+        extra_km_charges: 0,
         car_features: []
     };
 
@@ -48,11 +49,11 @@ const TaxiTypesAddEdit: React.FC = () => {
         try {
             if (id) {
                 // Edit existing coupon
-                await axios.put(`/taxi-types/${id}`, values);
+                await axios.put(`/taxitypes/${id}`, values);
                 message.success('Taxi Type Updated successfully!');
             } else {
                 // Add new coupon
-                await axios.post('/taxi-types', values);
+                await axios.post('/taxitypes', values);
                 message.success('Taxi Type Added successfully!');
                 form.resetFields()
             }
@@ -83,6 +84,10 @@ const TaxiTypesAddEdit: React.FC = () => {
                     </Form.Item>
 
                     <Form.Item name="price_hour" label="Price Per Hr" rules={[{ required: true, message: 'Please enter the taxi type name' }]}>
+                        <Input className="w-full" />
+                    </Form.Item>
+
+                    <Form.Item name="extra_km_charges" label="Extra Km Charges" rules={[{ required: true, message: 'Please enter the extra km charges' }]}>
                         <Input className="w-full" />
                     </Form.Item>
                 </Space>

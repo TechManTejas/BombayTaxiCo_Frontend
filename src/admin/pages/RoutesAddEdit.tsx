@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Button, Form, InputNumber, Select, Space, Switch, message } from 'antd';
+import { Button, Form, InputNumber, Select, Space, Switch, Table, message } from 'antd';
 import axios from "../../api/axios"
 import { useLocation } from 'react-router-dom';
 import { IRoute, RouteFormValues } from '../../types/routes.types';
@@ -10,6 +10,8 @@ const RoutesAddEdit: React.FC = () => {
 
     // State to store the list of cities
     const [cities, setCities] = useState([]);
+    // State to store the list of cities
+    const [taxiTypes, setTaxiTypes] = useState([]);
 
     const goBack = () => {
         window.history.back();
@@ -40,7 +42,18 @@ const RoutesAddEdit: React.FC = () => {
             }
         };
 
+        // Fetch taxi types from the API
+        const fetchTaxiTypes = async () => {
+            try {
+                const response = await axios.get('/taxitypes');
+                setTaxiTypes(response.data.taxitypes);
+            } catch (error) {
+                console.error('Error fetching taxi types:', error);
+            }
+        };
+
         fetchCities();
+        fetchTaxiTypes();
     }, []);
 
     useEffect(() => {
@@ -60,7 +73,7 @@ const RoutesAddEdit: React.FC = () => {
         }
     }, [routeToEdit, form]);
 
-    
+
     const onFinish = async (values: RouteFormValues) => {
         console.log(values)
         try {
@@ -92,59 +105,91 @@ const RoutesAddEdit: React.FC = () => {
             <div className='text-2xl font-light'>
                 {id ? 'EDIT ROUTE' : 'ADD NEW ROUTE'}
             </div>
-            <Form form={form} onFinish={onFinish} layout="vertical" className="max-w-md mx-auto mt-8">
+            <div className='flex'>
+                <Form form={form} onFinish={onFinish} layout="vertical" className="max-w-md mx-auto mt-8">
 
-                <Form.Item name="from_id" label="From" rules={[{ required: true, message: 'Please select the from city' }]}>
-                    {/* Use Select component to choose from cities */}
-                    <Select>
-                        {/* Map through the cities to populate the options */}
-                        {cities.map((city: City) => (
-                            <Select.Option key={city._id} value={city._id}>
-                                {city.name}
-                            </Select.Option>
-                        ))}
-                    </Select>
-                </Form.Item>
-
-                <Form.Item name="to_id" label="To" rules={[{ required: true, message: 'Please select the to city' }]}>
-                    {/* Use Select component to choose to cities */}
-                    <Select>
-                        {/* Map through the cities to populate the options */}
-                        {cities.map((city: City) => (
-                            <Select.Option key={city._id} value={city._id}>
-                                {city.name}
-                            </Select.Option>
-                        ))}
-                    </Select>
-                </Form.Item>
-
-                <Space>
-                    <Form.Item name="one_way_trip_km" label="One Way Trip Distance (in km)" rules={[{ required: true, message: 'Please enter the one-way trip distance' }]}>
-                        {/* Use InputNumber for numeric input */}
-                        <InputNumber className="w-full" />
+                    <Form.Item name="from_id" label="From" rules={[{ required: true, message: 'Please select the from city' }]}>
+                        {/* Use Select component to choose from cities */}
+                        <Select>
+                            {/* Map through the cities to populate the options */}
+                            {cities.map((city: City) => (
+                                <Select.Option key={city._id} value={city._id}>
+                                    {city.name}
+                                </Select.Option>
+                            ))}
+                        </Select>
                     </Form.Item>
 
-                    <Form.Item name="round_trip_km" label="Round Trip Distance (in km)" rules={[{ required: true, message: 'Please enter the round trip distance' }]}>
-                        {/* Use InputNumber for numeric input */}
-                        <InputNumber className="w-full" />
+                    <Form.Item name="to_id" label="To" rules={[{ required: true, message: 'Please select the to city' }]}>
+                        {/* Use Select component to choose to cities */}
+                        <Select>
+                            {/* Map through the cities to populate the options */}
+                            {cities.map((city: City) => (
+                                <Select.Option key={city._id} value={city._id}>
+                                    {city.name}
+                                </Select.Option>
+                            ))}
+                        </Select>
                     </Form.Item>
-                </Space>
 
-                <Form.Item name="route_status" label="Status" rules={[{ required: true, message: 'Please select the status' }]}>
-                    <Switch checkedChildren="Active" unCheckedChildren="Inactive" className='bg-yellow-800' defaultChecked={routeToEdit.route_status === "Active"} />
-                </Form.Item>
+                    <Space>
+                        <Form.Item name="one_way_trip_km" label="One Way Trip Distance (in km)" rules={[{ required: true, message: 'Please enter the one-way trip distance' }]}>
+                            {/* Use InputNumber for numeric input */}
+                            <InputNumber className="w-full" />
+                        </Form.Item>
 
-                <Form.Item>
-                    <Space className='space-x-4'>
-                        <Button htmlType="submit" className="bg-yellow-500 hover:bg-yellow-600 text-black font-semibold w-28 h-10">
-                            {id ? 'SAVE' : 'ADD'}
-                        </Button>
-                        <Button className="font-semibold w-28 h-10" onClick={goBack}>
-                            CANCEL
-                        </Button>
+                        <Form.Item name="round_trip_km" label="Round Trip Distance (in km)" rules={[{ required: true, message: 'Please enter the round trip distance' }]}>
+                            {/* Use InputNumber for numeric input */}
+                            <InputNumber className="w-full" />
+                        </Form.Item>
                     </Space>
-                </Form.Item>
-            </Form>
+
+                    <Form.Item name="route_status" label="Status" rules={[{ required: true, message: 'Please select the status' }]}>
+                        <Switch checkedChildren="Active" unCheckedChildren="Inactive" className='bg-yellow-800' defaultChecked={routeToEdit?.route_status === "Active" || true} />
+                    </Form.Item>
+
+                    <Form.Item>
+                        <Space className='space-x-4'>
+                            <Button htmlType="submit" className="bg-yellow-500 hover:bg-yellow-600 text-black font-semibold w-28 h-10">
+                                {id ? 'SAVE' : 'ADD'}
+                            </Button>
+                            <Button className="font-semibold w-28 h-10" onClick={goBack}>
+                                CANCEL
+                            </Button>
+                        </Space>
+                    </Form.Item>
+                </Form>
+                <div className='m-12'>
+                    <div className='font-light mb-4 text-gray-400 text-center'>PRICING PER CATEGORY</div>
+                    <Table
+                        className='border'
+                        dataSource={taxiTypes}
+                        columns={[
+                            {
+                                title: 'Taxi Type',
+                                dataIndex: 'name',
+                                key: 'name',
+                            },
+                            {
+                                title: 'PRICE (per KM)',
+                                dataIndex: 'price_km',
+                                key: 'price_km'
+                            },
+                            {
+                                title: 'ONE WAY PRICE',
+                                key: 'oneWayPrice',
+                                render: (record) => `$${record.price_km * form.getFieldValue('one_way_trip_km')}`,
+                            },
+                            {
+                                title: 'ROUND TRIP PRICE',
+                                key: 'roundTripPrice',
+                                render: (record) => `$${record.price_km * form.getFieldValue('round_trip_km')}`,
+                            },
+                        ]}
+                        pagination={false}
+                    />
+                </div>
+            </div>
         </div>
     )
 };

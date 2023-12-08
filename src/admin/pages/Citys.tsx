@@ -12,6 +12,7 @@ const Citys: React.FC = () => {
 
   const navigate = useNavigate()
 
+  const [loading, setLoading] = useState<boolean>(false);
   const [citys, setCitys] = useState<City[]>([]);
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [totalCitys, setTotalCitys] = useState<number>(0);
@@ -57,6 +58,8 @@ const Citys: React.FC = () => {
 
   const fetchData = async (page: number = 1) => {
     try {
+      setLoading(true);
+
       const response = await axios.get('/citys', {
         params: {
           page: page,
@@ -73,6 +76,8 @@ const Citys: React.FC = () => {
       
     } catch (error) {
       console.error('Error fetching data:', error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -160,6 +165,7 @@ const Citys: React.FC = () => {
           scroll={{
             y: 600
           }}
+          loading={loading}
         />
       </div>
     </div>

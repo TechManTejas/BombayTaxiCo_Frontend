@@ -1,9 +1,112 @@
-import React from 'react';
+/* eslint-disable @typescript-eslint/no-unused-vars */
+import React, { useEffect, useState } from 'react';
+import { Button, Form, Input, Space, message } from 'antd';
+import axios from "../../api/axios"
+import { ISettings } from '../../types/settings.types';
 
 const Settings: React.FC = () => {
+
+  const goBack = () => {
+    window.location.href = '/admin'
+  };
+
+  const [form] = Form.useForm();
+  const [settings, setSettings] = useState<ISettings | null>(null);
+
+  const fetchData = async () => {
+    try {
+      const response = await axios.get('/settings/get'); 
+      form.setFieldsValue({
+        ...response.data
+    });
+      
+      setSettings(response.data);
+      console.log(settings)
+
+    } catch (error) {
+      console.error('Error fetching settings:', error);
+      message.error('Error fetching settings');
+    }
+  };
+
+  useEffect(() => {
+    fetchData(); 
+  }, []);
+
+  const onFinish = async (values: ISettings) => {
+    console.log(values);
+
+    try {
+      const response = await axios.put('/settings/update', values); 
+      console.log(response);
+      message.success('Settings updated successfully');
+      fetchData(); // Fetch the updated settings after successful update
+    } catch (error) {
+      console.error('Error updating settings:', error);
+      message.error('Error updating settings');
+    }
+  };
+
   return (
-    <div className='font-bold text-4xl flex w-full justify-center items-center'>
-        Settings
+    <div className='px-10 py-6'>
+      <div className='text-2xl font-light'>
+        SETTINGS
+      </div>
+      <Form form={form} onFinish={onFinish} layout="vertical" className="max-w-3xl mt-8">
+
+        <Space>
+          <Form.Item name="baseFare" label="Base Fare" rules={[{ required: true, message: 'Please enter the base fare' }]}>
+            <Input className="w-full" />
+          </Form.Item>
+
+          <Form.Item name="gst" label="GST" rules={[{ required: true, message: 'Please enter the GST' }]}>
+            <Input className="w-full" />
+          </Form.Item>
+
+          <Form.Item name="stateTollTax" label="State, Toll Tax" rules={[{ required: true, message: 'Please enter the state toll tax' }]}>
+            <Input className="w-full" />
+          </Form.Item>
+        </Space>
+
+        <Space>
+          <Form.Item name="vehiclesAndFuelCharges" label="Vehicles & Fuel Charges" rules={[{ required: true, message: 'Please enter the vehicles and fuel charges' }]}>
+            <Input className="w-full" />
+          </Form.Item>
+
+          <Form.Item name="onePickupAndDrop" label="One Pickup & Drop" rules={[{ required: true, message: 'Please enter the one pickup and drop charges' }]}>
+            <Input className="w-full" />
+          </Form.Item>
+
+          <Form.Item name="parkingAndAirportEntry" label="Parking & Airport Entry" rules={[{ required: true, message: 'Please enter the parking and airport entry charges' }]}>
+            <Input className="w-full" />
+          </Form.Item>
+        </Space>
+
+        <Space>
+          <Form.Item name="waitingChargesPerMinute" label="Waiting Charges" rules={[{ required: true, message: 'Please enter the waiting charges per minute' }]}>
+            <Input className="w-full" />
+          </Form.Item>
+
+          <Form.Item name="nightChargePerDay" label="Night Charges" rules={[{ required: true, message: 'Please enter the night charges per day' }]}>
+            <Input className="w-full" />
+          </Form.Item>
+
+          <Form.Item name="extraPickupDropCharges" label="Extra Pickup/Drop" rules={[{ required: true, message: 'Please enter the extra pickup/drop charges' }]}>
+            <Input className="w-full" />
+          </Form.Item>
+        </Space>
+
+        <Form.Item>
+          <Space className='space-x-4'>
+            <Button htmlType="submit" className="bg-yellow-500 hover:bg-yellow-600 text-black font-semibold w-28 h-10">
+              SAVE
+            </Button>
+            <Button className="font-semibold w-28 h-10" onClick={goBack}>
+              BACK
+            </Button>
+          </Space>
+        </Form.Item>
+      </Form>
     </div>
   )
 };
