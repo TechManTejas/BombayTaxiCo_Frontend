@@ -1,9 +1,9 @@
 import React from 'react';
 
-const Results: React.FC = () => {
+const Search: React.FC = () => {
   return (
     <div>Results</div>
   );
 };
 
-export default Results;
+export default Search;
