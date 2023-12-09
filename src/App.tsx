@@ -2,12 +2,11 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 
-import Home from './pages/Home';
 import About from './pages/About';
 import Contact from './pages/Contact';
 import Signin from './pages/Signin';
 import Signup from './pages/Signup';
-import Results from './pages/Results';
+import Search from './pages/Results';
 import Details from './pages/Details';
 import UserNavbar from './components/UserNavbar';
 // import { ThemeProvider } from './theme/ThemeContext';
@@ -34,6 +33,7 @@ import TaxiAddEdit from './admin/pages/TaxiAddEdit';
 import RoutesAddEdit from './admin/pages/RoutesAddEdit';
 import BookingDetails from './admin/pages/BookingDetails';
 import axios from './api/axios';
+import Home from './pages/Home';
 
 // Assume you have an authentication check function, you can replace it with your actual authentication logic.
 const isAuthenticated = () => {
@@ -43,12 +43,27 @@ const isAuthenticated = () => {
 
 const UserRoutes: React.FC = () => {
   return (
-    <>
+    <ConfigProvider
+      theme={{
+        token: {
+          borderRadius: 3
+        },
+        components: {
+          Tabs: {
+            inkBarColor: "#FDB813",
+            itemColor: "#2A2A2A",
+            itemActiveColor: "#FDB813",
+            titleFontSize: 18,
+            itemSelectedColor: '#FDB813'
+          },
+        },
+      }}
+    >
       <UserNavbar />
       <Routes>
         {isAuthenticated() && (
           <>
-            <Route path="/results" element={<Results />} />
+            <Route path="/search" element={<Search />} />
             <Route path="/details" element={<Details />} />
             <Route path="/signin" element={<Navigate to="/home" />} />
             <Route path="/signup" element={<Navigate to="/home" />} />
@@ -61,13 +76,26 @@ const UserRoutes: React.FC = () => {
         <Route path="/signin" element={<Signin />} />
         <Route path="/signup" element={<Signup />} />
       </Routes>
-    </>
+    </ConfigProvider>
   )
 }
 
 const AdminRoutes: React.FC = () => {
   return (
-    <>
+    <ConfigProvider
+      theme={{
+        token: {
+          borderRadius: 3
+        },
+        components: {
+          Tabs: {
+            inkBarColor: "#9c9c9c",
+            itemActiveColor: "black",
+            titleFontSize: 18,
+            itemSelectedColor: 'black'
+          },
+        },
+      }}>
       <AdminNavbar />
       <div className='flex'>
         <Sidebar />
@@ -107,45 +135,31 @@ const AdminRoutes: React.FC = () => {
             "drop_address": "456 Destination Avenue, Townsville",
             "trip_type": "One Way",
             "requested_taxi_type": "65707e9f44d12174a2a3e298"
-        })
-          .then(response => {
-            // Handle success
-            console.log('Booking created successfully:', response.data);
-            // You can use the response data or show a success message to the user
-            message.success('Booking created successfully');
           })
-          .catch(error => {
-            // Handle error
-            console.error('Error creating booking:', error);
-            // You can show an error message to the user
-            message.error('Error creating booking. Please try again.');
-          });
+            .then(response => {
+              // Handle success
+              console.log('Booking created successfully:', response.data);
+              // You can use the response data or show a success message to the user
+              message.success('Booking created successfully');
+            })
+            .catch(error => {
+              // Handle error
+              console.error('Error creating booking:', error);
+              // You can show an error message to the user
+              message.error('Error creating booking. Please try again.');
+            });
         }}>
           CREATE DUMMY ONE WAY TRIP
         </Button>
       </div>
-    </>
+    </ConfigProvider>
   )
 }
 
 
 const App: React.FC = () => {
   return (
-    <ConfigProvider
-      theme={{
-        token: {
-          borderRadius: 3
-        },
-        components: {
-          Tabs: {
-            inkBarColor: "black",
-            itemActiveColor: "black",
-            titleFontSize: 18,
-            itemSelectedColor: 'black'
-          },
-        },
-      }}
-    >
+    <>
       <Router>
         <Routes>
           {/* User Route  */}
@@ -154,7 +168,7 @@ const App: React.FC = () => {
           <Route path="/admin/*" element={<AdminRoutes />} />
         </Routes>
       </Router>
-    </ConfigProvider>
+    </>
   );
 };
 

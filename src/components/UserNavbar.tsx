@@ -134,11 +134,30 @@ const UserNavbar: React.FC = () => {
                             />
                         </span>
                     </h1>
-                    <Button className='bg-red-600 text-white font-bold' onClick={()=>{
+                    <Button className='bg-red-600 text-white font-bold' onClick={() => {
                         navigate('/admin')
                     }}>Admin (test purpose only)</Button>
-                    <div className="text-xl font-bold hidden md:block">
-                        LOGIN
+                    <div className='flex space-x-6'>
+                        <button className="text-xl font-medium hidden md:block hover:text-yellow-500" onClick={()=>{
+                            navigate('/search')
+                        }}>
+                            BOOK A TAXI
+                        </button>
+                        <button className="text-xl font-medium hidden md:block hover:text-yellow-500" onClick={()=>{
+                            navigate('/about')
+                        }}>
+                            ABOUT US
+                        </button>
+                        <button className="text-xl font-medium hidden md:block hover:text-yellow-500" onClick={()=>{
+                            navigate('/contact')
+                        }}>
+                            CONTACT US
+                        </button>
+                        <button className="text-xl font-medium hidden md:block hover:text-yellow-500" onClick={()=>{
+                            navigate('/login')
+                        }}>
+                            LOGIN
+                        </button>
                     </div>
                 </nav>
             </div>
