@@ -6,7 +6,7 @@ import About from './pages/About';
 import Contact from './pages/Contact';
 import Signin from './pages/Signin';
 import Signup from './pages/Signup';
-import Search from './pages/Results';
+import Search from './pages/Search';
 import Details from './pages/Details';
 import UserNavbar from './components/UserNavbar';
 // import { ThemeProvider } from './theme/ThemeContext';
