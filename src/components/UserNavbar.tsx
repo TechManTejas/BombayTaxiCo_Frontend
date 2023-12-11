@@ -108,6 +108,7 @@ const UserNavbar: React.FC = () => {
                                 }}
                             />
                             <img
+                                onClick={()=> window.location.href = '/'}
                                 alt="Bombay Taxi Logo"
                                 src={Logo}
                                 decoding="async"
