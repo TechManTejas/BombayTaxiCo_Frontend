@@ -1,15 +1,22 @@
-import React from 'react'
+import { ReactNode } from 'react'; 
+interface WhyChooseUsCardProps {
+  icon: ReactNode; 
+  title: string;
+  description: string;
+}
 
-export const WhyChooseUsCard: React.FC = () => {
+export const WhyChooseUsCard: React.FC<WhyChooseUsCardProps> = ({ icon, title, description }) => {
   return (
     <>
-        <div className='flex flex-col justify-center items-center border-2 w-60 h-60 rounded-xl border-yellow-500 space-y-1 mx-12 mb-12'>
-            <div className='bg-[#2A2A2A] w-16 h-16 rounded-full'/>
+        <div className='m-4 bg-white flex flex-col justify-center items-center hover:border-2 w-60 h-60 rounded-xl  hover:border-yellow-500 space-y-1 shadow hover:shadow-xl transition-all'>
+            <div className='bg-[#2A2A2A] text-2xl w-16 h-16 rounded-full flex text-white justify-center items-center'>
+              {icon}  
+            </div>
             <div className='text-xl font-medium'>
-                Professtional Drivers
+                {title}<span className='text-yellow-500'>.</span>
             </div>
             <div className='text-center text-sm w-48'>
-                Experienced Staff & Professionally trained Chauffers
+                {description}
             </div>
         </div>
     </>
