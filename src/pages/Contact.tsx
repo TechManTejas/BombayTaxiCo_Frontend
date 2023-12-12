@@ -3,58 +3,87 @@ import { CallUsNow } from '../components/CallUsNow';
 import { Footer } from '../components/Footer';
 import { Button, Input } from 'antd';
 import TextArea from 'antd/es/input/TextArea';
+import {
+  EnvironmentOutlined,
+  PhoneOutlined,
+  MailOutlined,
+  ClockCircleOutlined,
+} from '@ant-design/icons';
+
+import Driver from "../assets/images/driver.jpg"
+
+const BreadCrumb: React.FC = () => {
+  return(
+    <>
+      <div className='text-gray-700 container my-6'>
+        Home {'>'} Contact Us
+      </div>
+    </>
+  )
+}
 
 const Cards: React.FC = () => {
 
   return (
-    <div className='flex flex-wrap justify-center items-center py-16'>
-      <div className='p-4 rounded-3xl bg-white m-8 w-[272px] h-[232px]'>
-        <div className='p-3 border-t-[3px] border-r-[3px] rounded-r-3xl border-yellow-500'>
-          <div className='flex flex-col justify-center items-center space-y-3'>
-            <div className='absolute -mt-48 w-[236px] h-[10px]' style={{
-              borderTop: "3px solid",
-              borderImage: "linear-gradient(to right, #fff 70%, transparent 30%) 100% 0"
-            }} />
-            <div className='h-20 w-20 bg-yellow-500 rounded-full'></div>
-            <div className='font-black text-2xl'>Office Address</div>
-            <div className='font-medium '>25/B Milford, New York, USA</div>
-          </div>
-        </div>
-      </div >
-      <div className='p-4 rounded-3xl bg-white m-8 w-[272px] h-[232px]'>
-        <div className='p-3 border-t-[3px] border-r-[3px] rounded-r-3xl border-yellow-500'>
-          <div className='flex flex-col justify-center items-center space-y-3'>
-            <div className='absolute -mt-48 w-[236px] h-[10px]' style={{
-              borderTop: "3px solid",
-              borderImage: "linear-gradient(to right, #fff 70%, transparent 30%) 100% 0"
-            }} />
-            <div className='h-20 w-20 bg-yellow-500 rounded-full'></div>
-            <div className='font-black text-2xl'>Call Us</div>
-            <div className='font-medium '>+2 123 4565 789</div>
-          </div>
-        </div>
-      </div >
-      <div className='p-4 rounded-3xl bg-white m-8 w-[272px] h-[232px]'>
-        <div className='p-3 border-t-[3px] border-r-[3px] rounded-r-3xl border-yellow-500'>
-          <div className='flex flex-col justify-center items-center space-y-3'>
-            <div className='absolute -mt-48 w-[236px] h-[10px]' style={{
-              borderTop: "3px solid",
-              borderImage: "linear-gradient(to right, #fff 70%, transparent 30%) 100% 0"
-            }} />
-            <div className='h-20 w-20 bg-yellow-500 rounded-full'></div>
-            <div className='font-black text-2xl'>Email Us</div>
-            <div className='font-medium '>info@example.com</div>
-          </div>
-        </div>
-      </div >
-      <div className='p-4 rounded-3xl bg-white m-8 w-[282px] h-[232px]'>
+    <div className='grid justify-items-center py-16
+      md:grid-cols-2
+      xl:grid-cols-4
+    '>
+      <div className='p-4 rounded-3xl bg-white m-8 w-[282px] h-[232px] shadow-xl'>
         <div className='p-3 border-t-[3px] border-r-[3px] rounded-r-3xl border-yellow-500'>
           <div className='flex flex-col justify-center items-center space-y-3'>
             <div className='absolute -mt-48 w-[246px] h-[10px]' style={{
               borderTop: "3px solid",
               borderImage: "linear-gradient(to right, #fff 70%, transparent 30%) 100% 0"
             }} />
-            <div className='h-20 w-20 bg-yellow-500 rounded-full'></div>
+            <div className='h-20 w-20 bg-yellow-500 rounded-full flex justify-center items-center'>
+              <EnvironmentOutlined className='text-3xl text-white' />
+            </div>
+            <div className='font-black text-2xl'>Office Address</div>
+            <div className='font-medium '>25/B Milford, New York, USA</div>
+          </div>
+        </div>
+      </div >
+      <div className='p-4 rounded-3xl bg-white m-8 w-[282px] h-[232px] shadow-xl'>
+        <div className='p-3 border-t-[3px] border-r-[3px] rounded-r-3xl border-yellow-500'>
+          <div className='flex flex-col justify-center items-center space-y-3'>
+            <div className='absolute -mt-48 w-[246px] h-[10px]' style={{
+              borderTop: "3px solid",
+              borderImage: "linear-gradient(to right, #fff 70%, transparent 30%) 100% 0"
+            }} />
+            <div className='h-20 w-20 bg-yellow-500 rounded-full flex justify-center items-center'>
+              <PhoneOutlined className='text-3xl text-white' />
+            </div>
+            <div className='font-black text-2xl'>Call Us</div>
+            <div className='font-medium '>+2 123 4565 789</div>
+          </div>
+        </div>
+      </div >
+      <div className='p-4 rounded-3xl bg-white m-8 w-[282px] h-[232px] shadow-xl'>
+        <div className='p-3 border-t-[3px] border-r-[3px] rounded-r-3xl border-yellow-500'>
+          <div className='flex flex-col justify-center items-center space-y-3'>
+            <div className='absolute -mt-48 w-[246px] h-[10px]' style={{
+              borderTop: "3px solid",
+              borderImage: "linear-gradient(to right, #fff 70%, transparent 30%) 100% 0"
+            }} />
+            <div className='h-20 w-20 bg-yellow-500 rounded-full flex justify-center items-center'>
+              <MailOutlined className='text-3xl text-white' />
+            </div>
+            <div className='font-black text-2xl'>Email Us</div>
+            <div className='font-medium '>info@example.com</div>
+          </div>
+        </div>
+      </div >
+      <div className='p-4 rounded-3xl bg-white m-8 w-[282px] h-[232px] shadow-xl'>
+        <div className='p-3 border-t-[3px] border-r-[3px] rounded-r-3xl border-yellow-500'>
+          <div className='flex flex-col justify-center items-center space-y-3'>
+            <div className='absolute -mt-48 w-[246px] h-[10px]' style={{
+              borderTop: "3px solid",
+              borderImage: "linear-gradient(to right, #fff 70%, transparent 30%) 100% 0"
+            }} />
+            <div className='h-20 w-20 bg-yellow-500 rounded-full flex justify-center items-center'>
+              <ClockCircleOutlined className='text-3xl text-white' />
+            </div>
             <div className='font-black text-2xl'>Open Timing</div>
             <div className='font-medium '>Mon - Sat (10.00AM - 5.30PM)</div>
           </div>
@@ -67,33 +96,48 @@ const Cards: React.FC = () => {
 const GetInTouch: React.FC = () => {
   return (
     <>
-      <div className='flex justify-center items-center mb-32 px-32 space-x-12 bg-white p-4 rounded-lg'>
-        <div className='w-[640px] h-[600px] bg-yellow-500 rounded-3xl rounded-r-full rounded-b-full p-4'>
-          <div className='w-full h-[570px] bg-white rounded-r-full rounded-b-full p-4'>
-            <div className='w-full h-[540px] bg-gray-500 rounded-r-full rounded-b-full p-4'>
-
-            </div>
+      <div className='flex flex-col justify-center items-center py-4 rounded-xl
+        lg:flex-row lg:space-x-6
+        space-y-6 lg:space-y-0
+      '>
+        <div className='p-2 bg-yellow-500 rounded-r-full rounded-b-full rounded-tl-[800px] flex justify-center items-center'>
+          <div className='p-2 bg-white rounded-r-full rounded-b-full rounded-tl-[600px] flex justify-center items-center'>
+            <img src={Driver} className='object-cover  bg-gray-200 rounded-r-full rounded-b-full rounded-tl-[800px]
+              w-[360px] h-[360px]
+              md:w-[420px] 
+              md:h-[420px]
+              xl:w-[570px] 
+              xl:h-[570px]
+            '/>
           </div>
         </div>
-        <div className='w-[720px]'>
+        <div className='
+          lg:w-1/2
+        '>
           <div className='space-y-3'>
             <div className='text-3xl font-bold'>Get In Touch</div>
             <div className='text-gray-500'>It is a long established face that a reader will be distracted by th readable content of a page randomised words slighty when looking at this layout</div>
           </div>
           <div className='w-full my-8'>
-            <div className='flex w-full space-x-8'>
+            <div className='flex w-full
+              space-x-2
+              md:space-x-8
+            '>
               <div className='w-full'><Input className='rounded-lg text-lg h-12' placeholder='Your Name'></Input></div>
               <div className='w-full'><Input className='rounded-lg text-lg h-12' placeholder='Your Email'></Input></div>
             </div>
-            <div className='my-8'>
+            <div className='
+              my-2
+              md:my-8
+            '>
               <Input className='rounded-lg text-lg h-12' placeholder='Your Subject'></Input>
             </div>
             <div>
-              <TextArea style={{height: "160px"}} className='text-lg' placeholder='Write Your Message'></TextArea>
+              <TextArea style={{ height: "160px" }} className='text-lg' placeholder='Write Your Message'></TextArea>
             </div>
           </div>
           <div className='my-8'>
-            <Button className='font-black rounded-3xl h-12 w-40 bg-yellow-500'>
+            <Button className='font-black rounded-3xl h-12 w-40 bg-yellow-500 border-yellow-500'>
               SEND MESSAGE
             </Button>
           </div>
@@ -106,7 +150,7 @@ const GetInTouch: React.FC = () => {
 const Map: React.FC = () => {
   return (
     <>
-      <div style={{ width: '100%', height: '400px' }}>
+      <div style={{ width: '100%', height: '360px' }} className='mt-20'>
         <iframe
           title="Google Map"
           width="100%"
@@ -123,9 +167,20 @@ const Map: React.FC = () => {
 
 const Contact: React.FC = () => {
   return (
-    <div className='bg-[#F5F5F5]'>
-      <Cards />
-      <GetInTouch />
+    <div >
+      <div className='
+        px-4
+        sm:px-8
+        md:px-16
+        lg:px-20
+        xl:px-28
+        2xl:px-32
+      bg-[#F5F5F5]'
+      >
+          <BreadCrumb/>
+        <Cards />
+        <GetInTouch />
+      </div>
       <Map />
       <CallUsNow />
       <Footer />
