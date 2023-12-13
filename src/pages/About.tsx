@@ -2,14 +2,16 @@ import React from 'react';
 import { Footer } from '../components/Footer';
 import { CallUsNow } from '../components/CallUsNow';
 import { WhyChooseUsCard } from '../components/WhyChooseUsCard';
-import { CarOutlined, DollarCircleOutlined, LikeOutlined, UserOutlined } from '@ant-design/icons';
+import { ArrowLeftOutlined, ArrowRightOutlined, CarOutlined, CarryOutOutlined, DollarCircleOutlined, LikeOutlined, TrophyOutlined, UserOutlined } from '@ant-design/icons';
 
 import AboutImage from "../assets/images/about.jpg"
+import { ServiceCard } from '../components/ServiceCard';
+import { Button } from 'antd';
 
 const BreadCrumb: React.FC = () => {
-  return(
+  return (
     <>
-      <div className='text-gray-700 container my-6'>
+      <div className='text-gray-700 container py-6'>
         Home {'>'} About Us
       </div>
     </>
@@ -48,7 +50,7 @@ const AboutBombayTaxiCompany: React.FC = () => {
               experience of the ride to our valuable customers.
             </div>
           </div>
-          <div className='m-3'/>
+          <div className='m-3' />
           <div className='rounded-lg flex
             xl:h-[400px] 
           '>
@@ -156,17 +158,49 @@ const EasyStep: React.FC = () => {
   )
 }
 
-// const ServiceWeOffer: React.FC = () => {
-//   return (
-//     <>
-//       <div className='space-y-12 py-20 bg-[#F5F5F5] h-[600px]'>
-//         <div className='text-center text-3xl font-medium'>
-//           Services We offer
-//         </div>
-//       </div>
-//     </>
-//   )
-// }
+const ServiceWeOffer: React.FC = () => {
+  return (
+    <>
+      <div className='space-y-12 py-20 bg-[#F5F5F5]'>
+        <div className='text-center text-3xl font-medium'>
+          Services We offer
+        </div>
+        <div className='flex justify-center '>
+          <div className='grid grid-cols-1 justify-items-center container
+            lg:grid-cols-3
+          '>
+            <ServiceCard
+              icon={<CarOutlined />}
+              feature="FEATURE - 01"
+              title="AIRPORT TRANSFERS"
+              description="Monetize flexible action items before mission critical redibly intuitive."
+            />
+            <ServiceCard
+              icon={<CarryOutOutlined />}
+              feature="FEATURE - 02"
+              title="BUSINESS TRANSFERS"
+              description="Monetize flexible action items before mission critical redibly intuitive."
+            />
+            <ServiceCard
+              icon={<TrophyOutlined />}
+              feature="FEATURE - 03"
+              title="EVENTS & WEDDING"
+              description="Monetize flexible action items before mission critical redibly intuitive."
+            />
+          </div>
+        </div>
+        <div className='flex w-full justify-center space-x-6 my-3'>
+          <div className='shadow-xl'>
+            <Button size='large' icon={<ArrowLeftOutlined />} className='bg-white border-white' />
+          </div>
+          <div className='shadow-xl'>
+            <Button size='large' icon={<ArrowRightOutlined />} className='bg-white border-white' />
+          </div>
+        </div>
+      </div>
+    </>
+  )
+}
 
 const About: React.FC = () => {
   return (
@@ -179,12 +213,12 @@ const About: React.FC = () => {
         xl:px-28
         2xl:px-32
         '>
-        <BreadCrumb/>
+        <BreadCrumb />
         <AboutBombayTaxiCompany />
         <WhyChooseUs />
       </div>
       <EasyStep />
-      {/* <ServiceWeOffer /> */}
+      <ServiceWeOffer />
       <CallUsNow />
       <Footer />
     </>
