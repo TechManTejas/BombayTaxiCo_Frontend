@@ -13,9 +13,9 @@ import {
 import Driver from "../assets/images/driver.jpg"
 
 const BreadCrumb: React.FC = () => {
-  return(
+  return (
     <>
-      <div className='text-gray-700 container my-6'>
+      <div className='text-gray-700 container py-6'>
         Home {'>'} Contact Us
       </div>
     </>
@@ -95,8 +95,8 @@ const Cards: React.FC = () => {
 
 const GetInTouch: React.FC = () => {
   return (
-    <>
-      <div className='flex flex-col justify-center items-center py-4 rounded-xl
+    <div className='pb-20'>
+      <div className='flex flex-col justify-center items-center py-4 rounded-xl bg-white px-3
         lg:flex-row lg:space-x-6
         space-y-6 lg:space-y-0
       '>
@@ -143,14 +143,14 @@ const GetInTouch: React.FC = () => {
           </div>
         </div>
       </div>
-    </>
+    </div>
   )
 }
 
 const Map: React.FC = () => {
   return (
     <>
-      <div style={{ width: '100%', height: '360px' }} className='mt-20'>
+      <div style={{ width: '100%', height: '360px' }}>
         <iframe
           title="Google Map"
           width="100%"
@@ -177,7 +177,7 @@ const Contact: React.FC = () => {
         2xl:px-32
       bg-[#F5F5F5]'
       >
-          <BreadCrumb/>
+        <BreadCrumb />
         <Cards />
         <GetInTouch />
       </div>

@@ -237,7 +237,7 @@ const Hero: React.FC = () => {
               </div>
             </div>
             <div>
-              <button className="bg-yellow-500 transition hover:bg-yellow-400 text-black font-semibold w-40 h-12 rounded-lg border-yellow-500 z-10" onClick={() => {
+              <button className="bg-yellow-500 hover:bg-yellow-400 text-black font-semibold w-40 h-12 rounded-lg border-yellow-500 z-10" onClick={() => {
                 navigate('/results')
               }}>
                 LET'S RIDE
@@ -426,11 +426,11 @@ const StatsAndTestamonials: React.FC = () => {
             </div>
             {/* <div className='w-12 border-gray-500 border-[3px] rounded-full'></div> */}
           </div>
-          <div className='m-6
+          <div className='m-6 shadow-xl
             hidden
             md:block
           '>
-            <Button size='large' icon={<ArrowLeftOutlined />} />
+            <Button size='large' icon={<ArrowLeftOutlined />} className='bg-white border-white' />
           </div>
           <div className='p-4 flex flex-col justify-center items-center
             w-full
@@ -455,16 +455,20 @@ const StatsAndTestamonials: React.FC = () => {
               <div className='flex w-full justify-center space-x-6 my-3
                 md:hidden
               '>
-                <Button size='large' icon={<ArrowLeftOutlined />} />
-                <Button size='large' icon={<ArrowRightOutlined />} />
+                <div className='shadow-xl'>
+                  <Button size='large' icon={<ArrowLeftOutlined />} className='bg-white border-white' />
+                </div>
+                <div className='shadow-xl'>
+                  <Button size='large' icon={<ArrowRightOutlined />} className='bg-white border-white' />
+                </div>
               </div>
             </div>
           </div>
-          <div className='m-6
+          <div className='m-6 shadow-xl
             hidden
             md:block
           '>
-            <Button size='large' icon={<ArrowRightOutlined />} />
+            <Button size='large' icon={<ArrowRightOutlined />} className='bg-white border-white' />
           </div>
           <div className='flex-col justify-center items-center m-16
             hidden md:flex
