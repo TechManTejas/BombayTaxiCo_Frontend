@@ -34,6 +34,7 @@ import RoutesAddEdit from './admin/pages/RoutesAddEdit';
 import BookingDetails from './admin/pages/BookingDetails';
 import axios from './api/axios';
 import Home from './pages/Home';
+import { Profile } from './pages/Profile';
 
 // Assume you have an authentication check function, you can replace it with your actual authentication logic.
 const isAuthenticated = () => {
@@ -65,6 +66,7 @@ const UserRoutes: React.FC = () => {
           <>
             <Route path="/search" element={<Search />} />
             <Route path="/details" element={<Details />} />
+            <Route path="/profile" element={<Profile />} />
             <Route path="/signin" element={<Navigate to="/home" />} />
             <Route path="/signup" element={<Navigate to="/home" />} />
           </>
