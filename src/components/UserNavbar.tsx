@@ -1,11 +1,23 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Logo from "../assets/images/logo.webp"
-import { Button } from 'antd';
+import { Button, Drawer, Menu } from 'antd';
 import { useNavigate } from 'react-router-dom';
+import { MenuOutlined } from '@ant-design/icons';
 
 const UserNavbar: React.FC = () => {
 
+    const [isDrawerVisible, setIsDrawerVisible] = useState<boolean>(false);
     const navigate = useNavigate()
+
+    const showDrawer = () => {
+        setIsDrawerVisible(true);
+    };
+
+    const hideDrawer = (key:string) => {
+        navigate(key)
+        setIsDrawerVisible(false);
+    };
+
 
     return (
         <>
@@ -108,7 +120,7 @@ const UserNavbar: React.FC = () => {
                                 }}
                             />
                             <img
-                                onClick={()=> window.location.href = '/'}
+                                onClick={() => window.location.href = '/'}
                                 alt="Bombay Taxi Logo"
                                 src={Logo}
                                 decoding="async"
@@ -135,33 +147,87 @@ const UserNavbar: React.FC = () => {
                             />
                         </span>
                     </h1>
-                    <Button className='bg-red-600 text-white font-bold' onClick={() => {
-                        navigate('/admin')
-                    }}>Admin (test purpose only)</Button>
+
+                    <div className="flex md:hidden">
+                        <Button
+                            type="text"
+                            icon={<MenuOutlined style={{ fontSize: '1.5rem' }} />}
+                            onClick={showDrawer}
+                        />
+                    </div>
+
                     <div className='flex space-x-6'>
-                        <button className="text-xl font-medium hidden md:block hover:text-yellow-500" onClick={()=>{
+                        <button className="text-xl font-medium hidden md:block hover:text-yellow-500" onClick={() => {
                             navigate('/search')
                         }}>
                             BOOK A TAXI
                         </button>
-                        <button className="text-xl font-medium hidden md:block hover:text-yellow-500" onClick={()=>{
+                        <button className="text-xl font-medium hidden md:block hover:text-yellow-500" onClick={() => {
+                            navigate('/details')
+                        }}>
+                            DETAILS
+                        </button>
+                        <button className="text-xl font-medium hidden md:block hover:text-yellow-500" onClick={() => {
                             navigate('/about')
                         }}>
                             ABOUT US
                         </button>
-                        <button className="text-xl font-medium hidden md:block hover:text-yellow-500" onClick={()=>{
+                        <button className="text-xl font-medium hidden md:block hover:text-yellow-500" onClick={() => {
                             navigate('/contact')
                         }}>
                             CONTACT US
                         </button>
-                        <button className="text-xl font-medium hidden md:block hover:text-yellow-500" onClick={()=>{
-                            navigate('/login')
+                        <button className="text-xl font-medium hidden md:block hover:text-yellow-500" onClick={() => {
+                            navigate('/profile')
                         }}>
-                            LOGIN
+                            PROFILE
                         </button>
                     </div>
                 </nav>
             </div>
+            <Drawer
+                title="Menu"
+                placement="right"
+                closable={false}
+                open={isDrawerVisible}
+            >
+                <Menu
+                    mode="vertical"
+                    defaultSelectedKeys={[]}
+                    style={{ width: '100%' }}
+                >
+                    <Menu.Item key="search" onClick={()=>{
+                        hideDrawer("search")
+                    }}>
+                        Book a Taxi
+                    </Menu.Item>
+                    <Menu.Item key="details" onClick={()=>{
+                        hideDrawer("details")
+                    }}>
+                        Details
+                    </Menu.Item>
+                    <Menu.Item key="about" onClick={()=>{
+                        hideDrawer("about")
+                    }}>
+                        About Us
+                    </Menu.Item>
+                    <Menu.Item key="contact" onClick={()=>{
+                        hideDrawer("contact")
+                    }}>
+                        Contact Us
+                    </Menu.Item>
+                    <Menu.Item key="profile" onClick={()=>{
+                        hideDrawer("profile")
+                    }}>
+                        Profile
+                    </Menu.Item>
+                </Menu>
+            </Drawer>
+            <Button className='bg-red-600 text-white font-bold fixed bottom-5 right-5 z-10 rounded' onClick={() => {
+                navigate('/admin')
+            }}>
+                Admin
+            </Button>
         </>
     );
 };

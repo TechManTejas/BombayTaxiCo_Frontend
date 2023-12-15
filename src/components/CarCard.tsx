@@ -1,5 +1,6 @@
 import React from 'react';
 import { Tag } from 'antd';
+import Car from "../assets/images/car.png"
 
 export interface Feature {
     icon: React.ReactNode;
@@ -13,6 +14,7 @@ interface CarCardProps {
     originalPrice: string;
     discountedPrice: string;
     discount: string;
+    preview?: boolean;
 }
 
 const CarCard: React.FC<CarCardProps> = ({
@@ -21,7 +23,8 @@ const CarCard: React.FC<CarCardProps> = ({
     features,
     originalPrice,
     discountedPrice,
-    discount
+    discount,
+    preview
 }) => {
     return (
         <div className='m-3 bg-white'>
@@ -36,8 +39,12 @@ const CarCard: React.FC<CarCardProps> = ({
                     md:h-60
                     lg:h-40
                     lg:w-40
-                '
-                />
+                '>
+                    <img src={Car} className='h-40 w-full object-cover
+                    md:h-60
+                    lg:h-40
+                    lg:w-40'/>
+                    </div>
                 <div
                     className='flex justify-between
                     flex-col
@@ -80,13 +87,20 @@ const CarCard: React.FC<CarCardProps> = ({
                                 </span>
                                 <span className='text-2xl font-bold'>₹{discountedPrice}</span>
                             </div>
-                            <div className='text-xl font-light'>Inclusive Of Toll & Sate Tax</div>
+                            {
+                                !preview ?
+                                    <div className='text-xl font-light'>Inclusive Of Toll & Sate Tax</div>
+                                    :
+                                    <div className='w-60'></div>
+                            }
                         </div>
-                        <div className='shadow-xl'>
-                            <button className='bg-yellow-500 hover:bg-yellow-400 p-3 rounded-lg w-[180px] h-full flex justify-center items-center text-lg font-medium'>
-                                BOOK NOW
-                            </button>
-                        </div>
+                        {!preview &&
+                            <div className='shadow-xl'>
+                                <button className='bg-yellow-500 hover:bg-yellow-400 p-3 rounded-lg w-[180px] h-full flex justify-center items-center text-lg font-medium'>
+                                    BOOK NOW
+                                </button>
+                            </div>
+                        }
                     </div>
                 </div>
             </div>

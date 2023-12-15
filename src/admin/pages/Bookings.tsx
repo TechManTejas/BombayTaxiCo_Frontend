@@ -9,7 +9,7 @@ import moment from 'moment';
 import TabPane from 'antd/es/tabs/TabPane';
 import { BookingStatus, IBooking } from '../../types/bookings.types';
 
-const Coupons: React.FC = () => {
+const Bookings: React.FC = () => {
 
     const navigate = useNavigate()
 
@@ -228,4 +228,4 @@ const Coupons: React.FC = () => {
     )
 };
 
-export default Coupons;
+export default Bookings;
