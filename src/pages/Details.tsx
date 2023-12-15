@@ -92,7 +92,7 @@ const PaymentCard = () => {
         amount: amount.toString(),
         currency: currency,
         name: "Bombay Taxi Co.",
-        description: "Test Transaction",
+        description: "Test Transaction For Payment",
         image: { logo: Logo }, // Replace with your logo URL
         order_id: order_id,
         handler: async function (response: RazorpayHandlerResponse) {
@@ -104,7 +104,7 @@ const PaymentCard = () => {
           };
   
           const result = await axios.post(
-            "http://localhost:5000/payments/success",
+            `${import.meta.env.VITE_BASE_URL}/payments/success`,
             data
           );
   
