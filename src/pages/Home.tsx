@@ -238,7 +238,7 @@ const Hero: React.FC = () => {
             </div>
             <div>
               <button className="bg-yellow-500 hover:bg-yellow-400 text-black font-semibold w-40 h-12 rounded-lg border-yellow-500 z-10" onClick={() => {
-                navigate('/results')
+                navigate('/search')
               }}>
                 LET'S RIDE
               </button>
