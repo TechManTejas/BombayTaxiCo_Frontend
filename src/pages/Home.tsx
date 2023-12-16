@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { ArrowLeftOutlined, ArrowRightOutlined, CarOutlined, ClockCircleOutlined, DollarCircleOutlined, SwapOutlined, SyncOutlined, UserOutlined } from '@ant-design/icons';
-import { Button, Calendar, Dropdown, MenuProps, Modal, Tabs } from 'antd';
+import { Button, DatePicker, Dropdown, MenuProps, Tabs } from 'antd';
 import TabPane from 'antd/es/tabs/TabPane';
 import React, { useEffect, useState } from 'react';
 import axios from "../api/axios"
@@ -34,11 +34,15 @@ const Hero: React.FC = () => {
   const [fromId, setFromId] = useState<string | null>(null);
   const [to, setTo] = useState("Pune");
   const [toId, setToId] = useState<string | null>(null);
+  const [pickupDateOpen, setPickupDateOpen] = useState<boolean>(false)
   const [pickupDate, setPickupDate] = useState<Dayjs | null>(dayjs());
 
   const [activeTab, setActiveTab] = useState('oneWay');
   const [cities, setCities] = useState<City[]>([]);
-  const [isDatePickerModalVisible, setDatePickerModalVisible] = useState(false);
+
+  const toggleDatePicker = () => {
+    setPickupDateOpen(!pickupDateOpen)
+  };
 
   const handleTabChange = (key: string) => {
     setActiveTab(key);
@@ -53,12 +57,10 @@ const Hero: React.FC = () => {
     setToId(e.key)
   };
 
-  const openDatePickerModal = () => {
-    setDatePickerModalVisible(true);
-  };
-
-  const closeDatePickerModal = () => {
-    setDatePickerModalVisible(false);
+  const handleDateChange = (date: Dayjs | null, dateString: string) => {
+    console.log('Selected Date:', dateString);
+    setPickupDate(date)
+    toggleDatePicker()
   };
 
   const menuCities: MenuProps['items'] = cities.map((city: City) => ({
@@ -113,21 +115,8 @@ const Hero: React.FC = () => {
 
   return (
     <>
-      <div>
-        <Modal
-          open={isDatePickerModalVisible}
-          onCancel={closeDatePickerModal}
-          footer={null}
-        >
-          <Calendar
-            fullscreen={false}
-            onSelect={(date: any) => {
-              setPickupDate(date);
-              setDatePickerModalVisible(false);
-            }}
-          />
-        </Modal>
-        <div className='bg-[#2a2a2a81] h-[720px] flex flex-col justify-center items-center space-y-20' style={{ backgroundImage: `url(${HeroImage})`, backgroundSize: 'cover' }}>
+      <div className='bg-[#2a2a2a81] h-[720px] ' style={{ backgroundImage: `url(${HeroImage})`, backgroundSize: 'cover' }}>
+        <div className='bg-[#00000075] h-full w-full flex flex-col justify-center items-center space-y-20'>
           <div className='text-4xl font-medium text-white text-center
             mt-24
             lg:mt-0
@@ -203,28 +192,25 @@ const Hero: React.FC = () => {
                   border-b
                   lg:border-l'
                 />
-                <div className='w-[188px] p-3 pb-4 space-y-1'>
+                <div className='relative w-[188px] p-3 pb-4 space-y-1'>
                   <div className='text-xs'>
                     PICKUP DATE
                   </div>
-                  <button className='text-3xl hover:text-blue-500' onClick={openDatePickerModal}>
+                  <button className='text-3xl hover:text-blue-500' onClick={toggleDatePicker}>
                     {pickupDate?.format('D MMM') ?? <button className='border p-1 rounded-lg bg-gray-100 text-base'>select a pickup date</button>} <span className='text-base'>{pickupDate?.format('YYYY')}</span>
                   </button>
+                  <DatePicker
+                    className='absolute bottom-0 left-0 w-0 h-0'
+                    style={{
+                      visibility: 'hidden'
+                    }}
+                    open={pickupDateOpen}
+                    onChange={handleDateChange}
+                  />
                 </div>
                 <div className='
                   border-b
                   lg:border-l'
-                />
-                <div className='w-[188px] p-3 pb-4 space-y-1'>
-                  <div className='text-xs'>
-                    RETURN DATE
-                  </div>
-                  <div className='text-sm'>
-                    Add return date for bigger discount
-                  </div>
-                </div>
-                <div className='
-                  border-b'
                 />
                 <div className='w-[188px] p-3 pb-4 space-y-1'>
                   <div className='text-xs'>
@@ -233,6 +219,21 @@ const Hero: React.FC = () => {
                   <button className='text-3xl hover:text-blue-500'>
                     10:00
                   </button>
+                  {/* <TimePicker
+                  format="h:mm a"
+                  showSecond={false}
+                /> */}
+                </div>
+                <div className='
+                  border-b'
+                />
+                <div className='w-[188px] p-3 pb-4 space-y-1'>
+                  <div className='text-xs'>
+                    RETURN DATE
+                  </div>
+                  <div className='text-sm'>
+                    Add return date for bigger discount
+                  </div>
                 </div>
               </div>
             </div>
