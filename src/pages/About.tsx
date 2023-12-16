@@ -7,12 +7,23 @@ import { ArrowLeftOutlined, ArrowRightOutlined, CarOutlined, CarryOutOutlined, D
 import AboutImage from "../assets/images/about.jpg"
 import { ServiceCard } from '../components/ServiceCard';
 import { Button } from 'antd';
+import { useNavigate } from 'react-router-dom';
 
 const BreadCrumb: React.FC = () => {
+
+  const navigate = useNavigate()
+
   return (
     <>
-      <div className='text-gray-700 container py-6'>
-        Home {'>'} About Us
+      <div className='text-gray-700 container py-6 flex space-x-1'>
+        <button className='hover:text-yellow-500 hover:underline' onClick={()=>{
+          navigate("/")
+        }}>
+          Home 
+        </button>
+        <div>
+        {'>'} About Us
+        </div>
       </div>
     </>
   )

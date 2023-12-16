@@ -11,12 +11,23 @@ import {
 } from '@ant-design/icons';
 
 import Driver from "../assets/images/driver.jpg"
+import { useNavigate } from 'react-router-dom';
 
 const BreadCrumb: React.FC = () => {
+
+  const navigate = useNavigate()
+
   return (
     <>
-      <div className='text-gray-700 container py-6'>
-        Home {'>'} Contact Us
+      <div className='text-gray-700 container py-6 flex space-x-1'>
+        <button className='hover:text-yellow-500 hover:underline' onClick={()=>{
+          navigate("/")
+        }}>
+          Home 
+        </button>
+        <div>
+        {'>'} Contact Us
+        </div>
       </div>
     </>
   )
@@ -30,12 +41,9 @@ const Cards: React.FC = () => {
       xl:grid-cols-4
     '>
       <div className='p-4 rounded-3xl bg-white m-8 w-[282px] h-[232px] shadow-xl'>
-        <div className='p-3 border-t-[3px] border-r-[3px] rounded-r-3xl border-yellow-500'>
+        <div className='p-3'>
           <div className='flex flex-col justify-center items-center space-y-3'>
-            <div className='absolute -mt-48 w-[246px] h-[10px]' style={{
-              borderTop: "3px solid",
-              borderImage: "linear-gradient(to right, #fff 70%, transparent 30%) 100% 0"
-            }} />
+
             <div className='h-20 w-20 bg-yellow-500 rounded-full flex justify-center items-center'>
               <EnvironmentOutlined className='text-3xl text-white' />
             </div>
@@ -45,12 +53,8 @@ const Cards: React.FC = () => {
         </div>
       </div >
       <div className='p-4 rounded-3xl bg-white m-8 w-[282px] h-[232px] shadow-xl'>
-        <div className='p-3 border-t-[3px] border-r-[3px] rounded-r-3xl border-yellow-500'>
+        <div className='p-3'>
           <div className='flex flex-col justify-center items-center space-y-3'>
-            <div className='absolute -mt-48 w-[246px] h-[10px]' style={{
-              borderTop: "3px solid",
-              borderImage: "linear-gradient(to right, #fff 70%, transparent 30%) 100% 0"
-            }} />
             <div className='h-20 w-20 bg-yellow-500 rounded-full flex justify-center items-center'>
               <PhoneOutlined className='text-3xl text-white' />
             </div>
@@ -60,12 +64,8 @@ const Cards: React.FC = () => {
         </div>
       </div >
       <div className='p-4 rounded-3xl bg-white m-8 w-[282px] h-[232px] shadow-xl'>
-        <div className='p-3 border-t-[3px] border-r-[3px] rounded-r-3xl border-yellow-500'>
+        <div className='p-3'>
           <div className='flex flex-col justify-center items-center space-y-3'>
-            <div className='absolute -mt-48 w-[246px] h-[10px]' style={{
-              borderTop: "3px solid",
-              borderImage: "linear-gradient(to right, #fff 70%, transparent 30%) 100% 0"
-            }} />
             <div className='h-20 w-20 bg-yellow-500 rounded-full flex justify-center items-center'>
               <MailOutlined className='text-3xl text-white' />
             </div>
@@ -75,12 +75,8 @@ const Cards: React.FC = () => {
         </div>
       </div >
       <div className='p-4 rounded-3xl bg-white m-8 w-[282px] h-[232px] shadow-xl'>
-        <div className='p-3 border-t-[3px] border-r-[3px] rounded-r-3xl border-yellow-500'>
+        <div className='p-3'>
           <div className='flex flex-col justify-center items-center space-y-3'>
-            <div className='absolute -mt-48 w-[246px] h-[10px]' style={{
-              borderTop: "3px solid",
-              borderImage: "linear-gradient(to right, #fff 70%, transparent 30%) 100% 0"
-            }} />
             <div className='h-20 w-20 bg-yellow-500 rounded-full flex justify-center items-center'>
               <ClockCircleOutlined className='text-3xl text-white' />
             </div>

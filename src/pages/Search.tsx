@@ -1,234 +1,15 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { ArrowRightOutlined, CarOutlined, ClockCircleOutlined, SafetyCertificateOutlined, ShoppingOutlined, SwapOutlined, SyncOutlined } from '@ant-design/icons';
-import React, { useEffect, useState } from 'react';
+import { CarOutlined, LeftOutlined, SafetyCertificateOutlined, ShoppingOutlined, SwapOutlined } from '@ant-design/icons';
+import React from 'react';
 import { Footer } from '../components/Footer';
 import CarCard, { Feature } from '../components/CarCard';
-import { Button, Calendar, Dropdown, MenuProps, Modal, Tabs } from 'antd';
-import TabPane from 'antd/es/tabs/TabPane';
-import { City } from '../types/citys.types';
-import dayjs, { Dayjs } from 'dayjs';
 import { useNavigate } from 'react-router-dom';
-import axios from "../api/axios"
 
-const Hero: React.FC = () => {
-
-  const navigate = useNavigate()
-
-  const [from, setFrom] = useState<string>("Mumbai");
-  const [fromId, setFromId] = useState<string | null>(null);
-  const [to, setTo] = useState("Pune");
-  const [toId, setToId] = useState<string | null>(null);
-  const [pickupDate, setPickupDate] = useState<Dayjs | null>(dayjs());
-
-  const [activeTab, setActiveTab] = useState('oneWay');
-  const [cities, setCities] = useState<City[]>([]);
-  const [isDatePickerModalVisible, setDatePickerModalVisible] = useState(false);
-
-  const handleTabChange = (key: string) => {
-    setActiveTab(key);
-  };
-
-  const handleMenuClickFrom = (e: any) => {
-    setFrom(cities.find((c: City) => c._id === e.key)?.name ?? "Select an Option")
-    setFromId(e.key)
-  };
-  const handleMenuClickTo = (e: any) => {
-    setTo(cities.find((c: City) => c._id === e.key)?.name ?? "Select an Option")
-    setToId(e.key)
-  };
-
-  const openDatePickerModal = () => {
-    setDatePickerModalVisible(true);
-  };
-
-  const closeDatePickerModal = () => {
-    setDatePickerModalVisible(false);
-  };
-
-  const menuCities: MenuProps['items'] = cities.map((city: City) => ({
-    label: city.name,
-    key: city._id,
-  }));
-
-  const menuPropsFrom = {
-    items: menuCities,
-    onClick: handleMenuClickFrom,
-  };
-
-  const menuPropsTo = {
-    items: menuCities,
-    onClick: handleMenuClickTo,
-  };
-
-  const switchValues = () => {
-    setFrom((prevFrom: any) => {
-      const tempFrom = prevFrom;
-      setFrom(to);
-      setTo(tempFrom);
-
-      const tempFromId = fromId;
-      setFromId(toId);
-      setToId(tempFromId);
-
-      return to;
-    });
-  };
-
-  useEffect(() => {
-    const fetchCities = async () => {
-      try {
-        const response = await axios.get('/citys', {
-          params: {
-            filter: JSON.stringify({ status: 'Active' })
-          }
-        });
-        // Assuming the cities are available in an array under the 'cities' key in the response
-        const fetchedCities = response.data.citys || [];
-        console.log(response.data.citys);
-
-        setCities(fetchedCities);
-      } catch (error) {
-        console.error('Error fetching cities:', error);
-      }
-    };
-
-    fetchCities();
-  }, [])
-
-  return (
-    <>
-      <div>
-        <Modal
-          open={isDatePickerModalVisible}
-          onCancel={closeDatePickerModal}
-          footer={null}
-        >
-          <Calendar
-            fullscreen={false}
-            onSelect={(date: any) => {
-              setPickupDate(date);
-              setDatePickerModalVisible(false);
-            }}
-          />
-        </Modal>
-        <div className='flex flex-col justify-center items-center'>
-          <div className='flex flex-col items-center justify-center'>
-            <div className='rounded-xl bg-white  shadow-lg -mb-6 z-10
-              px-6
-              lg:px-20
-            '>
-              <Tabs
-                activeKey={activeTab}
-                onChange={handleTabChange}
-                tabBarStyle={{ marginBottom: 0 }}
-                tabBarGutter={56}
-                indicatorSize={(origin) => origin + 60}
-              >
-                <TabPane tab={<div className='py-1
-                  text-sm
-                  lg:text-base
-                '> <ArrowRightOutlined className='hidden lg:inline-flex' /> One-Way Trip</div>} key="oneWay" />
-                <TabPane tab={<div className='py-1
-                text-sm
-                lg:text-base
-                '><SyncOutlined className='hidden lg:inline-flex' /> Round Trip</div>} key="roundTrip" />
-                <TabPane tab={<div className='py-1
-                text-sm
-                lg:text-base
-                '> <ClockCircleOutlined className='hidden lg:inline-flex' /> Hourly Rental</div>} key="hourlyRental" />
-              </Tabs>
-            </div>
-            <div className='bg-white rounded-lg -mb-6  flex justify-center items-center py-8
-              lg:px-6
-            '>
-              <div className='w-full border rounded
-                lg:flex
-              '>
-                <div className='flex'>
-                  <div className='w-[188px] p-3 pb-4 space-y-1'>
-                    <div className='text-xs '>
-                      FROM
-                    </div>
-                    <Dropdown menu={menuPropsFrom} placement="bottomLeft">
-                      <Button className='text-3xl' style={{ border: 'none' }}>
-                        {from || 'Select an option'}
-                      </Button>
-                    </Dropdown>
-                  </div>
-                  <div className='relative -mr-[14px] flex items-center '>
-                    <button className='bg-white' onClick={switchValues}>
-                      <SwapOutlined size={50} className='border rounded-full p-1 text-xl hover:bg-gray-200 shadow-lg' />
-                    </button>
-                  </div>
-                  <div className='border-l' />
-                  <div className='w-[188px] p-3 pb-4 space-y-1'>
-                    <div className='text-xs'>
-                      TO
-                    </div>
-                    <Dropdown menu={menuPropsTo} placement="bottomLeft">
-                      <Button className='text-3xl' style={{ border: 'none' }}>
-                        {to || 'Select an option'}
-                      </Button>
-                    </Dropdown>
-                  </div>
-                  <div className='
-                  border-b
-                  sm:border-l'
-                  />
-                </div>
-                <div></div>
-                <div className='
-                  border-b
-                  lg:border-l'
-                />
-                <div className='w-[188px] p-3 pb-4 space-y-1'>
-                  <div className='text-xs'>
-                    PICKUP DATE
-                  </div>
-                  <button className='text-3xl hover:text-blue-500' onClick={openDatePickerModal}>
-                    {pickupDate?.format('D MMM') ?? <button className='border p-1 rounded-lg bg-gray-100 text-base'>select a pickup date</button>} <span className='text-base'>{pickupDate?.format('YYYY')}</span>
-                  </button>
-                </div>
-                <div className='
-                  border-b
-                  lg:border-l'
-                />
-                <div className='w-[188px] p-3 pb-4 space-y-1'>
-                  <div className='text-xs'>
-                    RETURN DATE
-                  </div>
-                  <div className='text-sm'>
-                    Add return date for bigger discount
-                  </div>
-                </div>
-                <div className='
-                  border-b'
-                />
-                <div className='w-[188px] p-3 pb-4 space-y-1'>
-                  <div className='text-xs'>
-                    PICKUP TIME
-                  </div>
-                  <button className='text-3xl hover:text-blue-500'>
-                    10:00
-                  </button>
-                </div>
-              </div>
-            </div>
-            <div>
-              <button className="bg-yellow-500 hover:bg-yellow-400 text-black font-semibold w-40 h-12 rounded-lg border-yellow-500 z-10" onClick={() => {
-                navigate('/search')
-              }}>
-                LET'S RIDE
-              </button>
-            </div>
-          </div>
-          {/* extra div  */}
-          <div />
-        </div>
-      </div>
-    </>
-  );
-};
+import Car1 from "../assets/images/economy.webp"
+import Car2 from "../assets/images/comfort.webp"
+import Car3 from "../assets/images/standard.webp"
+import Car4 from "../assets/images/business.webp"
+import Car5 from "../assets/images/family.webp"
 
 const BillCard = () => {
   return (
@@ -306,6 +87,8 @@ const BillCard = () => {
 
 const Search: React.FC = () => {
 
+  const navigate = useNavigate()
+
   const carFeatures: Feature[] = [
     { icon: <CarOutlined />, text: '4 Seater' },
     { icon: '❄️', text: 'AC' },
@@ -340,7 +123,6 @@ const Search: React.FC = () => {
     { icon: <ShoppingOutlined />, text: '2 Bags' },
     { icon: <SafetyCertificateOutlined />, text: 'Compact size' },
   ];
-
 
   return (
     <>
@@ -435,6 +217,7 @@ const Search: React.FC = () => {
                 originalPrice='3404'
                 discountedPrice='3304'
                 discount='13'
+                carImage={Car1}
               />
               <CarCard
                 category='SUV'
@@ -443,14 +226,16 @@ const Search: React.FC = () => {
                 originalPrice='5000'
                 discountedPrice='4800'
                 discount='4'
+                carImage={Car2}
               />
               <CarCard
                 category='Luxury'
-                description='Mercedes-Benz S-Class or Similar'
+                description='Mercedes-Benz or Similar'
                 features={luxuryFeatures}
                 originalPrice='12000'
                 discountedPrice='11000'
                 discount='8'
+                carImage={Car3}
               />
               <CarCard
                 category='Van'
@@ -459,6 +244,7 @@ const Search: React.FC = () => {
                 originalPrice='6000'
                 discountedPrice='5500'
                 discount='9'
+                carImage={Car4}
               />
               <CarCard
                 category='Compact'
@@ -467,10 +253,46 @@ const Search: React.FC = () => {
                 originalPrice='3000'
                 discountedPrice='2800'
                 discount='7'
+                carImage={Car5}
               />
             </div>
             <div className='lg:hidden'>
-              <Hero/>
+              <div className='border w-[440px] flex rounded-lg  gap-2 bg-white shadow-lg flex-row p-1' onClick={()=>{
+                navigate('/')
+              }}>
+                <div className='w-full'>
+                  <div className='flex justify-center items-center h-12'>
+                    <div className='ml-8 text-xl'>
+                      <LeftOutlined />
+                    </div>
+                    <div className='-ml-8 text-center text-xl font-medium w-full'>
+                      Mumbai to Pune
+                    </div>
+                  </div>
+                  <hr className='border' />
+                  <div className='p-2'>
+                    <div className='text-sm text-zinc-500'>
+                      SCHEDULED PICK UP
+                    </div>
+                    <div className='space-x-1'>
+                      <span className='font-semibold'>
+                        17 DEC,
+                      </span>
+                      <span className='text-sm'>
+                        10:00 AM
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div className='my-3 mx-6'>
+                <div className='text-xl font-bold '>
+                  Book cabs
+                </div>
+                <div className='text-sm'>
+                  5 cab option(s)
+                </div>
+              </div>
             </div>
           </div>
         </div>

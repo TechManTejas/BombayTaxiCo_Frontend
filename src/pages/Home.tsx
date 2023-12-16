@@ -160,7 +160,7 @@ const Hero: React.FC = () => {
                 '> <ClockCircleOutlined className='hidden lg:inline-flex' /> Hourly Rental</div>} key="hourlyRental" />
               </Tabs>
             </div>
-            <div className='bg-white rounded-lg -mb-6  flex justify-center items-center py-8
+            <div className='bg-white rounded-lg -mb-6  flex justify-center items-center py-8 
               lg:px-6
             '>
               <div className='w-full border rounded
@@ -236,8 +236,8 @@ const Hero: React.FC = () => {
                 </div>
               </div>
             </div>
-            <div>
-              <button className="bg-yellow-500 hover:bg-yellow-400 text-black font-semibold w-40 h-12 rounded-lg border-yellow-500 z-10" onClick={() => {
+            <div className='w-full flex justify-center'>
+              <button className="bg-yellow-500 hover:bg-yellow-400 text-black font-semibold w-full lg:w-36 h-12 rounded-lg border-yellow-500 z-10" onClick={() => {
                 navigate('/search')
               }}>
                 LET'S RIDE
