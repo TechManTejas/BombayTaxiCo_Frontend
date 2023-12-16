@@ -36,12 +36,18 @@ const Hero: React.FC = () => {
   const [toId, setToId] = useState<string | null>(null);
   const [pickupDateOpen, setPickupDateOpen] = useState<boolean>(false)
   const [pickupDate, setPickupDate] = useState<Dayjs | null>(dayjs());
+  const [pickupTimeOpen, setPickupTimeOpen] = useState<boolean>(false)
+  const [pickupTime, setPickupTime] = useState<Dayjs | null>(dayjs());
 
   const [activeTab, setActiveTab] = useState('oneWay');
   const [cities, setCities] = useState<City[]>([]);
 
   const toggleDatePicker = () => {
     setPickupDateOpen(!pickupDateOpen)
+  };
+
+  const toggleTimePicker = () => {
+    setPickupTimeOpen(!pickupTimeOpen)
   };
 
   const handleTabChange = (key: string) => {
@@ -61,6 +67,12 @@ const Hero: React.FC = () => {
     console.log('Selected Date:', dateString);
     setPickupDate(date)
     toggleDatePicker()
+  };
+
+  const handleTimeChange = (time: Dayjs | null, timeString: string) => {
+    console.log('Selected Time:', timeString);
+    setPickupTime(time)
+    toggleTimePicker()
   };
 
   const menuCities: MenuProps['items'] = cities.map((city: City) => ({
@@ -116,7 +128,7 @@ const Hero: React.FC = () => {
   return (
     <>
       <div className='bg-[#2a2a2a81] h-[720px] ' style={{ backgroundImage: `url(${HeroImage})`, backgroundSize: 'cover' }}>
-        <div className='bg-[#00000075] h-full w-full flex flex-col justify-center items-center space-y-20'>
+        <div className='bg-[#00000095] h-full w-full flex flex-col justify-center items-center space-y-20'>
           <div className='text-4xl font-medium text-white text-center
             mt-24
             lg:mt-0
