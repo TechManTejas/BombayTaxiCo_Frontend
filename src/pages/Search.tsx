@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { CarOutlined, LeftOutlined, SafetyCertificateOutlined, ShoppingOutlined, SwapOutlined } from '@ant-design/icons';
-import React from 'react';
+import React, { useRef, useState } from 'react';
 import { Footer } from '../components/Footer';
 import CarCard, { Feature } from '../components/CarCard';
 import { useNavigate } from 'react-router-dom';
@@ -10,6 +10,9 @@ import Car2 from "../assets/images/comfort.webp"
 import Car3 from "../assets/images/standard.webp"
 import Car4 from "../assets/images/business.webp"
 import Car5 from "../assets/images/family.webp"
+import { DatePicker, Select } from 'antd';
+import { Option } from 'antd/es/mentions';
+import dayjs, { Dayjs } from 'dayjs';
 
 const BillCard = () => {
   return (
@@ -89,6 +92,67 @@ const Search: React.FC = () => {
 
   const navigate = useNavigate()
 
+  const tripTypeRef = useRef<HTMLDivElement>(null);
+  const fromRef = useRef<HTMLDivElement>(null);
+  const toRef = useRef<HTMLDivElement>(null);
+  const pickupDateRef = useRef<HTMLDivElement>(null);
+  const pickupTimeRef = useRef<HTMLDivElement>(null);
+
+  const [tripType, setTripType] = useState<string>("One Way Trip")
+  const [from, setFrom] = useState<string>("Mumbai");
+  // const [fromId, setFromId] = useState<string | null>(null);
+  const [to, setTo] = useState("Pune");
+  // const [toId, setToId] = useState<string | null>(null);
+  const [pickupDate, setPickupDate] = useState<Dayjs | null>(dayjs());
+  const [pickupTime, setPickupTime] = useState<string>('10:00 AM')
+
+  const [tripTypeOpen, setTripTypeOpen] = useState<boolean>(false);
+  const [fromOpen, setFromOpen] = useState<boolean>(false);
+  const [toOpen, setToOpen] = useState<boolean>(false);
+  const [pickupDateOpen, setPickupDateOpen] = useState<boolean>(false);
+  const [pickupTimeOpen, setPickupTimeOpen] = useState<boolean>(false);
+
+  const toggleTripType = () => {
+    setTripTypeOpen(!tripTypeOpen)
+  };
+
+  const toggleFrom = () => {
+    setFromOpen(!fromOpen)
+  };
+
+  const toggleTo = () => {
+    setToOpen(!toOpen)
+  };
+
+  const togglePickupDate = () => {
+    setPickupDateOpen(!pickupDateOpen)
+  };
+
+  const togglePickupTime = () => {
+    setPickupTimeOpen(!pickupTimeOpen)
+  };
+
+  const handleTripTypeChange = (value: string) => {
+    setTripType(value)
+  }
+  const handleFromChange = (value: string) => {
+    console.log(value)
+    setFrom(value)
+  }
+  const handleToChange = (value: string) => {
+    setTo(value)
+  }
+
+  const handlePickupDateChange = (date: Dayjs | null, dateString: string) => {
+    console.log('Selected Date:', dateString);
+    setPickupDate(date)
+    togglePickupDate()
+  }
+
+  const handlePickupTimeChange = (value: string) => {
+    setPickupTime(value)
+  }
+
   const carFeatures: Feature[] = [
     { icon: <CarOutlined />, text: '4 Seater' },
     { icon: '❄️', text: 'AC' },
@@ -133,20 +197,49 @@ const Search: React.FC = () => {
         '>
           <div className='container flex justify-center bg-[#2A2A2A] rounded-lg w-[1166px]'>
             <div className='flex items-center h-full py-2'>
-              <div className='bg-[#404040] mx-1 p-2 rounded-lg text-sm
+              <div ref={tripTypeRef} className='relative bg-[#404040] mx-1 py-2 rounded-lg text-sm hover:bg-gray-700 hover:cursor-pointer
                 w-36
                 xl:w-40
-              '>
-                <div className='text-yellow-500'>TRIP TYPE</div>
-                <div className='text-white'>One Way Trip</div>
+              ' onClick={toggleTripType}>
+                <div className='px-2'>
+                  <div className='text-yellow-500'>TRIP TYPE</div>
+                  <div className='text-white'>{tripType}</div>
+                </div>
+                <Select
+                  open={tripTypeOpen}
+                  className='absolute w-0 h-0'
+                  defaultValue="One Way Trip"
+                  style={{ visibility: 'hidden', width: '100%' }}
+                  onChange={handleTripTypeChange}
+                  onDropdownVisibleChange={(open) => setTripTypeOpen(open)}
+                >
+                  <Option value="One-Way Trip">One-Way Trip</Option>
+                  <Option value="Round Trip">Round Trip</Option>
+                  <Option value="Hourly Rental">Hourly Rental</Option>
+                </Select>
               </div>
 
-              <div className=' bg-[#404040] mx-1 p-2 rounded-lg text-sm
+              <div ref={fromRef} className='relative bg-[#404040] mx-1 py-2 rounded-lg text-sm hover:bg-gray-700 hover:cursor-pointer
                 w-36
                 xl:w-40
-              '>
-                <div className='text-yellow-500'>FROM</div>
-                <div className='text-white'>Mumbai</div>
+              ' onClick={toggleFrom}>
+                <div className='px-2'>
+                  <div className='text-yellow-500'>FROM</div>
+                  <div className='text-white'>{from}</div>
+                </div>
+                <Select
+                  open={fromOpen}
+                  className='absolute w-0 h-0'
+                  defaultValue="One Way Trip"
+                  style={{ visibility: 'hidden', width: '100%' }}
+                  onChange={handleFromChange}
+                  onDropdownVisibleChange={(open) => setFromOpen(open)}
+                >
+                  <Option value="One-Way Trip">One-Way Trip</Option>
+                  <Option value="Round Trip">Round Trip</Option>
+                  <Option value="Hourly Rental">Hourly Rental</Option>
+                  {/* Add more options as needed */}
+                </Select>
               </div>
 
               <button className='hover:shadow-xl
@@ -156,36 +249,77 @@ const Search: React.FC = () => {
                 <SwapOutlined className='text-white' />
               </button>
 
-              <div className='bg-[#404040] mx-1 p-2 rounded-lg text-sm
+              <div ref={toRef} className='relative bg-[#404040] mx-1 py-2 rounded-lg text-sm hover:bg-gray-700 hover:cursor-pointer
                 w-36
                 xl:w-40
-              '>
-                <div className='text-yellow-500'>TO</div>
-                <div className='text-white'>Pune</div>
+              ' onClick={toggleTo}>
+                <div className='px-2'>
+                  <div className='text-yellow-500'>TO</div>
+                  <div className='text-white'>{to}</div>
+                </div>
+                <Select
+                  open={toOpen}
+                  className='absolute w-0 h-0'
+                  defaultValue="One Way Trip"
+                  style={{ visibility: 'hidden', width: '100%' }}
+                  onChange={handleToChange}
+                  onDropdownVisibleChange={(open) => setToOpen(open)}
+                >
+                  <Option value="One-Way Trip">One-Way Trip</Option>
+                  <Option value="Round Trip">Round Trip</Option>
+                  <Option value="Hourly Rental">Hourly Rental</Option>
+                  {/* Add more options as needed */}
+                </Select>
               </div>
 
-              <div className='bg-[#404040] mx-1 p-2 rounded-lg text-sm
+              <div ref={pickupDateRef} className='relative bg-[#404040] mx-1 py-2 rounded-lg text-sm hover:bg-gray-700 hover:cursor-pointer
                 w-32
                 xl:w-36
-              '>
-                <div className='text-yellow-500'>PICKUP DATE</div>
-                <div className='text-white'>3 May 2023</div>
+              ' onClick={togglePickupDate}>
+                <div className='px-2'>
+                  <div className='text-yellow-500'>PICKUP DATE</div>
+                  <div className='text-white'>{pickupDate?.format('D MMM YYYY')}</div>
+                </div>
+                <DatePicker
+                  open={pickupDateOpen}
+                  onOpenChange={(open) => setPickupDateOpen(open)}
+                  onChange={handlePickupDateChange}
+                  className='absolute bottom-0 left-0 w-0 h-0'
+                  style={{
+                    visibility: 'hidden'
+                  }}
+                />
               </div>
 
-              <div className='bg-[#404040] mx-1 p-2 rounded-lg text-sm
+              <div ref={pickupTimeRef} className='relative bg-[#404040] mx-1 py-2 rounded-lg text-sm hover:bg-gray-700 hover:cursor-pointer
+                w-32
+                xl:w-36
+              ' onClick={togglePickupTime}>
+                <div className='px-2'>
+                  <div className='text-yellow-500'>PICKUP TIME</div>
+                  <div className='text-white'>{pickupTime}</div>
+                </div>
+                <Select
+                  open={pickupTimeOpen}
+                  className='absolute w-0 h-0'
+                  defaultValue="One Way Trip"
+                  style={{ visibility: 'hidden', width: '100%' }}
+                  onChange={handlePickupTimeChange}
+                  onDropdownVisibleChange={(open) => setPickupTimeOpen(open)}
+                >
+                  <Option value="One-Way Trip">One-Way Trip</Option>
+                  <Option value="Round Trip">Round Trip</Option>
+                  <Option value="Hourly Rental">Hourly Rental</Option>
+                  {/* Add more options as needed */}
+                </Select>
+              </div>
+
+              <div className='bg-[#404040] mx-1 p-2 rounded-lg text-sm hover:bg-gray-700 hover:cursor-pointer
                 w-32
                 xl:w-36
               '>
                 <div className='text-yellow-500'>RETURN DATE</div>
-                <div className='text-white'>13 May 2023</div>
-              </div>
-
-              <div className='bg-[#404040] mx-1 p-2 rounded-lg text-sm
-                w-32
-                xl:w-36
-              '>
-                <div className='text-yellow-500'>PICKUP TIME</div>
-                <div className='text-white'>10:00</div>
+                <div className='text-white text-center'>--- --- ---</div>
               </div>
 
               {/* <div className='w-32 bg-[#404040] mx-1 p-2 rounded-lg text-sm'>
@@ -257,7 +391,7 @@ const Search: React.FC = () => {
               />
             </div>
             <div className='lg:hidden'>
-              <div className='border w-[440px] flex rounded-lg  gap-2 bg-white shadow-lg flex-row p-1' onClick={()=>{
+              <div className='border w-[440px] flex rounded-lg  gap-2 bg-white shadow-lg flex-row p-1' onClick={() => {
                 navigate('/')
               }}>
                 <div className='w-full'>

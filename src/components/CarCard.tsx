@@ -16,7 +16,7 @@ interface CarCardProps {
     discountedPrice: string;
     discount: string;
     preview?: boolean;
-    carImage?: string; 
+    carImage?: string;
 }
 
 const CarCard: React.FC<CarCardProps> = ({
@@ -33,8 +33,10 @@ const CarCard: React.FC<CarCardProps> = ({
     const navigate = useNavigate()
 
     return (
-        <div className='my-1 bg-white' onClick={()=>{
-            navigate('/details')
+        <div className='my-1 bg-white' onClick={() => {
+            if (window.innerWidth < 1024) {
+                navigate('/details')
+            }
         }}>
             <div
                 className='border w-full flex rounded-lg  gap-2

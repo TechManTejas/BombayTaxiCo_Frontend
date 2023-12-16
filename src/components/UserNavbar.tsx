@@ -13,8 +13,10 @@ const UserNavbar: React.FC = () => {
         setIsDrawerVisible(true);
     };
 
-    const hideDrawer = (key:string) => {
-        navigate(key)
+    const hideDrawer = (key?: string) => {
+        if (key) {
+            navigate(key)
+        }
         setIsDrawerVisible(false);
     };
 
@@ -168,35 +170,37 @@ const UserNavbar: React.FC = () => {
             <Drawer
                 title="Menu"
                 placement="right"
-                closable={false}
                 open={isDrawerVisible}
+                onClose={() => {
+                    hideDrawer()
+                }}
             >
                 <Menu
                     mode="vertical"
                     defaultSelectedKeys={[]}
                     style={{ width: '100%' }}
                 >
-                    <Menu.Item key="search" onClick={()=>{
+                    <Menu.Item key="search" onClick={() => {
                         hideDrawer("search")
                     }}>
                         Book a Taxi
                     </Menu.Item>
-                    <Menu.Item key="details" onClick={()=>{
+                    <Menu.Item key="details" onClick={() => {
                         hideDrawer("details")
                     }}>
                         Details
                     </Menu.Item>
-                    <Menu.Item key="about" onClick={()=>{
+                    <Menu.Item key="about" onClick={() => {
                         hideDrawer("about")
                     }}>
                         About Us
                     </Menu.Item>
-                    <Menu.Item key="contact" onClick={()=>{
+                    <Menu.Item key="contact" onClick={() => {
                         hideDrawer("contact")
                     }}>
                         Contact Us
                     </Menu.Item>
-                    <Menu.Item key="profile" onClick={()=>{
+                    <Menu.Item key="profile" onClick={() => {
                         hideDrawer("profile")
                     }}>
                         Profile
