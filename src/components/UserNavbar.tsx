@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Logo from "../assets/images/logo.webp"
 import { Button, Drawer, Menu } from 'antd';
 import { useNavigate } from 'react-router-dom';
-import { MenuOutlined } from '@ant-design/icons';
+import { MenuOutlined, UserOutlined } from '@ant-design/icons';
 
 const UserNavbar: React.FC = () => {
 
@@ -158,29 +158,9 @@ const UserNavbar: React.FC = () => {
 
                     <div className='flex space-x-6'>
                         <button className="text-xl font-medium hidden md:block hover:text-yellow-500" onClick={() => {
-                            navigate('/search')
-                        }}>
-                            BOOK A TAXI
-                        </button>
-                        <button className="text-xl font-medium hidden md:block hover:text-yellow-500" onClick={() => {
-                            navigate('/details')
-                        }}>
-                            DETAILS
-                        </button>
-                        <button className="text-xl font-medium hidden md:block hover:text-yellow-500" onClick={() => {
-                            navigate('/about')
-                        }}>
-                            ABOUT US
-                        </button>
-                        <button className="text-xl font-medium hidden md:block hover:text-yellow-500" onClick={() => {
-                            navigate('/contact')
-                        }}>
-                            CONTACT US
-                        </button>
-                        <button className="text-xl font-medium hidden md:block hover:text-yellow-500" onClick={() => {
                             navigate('/profile')
                         }}>
-                            PROFILE
+                            <UserOutlined /> LOGIN
                         </button>
                     </div>
                 </nav>
