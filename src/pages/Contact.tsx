@@ -1,7 +1,7 @@
 import React from 'react';
 import { CallUsNow } from '../components/CallUsNow';
 import { Footer } from '../components/Footer';
-import { Button, Input } from 'antd';
+import { Input } from 'antd';
 import TextArea from 'antd/es/input/TextArea';
 import {
   EnvironmentOutlined,
@@ -133,9 +133,9 @@ const GetInTouch: React.FC = () => {
             </div>
           </div>
           <div className='my-8'>
-            <Button className='font-black rounded-3xl h-12 w-40 bg-yellow-500 border-yellow-500'>
+            <button className='font-semibold rounded-3xl h-12 w-40 bg-yellow-500 border-yellow-500 hover:bg-yellow-400'>
               SEND MESSAGE
-            </Button>
+            </button>
           </div>
         </div>
       </div>
