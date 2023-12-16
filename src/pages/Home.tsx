@@ -2,7 +2,7 @@
 import { ArrowLeftOutlined, ArrowRightOutlined, CarOutlined, ClockCircleOutlined, DollarCircleOutlined, SwapOutlined, SyncOutlined, UserOutlined } from '@ant-design/icons';
 import { Button, DatePicker, Dropdown, MenuProps, Tabs } from 'antd';
 import TabPane from 'antd/es/tabs/TabPane';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import axios from "../api/axios"
 import { City } from '../types/citys.types';
 import { useNavigate } from 'react-router-dom';
@@ -19,6 +19,7 @@ import Quote from "../assets/images/quote.png"
 import Face1 from "../assets/images/face1.jpg"
 import Face2 from "../assets/images/face2.jpg"
 import Face3 from "../assets/images/face3.jpg"
+import { generateTimeOptions } from '../utils/GenerateTimeOptions';
 
 // sm	640px	@media (min-width: 640px) { ... }
 // md	768px	@media (min-width: 768px) { ... }
@@ -29,6 +30,7 @@ import Face3 from "../assets/images/face3.jpg"
 const Hero: React.FC = () => {
 
   const navigate = useNavigate()
+  const datepickerRef = useRef<HTMLDivElement>(null);
 
   const [from, setFrom] = useState<string>("Mumbai");
   const [fromId, setFromId] = useState<string | null>(null);
@@ -36,18 +38,13 @@ const Hero: React.FC = () => {
   const [toId, setToId] = useState<string | null>(null);
   const [pickupDateOpen, setPickupDateOpen] = useState<boolean>(false)
   const [pickupDate, setPickupDate] = useState<Dayjs | null>(dayjs());
-  const [pickupTimeOpen, setPickupTimeOpen] = useState<boolean>(false)
-  const [pickupTime, setPickupTime] = useState<Dayjs | null>(dayjs());
+  const [pickupTime, setPickupTime] = useState<string>('10:00 AM')
 
   const [activeTab, setActiveTab] = useState('oneWay');
   const [cities, setCities] = useState<City[]>([]);
 
   const toggleDatePicker = () => {
     setPickupDateOpen(!pickupDateOpen)
-  };
-
-  const toggleTimePicker = () => {
-    setPickupTimeOpen(!pickupTimeOpen)
   };
 
   const handleTabChange = (key: string) => {
@@ -62,6 +59,9 @@ const Hero: React.FC = () => {
     setTo(cities.find((c: City) => c._id === e.key)?.name ?? "Select an Option")
     setToId(e.key)
   };
+  const handleMenuClickTime = (e: any) => {
+    setPickupTime(e.key)
+  };
 
   const handleDateChange = (date: Dayjs | null, dateString: string) => {
     console.log('Selected Date:', dateString);
@@ -69,16 +69,12 @@ const Hero: React.FC = () => {
     toggleDatePicker()
   };
 
-  const handleTimeChange = (time: Dayjs | null, timeString: string) => {
-    console.log('Selected Time:', timeString);
-    setPickupTime(time)
-    toggleTimePicker()
-  };
-
   const menuCities: MenuProps['items'] = cities.map((city: City) => ({
     label: city.name,
     key: city._id,
   }));
+
+  const menuTime: MenuProps['items'] = generateTimeOptions()
 
   const menuPropsFrom = {
     items: menuCities,
@@ -88,6 +84,12 @@ const Hero: React.FC = () => {
   const menuPropsTo = {
     items: menuCities,
     onClick: handleMenuClickTo,
+  };
+
+  const menuPropsTime = {
+    items: menuTime,
+    onClick: handleMenuClickTime,
+    style:{height:'300px', overflow:'auto'}
   };
 
   const switchValues = () => {
@@ -204,7 +206,7 @@ const Hero: React.FC = () => {
                   border-b
                   lg:border-l'
                 />
-                <div className='relative w-[188px] p-3 pb-4 space-y-1'>
+                <div className='relative w-[188px] p-3 pb-4 space-y-1' ref={datepickerRef}>
                   <div className='text-xs'>
                     PICKUP DATE
                   </div>
@@ -217,6 +219,7 @@ const Hero: React.FC = () => {
                       visibility: 'hidden'
                     }}
                     open={pickupDateOpen}
+                    onOpenChange={(open) => setPickupDateOpen(open)}
                     onChange={handleDateChange}
                   />
                 </div>
@@ -228,13 +231,11 @@ const Hero: React.FC = () => {
                   <div className='text-xs'>
                     PICKUP TIME
                   </div>
-                  <button className='text-3xl hover:text-blue-500'>
-                    10:00
-                  </button>
-                  {/* <TimePicker
-                  format="h:mm a"
-                  showSecond={false}
-                /> */}
+                  <Dropdown menu={menuPropsTime} placement="bottomLeft">
+                    <Button className='text-3xl' style={{ border: 'none' }}>
+                      {pickupTime || 'Select a Time'}
+                    </Button>
+                  </Dropdown>
                 </div>
                 <div className='
                   border-b'
