@@ -20,12 +20,18 @@ import { generateTimeOptions } from '../utils/GenerateTimeOptions';
 import { City } from '../types/citys.types';
 import { ISettings } from '../types/settings.types';
 import { IRoute } from '../types/routes.types';
+import { TaxiType } from '../types/taxiTypes.types';
 
 interface BillCardProps {
   routeDistance: number;
   tripRates: any;
 }
 
+interface TripRate {
+  taxiType: TaxiType;
+  originalPrice: number;
+  discountedPrice: number;
+}
 const BillCard: React.FC<BillCardProps> = ({ routeDistance, tripRates }) => {
 
   const [settings, setSettings] = useState<ISettings | null>(null)
@@ -102,18 +108,12 @@ const BillCard: React.FC<BillCardProps> = ({ routeDistance, tripRates }) => {
         <div>
           <div className='text-xl my-1'>Extra Km Charges</div>
           <div className='font-light space-y-1'>
-            <div className='flex justify-between'>
-              <div>Economy</div>
-              <div>₹15/KM</div>
-            </div>
-            <div className='flex justify-between'>
-              <div>Comfort</div>
-              <div>₹15/KM</div>
-            </div>
-            <div className='flex justify-between'>
-              <div>Premium</div>
-              <div>₹15/KM</div>
-            </div>
+            {tripRates.map((tripRate: TripRate) => (
+              <div key={tripRate.taxiType._id} className='flex justify-between'>
+                <div>{tripRate.taxiType.name}</div>
+                <div>₹{tripRate.taxiType.extra_km_charges}/KM</div>
+              </div>
+            ))}
           </div>
         </div>
       </div>
@@ -388,6 +388,7 @@ const Search: React.FC = () => {
                   style={{
                     visibility: 'hidden'
                   }}
+                  disabledDate={(current: Dayjs | null) => current ? current.isBefore(dayjs().startOf('day')) : false}
                 />
               </div>
 
@@ -444,7 +445,7 @@ const Search: React.FC = () => {
             flex-col-reverse items-center
             lg:flex-row lg:items-start
           '>
-            <BillCard routeDistance={route?.one_way_trip_km || 0} tripRates={tripRates}/>
+            <BillCard routeDistance={route?.one_way_trip_km || 0} tripRates={tripRates} />
             <div className='min-h-screen lg:w-[800px]'>
               {loading ? (
                 // Display loading indicator here
@@ -482,7 +483,7 @@ const Search: React.FC = () => {
                       <LeftOutlined />
                     </div>
                     <div className='-ml-8 text-center text-xl font-medium w-full'>
-                      Mumbai to Pune
+                      {from} to {to}
                     </div>
                   </div>
                   <hr className='border' />
@@ -492,10 +493,10 @@ const Search: React.FC = () => {
                     </div>
                     <div className='space-x-1'>
                       <span className='font-semibold'>
-                        17 DEC,
+                        {pickupDate?.format("DD MMM")},
                       </span>
                       <span className='text-sm'>
-                        10:00 AM
+                        {pickupTime}
                       </span>
                     </div>
                   </div>
