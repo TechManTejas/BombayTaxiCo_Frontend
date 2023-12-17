@@ -512,10 +512,10 @@ const ReadBeforeYouBook = () => {
 const Details: React.FC = () => {
 
   const carFeatures: Feature[] = [
-    { icon: <CarOutlined />, text: '4 Seater' },
-    { icon: '❄️', text: 'AC' },
-    { icon: <ShoppingOutlined />, text: '2 Bags' },
-    { icon: <SafetyCertificateOutlined />, text: 'Child seat' },
+    { icon: <CarOutlined />, feature: '4 Seater' },
+    { icon: '❄️', feature: 'AC' },
+    { icon: <ShoppingOutlined />, feature: '2 Bags' },
+    { icon: <SafetyCertificateOutlined />, feature: 'Child seat' },
   ];
 
   return (
