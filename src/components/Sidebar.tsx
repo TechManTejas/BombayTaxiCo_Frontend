@@ -2,6 +2,7 @@ import React from 'react';
 import { Menu } from 'antd';
 import "./Sidebar.css"
 import { confirmation } from './Confirmation';
+import { Context } from '../context/context.prover';
 
 interface SidebarProps {
     handleTabChange: (tab: string) => void;
@@ -9,22 +10,24 @@ interface SidebarProps {
 
 const Sidebar: React.FC<SidebarProps> = ({ handleTabChange }) => {
 
+    const { setUserAuthenticated } = Context();
+
     const handleLogout = async () => {
         const shouldLogout = await confirmation('Are you sure you want to log out?');
 
         if (shouldLogout) {
-            // Perform logout logic here
+            localStorage.removeItem("token");
+            setUserAuthenticated(false)
+            window.location.href = '/'
             console.log('Logout performed!');
         }
     };
 
     return (
-        <div
-            className="lg:h-[calc(100vh-136px)]
-                bg-stone-100
-                lg:bg-white
-            "
-        >
+        <div className="lg:h-[calc(100vh-136px)]
+            bg-stone-100
+            lg:bg-white
+        ">
             <Menu
                 mode={(window.innerWidth > 1024)? "vertical":"horizontal"}
                 defaultSelectedKeys={["profile"]}

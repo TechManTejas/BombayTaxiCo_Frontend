@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { LeftOutlined, SwapOutlined } from '@ant-design/icons';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { DatePicker, Select, Spin } from 'antd';
 import { Option } from 'antd/es/mentions';
 import dayjs, { Dayjs } from 'dayjs';
@@ -32,11 +32,10 @@ interface TripRate {
   originalPrice: number;
   discountedPrice: number;
 }
+
 const BillCard: React.FC<BillCardProps> = ({ routeDistance, tripRates }) => {
 
   const [settings, setSettings] = useState<ISettings | null>(null)
-
-  console.log(JSON.stringify(tripRates))
 
   useEffect(() => {
     const fetchSettings = async () => {
@@ -126,13 +125,9 @@ const Search: React.FC = () => {
   const location = useLocation();
   const { state } = location;
 
-  const navigate = useNavigate()
+  console.log(state)
 
-  const tripTypeRef = useRef<HTMLDivElement>(null);
-  const fromRef = useRef<HTMLDivElement>(null);
-  const toRef = useRef<HTMLDivElement>(null);
-  const pickupDateRef = useRef<HTMLDivElement>(null);
-  const pickupTimeRef = useRef<HTMLDivElement>(null);
+  const navigate = useNavigate()
 
   const [loading, setLoading] = useState<boolean>(true);
   const [tripRates, setTripRates] = useState<any[]>([]);
@@ -143,13 +138,15 @@ const Search: React.FC = () => {
   const [fromId, setFromId] = useState<string | null>(state.fromId || null);
   const [to, setTo] = useState(state.to || "Pune");
   const [toId, setToId] = useState<string | null>(state.toId || null);
-  const [pickupDate, setPickupDate] = useState<Dayjs | null>(dayjs(state.pickupDate.$d) || dayjs());
+  const [pickupDate, setPickupDate] = useState<Dayjs | null>(dayjs(state.pickupDate) || dayjs());
+  const [returnDate, setReturnDate] = useState<Dayjs | null>(dayjs(state.returnDate) || dayjs());
   const [pickupTime, setPickupTime] = useState<string>(state.pickupTime || '10:00 AM')
 
   const [tripTypeOpen, setTripTypeOpen] = useState<boolean>(false);
   const [fromOpen, setFromOpen] = useState<boolean>(false);
   const [toOpen, setToOpen] = useState<boolean>(false);
   const [pickupDateOpen, setPickupDateOpen] = useState<boolean>(false);
+  const [returnDateOpen, setReturnDateOpen] = useState<boolean>(false);
   const [pickupTimeOpen, setPickupTimeOpen] = useState<boolean>(false);
 
   const [cities, setCities] = useState<City[]>([]);
@@ -168,6 +165,10 @@ const Search: React.FC = () => {
 
   const togglePickupDate = () => {
     setPickupDateOpen(!pickupDateOpen)
+  };
+
+  const toggleReturnDate = () => {
+    setReturnDateOpen(!returnDateOpen)
   };
 
   const togglePickupTime = () => {
@@ -208,6 +209,12 @@ const Search: React.FC = () => {
     togglePickupDate()
   }
 
+  const handleReturnDateChange = (date: Dayjs | null, dateString: string) => {
+    console.log('Selected Date:', dateString);
+    setReturnDate(date)
+    toggleReturnDate()
+  }
+
   const handlePickupTimeChange = (value: string) => {
     setPickupTime(value)
   }
@@ -243,6 +250,7 @@ const Search: React.FC = () => {
         fromId: fromId,
         toId: toId,
         pickupDate: pickupDate,
+        returnDate: returnDate,
         pickupTime: pickupTime,
       });
 
@@ -253,13 +261,24 @@ const Search: React.FC = () => {
       const route = response.data.route || null
       setRoute(route)
 
-      // Handle the response data as needed
-      console.log('API Response:', response.data);
     } catch (error) {
       console.error('Error making API request:', error);
     } finally {
       setLoading(false);
     }
+  };
+
+  const onBook = (taxi_rate: any) => {
+    navigate('/details', {
+      state: {
+        taxi_rate: taxi_rate,
+        route: route,
+        pickupDate: pickupDate?.format('YYYY-MM-DD'),
+        returnDate: returnDate?.format('YYYY-MM-DD'),
+        pickupTime: pickupTime,
+        tripType: tripType
+      }
+    })
   };
 
   useEffect(() => {
@@ -293,7 +312,7 @@ const Search: React.FC = () => {
         '>
           <div className='container flex justify-center bg-[#2A2A2A] rounded-lg w-[1166px]'>
             <div className='flex items-center h-full py-2'>
-              <div ref={tripTypeRef} className='relative bg-[#404040] mx-1 py-2 rounded-lg text-sm hover:bg-gray-700 hover:cursor-pointer
+              <div className='relative bg-[#404040] mx-1 py-2 rounded-lg text-sm hover:bg-gray-700 hover:cursor-pointer
                 w-36
                 xl:w-40
               ' onClick={toggleTripType}>
@@ -315,7 +334,7 @@ const Search: React.FC = () => {
                 </Select>
               </div>
 
-              <div ref={fromRef} className='relative bg-[#404040] mx-1 py-2 rounded-lg text-sm hover:bg-gray-700 hover:cursor-pointer
+              <div className='relative bg-[#404040] mx-1 py-2 rounded-lg text-sm hover:bg-gray-700 hover:cursor-pointer
                 w-36
                 xl:w-40
               ' onClick={toggleFrom}>
@@ -347,7 +366,7 @@ const Search: React.FC = () => {
                 <SwapOutlined className='text-white' />
               </button>
 
-              <div ref={toRef} className='relative bg-[#404040] mx-1 py-2 rounded-lg text-sm hover:bg-gray-700 hover:cursor-pointer
+              <div className='relative bg-[#404040] mx-1 py-2 rounded-lg text-sm hover:bg-gray-700 hover:cursor-pointer
                 w-36
                 xl:w-40
               ' onClick={toggleTo}>
@@ -372,7 +391,7 @@ const Search: React.FC = () => {
                 </Select>
               </div>
 
-              <div ref={pickupDateRef} className='relative bg-[#404040] mx-1 py-2 rounded-lg text-sm hover:bg-gray-700 hover:cursor-pointer
+              <div className='relative bg-[#404040] mx-1 py-2 rounded-lg text-sm hover:bg-gray-700 hover:cursor-pointer
                 w-32
                 xl:w-36
               ' onClick={togglePickupDate}>
@@ -392,7 +411,7 @@ const Search: React.FC = () => {
                 />
               </div>
 
-              <div ref={pickupTimeRef} className='relative bg-[#404040] mx-1 py-2 rounded-lg text-sm hover:bg-gray-700 hover:cursor-pointer
+              <div className='relative bg-[#404040] mx-1 py-2 rounded-lg text-sm hover:bg-gray-700 hover:cursor-pointer
                 w-32
                 xl:w-36
               ' onClick={togglePickupTime}>
@@ -417,12 +436,33 @@ const Search: React.FC = () => {
                 </Select>
               </div>
 
-              <div className='bg-[#404040] mx-1 p-2 rounded-lg text-sm hover:bg-gray-700 hover:cursor-pointer
+              <div className='relative bg-[#404040] mx-1 p-2 rounded-lg text-sm hover:bg-gray-700 hover:cursor-pointer
                 w-32
                 xl:w-36
-              '>
+              ' onClick={toggleReturnDate}>
                 <div className='text-yellow-500'>RETURN DATE</div>
-                <div className='text-white text-center'>--- --- ---</div>
+                {tripType === 'Round Trip' ?
+                  (
+                    <>
+                      <div className='text-white'>{returnDate?.format('D MMM YYYY')}</div>
+                      <DatePicker
+                        open={returnDateOpen}
+                        onOpenChange={(open) => setReturnDateOpen(open)}
+                        onChange={handleReturnDateChange}
+                        className='absolute bottom-0 left-0 w-0 h-0'
+                        style={{
+                          visibility: 'hidden'
+                        }}
+                        disabledDate={(current: Dayjs | null) => current ? current.isBefore(dayjs().startOf('day')) : false}
+                      />
+                    </>
+                  ) :
+                  (
+                    <>
+                      <div className='text-white text-center'>--- --- ---</div>
+                    </>
+                  )
+                }
               </div>
 
               {/* <div className='w-32 bg-[#404040] mx-1 p-2 rounded-lg text-sm'>
@@ -439,13 +479,22 @@ const Search: React.FC = () => {
 
             </div>
           </div>
-        </div>
+        </div >
         <div className='flex justify-center'>
           <div className='flex container justify-center
             flex-col-reverse items-center
             lg:flex-row lg:items-start
           '>
-            <BillCard routeDistance={route?.one_way_trip_km || 0} tripRates={tripRates} />
+            <BillCard
+              routeDistance={
+                tripType === 'Round Trip'
+                  ? route?.round_trip_km || 0
+                  : tripType === 'Hourly Rental'
+                    ? 0
+                    : route?.one_way_trip_km || 0
+              }
+              tripRates={tripRates}
+            />
             <div className='min-h-screen lg:w-[800px]'>
               {loading ? (
                 // Display loading indicator here
@@ -465,6 +514,7 @@ const Search: React.FC = () => {
                       discountedPrice={rate.discountedPrice || ''}
                       discount={(rate.taxiType.discount_percentage).toString() || ''}
                       carImage={getCarImage(rate.taxiType?.name) || ''}
+                      onBook={() => onBook(rate)}
                     />
                   ))}
                 </>
@@ -513,7 +563,7 @@ const Search: React.FC = () => {
             </div>
           </div>
         </div>
-      </div>
+      </div >
       <Footer />
     </ >
   );

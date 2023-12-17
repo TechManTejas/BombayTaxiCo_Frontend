@@ -13,11 +13,11 @@ console.log(import.meta.env.VITE_BASE_URL)
 instance.interceptors.request.use(
   (config) => {
     // Retrieve the token from your preferred method (e.g., localStorage)
-    const token = localStorage.getItem('auction-token');
+    const token = localStorage.getItem('token');
 
     // If a token exists, add it to the headers
     if (token) {
-      config.headers.Authorization = `Bearer ${token}`;
+      config.headers.Authorization = `${token}`;
     }
 
     return config;
@@ -41,7 +41,7 @@ instance.interceptors.response.use(
       // For simplicity, let's assume there is a refresh token function
       return refreshToken().then((newToken) => {
         // Retry the original request with the new token
-        error.config.headers.Authorization = `Bearer ${newToken}`;
+        error.config.headers.Authorization = `${newToken}`;
         return instance(error.config);
       });
     }

@@ -17,6 +17,7 @@ interface CarCardProps {
     discount: string;
     preview?: boolean;
     carImage?: string;
+    onBook?: () => void;
 }
 
 const CarCard: React.FC<CarCardProps> = ({
@@ -27,7 +28,8 @@ const CarCard: React.FC<CarCardProps> = ({
     discountedPrice,
     discount,
     preview,
-    carImage
+    carImage,
+    onBook
 }) => {
 
     const navigate = useNavigate()
@@ -153,9 +155,7 @@ const CarCard: React.FC<CarCardProps> = ({
                                 hidden
                                 lg:block
                             '>
-                                <button className='bg-yellow-500 hover:bg-yellow-400 p-3 rounded-lg w-[180px] h-full flex justify-center items-center text-lg font-medium' onClick={() => {
-                                    navigate("/details")
-                                }}>
+                                <button className='bg-yellow-500 hover:bg-yellow-400 p-3 rounded-lg w-[180px] h-full flex justify-center items-center text-lg font-medium' onClick={onBook}>
                                     BOOK NOW
                                 </button>
                             </div>

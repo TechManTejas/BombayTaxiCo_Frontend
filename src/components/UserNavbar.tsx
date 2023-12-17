@@ -1,13 +1,133 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useState } from 'react';
 import Logo from "../assets/images/logo.webp"
-import { Button, Drawer, Menu } from 'antd';
+import { Button, Drawer, Form, Input, Menu, Modal, Tabs, message } from 'antd';
 import { useNavigate } from 'react-router-dom';
 import { MenuOutlined, UserOutlined } from '@ant-design/icons';
+import axios from '../api/axios';
+import TabPane from 'antd/es/tabs/TabPane';
+import { Context } from '../context/context.prover';
+
+interface LoginFormProps {
+    hideLoginModal: () => void;
+}
+
+const LoginForm: React.FC<LoginFormProps> = ({ hideLoginModal }) => {
+
+    const { setUserAuthenticated } = Context();
+
+    const onFinish = async (values: any) => {
+        try {
+            // Send a post request to the /signin endpoint with the mobile number
+            const response = await axios.post('/users/signin', { mobile_no: values.number });
+
+            // Save the JWT token in localStorage
+            localStorage.setItem('token', response.data.token);
+            setUserAuthenticated(true)
+
+            // Close the login modal
+            hideLoginModal();
+
+            // Show a success message
+            message.success('Login successful');
+        } catch (error) {
+            // Handle and display error messages
+            console.error(error);
+            message.error('Login failed. Please try again.');
+        }
+    };
+
+    return (
+        <Form name="login" onFinish={onFinish}>
+            <Form.Item
+                name="number"
+                rules={[{ required: true, message: 'Please enter your mobile number' }]}
+            >
+                <Input placeholder="Mobile Number" />
+            </Form.Item>
+
+            <Form.Item>
+                <button onSubmit={onFinish} className="bg-yellow-500 hover:bg-yellow-400 text-black font-semibold w-full h-10 rounded-lg border-yellow-500 z-10">
+                    Login
+                </button>
+            </Form.Item>
+        </Form>
+    );
+};
+
+interface RegisterFormProps {
+    hideLoginModal: () => void;
+}
+
+const RegisterForm: React.FC<RegisterFormProps> = ({ hideLoginModal }) => {
+    const onFinish = async (values: any) => {
+        try {
+            // Send a post request to the /register endpoint with user details
+            await axios.post('/users/register', {
+                mobile_no: values.number,
+                email_id: values.email,
+                name: values.name,
+            });
+
+            // Close the login modal
+            hideLoginModal();
+
+            // Show a success message
+            message.success('Registration successful');
+        } catch (error) {
+            // Handle and display error messages
+            console.error(error);
+            message.error('Registration failed. Please try again.');
+        }
+    };
+
+    return (
+        <Form name="register" onFinish={onFinish}>
+            <Form.Item
+                name="name"
+                rules={[{ required: true, message: 'Please enter your name' }]}
+            >
+                <Input placeholder="Name" />
+            </Form.Item>
+
+            <Form.Item
+                name="number"
+                rules={[{ required: true, message: 'Please enter your mobile number' }]}
+            >
+                <Input placeholder="Mobile Number" />
+            </Form.Item>
+
+            <Form.Item
+                name="email"
+                rules={[
+                    { required: true, message: 'Please enter your email' },
+                    { type: 'email', message: 'Invalid email address' },
+                ]}
+            >
+                <Input placeholder="Email" />
+            </Form.Item>
+
+            <Form.Item>
+                <button onSubmit={onFinish} className="bg-yellow-500 hover:bg-yellow-400 text-black font-semibold w-full h-10 rounded-lg border-yellow-500 z-10">
+                    Register
+                </button>
+            </Form.Item>
+        </Form>
+    );
+};
 
 const UserNavbar: React.FC = () => {
 
+    const { userAuthenticated } = Context();
+
+    const [activeTab, setActiveTab] = useState('login');
     const [isDrawerVisible, setIsDrawerVisible] = useState<boolean>(false);
+    const [isLoginModalVisible, setIsLoginModalVisible] = useState<boolean>(false);
     const navigate = useNavigate()
+
+    const handleTabChange = (key: string) => {
+        setActiveTab(key);
+    };
 
     const showDrawer = () => {
         setIsDrawerVisible(true);
@@ -20,9 +140,31 @@ const UserNavbar: React.FC = () => {
         setIsDrawerVisible(false);
     };
 
+    const showLoginModal = () => {
+        setIsLoginModalVisible(true);
+    };
+
+    const hideLoginModal = () => {
+        setIsLoginModalVisible(false);
+    };
 
     return (
         <>
+            <Modal
+                open={isLoginModalVisible}
+                onCancel={hideLoginModal}
+                footer={null}
+                centered
+            >
+                <Tabs activeKey={activeTab} onChange={handleTabChange}>
+                    <TabPane tab="Login" key="login">
+                        <LoginForm hideLoginModal={hideLoginModal} />
+                    </TabPane>
+                    <TabPane tab="Register" key="register">
+                        <RegisterForm hideLoginModal={hideLoginModal} />
+                    </TabPane>
+                </Tabs>
+            </Modal>
             <div className="bg-[#2A2A2A]">
                 <div className="container px-2 mx-auto flex justify-center md:justify-between py-4">
                     <div className="hidden md:block">
@@ -159,11 +301,16 @@ const UserNavbar: React.FC = () => {
                     </div>
 
                     <div className='flex space-x-6'>
-                        <button className="text-xl font-medium hidden md:block hover:text-yellow-500" onClick={() => {
-                            navigate('/profile')
-                        }}>
-                            <UserOutlined /> LOGIN
-                        </button>
+                        {userAuthenticated ?
+                            <button className="text-xl font-medium hidden md:block hover:text-yellow-500" onClick={()=>{
+                                navigate('/profile')
+                            }}>
+                                <UserOutlined /> PROFILE
+                            </button>
+                            : <button className="text-xl font-medium hidden md:block hover:text-yellow-500" onClick={showLoginModal}>
+                                <UserOutlined /> LOGIN
+                            </button>
+                        }
                     </div>
                 </nav>
             </div>

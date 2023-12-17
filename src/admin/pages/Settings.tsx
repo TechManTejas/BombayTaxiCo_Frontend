@@ -15,13 +15,13 @@ const Settings: React.FC = () => {
 
   const fetchData = async () => {
     try {
-      const response = await axios.get('/settings/get'); 
+      const response = await axios.get('/settings/get');
       form.setFieldsValue({
         ...response.data
-    });
-      
+      });
+
       setSettings(response.data);
-      console.log(settings)
+      console.log(response.data)
 
     } catch (error) {
       console.error('Error fetching settings:', error);
@@ -30,14 +30,14 @@ const Settings: React.FC = () => {
   };
 
   useEffect(() => {
-    fetchData(); 
+    fetchData();
   }, []);
 
   const onFinish = async (values: ISettings) => {
     console.log(values);
 
     try {
-      const response = await axios.put('/settings/update', values); 
+      const response = await axios.put('/settings/update', values);
       console.log(response);
       message.success('Settings updated successfully');
       fetchData(); // Fetch the updated settings after successful update
@@ -92,6 +92,12 @@ const Settings: React.FC = () => {
           </Form.Item>
 
           <Form.Item name="extraPickupDropCharges" label="Extra Pickup/Drop" rules={[{ required: true, message: 'Please enter the extra pickup/drop charges' }]}>
+            <Input className="w-full" />
+          </Form.Item>
+        </Space>
+
+        <Space>
+          <Form.Item name="advancePaymentPercentage" label="Advance Payment Percentage" rules={[{ required: true, message: 'Please enter the advance payment percentage' }]}>
             <Input className="w-full" />
           </Form.Item>
         </Space>

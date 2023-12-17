@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Coupon } from "./coupons.types";
 import { Driver } from "./drivers.types";
 import { IRoute } from "./routes.types";
@@ -34,10 +35,7 @@ export interface IBooking extends Document {
     pickup_address?: string;
     drop_address?: string;
     additional_request?: string;
-    payments?: {
-        method: string;
-        status: string;
-    };
+    payments?: any;
     total_cost?: number;
     waiting_charges?: number;
     other_charges?: number;
