@@ -32,8 +32,6 @@ const CarCard: React.FC<CarCardProps> = ({
 
     const navigate = useNavigate()
 
-    console.log(features)
-
     return (
         <div className='my-1 bg-white' onClick={() => {
             if (window.innerWidth < 1024) {

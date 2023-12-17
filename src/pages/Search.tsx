@@ -9,11 +9,12 @@ import CarCard from '../components/CarCard';
 import { useLocation, useNavigate } from 'react-router-dom';
 import axios from "../api/axios"
 
-// import Car1 from "../assets/images/economy.webp"
-// import Car2 from "../assets/images/comfort.webp"
-// import Car3 from "../assets/images/standard.webp"
-// import Car4 from "../assets/images/business.webp"
-// import Car5 from "../assets/images/family.webp"
+import Car1 from "../assets/images/economy.webp"
+import Car2 from "../assets/images/comfort.webp"
+import Car3 from "../assets/images/standard.webp"
+import Car4 from "../assets/images/business.webp"
+import Car5 from "../assets/images/family.webp"
+
 import { generateTimeOptions } from '../utils/GenerateTimeOptions';
 
 import { City } from '../types/citys.types';
@@ -209,6 +210,25 @@ const Search: React.FC = () => {
   }
 
   const menuTimeOptions = generateTimeOptions()
+
+  const getCarImage = (taxiTypeName: string) => {
+    console.log(taxiTypeName)
+
+    switch (taxiTypeName) {
+      case 'Economy Hatchback':
+        return Car1;
+      case 'Standard Sedan':
+        return Car3;
+      case 'Comfort Sedan':
+        return Car2;
+      case 'Family MUV':
+        return Car5;
+      case 'Business MUV':
+        return Car4;
+      default:
+        return '';
+    }
+  };
 
   const onSearch = async () => {
     try {
@@ -421,7 +441,7 @@ const Search: React.FC = () => {
             flex-col-reverse items-center
             lg:flex-row lg:items-start
           '>
-            <BillCard routeDistance={route?.one_way_trip_km || 0}/>
+            <BillCard routeDistance={route?.one_way_trip_km || 0} />
             <div className='min-h-screen lg:w-[800px]'>
               {loading ? (
                 // Display loading indicator here
@@ -440,7 +460,7 @@ const Search: React.FC = () => {
                       originalPrice={rate.originalPrice || ''}
                       discountedPrice={rate.discountedPrice || ''}
                       discount={(rate.taxiType.discount_percentage).toString() || ''}
-                      carImage={rate.taxiType?.image || ''}
+                      carImage={getCarImage(rate.taxiType?.name) || ''}
                     />
                   ))}
                 </>
