@@ -23,6 +23,7 @@ const TaxiTypes: React.FC = () => {
         name?: string;
         price_km?: number;
         price_hour?: number;
+        discount_percentage?: number;
     }
 
     const columns: ColumnsType<DataType> = [
@@ -43,6 +44,15 @@ const TaxiTypes: React.FC = () => {
             dataIndex: 'price_hour',
             key: 'price_hour',
             width: 50
+        },
+        {
+            title: 'DISCOUNT PERCENTAGE',
+            dataIndex: 'discount_percentage',
+            key: 'discount_percentage',
+            width: 50,
+            render: (discountPercentage: number) => (
+                <div>{discountPercentage ? `${discountPercentage}%` : 'N/A'}</div>
+            ),
         },
         {
             title: 'CAR FEATURES',
@@ -144,6 +154,7 @@ const TaxiTypes: React.FC = () => {
         price_km: number;
         price_hour: number;
         car_features: CarFeature[];
+        discount_percentage: number;
     }> => {
         return data.map(taxiType => ({
             _id: taxiType?._id,
@@ -151,6 +162,7 @@ const TaxiTypes: React.FC = () => {
             price_km: taxiType?.price_km,
             price_hour: taxiType?.price_hour,
             car_features: taxiType?.car_features || [],
+            discount_percentage: taxiType?.discount_percentage
         }));
     };
 

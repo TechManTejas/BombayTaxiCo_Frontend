@@ -40,7 +40,7 @@ const Hero: React.FC = () => {
   const [pickupDate, setPickupDate] = useState<Dayjs | null>(dayjs());
   const [pickupTime, setPickupTime] = useState<string>('10:00 AM')
 
-  const [activeTab, setActiveTab] = useState('oneWay');
+  const [activeTab, setActiveTab] = useState('One-Way Trip');
   const [cities, setCities] = useState<City[]>([]);
 
   const toggleDatePicker = () => {
@@ -89,7 +89,7 @@ const Hero: React.FC = () => {
   const menuPropsTime = {
     items: menuTime,
     onClick: handleMenuClickTime,
-    style:{height:'300px', overflow:'auto'}
+    style: { height: '300px', overflow: 'auto' }
   };
 
   const switchValues = () => {
@@ -106,6 +106,22 @@ const Hero: React.FC = () => {
     });
   };
 
+  const handleLetsRideClick = () => {
+
+    const state = {
+      from,
+      fromId,
+      to,
+      toId,
+      pickupDate,
+      pickupTime,
+      activeTab
+    };
+
+    // Navigate to the search page or perform other actions
+    navigate('/search', { state: state });
+  };
+
   useEffect(() => {
     const fetchCities = async () => {
       try {
@@ -119,6 +135,18 @@ const Hero: React.FC = () => {
         console.log(response.data.citys);
 
         setCities(fetchedCities);
+
+        // Set initial values for from and to based on the first two cities
+        if (fetchedCities.length > 0) {
+          setFrom(fetchedCities[0].name);
+          setFromId(fetchedCities[0]._id);
+        }
+
+        if (fetchedCities.length > 1) {
+          setTo(fetchedCities[1].name);
+          setToId(fetchedCities[1]._id);
+        }
+
       } catch (error) {
         console.error('Error fetching cities:', error);
       }
@@ -152,15 +180,15 @@ const Hero: React.FC = () => {
                 <TabPane tab={<div className='py-1
                   text-sm
                   lg:text-base
-                '> <ArrowRightOutlined className='hidden lg:inline-flex' /> One-Way Trip</div>} key="oneWay" />
+                '> <ArrowRightOutlined className='hidden lg:inline-flex' /> One-Way Trip</div>} key="One-Way Trip" />
                 <TabPane tab={<div className='py-1
                 text-sm
                 lg:text-base
-                '><SyncOutlined className='hidden lg:inline-flex' /> Round Trip</div>} key="roundTrip" />
+                '><SyncOutlined className='hidden lg:inline-flex' /> Round Trip</div>} key="Round Trip" />
                 <TabPane tab={<div className='py-1
                 text-sm
                 lg:text-base
-                '> <ClockCircleOutlined className='hidden lg:inline-flex' /> Hourly Rental</div>} key="hourlyRental" />
+                '> <ClockCircleOutlined className='hidden lg:inline-flex' /> Hourly Rental</div>} key="Hourly Rental" />
               </Tabs>
             </div>
             <div className='bg-white rounded-lg -mb-6  flex justify-center items-center py-8 
@@ -251,9 +279,7 @@ const Hero: React.FC = () => {
               </div>
             </div>
             <div className='w-full flex justify-center'>
-              <button className="bg-yellow-500 hover:bg-yellow-400 text-black font-semibold w-full lg:w-36 h-12 rounded-lg border-yellow-500 z-10" onClick={() => {
-                navigate('/search')
-              }}>
+              <button className="bg-yellow-500 hover:bg-yellow-400 text-black font-semibold w-full lg:w-36 h-12 rounded-lg border-yellow-500 z-10" onClick={handleLetsRideClick}>
                 LET'S RIDE
               </button>
             </div>

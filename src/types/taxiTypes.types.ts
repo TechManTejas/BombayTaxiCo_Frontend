@@ -10,6 +10,7 @@ export interface TaxiType {
   price_hour: number;
   extra_km_charges: number; 
   car_features: CarFeature[];
+  discount_percentage: number;
 }
 
 export interface TaxiTypeFormValues {
@@ -18,4 +19,5 @@ export interface TaxiTypeFormValues {
   price_hour: number;
   extra_km_charges: number; 
   car_features: CarFeature[];
+  discount_percentage: number;
 }

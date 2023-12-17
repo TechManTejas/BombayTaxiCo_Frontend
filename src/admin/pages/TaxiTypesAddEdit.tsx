@@ -26,7 +26,8 @@ const TaxiTypesAddEdit: React.FC = () => {
         price_km: 0,
         price_hour: 0,
         extra_km_charges: 0,
-        car_features: []
+        car_features: [],
+        discount_percentage: 0
     };
 
     useEffect(() => {
@@ -89,6 +90,10 @@ const TaxiTypesAddEdit: React.FC = () => {
 
                     <Form.Item name="extra_km_charges" label="Extra Km Charges" rules={[{ required: true, message: 'Please enter the extra km charges' }]}>
                         <Input className="w-full" />
+                    </Form.Item>
+
+                    <Form.Item name="discount_percentage" label="Discount Percentage" rules={[{ required: true, message: 'Please enter the discount percentage' }]}>
+                        <Input type="number" min={0} max={100} className="w-full" suffix="%" />
                     </Form.Item>
                 </Space>
 

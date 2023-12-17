@@ -4,8 +4,8 @@ import Car from "../assets/images/car.png"
 import { useNavigate } from 'react-router-dom';
 
 export interface Feature {
-    icon: React.ReactNode;
-    text: string;
+    icon?: React.ReactNode;
+    feature: string;
 }
 
 interface CarCardProps {
@@ -31,6 +31,8 @@ const CarCard: React.FC<CarCardProps> = ({
 }) => {
 
     const navigate = useNavigate()
+
+    console.log(features)
 
     return (
         <div className='my-1 bg-white' onClick={() => {
@@ -75,37 +77,40 @@ const CarCard: React.FC<CarCardProps> = ({
                                 {description}
                             </div>
                         </div>
-                        <div className='space-y-1'>
-                            <div className='text-sm font-medium
+                        {
+                            features &&
+                            <div className='space-y-1'>
+                                <div className='text-sm font-medium
                                 hidden
                                 lg:block
                             '>FEATURES</div>
-                            <div className='flex-wrap
+                                <div className='flex-wrap
                                 hidden
                                 lg:flex
                                 lg:w-80
                             '>
-                                {features.map((feature, index) => (
-                                    <div key={index}>
-                                        <Tag className='flex items-center gap-1'>
-                                            {feature.icon}
-                                            <div className=''>{feature.text}</div>
-                                        </Tag>
-                                    </div>
-                                ))}
-                            </div>
-                            <div className='flex-wrap
+                                    {features.map((feature, index) => (
+                                        <div key={index}>
+                                            <Tag className='flex items-center gap-1'>
+                                                {feature?.icon}
+                                                <div className=''>{feature.feature}</div>
+                                            </Tag>
+                                        </div>
+                                    ))}
+                                </div>
+                                <div className='flex-wrap
                                 flex w-44
                                 lg:hidden
                                 lg:w-80
                             '>
-                                {features.map((feature, index) => (
-                                    <div key={index} className='flex items-center'>
-                                        <div>•</div><div className='text-xs'>{feature.text}</div>
-                                    </div>
-                                ))}
+                                    {features.map((feature, index) => (
+                                        <div key={index} className='flex items-center'>
+                                            <div>•</div><div className='text-xs'>{feature.feature}</div>
+                                        </div>
+                                    ))}
+                                </div>
                             </div>
-                        </div>
+                        }
                     </div>
                     <div className='m-3'></div>
                     <div className='flex flex-col items-end space-y-3'>

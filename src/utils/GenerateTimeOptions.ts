@@ -17,7 +17,5 @@ export const generateTimeOptions = (): { label: string; key: string }[] => {
       timeOptions.push({ label: timeString, key: timeString });
     }
 
-    console.log(timeOptions)
-  
     return timeOptions;
   };
