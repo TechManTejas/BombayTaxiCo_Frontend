@@ -249,6 +249,7 @@ const Hero: React.FC = () => {
                     open={pickupDateOpen}
                     onOpenChange={(open) => setPickupDateOpen(open)}
                     onChange={handleDateChange}
+                    disabledDate={(current: Dayjs | null) => current ? current.isBefore(dayjs().startOf('day')) : false}
                   />
                 </div>
                 <div className='

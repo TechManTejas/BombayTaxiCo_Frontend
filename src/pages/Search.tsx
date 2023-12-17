@@ -23,11 +23,14 @@ import { IRoute } from '../types/routes.types';
 
 interface BillCardProps {
   routeDistance: number;
+  tripRates: any;
 }
 
-const BillCard: React.FC<BillCardProps> = ({ routeDistance }) => {
+const BillCard: React.FC<BillCardProps> = ({ routeDistance, tripRates }) => {
 
   const [settings, setSettings] = useState<ISettings | null>(null)
+
+  console.log(JSON.stringify(tripRates))
 
   useEffect(() => {
     const fetchSettings = async () => {
@@ -441,7 +444,7 @@ const Search: React.FC = () => {
             flex-col-reverse items-center
             lg:flex-row lg:items-start
           '>
-            <BillCard routeDistance={route?.one_way_trip_km || 0} />
+            <BillCard routeDistance={route?.one_way_trip_km || 0} tripRates={tripRates}/>
             <div className='min-h-screen lg:w-[800px]'>
               {loading ? (
                 // Display loading indicator here
