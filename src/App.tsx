@@ -1,5 +1,5 @@
 // App.tsx
-import React from 'react';
+import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 
 import About from './pages/About';
@@ -9,7 +9,6 @@ import Signup from './pages/Signup';
 import Search from './pages/Search';
 import Details from './pages/Details';
 import UserNavbar from './components/UserNavbar';
-// import { ThemeProvider } from './theme/ThemeContext';
 import Sidebar from './admin/components/Sidebar';
 import Bookings from './admin/pages/Bookings';
 import Taxis from './admin/pages/Taxis';
@@ -35,14 +34,20 @@ import BookingDetails from './admin/pages/BookingDetails';
 import axios from './api/axios';
 import Home from './pages/Home';
 import { Profile } from './pages/Profile';
+import { Context } from './context/context.prover';
 
-// Assume you have an authentication check function, you can replace it with your actual authentication logic.
 const isAuthenticated = () => {
-  // Replace this with your authentication logic
-  return true; // For demonstration purposes, always consider the user as authenticated
+  return(!!localStorage.getItem('token')); 
 };
 
 const UserRoutes: React.FC = () => {
+
+  const { setUserAuthenticated } = Context();
+
+  useEffect(() => {
+    setUserAuthenticated(!!localStorage.getItem('token'))
+  }, [])
+
   return (
     <ConfigProvider
       theme={{

@@ -2,7 +2,7 @@
 import { ArrowLeftOutlined, ArrowRightOutlined, CarOutlined, ClockCircleOutlined, DollarCircleOutlined, SwapOutlined, SyncOutlined, UserOutlined } from '@ant-design/icons';
 import { Button, DatePicker, Dropdown, MenuProps, Tabs } from 'antd';
 import TabPane from 'antd/es/tabs/TabPane';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from "../api/axios"
 import { City } from '../types/citys.types';
 import { useNavigate } from 'react-router-dom';
@@ -21,16 +21,9 @@ import Face2 from "../assets/images/face2.jpg"
 import Face3 from "../assets/images/face3.jpg"
 import { generateTimeOptions } from '../utils/GenerateTimeOptions';
 
-// sm	640px	@media (min-width: 640px) { ... }
-// md	768px	@media (min-width: 768px) { ... }
-// lg	1024px	@media (min-width: 1024px) { ... }
-// xl	1280px	@media (min-width: 1280px) { ... }
-// 2xl	1536px	@media (min-width: 1536px) { ... }
-
 const Hero: React.FC = () => {
 
   const navigate = useNavigate()
-  const datepickerRef = useRef<HTMLDivElement>(null);
 
   const [from, setFrom] = useState<string>("Mumbai");
   const [fromId, setFromId] = useState<string | null>(null);
@@ -38,13 +31,19 @@ const Hero: React.FC = () => {
   const [toId, setToId] = useState<string | null>(null);
   const [pickupDateOpen, setPickupDateOpen] = useState<boolean>(false)
   const [pickupDate, setPickupDate] = useState<Dayjs | null>(dayjs());
+  const [returnDateOpen, setReturnDateOpen] = useState<boolean>(false)
+  const [returnDate, setReturnDate] = useState<Dayjs | null>(dayjs());
   const [pickupTime, setPickupTime] = useState<string>('10:00 AM')
 
   const [activeTab, setActiveTab] = useState('One-Way Trip');
   const [cities, setCities] = useState<City[]>([]);
 
-  const toggleDatePicker = () => {
+  const togglePickupDatePicker = () => {
     setPickupDateOpen(!pickupDateOpen)
+  };
+
+  const toggleReturnDatePicker = () => {
+    setReturnDateOpen(!returnDateOpen)
   };
 
   const handleTabChange = (key: string) => {
@@ -63,10 +62,18 @@ const Hero: React.FC = () => {
     setPickupTime(e.key)
   };
 
-  const handleDateChange = (date: Dayjs | null, dateString: string) => {
+  const handlePickupDateChange = (date: Dayjs | null, dateString: string) => {
     console.log('Selected Date:', dateString);
+    console.log(date)
     setPickupDate(date)
-    toggleDatePicker()
+    togglePickupDatePicker()
+  };
+
+  const handleReturnDateChange = (date: Dayjs | null, dateString: string) => {
+    console.log('Selected Date:', dateString);
+    console.log(date)
+    setReturnDate(date)
+    toggleReturnDatePicker()
   };
 
   const menuCities: MenuProps['items'] = cities.map((city: City) => ({
@@ -113,8 +120,9 @@ const Hero: React.FC = () => {
       fromId,
       to,
       toId,
-      pickupDate,
+      pickupDate: pickupDate?.format('YYYY-MM-DD'),
       pickupTime,
+      returnDate: returnDate?.format('YYYY-MM-DD'),
       activeTab
     };
 
@@ -234,11 +242,11 @@ const Hero: React.FC = () => {
                   border-b
                   lg:border-l'
                 />
-                <div className='relative w-[188px] p-3 pb-4 space-y-1' ref={datepickerRef}>
+                <div className='relative w-[188px] p-3 pb-4 space-y-1'>
                   <div className='text-xs'>
                     PICKUP DATE
                   </div>
-                  <button className='text-3xl hover:text-blue-500' onClick={toggleDatePicker}>
+                  <button className='text-3xl hover:text-blue-500' onClick={togglePickupDatePicker}>
                     {pickupDate?.format('D MMM') ?? <button className='border p-1 rounded-lg bg-gray-100 text-base'>select a pickup date</button>} <span className='text-base'>{pickupDate?.format('YYYY')}</span>
                   </button>
                   <DatePicker
@@ -248,7 +256,7 @@ const Hero: React.FC = () => {
                     }}
                     open={pickupDateOpen}
                     onOpenChange={(open) => setPickupDateOpen(open)}
-                    onChange={handleDateChange}
+                    onChange={handlePickupDateChange}
                     disabledDate={(current: Dayjs | null) => current ? current.isBefore(dayjs().startOf('day')) : false}
                   />
                 </div>
@@ -269,12 +277,43 @@ const Hero: React.FC = () => {
                 <div className='
                   border-b'
                 />
-                <div className='w-[188px] p-3 pb-4 space-y-1'>
+                <div className='relative w-[188px] p-3 pb-4 space-y-1'>
                   <div className='text-xs'>
                     RETURN DATE
                   </div>
-                  <div className='text-sm'>
-                    Add return date for bigger discount
+                  <div>
+                    {
+                      activeTab === 'Round Trip' ? (
+                        <>
+                          <button className='text-3xl hover:text-blue-500' onClick={toggleReturnDatePicker}>
+                            {returnDate?.format('D MMM') ?? (
+                              <button className='border p-1 rounded-lg bg-gray-100 text-base'>
+                                select a pickup date
+                              </button>
+                            )}{' '}
+                            <span className='text-base'>{returnDate?.format('YYYY')}</span>
+                          </button>
+                          <DatePicker
+                            className='absolute bottom-0 left-0 w-0 h-0'
+                            style={{
+                              visibility: 'hidden',
+                            }}
+                            open={returnDateOpen}
+                            onOpenChange={(open) => setReturnDateOpen(open)}
+                            onChange={handleReturnDateChange}
+                            disabledDate={(current: Dayjs | null) =>
+                              current ? current.isBefore(dayjs().startOf('day')) : false
+                            }
+                          />
+                        </>
+                      ) : (
+                        <>
+                          <button className='text-xs text-left hover:text-yellow-500' onClick={() => setActiveTab("Round Trip")}>
+                            Add return date for bigger discount
+                          </button>
+                        </>
+                      )
+                    }
                   </div>
                 </div>
               </div>
