@@ -1,11 +1,11 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useEffect, useState } from 'react';
 import CarCard from '../components/CarCard';
-import { Button, Divider, Form, Input, Radio, RadioChangeEvent, Select, Space } from 'antd';
+import { Button, Divider, Form, Input, Radio, RadioChangeEvent, Select, Space, message } from 'antd';
 import axios from "../api/axios"
 import Logo from "../assets/images/logo.png"
 import { Option } from 'antd/es/mentions';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 import Car1 from "../assets/images/economy.webp"
 import Car2 from "../assets/images/comfort.webp"
@@ -109,8 +109,7 @@ const Details: React.FC = () => {
   const [form] = Form.useForm();
 
   const { state } = useLocation()
-
-  console.log(state)
+  const navigate = useNavigate()
 
   const [settings, setSettings] = useState<ISettings | null>(null)
 
@@ -223,7 +222,10 @@ const Details: React.FC = () => {
             data
           );
 
-          console.log(result.data.msg);
+          if(result.data.msg === 'success'){
+            message.success("Booking created successfully")
+            navigate('/profile')
+          }
         },
         prefill: {
           name: "Soumya Dey",
