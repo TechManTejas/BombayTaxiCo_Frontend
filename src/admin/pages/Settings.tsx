@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { Button, Form, Input, Space, message } from 'antd';
 import axios from "../../api/axios"
 import { ISettings } from '../../types/settings.types';
@@ -11,7 +11,6 @@ const Settings: React.FC = () => {
   };
 
   const [form] = Form.useForm();
-  const [settings, setSettings] = useState<ISettings | null>(null);
 
   const fetchData = async () => {
     try {
@@ -19,9 +18,6 @@ const Settings: React.FC = () => {
       form.setFieldsValue({
         ...response.data
       });
-
-      setSettings(response.data);
-      console.log(response.data)
 
     } catch (error) {
       console.error('Error fetching settings:', error);
