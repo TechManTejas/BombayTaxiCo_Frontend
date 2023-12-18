@@ -71,18 +71,6 @@ export const Profile = () => {
         width: 100,
         render: (_, booking) => (
           <div className='text-amber-500 font-bold flex flex-wrap space-x-1'>
-            {/* <a>
-                        CONFIRM
-                    </a>
-                    <div>
-                        |
-                    </div>
-                    <a>
-                        CANCEL
-                    </a>
-                    <div>
-                        |
-                    </div> */}
             <a onClick={() => {
               const bookingToEdit = bookings.find((b) => b._id === booking._id)
               navigate('/admin/bookings/details', { state: { booking: bookingToEdit } })
@@ -101,7 +89,7 @@ export const Profile = () => {
 
     const fetchData = async (page: number = 1) => {
       try {
-        const response = await axios.get('/bookings/booking-status-counts'); // Replace with your actual API endpoint
+        const response = await axios.get('/bookings/user-booking-status-counts'); // Replace with your actual API endpoint
         const data = response.data;
 
         console.log(data);
@@ -120,7 +108,7 @@ export const Profile = () => {
       try {
         setLoading(true);
 
-        const response = await axios.get('/bookings', {
+        const response = await axios.get('/bookings/user-bookings', {
           params: {
             page: page,
             pageSize: 10,
@@ -192,6 +180,7 @@ export const Profile = () => {
               tabPosition="top"
               onChange={handleTabChange}
             >
+               <TabPane tab={renderTabTitle('Requested', 'Requested')} key="New" />
               <TabPane tab={renderTabTitle('Upcoming', 'Upcoming')} key="Confirmed" />
               <TabPane tab={renderTabTitle('Completed', 'Completed')} key="Completed" />
               <TabPane tab={renderTabTitle('Cancelled', 'Cancelled')} key="Cancelled" />
