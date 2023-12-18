@@ -146,17 +146,23 @@ export const Profile = () => {
       return data.map(booking => {
         const fromCity = booking.route_id?.from_id?.name || 'Unknown';
         const toCity = booking.route_id?.to_id?.name || 'Unknown';
-        const fromTo = `${fromCity} to ${toCity}`;
+        let fromTo = `${fromCity} to ${toCity}`;
+        if (fromTo === "Unknown to Unknown") {
+            fromTo = booking?.pickup_city?.name || 'Unknown'
+        }
+
+        const payments = booking?.payments?.map((payment: any) => payment.payment) || [];
+        const paymentsString = payments.join('+');
 
         return {
-          _id: booking?._id || '',
-          status: booking?.booking_status || BookingStatus.New,
-          fromTo,
-          tripDates: `${moment(booking?.pick_up_date).format('YYYY-MM-DD')} to ${moment(booking?.return_date).format('YYYY-MM-DD')}`,
-          customer: booking?.user_id?.name || '',
-          payment: "PAYMENT"
+            _id: booking?._id || '',
+            status: booking?.booking_status || BookingStatus.New,
+            fromTo,
+            tripDates: `${moment(booking?.pick_up_date).format('YYYY-MM-DD')} to ${moment(booking?.return_date).format('YYYY-MM-DD')}`,
+            customer: booking?.user_id?.name || '',
+            payment: paymentsString
         };
-      });
+    });
     };
 
     const formattedData = mapDataToTableFormat(bookings);
@@ -180,7 +186,7 @@ export const Profile = () => {
               tabPosition="top"
               onChange={handleTabChange}
             >
-               <TabPane tab={renderTabTitle('Requested', 'New')} key="New" />
+              <TabPane tab={renderTabTitle('Requested', 'New')} key="New" />
               <TabPane tab={renderTabTitle('Upcoming', 'Confirmed')} key="Confirmed" />
               <TabPane tab={renderTabTitle('Completed', 'Completed')} key="Completed" />
               <TabPane tab={renderTabTitle('Cancelled', 'Cancelled')} key="Cancelled" />

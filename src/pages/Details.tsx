@@ -15,6 +15,7 @@ import Car5 from "../assets/images/family.webp"
 import { ISettings } from '../types/settings.types';
 import { IRoute } from '../types/routes.types';
 import { DownOutlined, UpOutlined } from '@ant-design/icons';
+import dayjs, { Dayjs } from 'dayjs';
 
 interface RazorpayResponse {
   amount: number;
@@ -116,12 +117,14 @@ const Details: React.FC = () => {
   const tripType = state.tripType || null
   const taxiRate = state.taxi_rate || null
   const route: IRoute = state.route || null
-  const pickupDate = state.pickupDate || null
-  const returnDate = state.returnDate || null
+  const pickupDate: Dayjs = dayjs(state.pickupDate) || null
+  const returnDate: Dayjs = dayjs(state.returnDate) || null
   const pickupTime = state.pickupTime || null
+  const pickupCityId = state.pickupCityId || null
+  const hourlyPackage = state.hourlyPackage || null
 
   const calcAdvancePay = () => {
-    return (Math.round(taxiRate.discountedPrice * ((100 - parseInt(settings?.advancePaymentPercentage || '0')) / 100)))
+    return (Math.round(taxiRate.discountedPrice * ((parseInt(settings?.advancePaymentPercentage || '0')) / 100)))
   }
 
   const getCarImage = (taxiTypeName: string) => {
@@ -254,15 +257,17 @@ const Details: React.FC = () => {
         const formValues = form.getFieldsValue();
 
         const booking = {
-          "route_id": route._id,
+          "route_id": route?._id ?? null,
           "trip_type": tripType,
-          "pick_up_date": pickupDate,
-          "return_date": returnDate,
+          "pick_up_date": pickupDate?.format("YYYY-MM-DD"),
+          "return_date": returnDate?.format("YYYY-MM-DD"),
           "pick_up_time": pickupTime,
           "pickup_address": formValues.pickupAddress,
           "drop_address": formValues.dropoffAddress,
           "requested_taxi_type": taxiRate.taxiType._id,
-          "payment": paymentType
+          "payment": paymentType,
+          "pickup_city": pickupCityId,
+          "hourly_package": hourlyPackage
         }
 
         console.log(booking)

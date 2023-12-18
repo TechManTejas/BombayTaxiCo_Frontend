@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import { City } from "./citys.types";
 import { Coupon } from "./coupons.types";
 import { Driver } from "./drivers.types";
 import { IRoute } from "./routes.types";
@@ -15,21 +16,23 @@ export enum BookingStatus {
 }
 
 export enum TripType {
-    OneWay = 'One Way',
-    Round = 'Round',
-    Hourly = 'Hourly',
+    OneWay = 'One-Way Trip',
+    Round = 'Round Trip',
+    Hourly = 'Hourly Rental',
 }
 
 // Define the Booking schema
 export interface IBooking extends Document {
     _id: string;
-    route_id: IRoute;
+    pickup_city?: City;
+    route_id?: IRoute;
     user_id: IUser;
     coupon_id?: Coupon;
     taxi_id?: Taxi;
     requested_taxi_type?: TaxiType;
     driver_id?: Driver;
     pick_up_date: Date;
+    pick_up_time: string;
     return_date?: Date;
     hours_kms?: string;
     pickup_address?: string;
