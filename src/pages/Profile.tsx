@@ -73,7 +73,7 @@ export const Profile = () => {
           <div className='text-amber-500 font-bold flex flex-wrap space-x-1'>
             <a onClick={() => {
               const bookingToEdit = bookings.find((b) => b._id === booking._id)
-              navigate('/admin/bookings/details', { state: { booking: bookingToEdit } })
+              navigate('/profile/booking', { state: { booking: bookingToEdit } })
             }}>VIEW</a>
           </div>
         ),
@@ -180,8 +180,8 @@ export const Profile = () => {
               tabPosition="top"
               onChange={handleTabChange}
             >
-               <TabPane tab={renderTabTitle('Requested', 'Requested')} key="New" />
-              <TabPane tab={renderTabTitle('Upcoming', 'Upcoming')} key="Confirmed" />
+               <TabPane tab={renderTabTitle('Requested', 'New')} key="New" />
+              <TabPane tab={renderTabTitle('Upcoming', 'Confirmed')} key="Confirmed" />
               <TabPane tab={renderTabTitle('Completed', 'Completed')} key="Completed" />
               <TabPane tab={renderTabTitle('Cancelled', 'Cancelled')} key="Cancelled" />
             </Tabs >
