@@ -30,7 +30,7 @@ const Sidebar: React.FC<SidebarProps> = ({ handleTabChange }) => {
         ">
             <Menu
                 mode={(window.innerWidth > 1024)? "vertical":"horizontal"}
-                defaultSelectedKeys={["profile"]}
+                defaultSelectedKeys={["bookings"]}
                 className='h-full bg-inherit lg:text-xl gap-2'
             >
                 <Menu.Item key="bookings" onClick={() => {
