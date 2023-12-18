@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useEffect, useState } from 'react';
-import { Footer } from '../components/Footer';
 import CarCard from '../components/CarCard';
 import { Button, Divider, Form, Input, Radio, RadioChangeEvent, Select, Space } from 'antd';
 import axios from "../api/axios"
@@ -15,6 +14,7 @@ import Car4 from "../assets/images/business.webp"
 import Car5 from "../assets/images/family.webp"
 import { ISettings } from '../types/settings.types';
 import { IRoute } from '../types/routes.types';
+import { DownOutlined, UpOutlined } from '@ant-design/icons';
 
 interface RazorpayResponse {
   amount: number;
@@ -159,123 +159,123 @@ const Details: React.FC = () => {
     fetchSettings()
   }, [])
 
-  const PaymentCard = () => {
+  const [paymentType, setPaymentType] = useState<string>("advance");
+  const [paymentSelectionOpen, setPaymentSelectionOpen] = useState<boolean>(false);
 
-    const [paymentType, setPaymentType] = useState<string>("advance");
+  const onChange = (e: RadioChangeEvent) => {
+    console.log('radio checked', e.target.value);
+    setPaymentType(e.target.value);
+  };
 
-    const onChange = (e: RadioChangeEvent) => {
-      console.log('radio checked', e.target.value);
-      setPaymentType(e.target.value);
-    };
+  function loadScript(src: string): Promise<boolean> {
+    return new Promise((resolve) => {
+      const script = document.createElement("script");
+      script.src = src;
+      script.onload = () => {
+        resolve(true);
+      };
+      script.onerror = () => {
+        resolve(false);
+      };
+      document.body.appendChild(script);
+    });
+  }
 
-    function loadScript(src: string): Promise<boolean> {
-      return new Promise((resolve) => {
-        const script = document.createElement("script");
-        script.src = src;
-        script.onload = () => {
-          resolve(true);
-        };
-        script.onerror = () => {
-          resolve(false);
-        };
-        document.body.appendChild(script);
-      });
+  async function displayRazorpay(booking: any) {
+    const res = await loadScript(
+      "https://checkout.razorpay.com/v1/checkout.js"
+    );
+
+    if (!res) {
+      alert("Razorpay SDK failed to load. Are you online?");
+      return;
     }
 
-    async function displayRazorpay(booking: any) {
-      const res = await loadScript(
-        "https://checkout.razorpay.com/v1/checkout.js"
-      );
+    try {
+      const result = await axios.post<RazorpayResponse>(`${import.meta.env.VITE_BASE_URL}/payments/orders`, booking);
 
-      if (!res) {
-        alert("Razorpay SDK failed to load. Are you online?");
+      if (!result) {
+        alert("Server error. Are you online?");
         return;
       }
 
-      try {
-        const result = await axios.post<RazorpayResponse>(`${import.meta.env.VITE_BASE_URL}/payments/orders`, booking);
+      const { amount, id: order_id, currency } = result.data;
 
-        if (!result) {
-          alert("Server error. Are you online?");
-          return;
+      const options: RazorpayOptions = {
+        key: import.meta.env.VITE_KEY_ID,
+        amount: amount.toString(),
+        currency: currency,
+        name: "Bombay Taxi Co.",
+        description: "Test Transaction For Payment",
+        image: { logo: Logo }, // Replace with your logo URL
+        order_id: order_id,
+        handler: async function (response: RazorpayHandlerResponse) {
+          const data = {
+            orderCreationId: order_id,
+            razorpayPaymentId: response.razorpay_payment_id,
+            razorpayOrderId: response.razorpay_order_id,
+            razorpaySignature: response.razorpay_signature,
+            booking
+          };
+
+          const result = await axios.post(
+            `${import.meta.env.VITE_BASE_URL}/payments/success`,
+            data
+          );
+
+          console.log(result.data.msg);
+        },
+        prefill: {
+          name: "Soumya Dey",
+          email: "SoumyaDey@example.com",
+          contact: "9999999999",
+        },
+        notes: {
+          address: "Soumya Dey Corporate Office",
+        },
+        theme: {
+          color: "#eab308",
+        },
+      };
+
+      const paymentObject = new (window as any).Razorpay(options);
+      paymentObject.open();
+    } catch (error) {
+      console.error('Error:', error);
+    }
+  }
+
+  const handlePayNow = () => {
+    form
+      .validateFields()
+      .then(() => {
+        const formValues = form.getFieldsValue();
+
+        const booking = {
+          "route_id": route._id,
+          "trip_type": tripType,
+          "pick_up_date": pickupDate,
+          "return_date": returnDate,
+          "pick_up_time": pickupTime,
+          "pickup_address": formValues.pickupAddress,
+          "drop_address": formValues.dropoffAddress,
+          "requested_taxi_type": taxiRate.taxiType._id,
+          "payment": paymentType
         }
 
-        const { amount, id: order_id, currency } = result.data;
+        console.log(booking)
 
-        const options: RazorpayOptions = {
-          key: import.meta.env.VITE_KEY_ID,
-          amount: amount.toString(),
-          currency: currency,
-          name: "Bombay Taxi Co.",
-          description: "Test Transaction For Payment",
-          image: { logo: Logo }, // Replace with your logo URL
-          order_id: order_id,
-          handler: async function (response: RazorpayHandlerResponse) {
-            const data = {
-              orderCreationId: order_id,
-              razorpayPaymentId: response.razorpay_payment_id,
-              razorpayOrderId: response.razorpay_order_id,
-              razorpaySignature: response.razorpay_signature,
-              booking
-            };
+        displayRazorpay(booking)
+      })
+      .catch((error) => {
+        console.error('Form validation failed:', error);
+      });
+  };
 
-            const result = await axios.post(
-              `${import.meta.env.VITE_BASE_URL}/payments/success`,
-              data
-            );
-
-            console.log(result.data.msg);
-          },
-          prefill: {
-            name: "Soumya Dey",
-            email: "SoumyaDey@example.com",
-            contact: "9999999999",
-          },
-          notes: {
-            address: "Soumya Dey Corporate Office",
-          },
-          theme: {
-            color: "#eab308",
-          },
-        };
-
-        const paymentObject = new (window as any).Razorpay(options);
-        paymentObject.open();
-      } catch (error) {
-        console.error('Error:', error);
-      }
-    }
-
-    const handlePayNow = () => {
-      form
-        .validateFields()
-        .then(() => {
-          const formValues = form.getFieldsValue();
-
-          const booking = {
-            "route_id": route._id,
-            "trip_type": tripType,
-            "pick_up_date": pickupDate,
-            "return_date": returnDate,
-            "pick_up_time": pickupTime,
-            "pickup_address": formValues.pickupAddress,
-            "drop_address": formValues.dropoffAddress,
-            "requested_taxi_type": taxiRate.taxiType._id,
-            "payment": paymentType
-          }
-
-          console.log(booking)
-
-          displayRazorpay(booking)
-        })
-        .catch((error) => {
-          console.error('Form validation failed:', error);
-        });
-    };
-
+  const PaymentCard = () => {
     return (
       <>
-        <div className='min-w-full lg:min-w-[320px] max-w-xs lg:w-full m-3 sticky top-6'>
+        <div className='min-w-full lg:min-w-[320px] max-w-xs lg:w-full m-3 sticky top-6 '>
           <div className='bg-[#FEF0CF] p-4 text-xs rounded-t-lg'>
             Free Cancellation Before 12 Jun 2023, 09:00 Am Ist
           </div>
@@ -297,9 +297,6 @@ const Details: React.FC = () => {
                     <div className=''>
                       <div className='font-semibold text-lg'>
                         PAY FULL - ₹{taxiRate.discountedPrice}
-                      </div>
-                      <div className='text'>
-                        Rest to the Driver
                       </div>
                     </div>
                   </Radio>
@@ -343,7 +340,7 @@ const Details: React.FC = () => {
                 </div>
               </div>
             </div>
-            <button onClick={handlePayNow} className='bg-yellow-500 hover:bg-yellow-400 rounded-lg flex justify-center items-center text-xl font-medium w-full py-4'>
+            <button onClick={handlePayNow} className='hidden lg:flex bg-yellow-500 hover:bg-yellow-400 rounded-lg  justify-center items-center text-xl font-medium w-full py-4'>
               PAY NOW
             </button>
           </div>
@@ -354,6 +351,7 @@ const Details: React.FC = () => {
 
   return (
     <>
+      <div className={`${paymentSelectionOpen ? '' : 'hidden'} fixed top-0 left-0 w-screen h-screen bg-black opacity-70 z-30`} onClick={()=> setPaymentSelectionOpen(!paymentSelectionOpen)}/>
       <div className='bg-[#F5F5F5]'>
         <div className='flex justify-center'>
           <div className='flex container justify-center
@@ -650,10 +648,69 @@ const Details: React.FC = () => {
               <ReadBeforeYouBook />
             </div>
             <PaymentCard />
+            <div className='lg:hidden sticky bottom-0 h-full w-full z-40'>
+              <div className={`${paymentSelectionOpen ? 'hidden' : ''} bg-[#f0e4c8] p-2 text-xs rounded-t-lg`}>
+                Free Cancellation Before 12 Jun 2023, 09:00 Am Ist
+              </div>
+              <div className={`${paymentSelectionOpen ? '' : 'hidden'}`}>
+                <div className='bg-white p-3'>
+                  <div className='font-semibold text-xl p-1'>
+                    Payment options
+                  </div>
+                  <Radio.Group onChange={onChange} value={paymentType}>
+                    <Space direction="vertical">
+                      <Radio value={"advance"}>
+                        <div className=''>
+                          <div className='font-semibold text-lg'>
+                            PAY ADVANCE - ₹{calcAdvancePay()}
+                          </div>
+                          <div className='text'>
+                            Rest to the Driver
+                          </div>
+                        </div>
+                      </Radio>
+                      <Radio value={"full"}>
+                        <div className=''>
+                          <div className='font-semibold text-lg'>
+                            PAY FULL - ₹{taxiRate.discountedPrice}
+                          </div>
+                        </div>
+                      </Radio>
+                    </Space>
+                  </Radio.Group>
+                </div>
+              </div>
+              <div className='w-full flex justify-between items-center bg-[#333333] p-3'>
+                <div className='space-y-1'>
+                  <button className='text-white flex items-center space-x-2' onClick={() => {
+                    setPaymentSelectionOpen(!paymentSelectionOpen)
+                  }}>
+                    <div>
+                      ₹{paymentType === 'advance' ? calcAdvancePay() : taxiRate.discountedPrice} due now
+                    </div>
+                    <div>
+                      {
+                        paymentSelectionOpen ?
+                          <DownOutlined />
+                          : <UpOutlined />
+                      }
+                    </div>
+                  </button>
+                  <div className='text-xs text-zinc-400'>
+                    Pay the rest to the driver
+                  </div>
+                </div>
+                <div>
+                  <button onClick={handlePayNow} className='bg-yellow-500 hover:bg-yellow-400 flex justify-center items-center rounded-full w-28 h-10 font-medium py-4'>
+                    PAY
+                  </button>
+                </div>
+              </div>
+            </div>
           </div>
         </div >
       </div >
-      <Footer />
+      {/* <Footer /> */}
     </ >
   );
 };

@@ -1,7 +1,6 @@
 import React from 'react';
 import { Tag } from 'antd';
 import Car from "../assets/images/car.png"
-import { useNavigate } from 'react-router-dom';
 
 export interface Feature {
     icon?: React.ReactNode;
@@ -32,12 +31,12 @@ const CarCard: React.FC<CarCardProps> = ({
     onBook
 }) => {
 
-    const navigate = useNavigate()
-
     return (
         <div className='my-1 bg-white' onClick={() => {
             if (window.innerWidth < 1024) {
-                navigate('/details')
+                if (onBook) {
+                    onBook()
+                }
             }
         }}>
             <div

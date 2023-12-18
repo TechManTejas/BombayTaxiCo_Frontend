@@ -495,10 +495,10 @@ const Search: React.FC = () => {
               }
               tripRates={tripRates}
             />
-            <div className='min-h-screen lg:w-[800px]'>
+            <div className='lg:w-[800px]'>
               {loading ? (
                 // Display loading indicator here
-                <div className="flex justify-center items-center min-h-screen">
+                <div className="flex justify-center items-center">
                   <Spin size="large" />
                 </div>
               ) : tripRates.length > 0 ? (
