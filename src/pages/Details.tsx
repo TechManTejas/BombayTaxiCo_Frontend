@@ -55,7 +55,7 @@ const ReadBeforeYouBook = () => {
     <>
       <div className='bg-white border m-3 p-4 rounded-lg'>
         <div>
-          <div className='font-black text-2xl mb-4'>
+          <div className='font-medium text-2xl mb-4'>
             Read before you book!
           </div>
           <div className='lg:flex gap-8
@@ -275,7 +275,7 @@ const Details: React.FC = () => {
 
     return (
       <>
-        <div className='min-w-[320px] max-w-xs w-full m-3 sticky top-6'>
+        <div className='min-w-full lg:min-w-[320px] max-w-xs lg:w-full m-3 sticky top-6'>
           <div className='bg-[#FEF0CF] p-4 text-xs rounded-t-lg'>
             Free Cancellation Before 12 Jun 2023, 09:00 Am Ist
           </div>
@@ -378,7 +378,7 @@ const Details: React.FC = () => {
                   lg:flex-row
                 '>
                     <div className='lg:w-1/2'>
-                      <div className='font-black text-2xl mb-4'>
+                      <div className='font-medium text-2xl mb-4'>
                         Inclusions
                       </div>
                       <div className='mx-4 mb-4'>
@@ -398,7 +398,7 @@ const Details: React.FC = () => {
                       </div>
                     </div>
                     <div className='lg:w-1/2'>
-                      <div className='font-black text-2xl mb-4'>
+                      <div className='font-medium text-2xl mb-4'>
                         Exclusions
                       </div>
                       <div className='mx-4 mb-4'>
@@ -432,7 +432,7 @@ const Details: React.FC = () => {
               <>
                 <div className='bg-white border m-3 p-4 rounded-lg'>
                   <div className=''>
-                    <div className='font-black text-2xl mb-4'>
+                    <div className='font-medium text-2xl mb-4'>
                       Trip Details
                     </div>
                     <div>
