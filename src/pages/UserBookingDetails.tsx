@@ -124,41 +124,6 @@ export default function UserBookingDetails() {
                 <div className=" w-1/3 h-full">
                     <div>
                         <div className="text-gray-400 my-3">
-                            USER DETAILS
-                        </div>
-                        <div className="overflow-x-auto">
-                            <table className="divide-y divide-gray-200">
-                                <tbody className="bg-white divide-y divide-gray-200">
-                                    <tr>
-                                        <td className="py-4 whitespace-nowrap">
-                                            <div className="text-sm font-medium text-gray-900">USER NAME</div>
-                                        </td>
-                                        <td className="px-6 py-4 whitespace-nowrap">
-                                            <div className="text-sm text-gray-500">{booking?.user_id?.name}</div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td className="py-4 whitespace-nowrap">
-                                            <div className="text-sm font-medium text-gray-900">USER MOBILE NO</div>
-                                        </td>
-                                        <td className="px-6 py-4 whitespace-nowrap">
-                                            <div className="text-sm text-gray-500">{booking?.user_id?.mobile_no}</div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td className="py-4 whitespace-nowrap">
-                                            <div className="text-sm font-medium text-gray-900">USER EMAIL</div>
-                                        </td>
-                                        <td className="px-6 py-4 whitespace-nowrap">
-                                            <div className="text-sm text-gray-500">{booking?.user_id?.email_id}</div>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                    <div>
-                        <div className="text-gray-400 my-3">
                             TRIP DETAILS
                         </div>
                         <div className="overflow-x-auto">
