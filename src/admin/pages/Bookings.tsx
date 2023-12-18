@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useEffect, useState } from 'react';
 import { Table, Tabs, message } from 'antd';
 import { CarOutlined, CheckCircleOutlined, ClockCircleOutlined, CloseCircleOutlined, InboxOutlined } from '@ant-design/icons';
@@ -161,7 +162,13 @@ const Bookings: React.FC = () => {
         return data.map(booking => {
             const fromCity = booking.route_id?.from_id?.name || 'Unknown';
             const toCity = booking.route_id?.to_id?.name || 'Unknown';
-            const fromTo = `${fromCity} to ${toCity}`;
+            let fromTo = `${fromCity} to ${toCity}`;
+            if (fromTo === "Unknown to Unknown") {
+                fromTo = booking?.pickup_city?.name || 'Unknown'
+            }
+
+            const payments = booking?.payments?.map((payment: any) => payment.payment) || [];
+            const paymentsString = payments.join('+');
 
             return {
                 _id: booking?._id || '',
@@ -169,7 +176,7 @@ const Bookings: React.FC = () => {
                 fromTo,
                 tripDates: `${moment(booking?.pick_up_date).format('YYYY-MM-DD')} to ${moment(booking?.return_date).format('YYYY-MM-DD')}`,
                 customer: booking?.user_id?.name || '',
-                payment: "PAYMENT"
+                payment: paymentsString
             };
         });
     };

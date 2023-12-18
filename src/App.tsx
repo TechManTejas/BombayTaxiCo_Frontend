@@ -18,7 +18,7 @@ import Invoices from './admin/pages/Invoices';
 import Settings from './admin/pages/Settings';
 import RoutesPage from './admin/pages/RoutesPage';
 import AdminNavbar from './admin/components/Navbar';
-import { Button, ConfigProvider, message } from 'antd';
+import { ConfigProvider } from 'antd';
 import TaxiDetails from './admin/pages/TaxiDetails';
 import DriverDetails from './admin/pages/DriverDetails';
 
@@ -31,7 +31,6 @@ import TaxiTypesAddEdit from './admin/pages/TaxiTypesAddEdit';
 import TaxiAddEdit from './admin/pages/TaxiAddEdit';
 import RoutesAddEdit from './admin/pages/RoutesAddEdit';
 import BookingDetails from './admin/pages/BookingDetails';
-import axios from './api/axios';
 import Home from './pages/Home';
 import { Profile } from './pages/Profile';
 import { Context } from './context/context.prover';
@@ -129,37 +128,6 @@ const AdminRoutes: React.FC = () => {
           <Route path="/taxitypes/add-edit" element={<TaxiTypesAddEdit />} />
           <Route path="/settings" element={<Settings />} />
         </Routes>
-        <Button className='fixed bottom-10 right-10 bg-red-600 text-white font-bold' onClick={() => {
-          axios.post('/bookings', {
-            "route_id": "6572c1a8ca33ef1ccd88d835",
-            "user_id": "655b53ea836ff392cb7a5c45",
-            "coupon_id": "65635b2754b6537722c51471",
-            "taxi_id": "65708c60a279b0069aabdf54",
-            "driver_id": "656314eaec5a0fb95343ab5d",
-            "pick_up_date": "2023-12-15T00:00:00.000Z",
-            "pick_up_time": "2023-12-15T10:00:00.000Z",
-            "return_date": "2023-12-16T00:00:00.000Z",
-            "return_time": "2023-12-16T18:00:00.000Z",
-            "pickup_address": "123 Main Street, Cityville",
-            "drop_address": "456 Destination Avenue, Townsville",
-            "trip_type": "One Way",
-            "requested_taxi_type": "65707e9f44d12174a2a3e298"
-          })
-            .then(response => {
-              // Handle success
-              console.log('Booking created successfully:', response.data);
-              // You can use the response data or show a success message to the user
-              message.success('Booking created successfully');
-            })
-            .catch(error => {
-              // Handle error
-              console.error('Error creating booking:', error);
-              // You can show an error message to the user
-              message.error('Error creating booking. Please try again.');
-            });
-        }}>
-          CREATE DUMMY ONE WAY TRIP
-        </Button>
       </div>
     </ConfigProvider>
   )

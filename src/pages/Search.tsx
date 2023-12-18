@@ -21,6 +21,7 @@ import { City } from '../types/citys.types';
 import { ISettings } from '../types/settings.types';
 import { IRoute } from '../types/routes.types';
 import { TaxiType } from '../types/taxiTypes.types';
+import { generateDistanceOptions } from '../utils/GenerateDistanceOptions';
 
 interface BillCardProps {
   routeDistance: number;
@@ -42,7 +43,6 @@ const BillCard: React.FC<BillCardProps> = ({ routeDistance, tripRates }) => {
       try {
         const response = await axios.get('/settings/get');
 
-        console.log(response.data)
         setSettings(response.data)
 
       } catch (error) {
@@ -132,8 +132,11 @@ const Search: React.FC = () => {
   const [loading, setLoading] = useState<boolean>(true);
   const [tripRates, setTripRates] = useState<any[]>([]);
   const [route, setRoute] = useState<IRoute | null>(null);
+  const [distance, setDistance] = useState<number | null>(null);
 
   const [tripType, setTripType] = useState<string>(state.activeTab || "One Way Trip")
+  const [pickupCity, setPickupCity] = useState<string>(state.pickupCity || "Mumbai");
+  const [pickupCityId, setPickupCityId] = useState<string | null>(state.pickupCityId || null);
   const [from, setFrom] = useState<string>(state.from || "Mumbai");
   const [fromId, setFromId] = useState<string | null>(state.fromId || null);
   const [to, setTo] = useState(state.to || "Pune");
@@ -141,18 +144,25 @@ const Search: React.FC = () => {
   const [pickupDate, setPickupDate] = useState<Dayjs | null>(dayjs(state.pickupDate) || dayjs());
   const [returnDate, setReturnDate] = useState<Dayjs | null>(dayjs(state.returnDate) || dayjs());
   const [pickupTime, setPickupTime] = useState<string>(state.pickupTime || '10:00 AM')
+  const [hourlyPackage, setHourlyPackage] = useState<string>(state.hourlyPackage || '1 hr 10 kms')
 
   const [tripTypeOpen, setTripTypeOpen] = useState<boolean>(false);
+  const [pickupCityOpen, setPickupCityOpen] = useState<boolean>(false);
   const [fromOpen, setFromOpen] = useState<boolean>(false);
   const [toOpen, setToOpen] = useState<boolean>(false);
   const [pickupDateOpen, setPickupDateOpen] = useState<boolean>(false);
   const [returnDateOpen, setReturnDateOpen] = useState<boolean>(false);
   const [pickupTimeOpen, setPickupTimeOpen] = useState<boolean>(false);
+  const [hourlyPackageOpen, setHourlyPackageOpen] = useState<boolean>(false);
 
   const [cities, setCities] = useState<City[]>([]);
 
   const toggleTripType = () => {
     setTripTypeOpen(!tripTypeOpen)
+  };
+
+  const togglePickupCity = () => {
+    setPickupCityOpen(!pickupCityOpen)
   };
 
   const toggleFrom = () => {
@@ -168,11 +178,18 @@ const Search: React.FC = () => {
   };
 
   const toggleReturnDate = () => {
+    if (tripType === 'One-Way Trip') {
+      setTripType('Round Trip')
+    }
     setReturnDateOpen(!returnDateOpen)
   };
 
   const togglePickupTime = () => {
     setPickupTimeOpen(!pickupTimeOpen)
+  };
+
+  const toggleHourlyPackage = () => {
+    setHourlyPackageOpen(!hourlyPackageOpen)
   };
 
   const switchValues = () => {
@@ -191,6 +208,11 @@ const Search: React.FC = () => {
 
   const handleTripTypeChange = (value: string) => {
     setTripType(value)
+  }
+
+  const handlePickupCityChange = (value: string) => {
+    setPickupCity(value)
+    setPickupCityId(cities.find((c: City) => c.name === value)?._id ?? null)
   }
 
   const handleFromChange = (value: string) => {
@@ -219,10 +241,15 @@ const Search: React.FC = () => {
     setPickupTime(value)
   }
 
+  const handleHourlyPackageChange = (value: string) => {
+    setHourlyPackage(value)
+  }
+
   const menuTimeOptions = generateTimeOptions()
 
+  const menuDistanceOptions = generateDistanceOptions()
+
   const getCarImage = (taxiTypeName: string) => {
-    console.log(taxiTypeName)
 
     switch (taxiTypeName) {
       case 'Economy Hatchback':
@@ -247,11 +274,13 @@ const Search: React.FC = () => {
 
       const response = await axios.post('/search', {
         tripType: tripType,
+        pickupCityId: pickupCityId,
         fromId: fromId,
         toId: toId,
-        pickupDate: pickupDate,
-        returnDate: returnDate,
+        pickupDate: pickupDate?.format('YYYY-MM-DD'),
+        returnDate: returnDate?.format('YYYY-MM-DD'),
         pickupTime: pickupTime,
+        hourlyPackage: hourlyPackage
       });
 
       // Extract the trip rates from the response
@@ -260,6 +289,9 @@ const Search: React.FC = () => {
 
       const route = response.data.route || null
       setRoute(route)
+
+      const distance = response.data.distance || null
+      setDistance(distance)
 
     } catch (error) {
       console.error('Error making API request:', error);
@@ -276,7 +308,9 @@ const Search: React.FC = () => {
         pickupDate: pickupDate?.format('YYYY-MM-DD'),
         returnDate: returnDate?.format('YYYY-MM-DD'),
         pickupTime: pickupTime,
-        tripType: tripType
+        tripType: tripType,
+        pickupCityId: pickupCityId,
+        hourlyPackage: hourlyPackage
       }
     })
   };
@@ -334,62 +368,95 @@ const Search: React.FC = () => {
                 </Select>
               </div>
 
-              <div className='relative bg-[#404040] mx-1 py-2 rounded-lg text-sm hover:bg-gray-700 hover:cursor-pointer
+              {tripType !== "Hourly Rental" &&
+                <>
+                  <div className='relative bg-[#404040] mx-1 py-2 rounded-lg text-sm hover:bg-gray-700 hover:cursor-pointer
                 w-36
                 xl:w-40
               ' onClick={toggleFrom}>
-                <div className='px-2'>
-                  <div className='text-yellow-500'>FROM</div>
-                  <div className='text-white'>{from}</div>
-                </div>
-                <Select
-                  open={fromOpen}
-                  className='absolute w-0 h-0'
-                  defaultValue="One Way Trip"
-                  style={{ visibility: 'hidden', width: '100%' }}
-                  onChange={handleFromChange}
-                  onDropdownVisibleChange={(open) => setFromOpen(open)}
-                >
-                  {cities.map((city) => (
-                    <Option key={city._id} value={city.name}>
-                      {city.name}
-                    </Option>
-                  ))}
-                  {/* Add more options as needed */}
-                </Select>
-              </div>
+                    <div className='px-2'>
+                      <div className='text-yellow-500'>FROM</div>
+                      <div className='text-white'>{from}</div>
+                    </div>
+                    <Select
+                      open={fromOpen}
+                      className='absolute w-0 h-0'
+                      defaultValue="One Way Trip"
+                      style={{ visibility: 'hidden', width: '100%' }}
+                      onChange={handleFromChange}
+                      onDropdownVisibleChange={(open) => setFromOpen(open)}
+                    >
+                      {cities.map((city) => (
+                        <Option key={city._id} value={city.name}>
+                          {city.name}
+                        </Option>
+                      ))}
+                      {/* Add more options as needed */}
+                    </Select>
+                  </div>
 
-              <button className='hover:shadow-xl hover:border-yellow-500 hover:border rounded-full
+                  <button className='hover:shadow-xl hover:border-yellow-500 hover:border rounded-full
                 w-4
                 xl:w-10
               ' onClick={switchValues}>
-                <SwapOutlined className='text-white' />
-              </button>
+                    <SwapOutlined className='text-white' />
+                  </button>
 
-              <div className='relative bg-[#404040] mx-1 py-2 rounded-lg text-sm hover:bg-gray-700 hover:cursor-pointer
+                  <div className='relative bg-[#404040] mx-1 py-2 rounded-lg text-sm hover:bg-gray-700 hover:cursor-pointer
                 w-36
                 xl:w-40
               ' onClick={toggleTo}>
-                <div className='px-2'>
-                  <div className='text-yellow-500'>TO</div>
-                  <div className='text-white'>{to}</div>
-                </div>
-                <Select
-                  open={toOpen}
-                  className='absolute w-0 h-0'
-                  defaultValue="One Way Trip"
-                  style={{ visibility: 'hidden', width: '100%' }}
-                  onChange={handleToChange}
-                  onDropdownVisibleChange={(open) => setToOpen(open)}
-                >
-                  {cities.map((city) => (
-                    <Option key={city._id} value={city.name}>
-                      {city.name}
-                    </Option>
-                  ))}
-                  {/* Add more options as needed */}
-                </Select>
-              </div>
+                    <div className='px-2'>
+                      <div className='text-yellow-500'>TO</div>
+                      <div className='text-white'>{to}</div>
+                    </div>
+                    <Select
+                      open={toOpen}
+                      className='absolute w-0 h-0'
+                      defaultValue="One Way Trip"
+                      style={{ visibility: 'hidden', width: '100%' }}
+                      onChange={handleToChange}
+                      onDropdownVisibleChange={(open) => setToOpen(open)}
+                    >
+                      {cities.map((city) => (
+                        <Option key={city._id} value={city.name}>
+                          {city.name}
+                        </Option>
+                      ))}
+                      {/* Add more options as needed */}
+                    </Select>
+                  </div>
+                </>
+              }
+              {
+                tripType === "Hourly Rental" &&
+                <>
+                  <div className='relative bg-[#404040] mx-1 py-2 rounded-lg text-sm hover:bg-gray-700 hover:cursor-pointer
+                    w-36
+                    xl:w-40
+                  ' onClick={togglePickupCity}>
+                    <div className='px-2'>
+                      <div className='text-yellow-500'>PICKUP LOCATION</div>
+                      <div className='text-white'>{pickupCity}</div>
+                    </div>
+                    <Select
+                      open={pickupCityOpen}
+                      className='absolute w-0 h-0'
+                      defaultValue="One Way Trip"
+                      style={{ visibility: 'hidden', width: '100%' }}
+                      onChange={handlePickupCityChange}
+                      onDropdownVisibleChange={(open) => setPickupCityOpen(open)}
+                    >
+                      {cities.map((city) => (
+                        <Option key={city._id} value={city.name}>
+                          {city.name}
+                        </Option>
+                      ))}
+                      {/* Add more options as needed */}
+                    </Select>
+                  </div>
+                </>
+              }
 
               <div className='relative bg-[#404040] mx-1 py-2 rounded-lg text-sm hover:bg-gray-700 hover:cursor-pointer
                 w-32
@@ -436,34 +503,66 @@ const Search: React.FC = () => {
                 </Select>
               </div>
 
-              <div className='relative bg-[#404040] mx-1 p-2 rounded-lg text-sm hover:bg-gray-700 hover:cursor-pointer
+              {tripType !== "Hourly Rental" &&
+                <div className='relative bg-[#404040] mx-1 p-2 rounded-lg text-sm hover:bg-gray-700 hover:cursor-pointer
                 w-32
                 xl:w-36
               ' onClick={toggleReturnDate}>
-                <div className='text-yellow-500'>RETURN DATE</div>
-                {tripType === 'Round Trip' ?
-                  (
-                    <>
-                      <div className='text-white'>{returnDate?.format('D MMM YYYY')}</div>
-                      <DatePicker
-                        open={returnDateOpen}
-                        onOpenChange={(open) => setReturnDateOpen(open)}
-                        onChange={handleReturnDateChange}
-                        className='absolute bottom-0 left-0 w-0 h-0'
-                        style={{
-                          visibility: 'hidden'
-                        }}
-                        disabledDate={(current: Dayjs | null) => current ? current.isBefore(dayjs().startOf('day')) : false}
-                      />
-                    </>
-                  ) :
-                  (
-                    <>
-                      <div className='text-white text-center'>--- --- ---</div>
-                    </>
-                  )
-                }
-              </div>
+                  <div className='text-yellow-500'>RETURN DATE</div>
+                  {tripType === 'Round Trip' ?
+                    (
+                      <>
+                        <div className='text-white'>{returnDate?.format('D MMM YYYY')}</div>
+                        <DatePicker
+                          open={returnDateOpen}
+                          onOpenChange={(open) => setReturnDateOpen(open)}
+                          onChange={handleReturnDateChange}
+                          className='absolute bottom-0 left-0 w-0 h-0'
+                          style={{
+                            visibility: 'hidden'
+                          }}
+                          disabledDate={(current: Dayjs | null) =>
+                            current ? current.isBefore(dayjs().add(1, 'day').startOf('day')) : false
+                          }
+                        />
+                      </>
+                    ) :
+                    (
+                      <>
+                        <div className='text-white text-center'>--- --- ---</div>
+                      </>
+                    )
+                  }
+                </div>
+              }
+              {tripType === "Hourly Rental" &&
+                <>
+                  <div className='relative bg-[#404040] mx-1 py-2 rounded-lg text-sm hover:bg-gray-700 hover:cursor-pointer
+                w-32
+                xl:w-36
+              ' onClick={toggleHourlyPackage}>
+                    <div className='px-2'>
+                      <div className='text-yellow-500'>SELECT PACKAGE</div>
+                      <div className='text-white'>{hourlyPackage}</div>
+                    </div>
+                    <Select
+                      open={hourlyPackageOpen}
+                      className='absolute w-0 h-0'
+                      defaultValue="One Way Trip"
+                      style={{ visibility: 'hidden', width: '100%' }}
+                      onChange={handleHourlyPackageChange}
+                      onDropdownVisibleChange={(open) => setHourlyPackageOpen(open)}
+                    >
+                      {menuDistanceOptions.map((distance) => (
+                        <Option key={distance.key} value={distance.label}>
+                          {distance.label}
+                        </Option>
+                      ))}
+                      {/* Add more options as needed */}
+                    </Select>
+                  </div>
+                </>
+              }
 
               {/* <div className='w-32 bg-[#404040] mx-1 p-2 rounded-lg text-sm'>
                 <div className='text-yellow-500'>DROP TIME</div>
@@ -486,13 +585,7 @@ const Search: React.FC = () => {
             lg:flex-row lg:items-start
           '>
             <BillCard
-              routeDistance={
-                tripType === 'Round Trip'
-                  ? route?.round_trip_km || 0
-                  : tripType === 'Hourly Rental'
-                    ? 0
-                    : route?.one_way_trip_km || 0
-              }
+              routeDistance={distance || 0}
               tripRates={tripRates}
             />
             <div className='lg:w-[800px]'>
@@ -532,9 +625,19 @@ const Search: React.FC = () => {
                     <div className='ml-8 text-xl'>
                       <LeftOutlined />
                     </div>
-                    <div className='-ml-8 text-center text-xl font-medium w-full'>
-                      {from} to {to}
-                    </div>
+                    {tripType != "Hourly Rental" ?
+                      (
+                        <div className='-ml-8 text-center text-xl font-medium w-full'>
+                          {from} to {to}
+                        </div>
+                      )
+                      :
+                      (
+                        <div className='-ml-8 text-center text-xl font-medium w-full'>
+                          {pickupCity} - {hourlyPackage}
+                        </div>
+                      )
+                    }
                   </div>
                   <hr className='border' />
                   <div className='p-2'>

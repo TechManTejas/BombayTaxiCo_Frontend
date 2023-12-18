@@ -82,19 +82,26 @@ export default function UserBookingDetails() {
                             Booking ID: {booking?._id}
                         </div>
                         <div className="text-xl flex items-center space-x-3">
-                            <div>
-                                {booking?.route_id?.from_id?.name} to {booking?.route_id?.to_id?.name}
-                            </div>
+                            {booking?.trip_type !== "Hourly Rental" ?
+                                (<div>
+                                    {booking?.route_id?.from_id?.name} to {booking?.route_id?.to_id?.name}
+                                </div>)
+                                : (<div>
+                                    {booking?.pickup_city?.name}
+                                </div>)
+                            }
                             <div className="text-sm font-medium text-gray-400">
-                                ({booking?.trip_type === TripType.OneWay && (
+                                (
+                                {booking?.trip_type === TripType.OneWay && (
                                     <span>{booking?.route_id?.one_way_trip_km} KM</span>
                                 )}
                                 {booking?.trip_type === TripType.Round && (
                                     <span>{booking?.route_id?.round_trip_km} KM</span>
                                 )}
                                 {booking?.trip_type === TripType.Hourly && (
-                                    <span>Hourly Rate: {booking?.route_id?.one_way_trip_km}</span>
-                                )})
+                                    <span>Hourly Rate{booking?.route_id?.one_way_trip_km}</span>
+                                )}
+                                )
                             </div>
                         </div>
                         <div className="flex">
@@ -155,7 +162,7 @@ export default function UserBookingDetails() {
                                     </tr>
                                     <tr>
                                         <td className="py-4 whitespace-nowrap">
-                                            <div className="text-sm font-medium text-gray-900">PICKUP DATETIME</div>
+                                            <div className="text-sm font-medium text-gray-900">PICKUP DATE</div>
                                         </td>
                                         <td className="px-6 py-4">
                                             <div className="text-sm text-gray-500">{dayjs(booking?.pick_up_date).toString()}</div>
@@ -163,7 +170,15 @@ export default function UserBookingDetails() {
                                     </tr>
                                     <tr>
                                         <td className="py-4 whitespace-nowrap">
-                                            <div className="text-sm font-medium text-gray-900">RETURN DATETIME</div>
+                                            <div className="text-sm font-medium text-gray-900">PICKUP TIME</div>
+                                        </td>
+                                        <td className="px-6 py-4">
+                                            <div className="text-sm text-gray-500">{booking?.pick_up_time}</div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td className="py-4 whitespace-nowrap">
+                                            <div className="text-sm font-medium text-gray-900">RETURN DATE</div>
                                         </td>
                                         <td className="px-6 py-4">
                                             <div className="text-sm text-gray-500">{dayjs(booking?.return_date).toString()}</div>

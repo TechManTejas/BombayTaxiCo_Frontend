@@ -20,11 +20,14 @@ import Face1 from "../assets/images/face1.jpg"
 import Face2 from "../assets/images/face2.jpg"
 import Face3 from "../assets/images/face3.jpg"
 import { generateTimeOptions } from '../utils/GenerateTimeOptions';
+import { generateDistanceOptions } from '../utils/GenerateDistanceOptions';
 
 const Hero: React.FC = () => {
 
   const navigate = useNavigate()
 
+  const [pickupCity, setPickupCity] = useState<string>("Mumbai");
+  const [pickupCityId, setPickupCityId] = useState<string | null>(null);
   const [from, setFrom] = useState<string>("Mumbai");
   const [fromId, setFromId] = useState<string | null>(null);
   const [to, setTo] = useState("Pune");
@@ -32,8 +35,9 @@ const Hero: React.FC = () => {
   const [pickupDateOpen, setPickupDateOpen] = useState<boolean>(false)
   const [pickupDate, setPickupDate] = useState<Dayjs | null>(dayjs());
   const [returnDateOpen, setReturnDateOpen] = useState<boolean>(false)
-  const [returnDate, setReturnDate] = useState<Dayjs | null>(dayjs());
+  const [returnDate, setReturnDate] = useState<Dayjs | null>(dayjs().add(1, 'day'));
   const [pickupTime, setPickupTime] = useState<string>('10:00 AM')
+  const [hourlyPackage, setHourlyPackage] = useState<string>('1 hr 10 kms')
 
   const [activeTab, setActiveTab] = useState('One-Way Trip');
   const [cities, setCities] = useState<City[]>([]);
@@ -50,6 +54,10 @@ const Hero: React.FC = () => {
     setActiveTab(key);
   };
 
+  const handleMenuClickPickupCity = (e: any) => {
+    setPickupCity(cities.find((c: City) => c._id === e.key)?.name ?? "Select an Option")
+    setPickupCityId(e.key)
+  };
   const handleMenuClickFrom = (e: any) => {
     setFrom(cities.find((c: City) => c._id === e.key)?.name ?? "Select an Option")
     setFromId(e.key)
@@ -60,6 +68,10 @@ const Hero: React.FC = () => {
   };
   const handleMenuClickTime = (e: any) => {
     setPickupTime(e.key)
+  };
+
+  const handleMenuClickPackage = (e: any) => {
+    setHourlyPackage(e.key)
   };
 
   const handlePickupDateChange = (date: Dayjs | null, dateString: string) => {
@@ -83,6 +95,13 @@ const Hero: React.FC = () => {
 
   const menuTime: MenuProps['items'] = generateTimeOptions()
 
+  const menuDistance: MenuProps['items'] = generateDistanceOptions()
+
+  const menuPropsPickupCity = {
+    items: menuCities,
+    onClick: handleMenuClickPickupCity,
+  };
+
   const menuPropsFrom = {
     items: menuCities,
     onClick: handleMenuClickFrom,
@@ -96,6 +115,12 @@ const Hero: React.FC = () => {
   const menuPropsTime = {
     items: menuTime,
     onClick: handleMenuClickTime,
+    style: { height: '300px', overflow: 'auto' }
+  };
+
+  const menuPropsDistance = {
+    items: menuDistance,
+    onClick: handleMenuClickPackage,
     style: { height: '300px', overflow: 'auto' }
   };
 
@@ -116,6 +141,9 @@ const Hero: React.FC = () => {
   const handleLetsRideClick = () => {
 
     const state = {
+      pickupCity,
+      pickupCityId,
+      hourlyPackage,
       from,
       fromId,
       to,
@@ -148,11 +176,12 @@ const Hero: React.FC = () => {
         if (fetchedCities.length > 0) {
           setFrom(fetchedCities[0].name);
           setFromId(fetchedCities[0]._id);
-        }
 
-        if (fetchedCities.length > 1) {
           setTo(fetchedCities[1].name);
           setToId(fetchedCities[1]._id);
+
+          setPickupCity(fetchedCities[1].name);
+          setPickupCityId(fetchedCities[1]._id);
         }
 
       } catch (error) {
@@ -205,39 +234,52 @@ const Hero: React.FC = () => {
               <div className='w-full border rounded
                 lg:flex
               '>
-                <div className='flex'>
+                {activeTab === "Hourly Rental" &&
                   <div className='w-[188px] p-3 pb-4 space-y-1'>
                     <div className='text-xs '>
-                      FROM
+                      PICKUP LOCATION
                     </div>
-                    <Dropdown menu={menuPropsFrom} placement="bottomLeft">
+                    <Dropdown menu={menuPropsPickupCity} placement="bottomLeft">
                       <Button className='text-3xl' style={{ border: 'none' }}>
-                        {from || 'Select an option'}
+                        {pickupCity || 'Select an option'}
                       </Button>
                     </Dropdown>
                   </div>
-                  <div className='relative -mr-[14px] flex items-center '>
-                    <button className='bg-white' onClick={switchValues}>
-                      <SwapOutlined size={50} className='border rounded-full p-1 text-xl hover:bg-gray-200 shadow-lg' />
-                    </button>
-                  </div>
-                  <div className='border-l' />
-                  <div className='w-[188px] p-3 pb-4 space-y-1'>
-                    <div className='text-xs'>
-                      TO
+                }
+                {activeTab !== 'Hourly Rental' &&
+                  <div className='flex'>
+                    <div className='w-[188px] p-3 pb-4 space-y-1'>
+                      <div className='text-xs '>
+                        FROM
+                      </div>
+                      <Dropdown menu={menuPropsFrom} placement="bottomLeft">
+                        <Button className='text-3xl' style={{ border: 'none' }}>
+                          {from || 'Select an option'}
+                        </Button>
+                      </Dropdown>
                     </div>
-                    <Dropdown menu={menuPropsTo} placement="bottomLeft">
-                      <Button className='text-3xl' style={{ border: 'none' }}>
-                        {to || 'Select an option'}
-                      </Button>
-                    </Dropdown>
-                  </div>
-                  <div className='
+                    <div className='relative -mr-[14px] flex items-center '>
+                      <button className='bg-white' onClick={switchValues}>
+                        <SwapOutlined size={50} className='border rounded-full p-1 text-xl hover:bg-gray-200 shadow-lg' />
+                      </button>
+                    </div>
+                    <div className='border-l' />
+                    <div className='w-[188px] p-3 pb-4 space-y-1'>
+                      <div className='text-xs'>
+                        TO
+                      </div>
+                      <Dropdown menu={menuPropsTo} placement="bottomLeft">
+                        <Button className='text-3xl' style={{ border: 'none' }}>
+                          {to || 'Select an option'}
+                        </Button>
+                      </Dropdown>
+                    </div>
+                    <div className='
                   border-b
                   sm:border-l'
-                  />
-                </div>
-                <div></div>
+                    />
+                  </div>
+                }
                 <div className='
                   border-b
                   lg:border-l'
@@ -277,45 +319,65 @@ const Hero: React.FC = () => {
                 <div className='
                   border-b'
                 />
-                <div className='relative w-[188px] p-3 pb-4 space-y-1'>
-                  <div className='text-xs'>
-                    RETURN DATE
+                {activeTab !== 'Hourly Rental' &&
+                  <div className='relative w-[188px] p-3 pb-4 space-y-1'>
+                    <div className='text-xs'>
+                      RETURN DATE
+                    </div>
+                    <div>
+                      {
+                        activeTab === 'Round Trip' ? (
+                          <>
+                            <button className='text-3xl hover:text-blue-500' onClick={toggleReturnDatePicker}>
+                              {returnDate?.format('D MMM') ?? (
+                                <button className='border p-1 rounded-lg bg-gray-100 text-base'>
+                                  select a pickup date
+                                </button>
+                              )}{' '}
+                              <span className='text-base'>{returnDate?.format('YYYY')}</span>
+                            </button>
+                            <DatePicker
+                              className='absolute bottom-0 left-0 w-0 h-0'
+                              style={{
+                                visibility: 'hidden',
+                              }}
+                              open={returnDateOpen}
+                              onOpenChange={(open) => setReturnDateOpen(open)}
+                              onChange={handleReturnDateChange}
+                              disabledDate={(current: Dayjs | null) =>
+                                current ? current.isBefore(dayjs().add(1, 'day').startOf('day')) : false
+                              }
+                            />
+                          </>
+                        ) : (
+                          <>
+                            <button className='text-xs text-left hover:text-yellow-500' onClick={() => setActiveTab("Round Trip")}>
+                              Add return date for bigger discount
+                            </button>
+                          </>
+                        )
+                      }
+                    </div>
                   </div>
+                }
+                {activeTab === 'Hourly Rental' &&
                   <div>
-                    {
-                      activeTab === 'Round Trip' ? (
-                        <>
-                          <button className='text-3xl hover:text-blue-500' onClick={toggleReturnDatePicker}>
-                            {returnDate?.format('D MMM') ?? (
-                              <button className='border p-1 rounded-lg bg-gray-100 text-base'>
-                                select a pickup date
-                              </button>
-                            )}{' '}
-                            <span className='text-base'>{returnDate?.format('YYYY')}</span>
-                          </button>
-                          <DatePicker
-                            className='absolute bottom-0 left-0 w-0 h-0'
-                            style={{
-                              visibility: 'hidden',
-                            }}
-                            open={returnDateOpen}
-                            onOpenChange={(open) => setReturnDateOpen(open)}
-                            onChange={handleReturnDateChange}
-                            disabledDate={(current: Dayjs | null) =>
-                              current ? current.isBefore(dayjs().startOf('day')) : false
-                            }
-                          />
-                        </>
-                      ) : (
-                        <>
-                          <button className='text-xs text-left hover:text-yellow-500' onClick={() => setActiveTab("Round Trip")}>
-                            Add return date for bigger discount
-                          </button>
-                        </>
-                      )
-                    }
+                    <div className='
+                      border-b
+                      lg:border-l'
+                    />
+                    <div className='w-[393px] lg:w-[250px] p-3 pb-4 space-y-1'>
+                      <div className='text-xs'>
+                        SELECT PACKAGE
+                      </div>
+                      <Dropdown menu={menuPropsDistance} placement="bottomLeft">
+                        <Button className='text-3xl' style={{ border: 'none' }}>
+                          {hourlyPackage || 'Select a Time'}
+                        </Button>
+                      </Dropdown>
+                    </div>
                   </div>
-                </div>
+                }
               </div>
             </div>
             <div className='w-full flex justify-center'>
