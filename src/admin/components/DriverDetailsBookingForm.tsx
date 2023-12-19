@@ -28,7 +28,7 @@ export const DriverDetailsBookingForm: React.FC<DriverDetailsProps> = ({ driver 
             <li key={booking._id}>
               <div>{dayjs(booking.pick_up_date).toString()}</div>
               <div>
-                From: {booking.route_id.from_id.name} - To: {booking.route_id.to_id.name}
+                From: {booking.route_id?.from_id.name} - To: {booking.route_id?.to_id.name}
               </div>
               <div>Trip Type: {getTripTypeLabel(booking.trip_type)}</div>
             </li>
