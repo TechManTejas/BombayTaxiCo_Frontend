@@ -134,7 +134,7 @@ const Search: React.FC = () => {
   const [route, setRoute] = useState<IRoute | null>(null);
   const [distance, setDistance] = useState<number | null>(null);
 
-  const [tripType, setTripType] = useState<string>(state.activeTab || "One Way Trip")
+  const [tripType, setTripType] = useState<string>(state.activeTab || "One-Way Trip")
   const [pickupCity, setPickupCity] = useState<string>(state.pickupCity || "Mumbai");
   const [pickupCityId, setPickupCityId] = useState<string | null>(state.pickupCityId || null);
   const [from, setFrom] = useState<string>(state.from || "Mumbai");

@@ -2,7 +2,7 @@ import React from 'react';
 import { Menu } from 'antd';
 import "./Sidebar.css"
 import { confirmation } from './Confirmation';
-import { Context } from '../context/context.prover';
+import { Context } from '../context/context.provider';
 
 interface SidebarProps {
     handleTabChange: (tab: string) => void;

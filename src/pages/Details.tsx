@@ -16,6 +16,7 @@ import { ISettings } from '../types/settings.types';
 import { IRoute } from '../types/routes.types';
 import { DownOutlined, UpOutlined } from '@ant-design/icons';
 import dayjs, { Dayjs } from 'dayjs';
+import { Context } from '../context/context.provider';
 
 interface RazorpayResponse {
   amount: number;
@@ -106,6 +107,8 @@ const ReadBeforeYouBook = () => {
 }
 
 const Details: React.FC = () => {
+
+  const { userAuthenticated,  setOpenAuthModal } = Context();
 
   const [form] = Form.useForm();
 
@@ -225,7 +228,7 @@ const Details: React.FC = () => {
             data
           );
 
-          if(result.data.msg === 'success'){
+          if (result.data.msg === 'success') {
             message.success("Booking created successfully")
             navigate('/profile')
           }
@@ -251,6 +254,12 @@ const Details: React.FC = () => {
   }
 
   const handlePayNow = () => {
+
+    if (!userAuthenticated) {
+      setOpenAuthModal(true)
+      return
+    }
+
     form
       .validateFields()
       .then(() => {
@@ -358,7 +367,7 @@ const Details: React.FC = () => {
 
   return (
     <>
-      <div className={`${paymentSelectionOpen ? '' : 'hidden'} fixed top-0 left-0 w-screen h-screen bg-black opacity-70 z-30`} onClick={()=> setPaymentSelectionOpen(!paymentSelectionOpen)}/>
+      <div className={`${paymentSelectionOpen ? '' : 'hidden'} fixed top-0 left-0 w-screen h-screen bg-black opacity-70 z-30`} onClick={() => setPaymentSelectionOpen(!paymentSelectionOpen)} />
       <div className='bg-[#F5F5F5]'>
         <div className='flex justify-center'>
           <div className='flex container justify-center
