@@ -9,7 +9,7 @@ const MyContext = createContext<any | undefined>(undefined);
 // Create a provider component
 export const MyContextProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
 
-  const [userAuthenticated, setUserAuthenticated] = useState<boolean>(!!localStorage.getItem('auction-user-token'))
+  const [userAuthenticated, setUserAuthenticated] = useState<boolean>(!!localStorage.getItem('token'))
   const [openAuthModal, setOpenAuthModal] = useState<boolean>(false)
 
   const contextValue: any = {
