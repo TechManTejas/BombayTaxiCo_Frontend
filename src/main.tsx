@@ -1,5 +1,5 @@
 import ReactDOM from 'react-dom/client'
-import { MyContextProvider } from './context/context.prover.tsx'
+import { MyContextProvider } from './context/context.provider.tsx'
 import App from './App.tsx'
 import './index.css'
 

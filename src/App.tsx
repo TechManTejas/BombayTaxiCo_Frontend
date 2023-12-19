@@ -33,7 +33,7 @@ import RoutesAddEdit from './admin/pages/RoutesAddEdit';
 import BookingDetails from './admin/pages/BookingDetails';
 import Home from './pages/Home';
 import { Profile } from './pages/Profile';
-import { Context } from './context/context.prover';
+import { Context } from './context/context.provider';
 import UserBookingDetails from './pages/UserBookingDetails';
 
 const isAuthenticated = () => {
@@ -69,16 +69,14 @@ const UserRoutes: React.FC = () => {
       <Routes>
         {isAuthenticated() && (
           <>
-            <Route path="/search" element={<Search />} />
-            <Route path="/details" element={<Details />} />
             <Route path="/profile" element={<Profile />} />
             <Route path="/profile/booking" element={<UserBookingDetails />} />
-            <Route path="/signin" element={<Navigate to="/home" />} />
-            <Route path="/signup" element={<Navigate to="/home" />} />
           </>
         )}
         <Route path="/" element={<Navigate to="/home" />} />
         <Route path="/home" element={<Home />} />
+        <Route path="/search" element={<Search />} />
+        <Route path="/details" element={<Details />} />
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/signin" element={<Signin />} />

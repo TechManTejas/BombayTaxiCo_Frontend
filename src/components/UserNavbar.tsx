@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import { MenuOutlined, UserOutlined } from '@ant-design/icons';
 import axios from '../api/axios';
 import TabPane from 'antd/es/tabs/TabPane';
-import { Context } from '../context/context.prover';
+import { Context } from '../context/context.provider';
 
 interface LoginFormProps {
     hideLoginModal: () => void;
@@ -118,7 +118,7 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ hideLoginModal }) => {
 
 const UserNavbar: React.FC = () => {
 
-    const { userAuthenticated } = Context();
+    const { userAuthenticated, openAuthModal, setOpenAuthModal } = Context();
 
     const [activeTab, setActiveTab] = useState('login');
     const [isDrawerVisible, setIsDrawerVisible] = useState<boolean>(false);
@@ -146,12 +146,13 @@ const UserNavbar: React.FC = () => {
 
     const hideLoginModal = () => {
         setIsLoginModalVisible(false);
+        setOpenAuthModal(false)
     };
 
     return (
         <>
             <Modal
-                open={isLoginModalVisible}
+                open={isLoginModalVisible || openAuthModal}
                 onCancel={hideLoginModal}
                 footer={null}
                 centered
