@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { ArrowLeftOutlined, ArrowRightOutlined, CarOutlined, ClockCircleOutlined, DollarCircleOutlined, SwapOutlined, SyncOutlined, UserOutlined } from '@ant-design/icons';
-import { Button, DatePicker, Dropdown, MenuProps, Tabs } from 'antd';
+import { Button, DatePicker, Dropdown, MenuProps, Tabs, message } from 'antd';
 import TabPane from 'antd/es/tabs/TabPane';
 import React, { useEffect, useState } from 'react';
 import axios from "../api/axios"
@@ -26,11 +26,11 @@ const Hero: React.FC = () => {
 
   const navigate = useNavigate()
 
-  const [pickupCity, setPickupCity] = useState<string>("Mumbai");
+  const [pickupCity, setPickupCity] = useState<string>("");
   const [pickupCityId, setPickupCityId] = useState<string | null>(null);
-  const [from, setFrom] = useState<string>("Mumbai");
+  const [from, setFrom] = useState<string>("");
   const [fromId, setFromId] = useState<string | null>(null);
-  const [to, setTo] = useState("Pune");
+  const [to, setTo] = useState("");
   const [toId, setToId] = useState<string | null>(null);
   const [pickupDateOpen, setPickupDateOpen] = useState<boolean>(false)
   const [pickupDate, setPickupDate] = useState<Dayjs | null>(dayjs());
@@ -103,12 +103,22 @@ const Hero: React.FC = () => {
   };
 
   const menuPropsFrom = {
-    items: menuCities,
+    items: cities
+      .filter((city: City) => city._id !== toId)
+      .map((city: City) => ({
+        label: city.name,
+        key: city._id,
+      })),
     onClick: handleMenuClickFrom,
   };
 
   const menuPropsTo = {
-    items: menuCities,
+    items: cities
+      .filter((city: City) => city._id !== fromId)
+      .map((city: City) => ({
+        label: city.name,
+        key: city._id,
+      })),
     onClick: handleMenuClickTo,
   };
 
@@ -139,6 +149,22 @@ const Hero: React.FC = () => {
   };
 
   const handleLetsRideClick = () => {
+
+    if (activeTab !== "Hourly Rental") {
+      if (!from || !to) {
+        // Prompt the user to select FROM and TO cities
+        message.warning("Please select both FROM and TO cities before proceeding.");
+        return;
+      }
+    }
+
+    if (activeTab === "Hourly Rental") {
+      if (!pickupCity) {
+        // Prompt the user to select FROM and TO cities
+        message.warning("Please select city before proceeding.");
+        return;
+      }
+    }
 
     const state = {
       pickupCity,
@@ -173,16 +199,16 @@ const Hero: React.FC = () => {
         setCities(fetchedCities);
 
         // Set initial values for from and to based on the first two cities
-        if (fetchedCities.length > 0) {
-          setFrom(fetchedCities[0].name);
-          setFromId(fetchedCities[0]._id);
+        // if (fetchedCities.length > 0) {
+        //   setFrom(fetchedCities[0].name);
+        //   setFromId(fetchedCities[0]._id);
 
-          setTo(fetchedCities[1].name);
-          setToId(fetchedCities[1]._id);
+        //   setTo(fetchedCities[1].name);
+        //   setToId(fetchedCities[1]._id);
 
-          setPickupCity(fetchedCities[1].name);
-          setPickupCityId(fetchedCities[1]._id);
-        }
+        //   setPickupCity(fetchedCities[1].name);
+        //   setPickupCityId(fetchedCities[1]._id);
+        // }
 
       } catch (error) {
         console.error('Error fetching cities:', error);
@@ -241,7 +267,7 @@ const Hero: React.FC = () => {
                     </div>
                     <Dropdown menu={menuPropsPickupCity} placement="bottomLeft">
                       <Button className='text-3xl' style={{ border: 'none' }}>
-                        {pickupCity || 'Select an option'}
+                        {pickupCity || 'Select City'}
                       </Button>
                     </Dropdown>
                   </div>
@@ -254,7 +280,7 @@ const Hero: React.FC = () => {
                       </div>
                       <Dropdown menu={menuPropsFrom} placement="bottomLeft">
                         <Button className='text-3xl' style={{ border: 'none' }}>
-                          {from || 'Select an option'}
+                          {from || 'Select City'}
                         </Button>
                       </Dropdown>
                     </div>
@@ -270,13 +296,13 @@ const Hero: React.FC = () => {
                       </div>
                       <Dropdown menu={menuPropsTo} placement="bottomLeft">
                         <Button className='text-3xl' style={{ border: 'none' }}>
-                          {to || 'Select an option'}
+                          {to || 'Select City'}
                         </Button>
                       </Dropdown>
                     </div>
                     <div className='
-                  border-b
-                  sm:border-l'
+                      border-b
+                      sm:border-l'
                     />
                   </div>
                 }
@@ -299,7 +325,9 @@ const Hero: React.FC = () => {
                     open={pickupDateOpen}
                     onOpenChange={(open) => setPickupDateOpen(open)}
                     onChange={handlePickupDateChange}
-                    disabledDate={(current: Dayjs | null) => current ? current.isBefore(dayjs().startOf('day')) : false}
+                    disabledDate={(current: Dayjs | null) =>
+                      current ? current.isBefore(dayjs().startOf('day')) || current.isAfter(dayjs().add(30, 'days')) : false
+                    }
                   />
                 </div>
                 <div className='
@@ -345,7 +373,7 @@ const Hero: React.FC = () => {
                               onOpenChange={(open) => setReturnDateOpen(open)}
                               onChange={handleReturnDateChange}
                               disabledDate={(current: Dayjs | null) =>
-                                current ? current.isBefore(dayjs().add(1, 'day').startOf('day')) : false
+                                current ? current.isBefore(dayjs().startOf('day')) || current.isAfter(dayjs().add(30, 'days')) : false
                               }
                             />
                           </>

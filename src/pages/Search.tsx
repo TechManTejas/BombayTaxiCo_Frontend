@@ -135,11 +135,11 @@ const Search: React.FC = () => {
   const [distance, setDistance] = useState<number | null>(null);
 
   const [tripType, setTripType] = useState<string>(state.activeTab || "One-Way Trip")
-  const [pickupCity, setPickupCity] = useState<string>(state.pickupCity || "Mumbai");
+  const [pickupCity, setPickupCity] = useState<string>(state.pickupCity || "Select City");
   const [pickupCityId, setPickupCityId] = useState<string | null>(state.pickupCityId || null);
-  const [from, setFrom] = useState<string>(state.from || "Mumbai");
+  const [from, setFrom] = useState<string>(state.from || "Select City");
   const [fromId, setFromId] = useState<string | null>(state.fromId || null);
-  const [to, setTo] = useState(state.to || "Pune");
+  const [to, setTo] = useState(state.to || "Select City");
   const [toId, setToId] = useState<string | null>(state.toId || null);
   const [pickupDate, setPickupDate] = useState<Dayjs | null>(dayjs(state.pickupDate) || dayjs());
   const [returnDate, setReturnDate] = useState<Dayjs | null>(dayjs(state.returnDate) || dayjs());
@@ -386,7 +386,7 @@ const Search: React.FC = () => {
                       onChange={handleFromChange}
                       onDropdownVisibleChange={(open) => setFromOpen(open)}
                     >
-                      {cities.map((city) => (
+                      {cities.filter((c: City) => c._id != toId).map((city) => (
                         <Option key={city._id} value={city.name}>
                           {city.name}
                         </Option>
@@ -418,7 +418,7 @@ const Search: React.FC = () => {
                       onChange={handleToChange}
                       onDropdownVisibleChange={(open) => setToOpen(open)}
                     >
-                      {cities.map((city) => (
+                      {cities.filter((c: City) => c._id != fromId).map((city) => (
                         <Option key={city._id} value={city.name}>
                           {city.name}
                         </Option>
@@ -474,7 +474,9 @@ const Search: React.FC = () => {
                   style={{
                     visibility: 'hidden'
                   }}
-                  disabledDate={(current: Dayjs | null) => current ? current.isBefore(dayjs().startOf('day')) : false}
+                  disabledDate={(current: Dayjs | null) =>
+                    current ? current.isBefore(dayjs().startOf('day')) || current.isAfter(dayjs().add(30, 'days')) : false
+                  }
                 />
               </div>
 
@@ -522,7 +524,7 @@ const Search: React.FC = () => {
                             visibility: 'hidden'
                           }}
                           disabledDate={(current: Dayjs | null) =>
-                            current ? current.isBefore(dayjs().add(1, 'day').startOf('day')) : false
+                            current ? current.isBefore(dayjs().startOf('day')) || current.isAfter(dayjs().add(30, 'days')) : false
                           }
                         />
                       </>
