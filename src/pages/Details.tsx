@@ -108,7 +108,7 @@ const ReadBeforeYouBook = () => {
 
 const Details: React.FC = () => {
 
-  const { userAuthenticated,  setOpenAuthModal } = Context();
+  const { userAuthenticated, setOpenAuthModal } = Context();
 
   const [form] = Form.useForm();
 
@@ -116,6 +116,11 @@ const Details: React.FC = () => {
   const navigate = useNavigate()
 
   const [settings, setSettings] = useState<ISettings | null>(null)
+  const [couponId, setCouponId] = useState<string | null>(null)
+  const [couponCode, setCouponCode] = useState<string>('');
+  const [couponDiscountedAmount, setCouponDiscountedAmount] = useState<number>(0)
+  const [paymentType, setPaymentType] = useState<string>("advance");
+  const [paymentSelectionOpen, setPaymentSelectionOpen] = useState<boolean>(false);
 
   const tripType = state.tripType || null
   const taxiRate = state.taxi_rate || null
@@ -164,8 +169,28 @@ const Details: React.FC = () => {
     fetchSettings()
   }, [])
 
-  const [paymentType, setPaymentType] = useState<string>("advance");
-  const [paymentSelectionOpen, setPaymentSelectionOpen] = useState<boolean>(false);
+  const handleApplyCoupon = async () => {
+    try {
+
+      const response = await axios.post('/coupons/apply-coupon', {
+        couponCode,
+        amount: taxiRate.discountedPrice,
+      });
+
+      setCouponDiscountedAmount(response.data.discountedAmount)
+      setCouponId(response.data.couponId)
+
+    } catch (error: any) {
+      // Check if the error is due to an invalid coupon code (404 status)
+      if (error.response && error.response.status === 404) {
+        setCouponDiscountedAmount(0)
+        message.error('Invalid coupon code. Please check and try again.');
+      } else {
+        console.error('Error applying coupon:', error);
+        // Handle other errors as needed
+      }
+    }
+  };
 
   const onChange = (e: RadioChangeEvent) => {
     console.log('radio checked', e.target.value);
@@ -276,7 +301,9 @@ const Details: React.FC = () => {
           "requested_taxi_type": taxiRate.taxiType._id,
           "payment": paymentType,
           "pickup_city": pickupCityId,
-          "hourly_package": hourlyPackage
+          "hourly_package": hourlyPackage,
+          "coupon_id": couponId,
+          "base_fare": couponDiscountedAmount || taxiRate.discountedPrice
         }
 
         console.log(booking)
@@ -288,82 +315,92 @@ const Details: React.FC = () => {
       });
   };
 
-  const PaymentCard = () => {
-    return (
-      <>
-        <div className='min-w-full lg:min-w-[320px] max-w-xs lg:w-full m-3 sticky top-6 '>
-          <div className='bg-[#FEF0CF] p-4 text-xs rounded-t-lg'>
-            Free Cancellation Before 12 Jun 2023, 09:00 Am Ist
-          </div>
-          <div className='bg-white border-2 rounded-b-lg p-4'>
-            <div>
-              <Radio.Group onChange={onChange} value={paymentType}>
-                <Space direction="vertical">
-                  <Radio value={"advance"}>
-                    <div className=''>
-                      <div className='font-semibold text-lg'>
-                        PAY ADVANCE - ₹{calcAdvancePay()}
-                      </div>
-                      <div className='text'>
-                        Rest to the Driver
-                      </div>
-                    </div>
-                  </Radio>
-                  <Radio value={"full"}>
-                    <div className=''>
-                      <div className='font-semibold text-lg'>
-                        PAY FULL - ₹{taxiRate.discountedPrice}
-                      </div>
-                    </div>
-                  </Radio>
-                </Space>
-              </Radio.Group>
-            </div>
-            <hr className='my-4' />
-            <div className='space-y-2'>
-              <div>
-                Enter Coupon Code
-              </div>
-              <div>
-                <Space.Compact style={{ width: '100%' }}>
-                  <Input className='border-r-0 rounded-lg' placeholder="Eg. FIRST203" />
-                  <Button className='font-semibold text-yellow-500 border-l-0'>APPLY</Button>
-                </Space.Compact>
-              </div>
-            </div>
-            <hr className='my-4' />
-            <div className='my-4'>
-              <div className='w-full flex justify-between items-end'>
-                <div className='font-semibold text-xl'>
-                  Total Amount
-                </div>
-                <div className='space-x-3'>
-                  <span
-                    className='font-semibold'
-                    style={{ textDecoration: 'line-through', textDecorationColor: '#EAB308' }}
-                  >
-                    ₹{taxiRate.originalPrice}
-                  </span>
-                  <span className='text-2xl font-bold'>₹{taxiRate.discountedPrice}</span>
-                </div>
-              </div>
-              <div className='w-full flex justify-between items-end'>
-                <div className='font-semibold'>
-                  Inclusive of GST
-                </div>
-                <div className='space-x-3'>
-                  <span className='font-bold text-yellow-500'>{(taxiRate.taxiType.discount_percentage).toString() || ''}% OFF</span>
-                </div>
-              </div>
-            </div>
-            <button onClick={handlePayNow} className='hidden lg:flex bg-yellow-500 hover:bg-yellow-400 rounded-lg  justify-center items-center text-xl font-medium w-full py-4'>
-              PAY NOW
-            </button>
-          </div>
-        </div>
-      </>
-    )
-  }
+  // const PaymentCard = () => {
+  //   return (
+  //     <>
+  //       <div className='min-w-full lg:min-w-[320px] max-w-xs lg:w-full m-3 sticky top-6 '>
+  //         <div className='bg-[#FEF0CF] p-4 text-xs rounded-t-lg'>
+  //           Free Cancellation Before 12 Jun 2023, 09:00 Am Ist
+  //         </div>
+  //         <div className='bg-white border-2 rounded-b-lg p-4'>
+  //           <div>
+  //             <Radio.Group onChange={onChange} value={paymentType}>
+  //               <Space direction="vertical">
+  //                 <Radio value={"advance"}>
+  //                   <div className=''>
+  //                     <div className='font-semibold text-lg'>
+  //                       PAY ADVANCE - ₹{calcAdvancePay()}
+  //                     </div>
+  //                     <div className='text'>
+  //                       Rest to the Driver
+  //                     </div>
+  //                   </div>
+  //                 </Radio>
+  //                 <Radio value={"full"}>
+  //                   <div className=''>
+  //                     <div className='font-semibold text-lg'>
+  //                       PAY FULL - ₹{couponDiscountedAmount || taxiRate.discountedPrice}
+  //                     </div>
+  //                   </div>
+  //                 </Radio>
+  //               </Space>
+  //             </Radio.Group>
+  //           </div>
+  //           <hr className='my-4' />
+  //           <div className='space-y-2'>
+  //             <div>
+  //               Enter Coupon Code
+  //             </div>
+  //             <div>
+  //               <Space.Compact style={{ width: '100%' }}>
+  //                 <Input
+  //                   className='border-r-0 rounded-lg'
+  //                   placeholder="Eg. FIRST203"
+  //                   value={couponCode}
+  //                   onChange={(e) => setCouponCode(e.target.value)}
+  //                 />
+  //                 <Button
+  //                   className='font-semibold text-yellow-500 border-l-0'
+  //                   onClick={handleApplyCoupon}
+  //                 >
+  //                   APPLY
+  //                 </Button>
+  //               </Space.Compact>
+  //             </div>
+  //           </div>
+  //           <hr className='my-4' />
+  //           <div className='my-4'>
+  //             <div className='w-full flex justify-between items-end'>
+  //               <div className='font-semibold text-xl'>
+  //                 Total Amount
+  //               </div>
+  //               <div className='space-x-3'>
+  //                 <span
+  //                   className='font-semibold'
+  //                   style={{ textDecoration: 'line-through', textDecorationColor: '#EAB308' }}
+  //                 >
+  //                   ₹{taxiRate.originalPrice}
+  //                 </span>
+  //                 <span className='text-2xl font-bold'>₹{couponDiscountedAmount || taxiRate.discountedPrice}</span>
+  //               </div>
+  //             </div>
+  //             <div className='w-full flex justify-between items-end'>
+  //               <div className='font-semibold'>
+  //                 Inclusive of GST
+  //               </div>
+  //               <div className='space-x-3'>
+  //                 <span className='font-bold text-yellow-500'>{(taxiRate.taxiType.discount_percentage).toString() || ''}% OFF</span>
+  //               </div>
+  //             </div>
+  //           </div>
+  //           <button onClick={handlePayNow} className='hidden lg:flex bg-yellow-500 hover:bg-yellow-400 rounded-lg  justify-center items-center text-xl font-medium w-full py-4'>
+  //             PAY NOW
+  //           </button>
+  //         </div>
+  //       </div>
+  //     </>
+  //   )
+  // }
 
   return (
     <>
@@ -663,7 +700,88 @@ const Details: React.FC = () => {
               </>
               <ReadBeforeYouBook />
             </div>
-            <PaymentCard />
+            <>
+              <div className='min-w-full lg:min-w-[320px] max-w-xs lg:w-full m-3 sticky top-6 '>
+                <div className='bg-[#FEF0CF] p-4 text-xs rounded-t-lg'>
+                  Free Cancellation Before 12 Jun 2023, 09:00 Am Ist
+                </div>
+                <div className='bg-white border-2 rounded-b-lg p-4'>
+                  <div>
+                    <Radio.Group onChange={onChange} value={paymentType}>
+                      <Space direction="vertical">
+                        <Radio value={"advance"}>
+                          <div className=''>
+                            <div className='font-semibold text-lg'>
+                              PAY ADVANCE - ₹{calcAdvancePay()}
+                            </div>
+                            <div className='text'>
+                              Rest to the Driver
+                            </div>
+                          </div>
+                        </Radio>
+                        <Radio value={"full"}>
+                          <div className=''>
+                            <div className='font-semibold text-lg'>
+                              PAY FULL - ₹{couponDiscountedAmount || taxiRate.discountedPrice}
+                            </div>
+                          </div>
+                        </Radio>
+                      </Space>
+                    </Radio.Group>
+                  </div>
+                  <hr className='my-4' />
+                  <div className='space-y-2'>
+                    <div>
+                      Enter Coupon Code
+                    </div>
+                    <div>
+                      <Space.Compact style={{ width: '100%' }}>
+                        <Input
+                          className='border-r-0 rounded-lg'
+                          placeholder="Eg. FIRST203"
+                          value={couponCode}
+                          onChange={(e) => setCouponCode(e.target.value)}
+                        />
+                        <Button
+                          className='font-semibold text-yellow-500 border-l-0'
+                          onClick={handleApplyCoupon}
+                        >
+                          APPLY
+                        </Button>
+                      </Space.Compact>
+                    </div>
+                  </div>
+                  <hr className='my-4' />
+                  <div className='my-4'>
+                    <div className='w-full flex justify-between items-end'>
+                      <div className='font-semibold text-xl'>
+                        Total Amount
+                      </div>
+                      <div className='space-x-3'>
+                        <span
+                          className='font-semibold'
+                          style={{ textDecoration: 'line-through', textDecorationColor: '#EAB308' }}
+                        >
+                          ₹{taxiRate.originalPrice}
+                        </span>
+                        <span className='text-2xl font-bold'>₹{couponDiscountedAmount || taxiRate.discountedPrice}</span>
+                      </div>
+                    </div>
+                    <div className='w-full flex justify-between items-end'>
+                      <div className='font-semibold'>
+                        Inclusive of GST
+                      </div>
+                      <div className='space-x-3'>
+                        <span className='font-bold text-yellow-500'>{(taxiRate.taxiType.discount_percentage).toString() || ''}% OFF</span>
+                      </div>
+                    </div>
+                  </div>
+                  <button onClick={handlePayNow} className='hidden lg:flex bg-yellow-500 hover:bg-yellow-400 rounded-lg  justify-center items-center text-xl font-medium w-full py-4'>
+                    PAY NOW
+                  </button>
+                </div>
+              </div>
+            </>
             <div className='lg:hidden sticky bottom-0 h-full w-full z-40'>
               <div className={`${paymentSelectionOpen ? 'hidden' : ''} bg-[#f0e4c8] p-2 text-xs rounded-t-lg`}>
                 Free Cancellation Before 12 Jun 2023, 09:00 Am Ist
