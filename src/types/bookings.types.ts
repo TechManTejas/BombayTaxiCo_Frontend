@@ -39,6 +39,7 @@ export interface IBooking extends Document {
     drop_address?: string;
     additional_request?: string;
     payments?: any;
+    base_fare?: number;
     total_cost?: number;
     waiting_charges?: number;
     other_charges?: number;

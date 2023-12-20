@@ -32,7 +32,7 @@ export default function BookingDetails() {
         setHoveredTaxi(taxi);
     };
 
-    console.log(booking)
+    console.log(booking.base_fare)
 
     const goBack = () => {
         window.history.back();
@@ -251,10 +251,19 @@ export default function BookingDetails() {
                             </div>
                         </div>
                     </div>
+                    <div className="flex space-x-1 items-end">
+                        <div className="text-sm">
+                            BASE FARE:
+                        </div>
+                        <div className="text-2xl text-red-500">
+                            ₹{booking?.base_fare}
+                        </div>
+                    </div>
                     <Form form={form}>
                         <Space className='space-x-4'>
                             {isBookingOnRide &&
                                 <>
+                                    <div className="w-28" />
                                     <Button onClick={onEndTrip} className="bg-yellow-500 hover:bg-yellow-600 text-black font-semibold w-28 h-10">
                                         END TRIP
                                     </Button>
@@ -270,9 +279,12 @@ export default function BookingDetails() {
                                 </>
                             )}
                             {isBookingConfirmed && (
-                                <Button onClick={onStartTrip} className="bg-yellow-500 hover:bg-yellow-600 text-black font-semibold w-28 h-10">
-                                    START TRIP
-                                </Button>
+                                <>
+                                    <div className="w-28" />
+                                    <Button onClick={onStartTrip} className="bg-yellow-500 hover:bg-yellow-600 text-black font-semibold w-28 h-10">
+                                        START TRIP
+                                    </Button>
+                                </>
                             )}
 
                         </Space>
