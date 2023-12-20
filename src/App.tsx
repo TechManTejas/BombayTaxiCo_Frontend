@@ -35,6 +35,8 @@ import Home from './pages/Home';
 import { Profile } from './pages/Profile';
 import { Context } from './context/context.provider';
 import UserBookingDetails from './pages/UserBookingDetails';
+import InvoiceDetails from './admin/pages/InvoiceDetails';
+import InvoicesAddEdit from './admin/pages/InvoiceAddEdit';
 
 const isAuthenticated = () => {
   return(!!localStorage.getItem('token')); 
@@ -120,6 +122,8 @@ const AdminRoutes: React.FC = () => {
           <Route path="/coupons" element={<Coupons />} />
           <Route path="/coupons/add-edit" element={<CouponsAddEdit />} />
           <Route path="/invoices" element={<Invoices />} />
+          <Route path="/invoices/add-edit" element={<InvoicesAddEdit />} />
+          <Route path="/invoices/details" element={<InvoiceDetails />} />
           <Route path="/cities" element={<Citys />} />
           <Route path="/cities/add-edit" element={<CitysAddEdit />} />
           <Route path="/taxitypes" element={<TaxtTypes />} />
