@@ -179,6 +179,7 @@ const Details: React.FC = () => {
 
       setCouponDiscountedAmount(response.data.discountedAmount)
       setCouponId(response.data.couponId)
+      message.success('Coupons applied successfully!');
 
     } catch (error: any) {
       // Check if the error is due to an invalid coupon code (404 status)
