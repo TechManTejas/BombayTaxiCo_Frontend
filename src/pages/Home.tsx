@@ -36,7 +36,7 @@ const Hero: React.FC = () => {
   const [pickupDate, setPickupDate] = useState<Dayjs | null>(dayjs());
   const [returnDateOpen, setReturnDateOpen] = useState<boolean>(false)
   const [returnDate, setReturnDate] = useState<Dayjs | null>(dayjs().add(1, 'day'));
-  const [pickupTime, setPickupTime] = useState<string>('10:00 AM')
+  const [pickupTime, setPickupTime] = useState<string>(generateTimeOptions()[0].label);
   const [hourlyPackage, setHourlyPackage] = useState<string>('1 hr 10 kms')
 
   const [activeTab, setActiveTab] = useState('One-Way Trip');
