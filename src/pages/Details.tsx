@@ -193,6 +193,12 @@ const Details: React.FC = () => {
     }
   };
 
+  const handleClearCoupon = async () => {
+    setCouponId(null)
+    setCouponCode('')
+    setCouponDiscountedAmount(0)
+  };
+
   const onChange = (e: RadioChangeEvent) => {
     console.log('radio checked', e.target.value);
     setPaymentType(e.target.value);
@@ -743,12 +749,24 @@ const Details: React.FC = () => {
                           value={couponCode}
                           onChange={(e) => setCouponCode(e.target.value)}
                         />
-                        <Button
-                          className='font-semibold text-yellow-500 border-l-0'
-                          onClick={handleApplyCoupon}
-                        >
-                          APPLY
-                        </Button>
+                        {couponDiscountedAmount ?
+                          (
+                            <Button
+                              className='font-semibold text-yellow-500 border-l-0'
+                              onClick={handleClearCoupon}
+                            >
+                              CLEAR
+                            </Button>
+                          ) : (
+                            <Button
+                              className='font-semibold text-yellow-500 border-l-0'
+                              onClick={handleApplyCoupon}
+                            >
+                              APPLY
+                            </Button>
+                          )
+
+                        }
                       </Space.Compact>
                     </div>
                   </div>
