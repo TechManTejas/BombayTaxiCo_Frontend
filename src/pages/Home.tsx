@@ -36,7 +36,7 @@ const Hero: React.FC = () => {
   const [pickupDate, setPickupDate] = useState<Dayjs | null>(dayjs());
   const [returnDateOpen, setReturnDateOpen] = useState<boolean>(false)
   const [returnDate, setReturnDate] = useState<Dayjs | null>(dayjs().add(1, 'day'));
-  const [pickupTime, setPickupTime] = useState<string>(generateTimeOptions()[0].label);
+  const [pickupTime, setPickupTime] = useState<string>(null);
   const [hourlyPackage, setHourlyPackage] = useState<string>('1 hr 10 kms')
 
   const [activeTab, setActiveTab] = useState('One-Way Trip');
@@ -666,7 +666,11 @@ const Home: React.FC = () => {
         xl:px-28
         2xl:px-32
       '>
-        <WhyChooseUs />
+        // our awesome features for you - https://www.bombaytaxicompany.com/
+        // What Were Offering - about us sliding component section should be here
+        // Our Benifits List - https://preview.themeforest.net/item/taxico-taxi-company-online-cab-service-elementor-template-kit/full_screen_preview/34438955?_ga=2.197559599.1404235229.1707414958-1271169116.1697727807&_gac=1.124503416.1707415664.CjwKCAiAlJKuBhAdEiwAnZb7lTgzQ4xXO12_mageyJHHEzeZLKuUlDic0mk6CIbaxFw9S68pWfiWVhoCyl4QAvD_BwE
+        <WhyChooseUs /> //Title:Our Experience SubTitle:We Are Experienced Since 1992 Until Now. https://themeholy.com/wordpress/taxiar/home-03/ 
+        // Easy Step For Book Your Taxi - from about us page
         <PopularPackages />
       </div>
       <StatsAndTestamonials />
@@ -677,3 +681,4 @@ const Home: React.FC = () => {
 }
 
 export default Home;
+
