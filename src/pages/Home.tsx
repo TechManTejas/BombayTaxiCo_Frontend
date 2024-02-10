@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { ArrowLeftOutlined, ArrowRightOutlined, CarOutlined, ClockCircleOutlined, DollarCircleOutlined, SwapOutlined, SyncOutlined, UserOutlined } from '@ant-design/icons';
-import { Button, DatePicker, Dropdown, MenuProps, Tabs, message } from 'antd';
+import { AppstoreOutlined, ArrowLeftOutlined, ArrowRightOutlined, BarsOutlined, CarOutlined, ClockCircleOutlined, DollarCircleOutlined, EnvironmentOutlined, SwapOutlined, SyncOutlined, UserOutlined } from '@ant-design/icons';
+import { Button, DatePicker, Dropdown, MenuProps, Segmented, Tabs, message } from 'antd';
 import TabPane from 'antd/es/tabs/TabPane';
 import React, { useEffect, useState } from 'react';
 import axios from "../api/axios"
@@ -36,7 +36,7 @@ const Hero: React.FC = () => {
   const [pickupDate, setPickupDate] = useState<Dayjs | null>(dayjs());
   const [returnDateOpen, setReturnDateOpen] = useState<boolean>(false)
   const [returnDate, setReturnDate] = useState<Dayjs | null>(dayjs().add(1, 'day'));
-  const [pickupTime, setPickupTime] = useState<string>("");
+  const [pickupTime, setPickupTime] = useState<string>(generateTimeOptions()[0].label);
   const [hourlyPackage, setHourlyPackage] = useState<string>('1 hr 10 kms')
 
   const [activeTab, setActiveTab] = useState('One-Way Trip');
@@ -106,7 +106,13 @@ const Hero: React.FC = () => {
     items: cities
       .filter((city: City) => city._id !== toId)
       .map((city: City) => ({
-        label: city.name,
+        label: (
+          <span>
+            {<EnvironmentOutlined />}
+            {' '}
+            {city.name}
+          </span>
+        ),
         key: city._id,
       })),
     onClick: handleMenuClickFrom,
@@ -116,7 +122,13 @@ const Hero: React.FC = () => {
     items: cities
       .filter((city: City) => city._id !== fromId)
       .map((city: City) => ({
-        label: city.name,
+        label: (
+          <span>
+            {<EnvironmentOutlined />}
+            {' '}
+            {city.name}
+          </span>
+        ),
         key: city._id,
       })),
     onClick: handleMenuClickTo,
@@ -233,7 +245,7 @@ const Hero: React.FC = () => {
               px-6
               lg:px-20
             '>
-              <Tabs
+              {/* <Tabs
                 activeKey={activeTab}
                 onChange={handleTabChange}
                 tabBarStyle={{ marginBottom: 0 }}
@@ -245,76 +257,107 @@ const Hero: React.FC = () => {
                   lg:text-base
                 '> <ArrowRightOutlined className='hidden lg:inline-flex' /> One-Way Trip</div>} key="One-Way Trip" />
                 <TabPane tab={<div className='py-1
-                text-sm
-                lg:text-base
+                  text-sm
+                  lg:text-base
                 '><SyncOutlined className='hidden lg:inline-flex' /> Round Trip</div>} key="Round Trip" />
                 <TabPane tab={<div className='py-1
-                text-sm
-                lg:text-base
-                '> <ClockCircleOutlined className='hidden lg:inline-flex' /> Hourly Rental</div>} key="Hourly Rental" />
-              </Tabs>
+                  text-sm
+                  lg:text-base
+                '><ClockCircleOutlined className='hidden lg:inline-flex' /> Hourly Rental</div>} key="Hourly Rental" />
+              </Tabs> */}
+              <Segmented
+                onChange={(value)=>{
+                  handleTabChange(value.toString())
+                }}
+                options={[
+                  {
+                    label: (
+                      <div className='text-lg m-2'>
+                        <ArrowRightOutlined className='hidden lg:inline-flex' />
+                        <span className='mx-2'>
+                          One-Way Trip
+                        </span>
+                      </div>
+                    ),
+                    value: 'One-Way Trip'
+                  },
+                  {
+                    label: (
+                      <div className='text-lg m-2'>
+                        <SyncOutlined className='hidden lg:inline-flex' />
+                        <span className='mx-2'>
+                          Round Trip
+                        </span>
+                      </div>
+                    ),
+                    value: 'Round Trip',
+                  },
+                  {
+                    label: (
+                      <div className='text-lg m-2'>
+                        <ClockCircleOutlined className='hidden lg:inline-flex' />
+                        <span className='mx-2'>
+                          Round Trip
+                        </span>
+                      </div>
+                    ),
+                    value: 'Hourly Rental',
+                  },
+                ]}
+              />
             </div>
-            <div className='bg-white rounded-lg -mb-6  flex justify-center items-center py-8 
+            <div className='bg-white rounded-lg -mb-6 flex justify-center items-center py-8 
               lg:px-6
             '>
-              <div className='w-full border rounded
+              <div className='w-full rounded gap-2
                 lg:flex
               '>
                 {activeTab === "Hourly Rental" &&
-                  <div className='w-[188px] p-3 pb-4 space-y-1'>
-                    <div className='text-xs '>
+                  <div className='w-[188px] p-3 pb-4 space-y-1 border'>
+                    <div className='text-xs'>
                       PICKUP LOCATION
                     </div>
                     <Dropdown menu={menuPropsPickupCity} placement="bottomLeft">
-                      <Button className='text-3xl' style={{ border: 'none' }}>
+                      <button className='text-3xl hover:text-yellow-500' style={{ border: 'none' }}>
                         {pickupCity || 'Select City'}
-                      </Button>
+                      </button>
                     </Dropdown>
                   </div>
                 }
                 {activeTab !== 'Hourly Rental' &&
                   <div className='flex'>
-                    <div className='w-[188px] p-3 pb-4 space-y-1'>
+                    <div className='w-[188px] p-3 pb-4 space-y-1 border'>
                       <div className='text-xs '>
                         FROM
                       </div>
                       <Dropdown menu={menuPropsFrom} placement="bottomLeft">
-                        <Button className='text-3xl' style={{ border: 'none' }}>
+                        <button className='text-3xl hover:text-yellow-500' style={{ border: 'none' }}>
                           {from || 'Select City'}
-                        </Button>
+                        </button>
                       </Dropdown>
                     </div>
-                    <div className='relative -mr-[14px] flex items-center '>
+                    <div className='relative flex items-center'>
                       <button className='bg-white' onClick={switchValues}>
                         <SwapOutlined size={50} className='border rounded-full p-1 text-xl hover:bg-gray-200 shadow-lg' />
                       </button>
                     </div>
-                    <div className='border-l' />
-                    <div className='w-[188px] p-3 pb-4 space-y-1'>
+                    <div className='w-[188px] p-3 pb-4 space-y-1 border'>
                       <div className='text-xs'>
                         TO
                       </div>
                       <Dropdown menu={menuPropsTo} placement="bottomLeft">
-                        <Button className='text-3xl' style={{ border: 'none' }}>
+                        <button className='text-3xl hover:text-yellow-500' style={{ border: 'none' }}>
                           {to || 'Select City'}
-                        </Button>
+                        </button>
                       </Dropdown>
                     </div>
-                    <div className='
-                      border-b
-                      sm:border-l'
-                    />
                   </div>
                 }
-                <div className='
-                  border-b
-                  lg:border-l'
-                />
-                <div className='relative w-[188px] p-3 pb-4 space-y-1'>
+                <div className='relative w-[188px] p-3 pb-4 space-y-1 border'>
                   <div className='text-xs'>
                     PICKUP DATE
                   </div>
-                  <button className='text-3xl hover:text-blue-500' onClick={togglePickupDatePicker}>
+                  <button className='text-3xl hover:text-yellow-500' onClick={togglePickupDatePicker}>
                     {pickupDate?.format('D MMM') ?? <button className='border p-1 rounded-lg bg-gray-100 text-base'>select a pickup date</button>} <span className='text-base'>{pickupDate?.format('YYYY')}</span>
                   </button>
                   <DatePicker
@@ -330,25 +373,18 @@ const Hero: React.FC = () => {
                     }
                   />
                 </div>
-                <div className='
-                  border-b
-                  lg:border-l'
-                />
-                <div className='w-[188px] p-3 pb-4 space-y-1'>
+                <div className='w-[188px] p-3 pb-4 space-y-1 border'>
                   <div className='text-xs'>
                     PICKUP TIME
                   </div>
                   <Dropdown menu={menuPropsTime} placement="bottomLeft">
-                    <Button className='text-3xl' style={{ border: 'none' }}>
+                    <button className='text-3xl hover:text-yellow-500' style={{ border: 'none' }}>
                       {pickupTime || 'Select a Time'}
-                    </Button>
+                    </button>
                   </Dropdown>
                 </div>
-                <div className='
-                  border-b'
-                />
                 {activeTab !== 'Hourly Rental' &&
-                  <div className='relative w-[188px] p-3 pb-4 space-y-1'>
+                  <div className='relative w-[188px] p-3 pb-4 space-y-1 border'>
                     <div className='text-xs'>
                       RETURN DATE
                     </div>
@@ -356,7 +392,7 @@ const Hero: React.FC = () => {
                       {
                         activeTab === 'Round Trip' ? (
                           <>
-                            <button className='text-3xl hover:text-blue-500' onClick={toggleReturnDatePicker}>
+                            <button className='text-3xl hover:text-yellow-500' onClick={toggleReturnDatePicker}>
                               {returnDate?.format('D MMM') ?? (
                                 <button className='border p-1 rounded-lg bg-gray-100 text-base'>
                                   select a pickup date
@@ -390,18 +426,14 @@ const Hero: React.FC = () => {
                 }
                 {activeTab === 'Hourly Rental' &&
                   <div>
-                    <div className='
-                      border-b
-                      lg:border-l'
-                    />
-                    <div className='w-[393px] lg:w-[250px] p-3 pb-4 space-y-1'>
+                    <div className='w-[393px] lg:w-[250px] p-3 pb-4 space-y-1 border'>
                       <div className='text-xs'>
                         SELECT PACKAGE
                       </div>
                       <Dropdown menu={menuPropsDistance} placement="bottomLeft">
-                        <Button className='text-3xl' style={{ border: 'none' }}>
+                        <button className='text-3xl hover:text-yellow-500' style={{ border: 'none' }}>
                           {hourlyPackage || 'Select a Time'}
-                        </Button>
+                        </button>
                       </Dropdown>
                     </div>
                   </div>
@@ -669,7 +701,7 @@ const Home: React.FC = () => {
         // our awesome features for you - https://www.bombaytaxicompany.com/
         // What Were Offering - about us sliding component section should be here
         // Our Benifits List - https://preview.themeforest.net/item/taxico-taxi-company-online-cab-service-elementor-template-kit/full_screen_preview/34438955?_ga=2.197559599.1404235229.1707414958-1271169116.1697727807&_gac=1.124503416.1707415664.CjwKCAiAlJKuBhAdEiwAnZb7lTgzQ4xXO12_mageyJHHEzeZLKuUlDic0mk6CIbaxFw9S68pWfiWVhoCyl4QAvD_BwE
-        <WhyChooseUs /> //Title:Our Experience SubTitle:We Are Experienced Since 1992 Until Now. https://themeholy.com/wordpress/taxiar/home-03/ 
+        <WhyChooseUs /> //Title:Our Experience SubTitle:We Are Experienced Since 1992 Until Now. https://themeholy.com/wordpress/taxiar/home-03/
         // Easy Step For Book Your Taxi - from about us page
         <PopularPackages />
       </div>
@@ -681,4 +713,6 @@ const Home: React.FC = () => {
 }
 
 export default Home;
+
+// Icons of tags for car features
 

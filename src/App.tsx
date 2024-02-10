@@ -64,6 +64,9 @@ const UserRoutes: React.FC = () => {
             titleFontSize: 18,
             itemSelectedColor: '#FDB813'
           },
+          Segmented: {
+            itemSelectedBg: "#FDB813"
+          },
         },
       }}
     >
@@ -93,7 +96,8 @@ const AdminRoutes: React.FC = () => {
     <ConfigProvider
       theme={{
         token: {
-          borderRadius: 3
+          borderRadius: 3,
+          colorPrimary: '#ff4d4f',
         },
         components: {
           Tabs: {
@@ -101,7 +105,7 @@ const AdminRoutes: React.FC = () => {
             itemActiveColor: "black",
             titleFontSize: 18,
             itemSelectedColor: 'black'
-          },
+          }
         },
       }}>
       <AdminNavbar />

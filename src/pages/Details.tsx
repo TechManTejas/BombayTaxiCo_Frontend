@@ -132,7 +132,7 @@ const Details: React.FC = () => {
   const hourlyPackage = state.hourlyPackage || null
 
   const calcAdvancePay = () => {
-    return (Math.round(taxiRate.discountedPrice * ((parseInt(settings?.advancePaymentPercentage || '0')) / 100)))
+    return (Math.round(taxiRate.discountedPrice * ((parseInt(settings?.advancePaymentPercentage || '0')) / 100)))?.toLocaleString()
   }
 
   const getCarImage = (taxiTypeName: string) => {
@@ -336,7 +336,7 @@ const Details: React.FC = () => {
   //                 <Radio value={"advance"}>
   //                   <div className=''>
   //                     <div className='font-semibold text-lg'>
-  //                       PAY ADVANCE - ₹{calcAdvancePay()}
+  //                       PAY ADVANCE - ₹ {calcAdvancePay()}
   //                     </div>
   //                     <div className='text'>
   //                       Rest to the Driver
@@ -346,7 +346,7 @@ const Details: React.FC = () => {
   //                 <Radio value={"full"}>
   //                   <div className=''>
   //                     <div className='font-semibold text-lg'>
-  //                       PAY FULL - ₹{couponDiscountedAmount || taxiRate.discountedPrice}
+  //                       PAY FULL - ₹ {couponDiscountedAmount || taxiRate.discountedPrice}
   //                     </div>
   //                   </div>
   //                 </Radio>
@@ -386,9 +386,9 @@ const Details: React.FC = () => {
   //                   className='font-semibold'
   //                   style={{ textDecoration: 'line-through', textDecorationColor: '#EAB308' }}
   //                 >
-  //                   ₹{taxiRate.originalPrice}
+  //                   ₹ {taxiRate.originalPrice}
   //                 </span>
-  //                 <span className='text-2xl font-bold'>₹{couponDiscountedAmount || taxiRate.discountedPrice}</span>
+  //                 <span className='text-2xl font-bold'>₹ {couponDiscountedAmount || taxiRate.discountedPrice}</span>
   //               </div>
   //             </div>
   //             <div className='w-full flex justify-between items-end'>
@@ -464,7 +464,7 @@ const Details: React.FC = () => {
                           <li>
                             <div className='flex'>
                               <div className='flex-grow'>Waiting Charges</div>
-                              <div className="text-right w-24 font-semibold">After 45 mins, ₹{settings?.waitingChargesPerMinute}
+                              <div className="text-right w-24 font-semibold">After 45 mins, ₹ {settings?.waitingChargesPerMinute?.toLocaleString()}
                               </div>
                             </div>
                           </li>
@@ -477,7 +477,7 @@ const Details: React.FC = () => {
                                     ? 0
                                     : route?.one_way_trip_km || 0
                               } Kms</div>
-                              <div className="text-right w-24 font-semibold">₹ {taxiRate.taxiType.extra_km_charges}/Km
+                              <div className="text-right w-24 font-semibold">₹  {taxiRate.taxiType.extra_km_charges?.toLocaleString()}/Km
                               </div>
                             </div>
                           </li>
@@ -719,7 +719,7 @@ const Details: React.FC = () => {
                         <Radio value={"advance"}>
                           <div className=''>
                             <div className='font-semibold text-lg'>
-                              PAY ADVANCE - ₹{calcAdvancePay()}
+                              PAY ADVANCE - ₹ {calcAdvancePay()}
                             </div>
                             <div className='text'>
                               Rest to the Driver
@@ -729,7 +729,7 @@ const Details: React.FC = () => {
                         <Radio value={"full"}>
                           <div className=''>
                             <div className='font-semibold text-lg'>
-                              PAY FULL - ₹{couponDiscountedAmount || taxiRate.discountedPrice}
+                              PAY FULL - ₹ {couponDiscountedAmount?.toLocaleString() || taxiRate.discountedPrice?.toLocaleString()}
                             </div>
                           </div>
                         </Radio>
@@ -781,9 +781,9 @@ const Details: React.FC = () => {
                           className='font-semibold'
                           style={{ textDecoration: 'line-through', textDecorationColor: '#EAB308' }}
                         >
-                          ₹{taxiRate.originalPrice}
+                          ₹ {taxiRate.originalPrice?.toLocaleString()}
                         </span>
-                        <span className='text-2xl font-bold'>₹{couponDiscountedAmount || taxiRate.discountedPrice}</span>
+                        <span className='text-2xl font-bold'>₹ {couponDiscountedAmount?.toLocaleString() || taxiRate.discountedPrice?.toLocaleString()}</span>
                       </div>
                     </div>
                     <div className='w-full flex justify-between items-end'>
@@ -815,7 +815,7 @@ const Details: React.FC = () => {
                       <Radio value={"advance"}>
                         <div className=''>
                           <div className='font-semibold text-lg'>
-                            PAY ADVANCE - ₹{calcAdvancePay()}
+                            PAY ADVANCE - ₹ {calcAdvancePay()}
                           </div>
                           <div className='text'>
                             Rest to the Driver
@@ -825,7 +825,7 @@ const Details: React.FC = () => {
                       <Radio value={"full"}>
                         <div className=''>
                           <div className='font-semibold text-lg'>
-                            PAY FULL - ₹{taxiRate.discountedPrice}
+                            PAY FULL - ₹ {taxiRate.discountedPrice}
                           </div>
                         </div>
                       </Radio>
@@ -839,7 +839,7 @@ const Details: React.FC = () => {
                     setPaymentSelectionOpen(!paymentSelectionOpen)
                   }}>
                     <div>
-                      ₹{paymentType === 'advance' ? calcAdvancePay() : taxiRate.discountedPrice} due now
+                      ₹ {paymentType === 'advance' ? calcAdvancePay() : taxiRate.discountedPrice?.toLocaleString()} due now
                     </div>
                     <div>
                       {
