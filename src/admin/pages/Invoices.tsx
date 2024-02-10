@@ -145,7 +145,7 @@ const Invoices: React.FC = () => {
       _id: invoice?._id,
       date: dayjs(invoice?.date).format("DD MMM YYYY"),
       booking_id: invoice?.booking?._id,
-      amount: "₹"+invoice?.amount.toString(),
+      amount: "₹ "+invoice?.amount?.toLocaleString(),
     }));
   };
 

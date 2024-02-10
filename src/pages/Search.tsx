@@ -55,7 +55,7 @@ const BillCard: React.FC<BillCardProps> = ({ routeDistance, tripRates }) => {
 
   return (
     <>
-      <div className='min-w-[360px] max-w-xs w-full m-3 sticky top-6'>
+      <div className='min-w-[360px] max-w-xs w-full m-1 p-3 sticky top-1 bg-white border rounded-lg'>
         <div>
           <div className='text-xl my-1'>Fare Details</div>
           <div className='font-light space-y-1'>
@@ -91,15 +91,15 @@ const BillCard: React.FC<BillCardProps> = ({ routeDistance, tripRates }) => {
             </div>
             <div className='flex justify-between'>
               <div>Waiting Charges</div>
-              <div>₹{settings?.waitingChargesPerMinute}</div>
+              <div>₹ {settings?.waitingChargesPerMinute?.toLocaleString()}</div>
             </div>
             <div className='flex justify-between'>
               <div>Night Charges <br /> (11 PM & 6 AM)</div>
-              <div>₹{settings?.nightChargePerDay}</div>
+              <div>₹ {settings?.nightChargePerDay?.toLocaleString()}</div>
             </div>
             <div className='flex justify-between'>
               <div>Extra Pickup/Drop</div>
-              <div>₹{settings?.extraPickupDropCharges}</div>
+              <div>₹ {settings?.extraPickupDropCharges?.toLocaleString()}</div>
             </div>
           </div>
         </div>
@@ -110,7 +110,7 @@ const BillCard: React.FC<BillCardProps> = ({ routeDistance, tripRates }) => {
             {tripRates.map((tripRate: TripRate) => (
               <div key={tripRate.taxiType._id} className='flex justify-between'>
                 <div>{tripRate.taxiType.name}</div>
-                <div>₹{tripRate.taxiType.extra_km_charges}/KM</div>
+                <div>₹ {tripRate.taxiType.extra_km_charges}/KM</div>
               </div>
             ))}
           </div>

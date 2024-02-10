@@ -50,7 +50,7 @@ const CarCard: React.FC<CarCardProps> = ({
                     h-16 lg:h-40
                     w-20 lg:w-40
                 '>
-                    <img src={carImage || Car} className='object-cover
+                    <img src={carImage || Car} className='object-fit
                     h-16 lg:h-32
                     w-20 lg:w-40
                     '/>
@@ -128,13 +128,13 @@ const CarCard: React.FC<CarCardProps> = ({
                                     '
                                     style={{ textDecoration: 'line-through', textDecorationColor: '#EAB308' }}
                                 >
-                                    ₹{originalPrice}
+                                    ₹ {originalPrice?.toLocaleString()}
                                 </span>
                                 <span className='font-bold
                                     text-lg
                                     lg:text-2xl
                                 '>
-                                    ₹{discountedPrice}
+                                    ₹ {discountedPrice?.toLocaleString()}
                                 </span>
                             </div>
                             {

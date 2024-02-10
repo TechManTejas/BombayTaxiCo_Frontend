@@ -256,7 +256,7 @@ export default function BookingDetails() {
                             BASE FARE:
                         </div>
                         <div className="text-2xl text-red-500">
-                            ₹{booking?.base_fare}
+                            ₹ {booking?.base_fare?.toLocaleString()}
                         </div>
                     </div>
                     <Form form={form}>

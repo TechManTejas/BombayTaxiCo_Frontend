@@ -129,8 +129,8 @@ const InvoiceDetails: React.FC = () => {
                                                 </div>
                                             </td>
                                             <td className="text-center p-2">1</td>
-                                            <td className="text-center p-2">80₹</td>
-                                            <td className="text-center p-2">80₹</td>
+                                            <td className="text-center p-2">80₹ </td>
+                                            <td className="text-center p-2">80₹ </td>
                                         </tr>
                                     </tbody>
                                     <tfoot>
@@ -160,7 +160,7 @@ const InvoiceDetails: React.FC = () => {
                                             <td className="text-center p-2">
                                                 <b>Total</b>
                                             </td>
-                                            <td className="text-center font-bold p-2">₹258,8</td>
+                                            <td className="text-center font-bold p-2">₹ 258,8</td>
                                         </tr>
                                     </tfoot>
                                 </table>

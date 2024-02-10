@@ -133,7 +133,7 @@ const InvoiceAddEdit: React.FC = () => {
                                         {booking?.pickup_city?.name}
                                     </>
                                 }) -
-                                ₹{booking?.base_fare} -
+                                ₹ {booking?.base_fare?.toLocaleString()} -
                                 {booking?.coupon_id?.name} -
                                 {booking?.taxi_id?.taxi_type_id?.name} -
                                 {booking?.taxi_id?.taxi_no} -
@@ -160,7 +160,7 @@ const InvoiceAddEdit: React.FC = () => {
                                             <div className="text-sm font-medium text-gray-900">TRIP COST</div>
                                         </td>
                                         <td className="px-6 py-4 whitespace-nowrap text-right">
-                                            <div className="text-sm ">₹{tripCost}</div>
+                                            <div className="text-sm ">₹ {tripCost?.toLocaleString()}</div>
                                         </td>
                                     </tr>
                                     <tr>
@@ -171,7 +171,7 @@ const InvoiceAddEdit: React.FC = () => {
                                             </div>
                                         </td>
                                         <td className="px-6 py-4 whitespace-nowrap text-right">
-                                            <div className="text-sm ">₹{discount}</div>
+                                            <div className="text-sm ">₹ {discount?.toLocaleString()}</div>
                                         </td>
                                     </tr>
                                     <tr>
@@ -243,7 +243,7 @@ const InvoiceAddEdit: React.FC = () => {
                                             <div className="text-sm text-gray-900">TOTAL</div>
                                         </td>
                                         <td className="px-6 py-4 whitespace-nowrap">
-                                            <div className="text-sm text-right">₹{total}</div>
+                                            <div className="text-sm text-right">₹ {total?.toLocaleString()}</div>
                                         </td>
                                     </tr>
                                 </tbody>
