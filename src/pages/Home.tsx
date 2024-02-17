@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { AppstoreOutlined, ArrowLeftOutlined, ArrowRightOutlined, BarsOutlined, CarOutlined, ClockCircleOutlined, DollarCircleOutlined, EnvironmentOutlined, SwapOutlined, SyncOutlined, UserOutlined } from '@ant-design/icons';
-import { Button, DatePicker, Dropdown, MenuProps, Segmented, Tabs, message } from 'antd';
-import TabPane from 'antd/es/tabs/TabPane';
+import { AndroidFilled, AppleFilled, ArrowLeftOutlined, ArrowRightOutlined, BankOutlined, CalendarOutlined, CarOutlined, CarryOutOutlined, ClockCircleOutlined, CreditCardOutlined, DollarCircleOutlined, DollarOutlined, EnvironmentOutlined, LikeOutlined, MobileOutlined, MoneyCollectOutlined, SafetyOutlined, SmileOutlined, SwapOutlined, SyncOutlined, TagOutlined, TrophyOutlined, UserOutlined } from '@ant-design/icons';
+import { Button, DatePicker, Dropdown, MenuProps, Segmented, message } from 'antd';
 import React, { useEffect, useState } from 'react';
 import axios from "../api/axios"
 import { City } from '../types/citys.types';
@@ -10,17 +9,22 @@ import dayjs, { Dayjs } from 'dayjs';
 import { Footer } from '../components/Footer';
 import { CallUsNow } from '../components/CallUsNow';
 import { WhyChooseUsCard } from '../components/WhyChooseUsCard';
-import { PackageCard } from '../components/PackageCard';
+// import { PackageCard } from '../components/PackageCard';
 
 import HeroImage from "../assets/images/hero.jpg"
-import HappyCustomer from "../assets/images/happy_customers.jpg"
-import TajMahal from "../assets/images/taj_mahal.jpg"
+import Experience from "../assets/images/experience.jpg"
+// import HappyCustomer from "../assets/images/happy_customers.jpg"
+// import TajMahal from "../assets/images/taj_mahal.jpg"
 import Quote from "../assets/images/quote.png"
 import Face1 from "../assets/images/face1.jpg"
 import Face2 from "../assets/images/face2.jpg"
 import Face3 from "../assets/images/face3.jpg"
 import { generateTimeOptions } from '../utils/GenerateTimeOptions';
 import { generateDistanceOptions } from '../utils/GenerateDistanceOptions';
+import { ServiceCard } from '../components/ServiceCard';
+
+import './rotatingtexts.css'
+// import useCounter from '../components/Counter';
 
 const Hero: React.FC = () => {
 
@@ -230,15 +234,32 @@ const Hero: React.FC = () => {
     fetchCities();
   }, [])
 
+  let currentIndex = 0;
+  const texts = document.querySelectorAll('.rotating-text-item');
+  const textCount = texts.length;
+
+  setInterval(() => {
+    (texts[currentIndex] as any).style.display = 'none';
+    currentIndex = (currentIndex + 1) % textCount;
+    (texts[currentIndex] as any).style.display = 'block';
+  }, 3000); // Change text every 3 seconds
+
   return (
     <>
       <div className='bg-[#2a2a2a81] h-[720px] ' style={{ backgroundImage: `url(${HeroImage})`, backgroundSize: 'cover' }}>
         <div className='bg-[#00000095] h-full w-full flex flex-col justify-center items-center space-y-20'>
-          <div className='text-4xl font-medium text-white text-center
+          {/* <!-- Rotating Text Container --> */}
+          <div id='rotatingText' className='text-4xl font-medium text-white text-center
             mt-24
             lg:mt-0
           '>
-            Enjoy Your Comfortable Ride in Affordable Price
+            <div className='rotating-text-item'>Welcome to Bombay Taxi Co. Book Taxi For Your Ride</div>
+            <div className='rotating-text-item' style={{
+              display: 'none'
+            }}>24/7 Online taxi For Your Ride Enjoying Comfortable TRip With Bombay Taxi Co.</div>
+            <div className='rotating-text-item' style={{
+              display: 'none'
+            }}>Lets Ride With Us Enjoy Your Luxury Taxi With Low Price</div>
           </div>
           <div className='flex flex-col items-center justify-center'>
             <div className='rounded-xl bg-white  shadow-lg -mb-6 z-10
@@ -266,7 +287,7 @@ const Hero: React.FC = () => {
                 '><ClockCircleOutlined className='hidden lg:inline-flex' /> Hourly Rental</div>} key="Hourly Rental" />
               </Tabs> */}
               <Segmented
-                onChange={(value)=>{
+                onChange={(value) => {
                   handleTabChange(value.toString())
                 }}
                 options={[
@@ -475,216 +496,646 @@ const WhyChooseUs: React.FC = () => {
   )
 }
 
-const PopularPackages: React.FC = () => {
+// const PopularPackages: React.FC = () => {
 
-  const packageData = [
-    {
-      imageUrl: TajMahal,
-      title: 'Cabs From Agra To',
-      destinations: [
-        { name: 'New Delhi', distance: '552km (6hr 53min)' },
-        { name: 'Gurgoan', distance: '552km (6hr 53min)' },
-        { name: 'Noida', distance: '552km (6hr 53min)' },
-        { name: 'Faridabad', distance: '552km (6hr 53min)' },
-        { name: 'Ghaziabad', distance: '552km (6hr 53min)' },
-      ],
-    },
-    {
-      imageUrl: TajMahal,
-      title: 'Cabs From Delhi To',
-      destinations: [
-        { name: 'Agra', distance: '200km (3hr 30min)' },
-        { name: 'Shimla', distance: '350km (7hr)' },
-        { name: 'Manali', distance: '500km (10hr)' },
-        { name: 'Amritsar', distance: '450km (6hr 30min)' },
-        { name: 'Dehradun', distance: '250km (5hr)' },
-      ],
-    },
-    {
-      imageUrl: TajMahal,
-      title: 'Cabs From Mumbai To',
-      destinations: [
-        { name: 'Goa', distance: '600km (10hr)' },
-        { name: 'Pune', distance: '150km (3hr)' },
-        { name: 'Nashik', distance: '180km (4hr)' },
-        { name: 'Shirdi', distance: '250km (5hr)' },
-        { name: 'Lonavala', distance: '80km (2hr)' },
-      ],
-    },
-    {
-      imageUrl: TajMahal,
-      title: 'Cabs From Bangalore To',
-      destinations: [
-        { name: 'Mysuru', distance: '150km (3hr)' },
-        { name: 'Chennai', distance: '350km (6hr)' },
-        { name: 'Ooty', distance: '300km (6hr 30min)' },
-        { name: 'Coorg', distance: '250km (5hr)' },
-        { name: 'Hampi', distance: '340km (7hr)' },
-      ],
-    },
-    {
-      imageUrl: TajMahal,
-      title: 'Cabs From Kolkata To',
-      destinations: [
-        { name: 'Digha', distance: '180km (4hr)' },
-        { name: 'Darjeeling', distance: '600km (12hr)' },
-        { name: 'Sundarbans', distance: '100km (2hr 30min)' },
-        { name: 'Puri', distance: '500km (10hr)' },
-        { name: 'Bodh Gaya', distance: '550km (11hr)' },
-      ],
-    },
-    {
-      imageUrl: TajMahal,
-      title: 'Cabs From Chennai To',
-      destinations: [
-        { name: 'Pondicherry', distance: '160km (3hr)' },
-        { name: 'Mahabalipuram', distance: '60km (1hr 30min)' },
-        { name: 'Kanchipuram', distance: '70km (2hr)' },
-        { name: 'Tirupati', distance: '130km (3hr)' },
-        { name: 'Vellore', distance: '140km (3hr 30min)' },
-      ],
-    },
-  ];
+//   const packageData = [
+//     {
+//       imageUrl: TajMahal,
+//       title: 'Cabs From Agra To',
+//       destinations: [
+//         { name: 'New Delhi', distance: '552km (6hr 53min)' },
+//         { name: 'Gurgoan', distance: '552km (6hr 53min)' },
+//         { name: 'Noida', distance: '552km (6hr 53min)' },
+//         { name: 'Faridabad', distance: '552km (6hr 53min)' },
+//         { name: 'Ghaziabad', distance: '552km (6hr 53min)' },
+//       ],
+//     },
+//     {
+//       imageUrl: TajMahal,
+//       title: 'Cabs From Delhi To',
+//       destinations: [
+//         { name: 'Agra', distance: '200km (3hr 30min)' },
+//         { name: 'Shimla', distance: '350km (7hr)' },
+//         { name: 'Manali', distance: '500km (10hr)' },
+//         { name: 'Amritsar', distance: '450km (6hr 30min)' },
+//         { name: 'Dehradun', distance: '250km (5hr)' },
+//       ],
+//     },
+//     {
+//       imageUrl: TajMahal,
+//       title: 'Cabs From Mumbai To',
+//       destinations: [
+//         { name: 'Goa', distance: '600km (10hr)' },
+//         { name: 'Pune', distance: '150km (3hr)' },
+//         { name: 'Nashik', distance: '180km (4hr)' },
+//         { name: 'Shirdi', distance: '250km (5hr)' },
+//         { name: 'Lonavala', distance: '80km (2hr)' },
+//       ],
+//     },
+//     {
+//       imageUrl: TajMahal,
+//       title: 'Cabs From Bangalore To',
+//       destinations: [
+//         { name: 'Mysuru', distance: '150km (3hr)' },
+//         { name: 'Chennai', distance: '350km (6hr)' },
+//         { name: 'Ooty', distance: '300km (6hr 30min)' },
+//         { name: 'Coorg', distance: '250km (5hr)' },
+//         { name: 'Hampi', distance: '340km (7hr)' },
+//       ],
+//     },
+//     {
+//       imageUrl: TajMahal,
+//       title: 'Cabs From Kolkata To',
+//       destinations: [
+//         { name: 'Digha', distance: '180km (4hr)' },
+//         { name: 'Darjeeling', distance: '600km (12hr)' },
+//         { name: 'Sundarbans', distance: '100km (2hr 30min)' },
+//         { name: 'Puri', distance: '500km (10hr)' },
+//         { name: 'Bodh Gaya', distance: '550km (11hr)' },
+//       ],
+//     },
+//     {
+//       imageUrl: TajMahal,
+//       title: 'Cabs From Chennai To',
+//       destinations: [
+//         { name: 'Pondicherry', distance: '160km (3hr)' },
+//         { name: 'Mahabalipuram', distance: '60km (1hr 30min)' },
+//         { name: 'Kanchipuram', distance: '70km (2hr)' },
+//         { name: 'Tirupati', distance: '130km (3hr)' },
+//         { name: 'Vellore', distance: '140km (3hr 30min)' },
+//       ],
+//     },
+//   ];
+
+//   return (
+//     <>
+//       <div className='space-y-12 py-20'>
+//         <div className='text-center text-3xl font-medium'>
+//           Popular Packages
+//         </div>
+//         <div className='grid grid-cols-1 items-center justify-items-center
+//           lg:grid-cols-2
+//           xl:grid-cols-3
+//         '>
+//           {packageData.map((packageInfo, index) => (
+//             <PackageCard key={index} {...packageInfo} />
+//           ))}
+//         </div>
+//       </div>
+//     </>
+//   )
+// }
+
+const StatsAndTestamonials: React.FC = () => {
+
+  // Special Vehicles Counter
+  // const specialVehiclesCount = useCounter(32002, 3000); 
+
+  // // Road Trips Done Counter
+  // const roadTripsDoneCount = useCounter(16008, 3000);
+
+  // // People Dropped Counter
+  // const peopleDroppedCount = useCounter(17068, 3000); 
+
+  // // Satisfied Clients Counter
+  // const satisfiedClientsCount = useCounter(19508, 3000); 
 
   return (
     <>
-      <div className='space-y-12 py-20'>
-        <div className='text-center text-3xl font-medium'>
-          Popular Packages
+      <div className="bg-blue-900 text-white"
+        style={{
+          backgroundImage: `url(${Experience})`,
+          backgroundSize: 'cover'
+        }}
+      >
+        <div className='flex flex-col justify-center items-center bg-blue-950 w-full h-full bg-opacity-70 text-center p-3'>
+          <div className="flex justify-center max-w-6xl mx-auto py-32 px-4">
+            <div className="flex flex-wrap -mx-4 text-center">
+              {/* Special Vehicles */}
+              <div className="flex flex-col items-center">
+                <div className="mb-2 text-8xl"><CarOutlined /></div>
+                <div className='border-b opacity-60 w-60'></div>
+                <div className='bg-white rounded-full p-1 my-3'>
+                  <div className='w-2.5 h-2.5 bg-red-600 rounded-full'></div>
+                </div>
+                <div className="text-5xl font-semibold my-3">32,002</div>
+                <div>Special Vehicles</div>
+              </div>
+              {/* Road Trips Done */}
+              <div className="flex flex-col items-center">
+                <div className="mb-2 text-8xl"><EnvironmentOutlined /></div>
+                <div className='border-b opacity-60 w-60'></div>
+                <div className='bg-white rounded-full p-1 my-3'>
+                  <div className='w-2.5 h-2.5 bg-red-600 rounded-full'></div>
+                </div>
+                <div className="text-5xl font-semibold my-3">16,008</div>
+                <div>Road Trips Done</div>
+              </div>
+              {/* People Dropped */}
+              <div className="flex flex-col items-center">
+                <div className="mb-2 text-8xl"><UserOutlined /></div>
+                <div className='border-b opacity-60 w-60'></div>
+                <div className='bg-white rounded-full p-1 my-3'>
+                  <div className='w-2.5 h-2.5 bg-red-600 rounded-full'></div>
+                </div>
+                <div className="text-5xl font-semibold my-3">17,068</div>
+                <div>People Dropped</div>
+              </div>
+              {/* Satisfied Clients */}
+              <div className="flex flex-col items-center">
+                <div className="mb-2 text-8xl"><SmileOutlined /></div>
+                <div className='border-b opacity-60 w-60'></div>
+                <div className='bg-white rounded-full p-1 my-3'>
+                  <div className='w-2.5 h-2.5 bg-red-600 rounded-full'></div>
+                </div>
+                <div className="text-5xl font-semibold my-3">19,508</div>
+                <div>Satisfied Client</div>
+              </div>
+            </div>
+          </div>
         </div>
-        <div className='grid grid-cols-1 items-center justify-items-center
-          lg:grid-cols-2
-          xl:grid-cols-3
+      </div>
+
+      <div className='flex flex-col items-center'>
+        {/* <div className='h-72 flex flex-col justify-center items-center w-full' style={{ backgroundImage: `url(${HappyCustomer})`, backgroundSize: 'cover' }}>
+          <div className='flex flex-col justify-center items-center bg-black w-full h-full -mb-16 bg-opacity-70 text-center p-3'>
+            <div className='text-3xl font-medium text-white'>We Are Experienced Since 1992 Until Now</div>
+            <div className='text-white text-center text-sm
+            md:w-[600px]
+          '>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua erat libero condimentum metus.</div>
+          </div>
+          <div className='h-16' />
+        </div> */}
+        {/* <div className='bg-white border border-black rounded-lg items-center justify-around -mt-16 z-10
+        w-[220px] 
+        sm:w-[600px] sm:flex
+        lg:w-[800px]
         '>
-          {packageData.map((packageInfo, index) => (
-            <PackageCard key={index} {...packageInfo} />
-          ))}
+          <div className='text-center space-y-1 m-3'>
+            <div className='text-4xl font-medium'>
+              124 <span className='text-yellow-500'>+</span>
+            </div>
+            <div>
+              Years of Experience
+            </div>
+          </div>
+          <div className='text-center space-y-1 m-3'>
+            <div className='text-4xl font-medium'>
+              2,820 <span className='text-yellow-500'>+</span>
+            </div>
+            <div>
+              Happy Customer
+            </div>
+          </div>
+          <div className='text-center space-y-1 m-3'>
+            <div className='text-4xl font-medium'>
+              2,820 <span className='text-yellow-500'>+</span>
+            </div>
+            <div>
+              Km Driver
+            </div>
+          </div>
+        </div> */}
+        <div className='py-16  w-full
+          md:px-8
+          xl:px-32
+          '>
+
+          <div className='text-center text-3xl font-medium'>
+            What Our Customers Say
+          </div>
+
+          <div className='flex justify-center items-center p-8'>
+            <div className='flex-col justify-center items-center m-16
+            hidden md:flex
+            '>
+              <div className='h-20 w-20 bg-yellow-500 rounded-full flex justify-center items-center'>
+                <img src={Face2} className='h-[76px] w-[76px] bg-yellow-500 rounded-full object-cover' />
+              </div>
+            </div>
+            <div className='m-6 shadow-xl
+            hidden
+            md:block
+            '>
+              <Button size='large' icon={<ArrowLeftOutlined />} className='bg-white border-white' />
+            </div>
+            <div className='p-4 flex flex-col justify-center items-center
+            w-full
+            xl:w-2/5
+            '>
+              <div className='h-40 w-40 bg-yellow-500 rounded-full flex justify-center items-center'>
+                <img src={Face3} className='h-[152px] w-[152px] bg-yellow-500 rounded-full object-cover' />
+              </div>
+              <div className='font-medium text-2xl py-4'>Manik Patil</div>
+              <div>
+                <img src={Quote} className='absolute opacity-10 h-12 -mt-10' />
+                <div className='text text-center text-gray-800'>
+                  Great experience with this company. I have used many others in
+                  Oakland but this was by far the best. You guys made our trip so easy.
+                  Great customer service, wonderful drivers and by far the best and most
+                  affordable transportation company I have used. Thank you soo much!
+                </div>
+                <div className='flex w-full justify-end'>
+                  <img src={Quote} className='absolute opacity-10 h-12 -mt-5 transform -scale-x-100 ' />
+                </div>
+                <div className='flex w-full justify-center space-x-6 my-3
+                md:hidden
+                '>
+                  <div className='shadow-xl'>
+                    <Button size='large' icon={<ArrowLeftOutlined />} className='bg-white border-white' />
+                  </div>
+                  <div className='shadow-xl'>
+                    <Button size='large' icon={<ArrowRightOutlined />} className='bg-white border-white' />
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className='m-6 shadow-xl
+            hidden
+            md:block
+            '>
+              <Button size='large' icon={<ArrowRightOutlined />} className='bg-white border-white' />
+            </div>
+            <div className='flex-col justify-center items-center m-16
+            hidden md:flex
+            '>
+              <div className='h-20 w-20 bg-yellow-500 rounded-full flex justify-center items-center'>
+                <img src={Face1} className='h-[76px] w-[76px] bg-yellow-500 rounded-full object-cover' />
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </>
   )
 }
 
-const StatsAndTestamonials: React.FC = () => {
+const AwsomeFeatures: React.FC = () => {
   return (
-    <div className='flex flex-col items-center'>
-      {/* Overlay  */}
-      <div className='h-72 flex flex-col justify-center items-center w-full' style={{ backgroundImage: `url(${HappyCustomer})`, backgroundSize: 'cover' }}>
-        <div className='flex flex-col justify-center items-center bg-black w-full h-full -mb-16 bg-opacity-70 text-center p-3'>
-          <div className='text-3xl font-medium text-white'>We Are Experienced Since 1992 Until Now</div>
-          <div className='text-white text-center text-sm
-            md:w-[600px]
-          '>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua erat libero condimentum metus.</div>
-        </div>
-        <div className='h-16' />
-      </div>
-      {/* Middle component  */}
-      <div className='bg-white border border-black rounded-lg items-center justify-around -mt-16 z-10
-        w-[220px] 
-        sm:w-[600px] sm:flex
-        lg:w-[800px]
+    <>
+      <div className='space-y-10 py-20'>
+        <div className='flex flex-col justify-center items-center space-y-3 text-center
+        px-4
+        sm:px-6
+        md:px-10
+        lg:px-14
+        xl:px-20
+        2xl:px:32
       '>
-        <div className='text-center space-y-1 m-3'>
-          <div className='text-4xl font-medium'>
-            124 <span className='text-yellow-500'>+</span>
-          </div>
-          <div>
-            Years of Experience
-          </div>
-        </div>
-        <div className='text-center space-y-1 m-3'>
-          <div className='text-4xl font-medium'>
-            2,820 <span className='text-yellow-500'>+</span>
-          </div>
-          <div>
-            Happy Customer
+          <div className='text-3xl font-medium '>Our Awesome Features<span className='text-yellow-500'>.</span></div>
+          <div className='text-sm text-gray-500
+          sm:w-[600px]
+        '>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua erat libero condimentum metus.
           </div>
         </div>
-        <div className='text-center space-y-1 m-3'>
-          <div className='text-4xl font-medium'>
-            2,820 <span className='text-yellow-500'>+</span>
-          </div>
-          <div>
-            Km Driver
-          </div>
-        </div>
-      </div>
-      {/* What Our Customer Say */}
-      <div className='py-16  w-full
-          md:px-8
-          xl:px-32
-      '>
+        <div className='flex flex-wrap gap-8 justify-center'>
 
-        <div className='text-center text-3xl font-medium'>
-          What Our Customers Say
-        </div>
-
-        <div className='flex justify-center items-center p-8'>
-          <div className='flex-col justify-center items-center m-16
-            hidden md:flex
-          '>
-            <div className='h-20 w-20 bg-yellow-500 rounded-full flex justify-center items-center'>
-              <img src={Face2} className='h-[76px] w-[76px] bg-yellow-500 rounded-full object-cover' />
-            </div>
-            {/* <div className='w-12 border-gray-500 border-[3px] rounded-full'></div> */}
-          </div>
-          <div className='m-6 shadow-xl
-            hidden
-            md:block
-          '>
-            <Button size='large' icon={<ArrowLeftOutlined />} className='bg-white border-white' />
-          </div>
-          <div className='p-4 flex flex-col justify-center items-center
-            w-full
-            xl:w-2/5
-          '>
-            <div className='h-40 w-40 bg-yellow-500 rounded-full flex justify-center items-center'>
-              <img src={Face3} className='h-[152px] w-[152px] bg-yellow-500 rounded-full object-cover' />
-            </div>
-            {/* <div className='w-24 border-black border-[3px] rounded-full'></div> */}
-            <div className='font-medium text-2xl py-4'>Manik Patil</div>
+          <div className='flex items-center gap-2 text-zinc-600 w-40'>
             <div>
-              <img src={Quote} className='absolute opacity-10 h-12 -mt-10' />
-              <div className='text text-center text-gray-800'>
-                Great experience with this company. I have used many others in
-                Oakland but this was by far the best. You guys made our trip so easy.
-                Great customer service, wonderful drivers and by far the best and most
-                affordable transportation company I have used. Thank you soo much!
-              </div>
-              <div className='flex w-full justify-end'>
-                <img src={Quote} className='absolute opacity-10 h-12 -mt-5 transform -scale-x-100 ' />
-              </div>
-              <div className='flex w-full justify-center space-x-6 my-3
-                md:hidden
-              '>
-                <div className='shadow-xl'>
-                  <Button size='large' icon={<ArrowLeftOutlined />} className='bg-white border-white' />
-                </div>
-                <div className='shadow-xl'>
-                  <Button size='large' icon={<ArrowRightOutlined />} className='bg-white border-white' />
-                </div>
-              </div>
+              <UserOutlined className='text-5xl' />
+            </div>
+            <div className='font-semibold'>
+              Professional Drivers<span className='text-yellow-500'>.</span>
             </div>
           </div>
-          <div className='m-6 shadow-xl
-            hidden
-            md:block
-          '>
-            <Button size='large' icon={<ArrowRightOutlined />} className='bg-white border-white' />
-          </div>
-          <div className='flex-col justify-center items-center m-16
-            hidden md:flex
-          '>
-            <div className='h-20 w-20 bg-yellow-500 rounded-full flex justify-center items-center'>
-              <img src={Face1} className='h-[76px] w-[76px] bg-yellow-500 rounded-full object-cover' />
+
+          <div className='flex items-center gap-2 text-zinc-600 w-40'>
+            <div>
+              <SafetyOutlined className='text-5xl' />
             </div>
-            {/* <div className='w-12 border-gray-500 border-[3px] rounded-full'></div> */}
+            <div className='font-semibold'>
+              Quality Taxi<span className='text-yellow-500'>.</span>
+            </div>
           </div>
+
+          <div className='flex items-center gap-2 text-zinc-600 w-40'>
+            <div>
+              <TagOutlined className='text-5xl' />
+            </div>
+            <div className='font-semibold'>
+              Affordable Pricing<span className='text-yellow-500'>.</span>
+            </div>
+          </div>
+
+          <div className='flex items-center gap-2 text-zinc-600 w-40'>
+            <div>
+              <CalendarOutlined className='text-5xl' />
+            </div>
+            <div className='font-semibold'>
+              Easy Booking<span className='text-yellow-500'>.</span>
+            </div>
+          </div>
+
         </div>
       </div>
-    </div>
+    </>
   )
 }
+
+const OurBenefitsList: React.FC = () => {
+  return (
+    <>
+      <div className='space-y-10 py-20'>
+        <div className='flex flex-col justify-center items-center space-y-3 text-center
+          px-4
+          sm:px-6
+          md:px-10
+          lg:px-14
+          xl:px-20
+          2xl:px:32
+        '>
+          <div className='text-3xl font-medium '>We Offer The Best For You<span className='text-yellow-500'>.</span></div>
+          <div className='text-sm text-gray-500
+            sm:w-[600px]
+          '>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua erat libero condimentum metus.
+          </div>
+        </div>
+        <div className='flex flex-wrap gap-8 justify-center'>
+          <div className='max-w-xs min-w-[320px]'>
+            <div className='bg-[#2A2A2A] rounded-2xl p-5 py-8 flex flex-col gap-5 w-full'>
+              <div className='flex gap-x-3'>
+                <div className='bg-yellow-500 rounded-lg p-3 flex justify-center items-center'>
+                  <DollarOutlined className='text-3xl' />
+                </div>
+                <div className='text-white text-xl flex flex-col justify-between'>
+                  <div className='tracking-wide'>
+                    Support All Payment
+                  </div>
+                  <div className='font-light text-sm'>
+                    Lorem ipsum dolor sit amet.
+                  </div>
+                </div>
+              </div>
+              <hr className="border-zinc-700" />
+              <div className='flex justify-center gap-5'>
+                <div className='bg-white flex justify-center w-8 h-5 rounded'>
+                  <CreditCardOutlined />
+                </div>
+                <div className='bg-white flex justify-center w-8 h-5 rounded'>
+                  <BankOutlined />
+                </div>
+                <div className='bg-white flex justify-center w-8 h-5 rounded'>
+                  <MobileOutlined />
+                </div>
+                <div className='bg-white flex justify-center w-8 h-5 rounded'>
+                  <MoneyCollectOutlined />
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className='max-w-xs min-w-[320px]'>
+            <div className='bg-yellow-500 rounded-2xl p-5 py-8 flex flex-col gap-5 w-full'>
+              <div className='flex gap-x-3'>
+                <div className='bg-[#2A2A2A] rounded-lg p-3 flex justify-center items-center'>
+                  <SafetyOutlined className='text-3xl text-yellow-500' />
+                </div>
+                <div className='text-xl flex flex-col justify-between'>
+                  <div className='tracking-wide'>
+                    Safety First
+                  </div>
+                  <div className='font-light text-sm'>
+                    Lorem ipsum dolor sit amet.
+                  </div>
+                </div>
+              </div>
+              <hr className="border-[#2A2A2A]" />
+              <div className='flex justify-around gap-5'>
+                <div className='flex gap-x-2'>
+                  <div className='text-xl flex justify-center w-8 h-5 rounded'>
+                    <CreditCardOutlined />
+                  </div>
+                  <div className='font-light text-sm'>
+                    Guarantee
+                  </div>
+                </div>
+                <div className='flex gap-x-2'>
+                  <div className='text-xl flex justify-center w-8 h-5 rounded'>
+                    <CarOutlined />
+                  </div>
+                  <div className='font-light text-sm'>
+                    Quick Ride
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className='max-w-xs min-w-[320px]'>
+            <div className='border rounded-2xl p-5 py-8 flex flex-col gap-5 w-full'>
+              <div className='flex gap-x-3'>
+                <div className='bg-yellow-500 rounded-lg p-3 flex justify-center items-center'>
+                  <MobileOutlined className='text-3xl' />
+                </div>
+                <div className='text-xl flex flex-col justify-between'>
+                  <div className='tracking-wide'>
+                    100% Digital
+                  </div>
+                  <div className='font-light text-sm'>
+                    Lorem ipsum dolor sit amet.
+                  </div>
+                </div>
+              </div>
+              <hr className="border-zinc-200" />
+              <div className='flex justify-around gap-5'>
+                <div className='flex gap-x-2'>
+                  <div className='text-xl flex justify-center w-8 h-5 rounded'>
+                    <AppleFilled className='text-yellow-500' />
+                  </div>
+                  <div className='font-light text-sm'>
+                    Apple
+                  </div>
+                </div>
+                <div className='flex gap-x-2'>
+                  <div className='text-xl flex justify-center w-8 h-5 rounded'>
+                    <AndroidFilled className='text-yellow-500' />
+                  </div>
+                  <div className='font-light text-sm'>
+                    Android
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* <div className='w-full'>
+          <div className='flex justify-center -mb-10'>
+            <div className='border border-dashed  justify-center w-[400px]
+              hidden
+              sm:flex
+            '/>
+          </div>
+          <div className='flex flex-col items-center justify-center
+            sm:flex-row
+          '>
+            <div className='w-56 flex flex-col justify-center items-center space-y-2 m-3
+              sm:m-0
+            '>
+              <div className='h-20 w-20 bg-[#2A2A2A] rounded-2xl flex justify-center items-center shadow-2xl'>
+                <CarOutlined className='text-3xl text-yellow-500' />
+              </div>
+              <div className='text-xl'>
+                Booking A Taxi
+              </div>
+              <div className='text-gray-500 text-sm text-center'>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit
+              </div>
+            </div>
+            <div className='w-56 flex flex-col justify-center items-center space-y-2 m-3
+              sm:m-0
+            '>
+              <div className='h-20 w-20 bg-[#ffffff] rounded-2xl flex justify-center items-center shadow-2xl'>
+                <UserOutlined className='text-3xl text-yellow-500' />
+              </div>
+              <div className='text-xl'>
+                Get a Driver
+              </div>
+              <div className='text-gray-500 text-sm text-center'>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit
+              </div>
+            </div>
+            <div className='w-56 flex flex-col justify-center items-center space-y-2 m-3
+              sm:m-0
+            '>
+              <div className='h-20 w-20 bg-[#2A2A2A] rounded-2xl flex justify-center items-center shadow-2xl'>
+                <LikeOutlined className='text-3xl text-yellow-500' />
+              </div>
+              <div className='text-xl'>
+                Enjoy Your Ride
+              </div>
+              <div className='text-gray-500 text-sm text-center'>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit
+              </div>
+            </div>
+          </div>
+        </div> */}
+      </div>
+    </>
+  )
+}
+
+const EasyStep: React.FC = () => {
+  return (
+    <>
+      <div className='space-y-24 py-20'>
+        <div className='flex flex-col justify-center items-center space-y-3 text-center
+          px-4
+          sm:px-6
+          md:px-10
+          lg:px-14
+          xl:px-20
+          2xl:px:32
+        '>
+          <div className='text-3xl font-medium '>Easy Step For Book Your Taxi<span className='text-yellow-500'>.</span></div>
+          <div className='text-sm text-gray-500
+            sm:w-[600px]
+          '>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua erat libero condimentum metus.
+          </div>
+        </div>
+        <div className='w-full'>
+          <div className='flex justify-center -mb-10'>
+            <div className='border border-dashed  justify-center w-[400px]
+              hidden
+              sm:flex
+            '/>
+          </div>
+          <div className='flex flex-col items-center justify-center
+            sm:flex-row
+          '>
+            <div className='w-56 flex flex-col justify-center items-center space-y-2 m-3
+              sm:m-0
+            '>
+              <div className='h-20 w-20 bg-[#2A2A2A] rounded-2xl flex justify-center items-center shadow-2xl'>
+                <CarOutlined className='text-3xl text-yellow-500' />
+              </div>
+              <div className='text-xl'>
+                Booking A Taxi
+              </div>
+              <div className='text-gray-500 text-sm text-center'>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit
+              </div>
+            </div>
+            <div className='w-56 flex flex-col justify-center items-center space-y-2 m-3
+              sm:m-0
+            '>
+              <div className='h-20 w-20 bg-[#ffffff] rounded-2xl flex justify-center items-center shadow-2xl'>
+                <UserOutlined className='text-3xl text-yellow-500' />
+              </div>
+              <div className='text-xl'>
+                Get a Driver
+              </div>
+              <div className='text-gray-500 text-sm text-center'>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit
+              </div>
+            </div>
+            <div className='w-56 flex flex-col justify-center items-center space-y-2 m-3
+              sm:m-0
+            '>
+              <div className='h-20 w-20 bg-[#2A2A2A] rounded-2xl flex justify-center items-center shadow-2xl'>
+                <LikeOutlined className='text-3xl text-yellow-500' />
+              </div>
+              <div className='text-xl'>
+                Enjoy Your Ride
+              </div>
+              <div className='text-gray-500 text-sm text-center'>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </>
+  )
+}
+
+const WhatWeAreOffering: React.FC = () => {
+  return (
+    <>
+      <div className='space-y-12 py-20 bg-[#F5F5F5]'>
+        <div className='text-center text-3xl font-medium'>
+          Services We offer
+        </div>
+        <div className='flex justify-center '>
+          <div className='grid grid-cols-1 justify-items-center container
+          lg:grid-cols-3
+        '>
+            <ServiceCard
+              icon={<CarOutlined />}
+              feature="FEATURE - 01"
+              title="AIRPORT TRANSFERS"
+              description="Monetize flexible action items before mission critical redibly intuitive."
+            />
+            <ServiceCard
+              icon={<CarryOutOutlined />}
+              feature="FEATURE - 02"
+              title="BUSINESS TRANSFERS"
+              description="Monetize flexible action items before mission critical redibly intuitive."
+            />
+            <ServiceCard
+              icon={<TrophyOutlined />}
+              feature="FEATURE - 03"
+              title="EVENTS & WEDDING"
+              description="Monetize flexible action items before mission critical redibly intuitive."
+            />
+          </div>
+        </div>
+        <div className='flex w-full justify-center space-x-6 my-3'>
+          <div className='shadow-xl'>
+            <Button size='large' icon={<ArrowLeftOutlined />} className='bg-white border-white' />
+          </div>
+          <div className='shadow-xl'>
+            <Button size='large' icon={<ArrowRightOutlined />} className='bg-white border-white' />
+          </div>
+        </div>
+      </div>
+    </>
+  )
+}
+
 
 const Home: React.FC = () => {
   return (
@@ -698,12 +1149,12 @@ const Home: React.FC = () => {
         xl:px-28
         2xl:px-32
       '>
-        // our awesome features for you - https://www.bombaytaxicompany.com/
-        // What Were Offering - about us sliding component section should be here
-        // Our Benifits List - https://preview.themeforest.net/item/taxico-taxi-company-online-cab-service-elementor-template-kit/full_screen_preview/34438955?_ga=2.197559599.1404235229.1707414958-1271169116.1697727807&_gac=1.124503416.1707415664.CjwKCAiAlJKuBhAdEiwAnZb7lTgzQ4xXO12_mageyJHHEzeZLKuUlDic0mk6CIbaxFw9S68pWfiWVhoCyl4QAvD_BwE
-        <WhyChooseUs /> //Title:Our Experience SubTitle:We Are Experienced Since 1992 Until Now. https://themeholy.com/wordpress/taxiar/home-03/
-        // Easy Step For Book Your Taxi - from about us page
-        <PopularPackages />
+        <AwsomeFeatures /> {/* our awesome features for you - https://www.bombaytaxicompany.com/ */}
+        <WhatWeAreOffering /> {/* // What Were Offering - about us sliding component section should be here */}
+        <OurBenefitsList /> {/* Our Benifits List - https://preview.themeforest.net/item/taxico-taxi-company-online-cab-service-elementor-template-kit/full_screen_preview/34438955?_ga=2.197559599.1404235229.1707414958-1271169116.1697727807&_gac=1.124503416.1707415664.CjwKCAiAlJKuBhAdEiwAnZb7lTgzQ4xXO12_mageyJHHEzeZLKuUlDic0mk6CIbaxFw9S68pWfiWVhoCyl4QAvD_BwE */}
+        <WhyChooseUs /> {/* Title:Our Experience SubTitle:We Are Experienced Since 1992 Until Now. https://themeholy.com/wordpress/taxiar/home-03/ */}
+        <EasyStep />
+        {/* <PopularPackages /> */}
       </div>
       <StatsAndTestamonials />
       <CallUsNow />

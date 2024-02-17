@@ -93,7 +93,11 @@ const Settings: React.FC = () => {
         </Space>
 
         <Space>
-          <Form.Item name="advancePaymentPercentage" label="Advance Payment Percentage" rules={[{ required: true, message: 'Please enter the advance payment percentage' }]}>
+          <Form.Item name="advancePaymentPercentage" label="Advance Payment Perc" rules={[{ required: true, message: 'Please enter the advance payment percentage' }]}>
+            <Input className="w-full" />
+          </Form.Item>
+
+          <Form.Item name="minimumBillableKm" label="Minimum Billable Km" rules={[{ required: true, message: 'Please enter minimum billable distance' }]}>
             <Input className="w-full" />
           </Form.Item>
         </Space>
