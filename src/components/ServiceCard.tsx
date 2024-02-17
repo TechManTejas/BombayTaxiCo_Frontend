@@ -9,15 +9,15 @@ interface ServiceCardProps {
 }
 
 export const ServiceCard: React.FC<ServiceCardProps> = ({ icon, feature, title, description }) => {
+
+  console.log(feature)
+
   return (
-    <div className='bg-white w-[360px] h-[360px] p-8 space-y-6 rounded shadow'>
+    <div className='bg-white w-[360px] h-[340px] p-8 space-y-6 rounded shadow'>
       <div className='w-20 h-20 bg-yellow-500 text-white rounded flex justify-center items-center text-3xl'>
         {icon}
       </div>
       <div className='space-y-1'>
-        <div className='text-sm text-zinc-500'>
-          {feature}
-        </div>
         <div className='space-y-3'>
           <div className='text-lg font-medium'>
             {title}

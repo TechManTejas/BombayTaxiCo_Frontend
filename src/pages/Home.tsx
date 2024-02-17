@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { AndroidFilled, AppleFilled, ArrowLeftOutlined, ArrowRightOutlined, BankOutlined, CalendarOutlined, CarOutlined, CarryOutOutlined, ClockCircleOutlined, CreditCardOutlined, DollarCircleOutlined, DollarOutlined, EnvironmentOutlined, LikeOutlined, MobileOutlined, MoneyCollectOutlined, SafetyOutlined, SmileOutlined, SwapOutlined, SyncOutlined, TagOutlined, TrophyOutlined, UserOutlined } from '@ant-design/icons';
+import { AndroidFilled, AppleFilled, ArrowLeftOutlined, ArrowRightOutlined, BankOutlined, CarOutlined, ClockCircleOutlined, CloseCircleOutlined, CreditCardOutlined, CustomerServiceOutlined, DollarCircleOutlined, DollarOutlined, EnvironmentOutlined, LikeOutlined, MobileOutlined, MoneyCollectOutlined, SafetyOutlined, SmileOutlined, SolutionOutlined, StarOutlined, SwapOutlined, SyncOutlined, TagOutlined, TeamOutlined, UserOutlined } from '@ant-design/icons';
 import { Button, DatePicker, Dropdown, MenuProps, Segmented, message } from 'antd';
 import React, { useEffect, useState } from 'react';
 import axios from "../api/axios"
@@ -24,6 +24,8 @@ import { generateDistanceOptions } from '../utils/GenerateDistanceOptions';
 import { ServiceCard } from '../components/ServiceCard';
 
 import './rotatingtexts.css'
+import './ServiceCardAnimation.css';
+import { useIntersectionObserver } from '../components/UseIntersectionObserver.jsx';
 // import useCounter from '../components/Counter';
 
 const Hero: React.FC = () => {
@@ -40,11 +42,16 @@ const Hero: React.FC = () => {
   const [pickupDate, setPickupDate] = useState<Dayjs | null>(dayjs());
   const [returnDateOpen, setReturnDateOpen] = useState<boolean>(false)
   const [returnDate, setReturnDate] = useState<Dayjs | null>(dayjs().add(1, 'day'));
-  const [pickupTime, setPickupTime] = useState<string>(generateTimeOptions()[0].label);
+
+  const [pickupTime, setPickupTime] = useState<string>(generateTimeOptions()[0]?.label ?? "");
   const [hourlyPackage, setHourlyPackage] = useState<string>('1 hr 10 kms')
 
   const [activeTab, setActiveTab] = useState('One-Way Trip');
   const [cities, setCities] = useState<City[]>([]);
+
+  useEffect(() => {
+    console.log(generateTimeOptions())
+  }, [])
 
   const togglePickupDatePicker = () => {
     setPickupDateOpen(!pickupDateOpen)
@@ -588,17 +595,57 @@ const WhyChooseUs: React.FC = () => {
 
 const StatsAndTestamonials: React.FC = () => {
 
-  // Special Vehicles Counter
-  // const specialVehiclesCount = useCounter(32002, 3000); 
+  const [isVisible] = useIntersectionObserver({});
+  const [stats, setStats] = useState({ fleet: 0, trips: 0, dropped: 0, satisfied: 0 });
+  const finalStats = { fleet: 32002, trips: 16008, dropped: 17068, satisfied: 19508 };
+  const [currentTestimonialIndex, setCurrentTestimonialIndex] = useState(0);
 
-  // // Road Trips Done Counter
-  // const roadTripsDoneCount = useCounter(16008, 3000);
+  const testimonials = [
+    {
+      name: "Manik Patil",
+      image: Face1, // Assuming you've imported these images at the top
+      feedback: "Great experience with this company. I have used many others in Oakland but this was by far the best. You guys made our trip so easy. Great customer service, wonderful drivers and by far the best and most affordable transportation company I have used. Thank you soo much!",
+    },
+    {
+      name: "Manik Patil",
+      image: Face2, // Assuming you've imported these images at the top
+      feedback: "Great experience with this company. I have used many others in Oakland but this was by far the best. You guys made our trip so easy. Great customer service, wonderful drivers and by far the best and most affordable transportation company I have used. Thank you soo much!",
+    },
+    {
+      name: "Manik Patil",
+      image: Face3, // Assuming you've imported these images at the top
+      feedback: "Great experience with this company. I have used many others in Oakland but this was by far the best. You guys made our trip so easy. Great customer service, wonderful drivers and by far the best and most affordable transportation company I have used. Thank you soo much!",
+    }
+  ];
 
-  // // People Dropped Counter
-  // const peopleDroppedCount = useCounter(17068, 3000); 
+  useEffect(() => {
+    if (isVisible) {
+      const intervalId = setInterval(() => {
+        setStats((prevStats) => ({
+          fleet: prevStats.fleet < finalStats.fleet ? prevStats.fleet + Math.ceil(finalStats.fleet / 300) : finalStats.fleet,
+          trips: prevStats.trips < finalStats.trips ? prevStats.trips + Math.ceil(finalStats.trips / 300) : finalStats.trips,
+          dropped: prevStats.dropped < finalStats.dropped ? prevStats.dropped + Math.ceil(finalStats.dropped / 300) : finalStats.dropped,
+          satisfied: prevStats.satisfied < finalStats.satisfied ? prevStats.satisfied + Math.ceil(finalStats.satisfied / 300) : finalStats.satisfied,
+        }));
+      }, 5);
 
-  // // Satisfied Clients Counter
-  // const satisfiedClientsCount = useCounter(19508, 3000); 
+      return () => clearInterval(intervalId);
+    }
+  }, [isVisible]);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentTestimonialIndex((currentTestimonialIndex) =>
+        (currentTestimonialIndex + 1) % testimonials.length
+      );
+    }, 3000); // Change every 3 seconds
+
+    return () => clearInterval(interval);
+  }, []);
+
+  const currentTestimonial = testimonials[currentTestimonialIndex];
+  const prevTestimonialIndex = currentTestimonialIndex - 1 < 0 ? testimonials.length - 1 : currentTestimonialIndex - 1;
+  const nextTestimonialIndex = (currentTestimonialIndex + 1) % testimonials.length;
 
   return (
     <>
@@ -610,16 +657,19 @@ const StatsAndTestamonials: React.FC = () => {
       >
         <div className='flex flex-col justify-center items-center bg-blue-950 w-full h-full bg-opacity-70 text-center p-3'>
           <div className="flex justify-center max-w-6xl mx-auto py-32 px-4">
-            <div className="flex flex-wrap -mx-4 text-center">
-              {/* Special Vehicles */}
+            <div className="grid grid-cols-1 text-center gap-y-4
+              sm:grid-cols-2
+              lg:grid-cols-4
+            ">
+              {/* Best Vehicles Fleet */}
               <div className="flex flex-col items-center">
                 <div className="mb-2 text-8xl"><CarOutlined /></div>
                 <div className='border-b opacity-60 w-60'></div>
                 <div className='bg-white rounded-full p-1 my-3'>
                   <div className='w-2.5 h-2.5 bg-red-600 rounded-full'></div>
                 </div>
-                <div className="text-5xl font-semibold my-3">32,002</div>
-                <div>Special Vehicles</div>
+                <div className="text-5xl font-semibold my-3">{stats.fleet}</div>
+                <div>Best Vehicles Fleet</div>
               </div>
               {/* Road Trips Done */}
               <div className="flex flex-col items-center">
@@ -628,7 +678,7 @@ const StatsAndTestamonials: React.FC = () => {
                 <div className='bg-white rounded-full p-1 my-3'>
                   <div className='w-2.5 h-2.5 bg-red-600 rounded-full'></div>
                 </div>
-                <div className="text-5xl font-semibold my-3">16,008</div>
+                <div className="text-5xl font-semibold my-3">{stats.trips}</div>
                 <div>Road Trips Done</div>
               </div>
               {/* People Dropped */}
@@ -638,7 +688,7 @@ const StatsAndTestamonials: React.FC = () => {
                 <div className='bg-white rounded-full p-1 my-3'>
                   <div className='w-2.5 h-2.5 bg-red-600 rounded-full'></div>
                 </div>
-                <div className="text-5xl font-semibold my-3">17,068</div>
+                <div className="text-5xl font-semibold my-3">{stats.dropped}</div>
                 <div>People Dropped</div>
               </div>
               {/* Satisfied Clients */}
@@ -648,7 +698,7 @@ const StatsAndTestamonials: React.FC = () => {
                 <div className='bg-white rounded-full p-1 my-3'>
                   <div className='w-2.5 h-2.5 bg-red-600 rounded-full'></div>
                 </div>
-                <div className="text-5xl font-semibold my-3">19,508</div>
+                <div className="text-5xl font-semibold my-3">{stats.satisfied}</div>
                 <div>Satisfied Client</div>
               </div>
             </div>
@@ -701,66 +751,36 @@ const StatsAndTestamonials: React.FC = () => {
           xl:px-32
           '>
 
-          <div className='text-center text-3xl font-medium'>
-            What Our Customers Say
-          </div>
+          <div className='text-center text-3xl font-medium'>What Our Customers Say</div>
 
           <div className='flex justify-center items-center p-8'>
-            <div className='flex-col justify-center items-center m-16
-            hidden md:flex
-            '>
+            <div className='flex-col justify-center items-center m-16 hidden md:flex'>
               <div className='h-20 w-20 bg-yellow-500 rounded-full flex justify-center items-center'>
-                <img src={Face2} className='h-[76px] w-[76px] bg-yellow-500 rounded-full object-cover' />
+                <img src={testimonials[prevTestimonialIndex].image} className='h-[76px] w-[76px] bg-yellow-500 rounded-full object-cover' alt="Previous testimonial" />
               </div>
             </div>
-            <div className='m-6 shadow-xl
-            hidden
-            md:block
-            '>
-              <Button size='large' icon={<ArrowLeftOutlined />} className='bg-white border-white' />
+            <div className='m-6 shadow-xl hidden md:block'>
+              <Button size='large' icon={<ArrowLeftOutlined />} className='bg-white border-white' onClick={() => setCurrentTestimonialIndex(prevTestimonialIndex)} />
             </div>
-            <div className='p-4 flex flex-col justify-center items-center
-            w-full
-            xl:w-2/5
-            '>
+            <div className='p-4 flex flex-col justify-center items-center w-full xl:w-2/5 text-center'>
               <div className='h-40 w-40 bg-yellow-500 rounded-full flex justify-center items-center'>
-                <img src={Face3} className='h-[152px] w-[152px] bg-yellow-500 rounded-full object-cover' />
+                <img src={currentTestimonial.image} className='h-[152px] w-[152px] bg-yellow-500 rounded-full object-cover' alt={currentTestimonial.name} />
               </div>
-              <div className='font-medium text-2xl py-4'>Manik Patil</div>
-              <div>
-                <img src={Quote} className='absolute opacity-10 h-12 -mt-10' />
-                <div className='text text-center text-gray-800'>
-                  Great experience with this company. I have used many others in
-                  Oakland but this was by far the best. You guys made our trip so easy.
-                  Great customer service, wonderful drivers and by far the best and most
-                  affordable transportation company I have used. Thank you soo much!
-                </div>
+              <div className='font-medium text-2xl py-4'>{currentTestimonial.name}</div>
+              <div className='relative'>
+                <img src={Quote} className='absolute opacity-10 h-12 -mt-10' alt="Quote" />
+                <div className='text text-center text-gray-800'>{currentTestimonial.feedback}</div>
                 <div className='flex w-full justify-end'>
-                  <img src={Quote} className='absolute opacity-10 h-12 -mt-5 transform -scale-x-100 ' />
-                </div>
-                <div className='flex w-full justify-center space-x-6 my-3
-                md:hidden
-                '>
-                  <div className='shadow-xl'>
-                    <Button size='large' icon={<ArrowLeftOutlined />} className='bg-white border-white' />
-                  </div>
-                  <div className='shadow-xl'>
-                    <Button size='large' icon={<ArrowRightOutlined />} className='bg-white border-white' />
-                  </div>
+                  <img src={Quote} className='absolute opacity-10 h-12 -mt-5 transform -scale-x-100' alt="Quote" />
                 </div>
               </div>
             </div>
-            <div className='m-6 shadow-xl
-            hidden
-            md:block
-            '>
-              <Button size='large' icon={<ArrowRightOutlined />} className='bg-white border-white' />
+            <div className='m-6 shadow-xl hidden md:block'>
+              <Button size='large' icon={<ArrowRightOutlined />} className='bg-white border-white' onClick={() => setCurrentTestimonialIndex(nextTestimonialIndex)} />
             </div>
-            <div className='flex-col justify-center items-center m-16
-            hidden md:flex
-            '>
+            <div className='flex-col justify-center items-center m-16 hidden md:flex'>
               <div className='h-20 w-20 bg-yellow-500 rounded-full flex justify-center items-center'>
-                <img src={Face1} className='h-[76px] w-[76px] bg-yellow-500 rounded-full object-cover' />
+                <img src={testimonials[nextTestimonialIndex].image} className='h-[76px] w-[76px] bg-yellow-500 rounded-full object-cover' alt="Next testimonial" />
               </div>
             </div>
           </div>
@@ -771,6 +791,17 @@ const StatsAndTestamonials: React.FC = () => {
 }
 
 const AwsomeFeatures: React.FC = () => {
+
+  const features = [
+    { icon: <StarOutlined className='text-5xl' />, text: 'Premium Services' },
+    { icon: <SafetyOutlined className='text-5xl' />, text: '100% Safety Guarantee' },
+    { icon: <TagOutlined className='text-5xl' />, text: 'Affordable Pricing' },
+    { icon: <CarOutlined className='text-5xl' />, text: 'Quality Taxi' },
+    { icon: <SolutionOutlined className='text-5xl' />, text: 'Professional Drivers' },
+    { icon: <CustomerServiceOutlined className='text-5xl' />, text: '24/7 Quick Support' },
+    { icon: <CloseCircleOutlined className='text-5xl' />, text: 'Free Cancellations' },
+  ];
+
   return (
     <>
       <div className='space-y-10 py-20'>
@@ -791,41 +822,16 @@ const AwsomeFeatures: React.FC = () => {
         </div>
         <div className='flex flex-wrap gap-8 justify-center'>
 
-          <div className='flex items-center gap-2 text-zinc-600 w-40'>
-            <div>
-              <UserOutlined className='text-5xl' />
+          {features.map((feature, index) => (
+            <div key={index} className='flex items-center gap-2 text-zinc-600 w-40'>
+              <div>
+                {feature.icon}
+              </div>
+              <div className='font-semibold'>
+                {feature.text}<span className='text-yellow-500'>.</span>
+              </div>
             </div>
-            <div className='font-semibold'>
-              Professional Drivers<span className='text-yellow-500'>.</span>
-            </div>
-          </div>
-
-          <div className='flex items-center gap-2 text-zinc-600 w-40'>
-            <div>
-              <SafetyOutlined className='text-5xl' />
-            </div>
-            <div className='font-semibold'>
-              Quality Taxi<span className='text-yellow-500'>.</span>
-            </div>
-          </div>
-
-          <div className='flex items-center gap-2 text-zinc-600 w-40'>
-            <div>
-              <TagOutlined className='text-5xl' />
-            </div>
-            <div className='font-semibold'>
-              Affordable Pricing<span className='text-yellow-500'>.</span>
-            </div>
-          </div>
-
-          <div className='flex items-center gap-2 text-zinc-600 w-40'>
-            <div>
-              <CalendarOutlined className='text-5xl' />
-            </div>
-            <div className='font-semibold'>
-              Easy Booking<span className='text-yellow-500'>.</span>
-            </div>
-          </div>
+          ))}
 
         </div>
       </div>
@@ -834,6 +840,40 @@ const AwsomeFeatures: React.FC = () => {
 }
 
 const OurBenefitsList: React.FC = () => {
+
+  // const benefits = [
+  //   {
+  //     icon: <CreditCardOutlined className='text-5xl text-yellow-500' />,
+  //     title: "Online Payment",
+  //     description: "Convenient and secure online payment options with support for multiple gateways.",
+  //   },
+  //   {
+  //     icon: <SafetyOutlined className='text-5xl text-yellow-500' />,
+  //     title: "Safety Guarantee",
+  //     description: "Top-notch safety measures for every ride ensuring a worry-free travel experience.",
+  //   },
+  //   {
+  //     icon: <CarOutlined className='text-5xl text-yellow-500' />,
+  //     title: "Quick Ride",
+  //     description: "Efficient booking and dispatch system to minimize wait times and get you on your way faster.",
+  //   },
+  //   {
+  //     icon: <DollarOutlined className='text-5xl text-yellow-500' />,
+  //     title: "Free Quotation",
+  //     description: "Get a free and instant quote for your ride with no hidden charges.",
+  //   },
+  //   {
+  //     icon: <UserOutlined className='text-5xl text-yellow-500' />,
+  //     title: "Cleared Drivers",
+  //     description: "Professionally trained drivers with thorough background checks for your peace of mind.",
+  //   },
+  //   {
+  //     icon: <TagOutlined className='text-5xl text-yellow-500' />,
+  //     title: "Discount & Promo",
+  //     description: "Enjoy exclusive discounts and promotions to save on your rides.",
+  //   },
+  // ];
+
   return (
     <>
       <div className='space-y-10 py-20'>
@@ -959,6 +999,22 @@ const OurBenefitsList: React.FC = () => {
               </div>
             </div>
           </div>
+
+          {/* {benefits.map((benefit, index) => (
+            <div key={index} className='max-w-xs min-w-[320px] bg-white rounded-2xl p-5 py-8 flex flex-col gap-5 w-full shadow-lg'>
+              <div className='flex justify-center items-center'>
+                {benefit.icon}
+              </div>
+              <div className='text-center'>
+                <div className='text-xl font-semibold'>
+                  {benefit.title}
+                </div>
+                <div className='font-light text-sm mt-2'>
+                  {benefit.description}
+                </div>
+              </div>
+            </div>
+          ))} */}
         </div>
 
         {/* <div className='w-full'>
@@ -1038,7 +1094,7 @@ const EasyStep: React.FC = () => {
         </div>
         <div className='w-full'>
           <div className='flex justify-center -mb-10'>
-            <div className='border border-dashed  justify-center w-[400px]
+            <div className='border border-dashed  justify-center w-[600px]
               hidden
               sm:flex
             '/>
@@ -1054,6 +1110,19 @@ const EasyStep: React.FC = () => {
               </div>
               <div className='text-xl'>
                 Booking A Taxi
+              </div>
+              <div className='text-gray-500 text-sm text-center'>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit
+              </div>
+            </div>
+            <div className='w-56 flex flex-col justify-center items-center space-y-2 m-3
+              sm:m-0
+            '>
+              <div className='h-20 w-20 bg-[#ffffff] rounded-2xl flex justify-center items-center shadow-2xl'>
+                <DollarCircleOutlined className='text-3xl text-yellow-500' />
+              </div>
+              <div className='text-xl'>
+                Pay Your Taxi
               </div>
               <div className='text-gray-500 text-sm text-center'>
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit
@@ -1093,49 +1162,105 @@ const EasyStep: React.FC = () => {
 }
 
 const WhatWeAreOffering: React.FC = () => {
+
+  const services = [
+    {
+      icon: <EnvironmentOutlined className='text-5xl' />,
+      feature: "FEATURE - 01",
+      title: "Online Easy Booking",
+      description: "Book your ride with ease through our online platform, available 24/7 for your convenience."
+    },
+    {
+      icon: <ArrowRightOutlined className='text-5xl' />,
+      feature: "FEATURE - 02",
+      title: "Onewaytrip",
+      description: "Efficient and comfortable one-way trips to your desired destination, with no return trip required."
+    },
+    {
+      icon: <SyncOutlined className='text-5xl' />,
+      feature: "FEATURE - 03",
+      title: "Roundtrip",
+      description: "Convenient roundtrip services ensuring a seamless journey to your destination and back."
+    },
+    {
+      icon: <ClockCircleOutlined className='text-5xl' />,
+      feature: "FEATURE - 04",
+      title: "Hourly Car Rental",
+      description: "Flexible hourly car rental services tailored to meet your short-term travel needs."
+    },
+    {
+      icon: <CarOutlined className='text-5xl' />,
+      feature: "FEATURE - 05",
+      title: "Airport Transfer",
+      description: "Reliable airport transfer services for a stress-free journey to and from the airport."
+    },
+    {
+      icon: <TeamOutlined className='text-5xl' />,
+      feature: "FEATURE - 06",
+      title: "Corporate Car Rental",
+      description: "Professional corporate car rental services designed for business needs and executive travel."
+    },
+  ];
+
+  // State to hold currently displayed services
+  const [displayedServices, setDisplayedServices] = useState(services.slice(0, 3));
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  useEffect(() => {
+    const rotateServices = () => {
+      // Update the index to show the next set of services
+      const nextIndex = (currentIndex + 1) % services.length;
+      setCurrentIndex(nextIndex);
+
+      // Calculate the services to display
+      const nextServices = services.slice(nextIndex, nextIndex + 3).concat(
+        services.slice(0, Math.max(0, 3 - (services.length - nextIndex)))
+      );
+
+      setDisplayedServices(nextServices);
+    };
+
+    // Set interval to rotate services every second
+    const intervalId = setInterval(rotateServices, 3000);
+
+    // Clear interval on component unmount
+    return () => clearInterval(intervalId);
+  }, [currentIndex, services]);
+
+
   return (
     <>
       <div className='space-y-12 py-20 bg-[#F5F5F5]'>
         <div className='text-center text-3xl font-medium'>
-          Services We offer
+          What We Are Offering?
         </div>
         <div className='flex justify-center '>
           <div className='grid grid-cols-1 justify-items-center container
           lg:grid-cols-3
         '>
-            <ServiceCard
-              icon={<CarOutlined />}
-              feature="FEATURE - 01"
-              title="AIRPORT TRANSFERS"
-              description="Monetize flexible action items before mission critical redibly intuitive."
-            />
-            <ServiceCard
-              icon={<CarryOutOutlined />}
-              feature="FEATURE - 02"
-              title="BUSINESS TRANSFERS"
-              description="Monetize flexible action items before mission critical redibly intuitive."
-            />
-            <ServiceCard
-              icon={<TrophyOutlined />}
-              feature="FEATURE - 03"
-              title="EVENTS & WEDDING"
-              description="Monetize flexible action items before mission critical redibly intuitive."
-            />
+            {displayedServices.map((service, index) => (
+              <ServiceCard
+                key={index}
+                icon={service.icon}
+                feature={service.feature}
+                title={service.title}
+                description={service.description}
+              />
+            ))}
           </div>
         </div>
-        <div className='flex w-full justify-center space-x-6 my-3'>
+        {/* <div className='flex w-full justify-center space-x-6 my-3'>
           <div className='shadow-xl'>
             <Button size='large' icon={<ArrowLeftOutlined />} className='bg-white border-white' />
           </div>
           <div className='shadow-xl'>
             <Button size='large' icon={<ArrowRightOutlined />} className='bg-white border-white' />
           </div>
-        </div>
+        </div> */}
       </div>
     </>
   )
 }
-
 
 const Home: React.FC = () => {
   return (
@@ -1164,6 +1289,3 @@ const Home: React.FC = () => {
 }
 
 export default Home;
-
-// Icons of tags for car features
-
