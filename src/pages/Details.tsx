@@ -729,7 +729,7 @@ const Details: React.FC = () => {
                         <Radio value={"full"}>
                           <div className=''>
                             <div className='font-semibold text-lg'>
-                              PAY FULL - ₹ {couponDiscountedAmount?.toLocaleString() || taxiRate.discountedPrice?.toLocaleString()}
+                              PAY FULL - ₹ {couponDiscountedAmount || taxiRate.discountedPrice?.toLocaleString()}
                             </div>
                           </div>
                         </Radio>
@@ -783,7 +783,7 @@ const Details: React.FC = () => {
                         >
                           ₹ {taxiRate.originalPrice?.toLocaleString()}
                         </span>
-                        <span className='text-2xl font-bold'>₹ {couponDiscountedAmount?.toLocaleString() || taxiRate.discountedPrice?.toLocaleString()}</span>
+                        <span className='text-2xl font-bold'>₹ {couponDiscountedAmount || taxiRate.discountedPrice?.toLocaleString()}</span>
                       </div>
                     </div>
                     <div className='w-full flex justify-between items-end'>
