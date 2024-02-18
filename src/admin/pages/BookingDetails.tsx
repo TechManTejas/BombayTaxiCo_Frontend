@@ -32,7 +32,7 @@ export default function BookingDetails() {
         setHoveredTaxi(taxi);
     };
 
-    console.log(booking.base_fare)
+    console.log(booking)
 
     const goBack = () => {
         window.history.back();
@@ -419,7 +419,7 @@ export default function BookingDetails() {
                                         {/* Map through the cities to populate the options */}
                                         {taxis.map((taxi: Taxi) => (
                                             <Select.Option key={taxi._id} value={taxi._id} onMouseEnter={() => handleHover(taxi)}>
-                                                {taxi.taxi_type_id.name} - {taxi.taxi_no}
+                                                {taxi.taxi_type_id?.name} - {taxi.taxi_no}
                                             </Select.Option>
                                         ))}
                                     </Select>

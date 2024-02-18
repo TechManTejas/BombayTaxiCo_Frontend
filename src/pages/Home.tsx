@@ -595,7 +595,7 @@ const WhyChooseUs: React.FC = () => {
 
 const StatsAndTestamonials: React.FC = () => {
 
-  const [isVisible, elementRef] = useIntersectionObserver({});
+  const [isVisible] = useIntersectionObserver({});
   const [stats, setStats] = useState({ fleet: 0, trips: 0, dropped: 0, satisfied: 0 });
   const finalStats = { fleet: 32002, trips: 16008, dropped: 17068, satisfied: 19508 };
   const [currentTestimonialIndex, setCurrentTestimonialIndex] = useState(0);
@@ -649,7 +649,7 @@ const StatsAndTestamonials: React.FC = () => {
 
   return (
     <>
-      <div ref={elementRef} className="bg-blue-900 text-white"
+      <div className="bg-blue-900 text-white"
         style={{
           backgroundImage: `url(${Experience})`,
           backgroundSize: 'cover'

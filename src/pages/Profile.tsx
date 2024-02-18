@@ -112,7 +112,7 @@ export const Profile = () => {
           params: {
             page: page,
             pageSize: 10,
-            filter: activeTab !== "All" ? JSON.stringify({ booking_status: activeTab }) : undefined,
+            filter: activeTab !== "All" ? JSON.stringify({ booking_status: activeTab }) : JSON.stringify({ booking_status: 'New' }),
             search: searchQuery,
           },
         });
