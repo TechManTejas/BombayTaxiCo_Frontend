@@ -1,8 +1,10 @@
 import { LeftOutlined, CheckCircleOutlined, CloseCircleOutlined, CarryOutOutlined, CarOutlined, SwapOutlined, ClockCircleOutlined } from "@ant-design/icons";
-import { Button, Form, Space, Tag } from "antd";
+import { Button, Form, Space, Tag, message } from "antd";
 import { useLocation } from "react-router-dom";
 import { BookingStatus, IBooking, TripType } from "../types/bookings.types";
 import dayjs from "dayjs";
+import axios from "../api/axios"
+import { confirmation } from "../components/Confirmation";
 
 export default function UserBookingDetails() {
 
@@ -10,6 +12,7 @@ export default function UserBookingDetails() {
     const booking: IBooking = state?.booking;
     const [form] = Form.useForm();
 
+    const isBookingCancelled = booking?.booking_status === BookingStatus.Cancelled;
     const isBookingConfirmed = booking?.booking_status === BookingStatus.Confirmed;
     const isBookingOnRide = booking?.booking_status === BookingStatus.OnRide;
 
@@ -70,6 +73,34 @@ export default function UserBookingDetails() {
         }
     };
 
+    const onCancelTrip = async () => {
+        try {
+            // Show confirmation dialog
+            const isConfirmed = await confirmation('Are you sure you want to cancel the trip?');
+
+            // If user confirms, proceed with the Axios post request
+            if (isConfirmed) {
+                // Make Axios post request to /assign-taxi-driver endpoint
+                const response = await axios.put(`/bookings/${booking?._id}`, {
+                    booking_status: 'Cancelled'
+                });
+
+                // Handle response as needed
+                console.log('Status successful:', response.data);
+                message.info("Trip Cancelled!")
+                goBack()
+
+                // Optionally navigate or perform other actions after successful assignment
+            } else {
+                // Handle if user cancels the confirmation
+                console.log('Assignment cancelled by user');
+            }
+        } catch (error) {
+            console.error('Error:', error);
+            message.error('Error adding/updating route');
+        }
+    }
+
     return (
         <div className='px-10 py-6 w-full'>
             <div className="">
@@ -115,13 +146,13 @@ export default function UserBookingDetails() {
                     </div>
                     <Form form={form}>
                         <Space className='space-x-4'>
-                            {/* {!isBookingConfirmed && !isBookingOnRide && !isBookingCompleted && !isBookingCancelled && (
+                            {!isBookingConfirmed && !isBookingCancelled && (
                                 <>
                                     <Button className="font-semibold w-28 h-10" onClick={onCancelTrip}>
                                         CANCEL
                                     </Button>
                                 </>
-                            )} */}
+                            )}
                         </Space>
                     </Form>
                 </div>
