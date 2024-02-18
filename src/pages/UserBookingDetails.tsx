@@ -75,31 +75,36 @@ export default function UserBookingDetails() {
 
     const onCancelTrip = async () => {
         try {
+            const pickupDateTime = dayjs(`${booking?.pick_up_date} ${booking?.pick_up_time}`);
+            const now = dayjs();
+            const hoursDiff = pickupDateTime.diff(now, 'hour', true); // Calculate the difference in hours
+    
+            // Check if the difference is more than 2 hours
+            if (hoursDiff <= 2) {
+                message.error("Cannot cancel the trip less than 2 hours before pickup time.");
+                return; // Exit the function if the condition is not met
+            }
+    
             // Show confirmation dialog
             const isConfirmed = await confirmation('Are you sure you want to cancel the trip?');
-
-            // If user confirms, proceed with the Axios post request
+    
             if (isConfirmed) {
-                // Make Axios post request to /assign-taxi-driver endpoint
+                // Proceed with the Axios request to cancel the booking
                 const response = await axios.put(`/bookings/${booking?._id}`, {
                     booking_status: 'Cancelled'
                 });
-
-                // Handle response as needed
+    
                 console.log('Status successful:', response.data);
-                message.info("Trip Cancelled!")
-                goBack()
-
-                // Optionally navigate or perform other actions after successful assignment
+                message.info("Trip Cancelled!");
+                goBack(); // Navigate back after successful cancellation
             } else {
-                // Handle if user cancels the confirmation
-                console.log('Assignment cancelled by user');
+                console.log('Cancellation aborted by user');
             }
         } catch (error) {
             console.error('Error:', error);
-            message.error('Error adding/updating route');
+            message.error('Error processing your cancellation request');
         }
-    }
+    };
 
     return (
         <div className='px-10 py-6 w-full'>
