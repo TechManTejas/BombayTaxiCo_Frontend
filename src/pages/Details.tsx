@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useEffect, useState } from 'react';
 import CarCard from '../components/CarCard';
-import { Button, Divider, Form, Input, Radio, RadioChangeEvent, Select, Space, message } from 'antd';
+import { Button, Checkbox, Divider, Form, Input, Radio, RadioChangeEvent, Select, Space, message } from 'antd';
 import axios from "../api/axios"
 import Logo from "../assets/images/logo.png"
 import { Option } from 'antd/es/mentions';
@@ -106,6 +106,179 @@ const ReadBeforeYouBook = () => {
   )
 }
 
+const OnTripDosAndDonts = () => {
+  return (
+    <>
+      <div className='bg-white border m-3 p-4 rounded-lg'>
+        <div>
+          <div className='font-medium text-2xl mb-4'>
+            On Trip Do's & Don'ts
+          </div>
+          <div className='lg:flex gap-8
+            lg:w-[730px]
+          '>
+            <div className='space-y-1 text-sm'>
+              <div className='w-full'>
+                ● You have booked our eco-friendly / cng service tier. Your trip will be served with a *vehicle fueled by cng*
+              </div>
+              <div className='w-full'>
+                ● When you book our value or cng service tiers, we only promise to provide a vehicle of a
+                certain category (compact, sedan, suv etc). We do not guarantee a specific model of car.
+                To choose a specific vehicle model you must book in premium service tier.
+              </div>
+              <div className='w-full'>
+                ● On-journey stops or waypoints are not allowed unless part of itinerary and written in this
+                confirmation email.
+              </div>
+              <div className='w-full'>
+                ● A single 15-minute complimentary on journey break is included for point-to-point trips
+                longer than 4 hours.
+              </div>
+              <div className='w-full'>
+                ● 30 min rest for driver and/or change of vehicle for more than 4 hours continuous drive is
+                customary. This is to ensure safe driving.
+              </div>
+              <div className='w-full'>
+                ● Drivable kms in your quote are estimates. You will be billed for the actual distance
+                travelled. If you have not provided the exact address before your pickup the booking
+                amount is estimate for travel from city center to city center. Actual distance travelled may
+                differ based on exact addresses and/or itinerary.
+              </div>
+              <div className='w-full'>
+                ● Driver may not agree to any changes to route or itinerary. Any changes, additions of
+                waypoints, pick-up points, drop points, halts, destination cities or sightseeing spots are
+                absolutely not authorized unless they are added to your itinerary and confirmed in writing
+                through a booking confirmation email. Changes to itinerary may lead to price changes.
+              </div>
+              <div className='w-full'>
+                ● Ac may be switched off only in hilly regions (high altitude) to prevent engine overload.
+              </div>
+              <div className='w-full'>
+                ● "You agree to make payments for your trip as per the following payment schedule. (1)
+                advance payment to Bombay taxi company at time of booking. (2) 50% of remaining
+                payable amount to driver upon boarding (3) daily part payments of remaining amount to
+                driver in equal parts "
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </>
+  )
+}
+
+const OtherTerms = () => {
+  return (
+    <>
+      <div className='bg-white border m-3 p-4 rounded-lg'>
+        <div>
+          <div className='font-medium text-2xl mb-4'>
+            Other Terms
+          </div>
+          <div className='lg:flex gap-8
+            lg:w-[730px]
+          '>
+            <div className='space-y-1 text-sm'>
+              <div className='w-full'>
+                ● Should you have any questions we recommend you read our frequently asked questions
+                at https://Bombay taxi company.com/FAQ or you may request a callback from our team.
+                Be sure to be logged in and give your booking id when requesting a call back. This helps
+                us find your reservation and prioritizes your call in the call queue.
+              </div>
+              <div className='w-full'>
+                ● One day means one calendar day (12 am midnight to 11.59 pm next day).
+              </div>
+              <div className='w-full'>
+                ● Vehicle fuel type shall be subject to availability. We do not commit to serve you with
+                vehicle of a specific fuel type (petrol / diesel / ev etc)
+              </div>
+              <div className='w-full'>
+                ● Pickup may be delayed by 30 minutes at most due to traffic conditions or other
+                unavoidable circumstances.
+              </div>
+              <div className='w-full'>
+                ● You are solely responsible for managing your own travel schedule. Please budget for
+                traffic delays and unforeseen delays as those are beyond our control. Bombay taxi
+                company shall not be liable for any compensation if you happen to miss your flight, train
+                or bus due to delayed pickup, traffic jam, road blockage / diversion or any other reason
+                during the trip.
+              </div>
+              <div className='w-full'>
+                ● Please do not share your personal banking or payment card details like passwords, cvv
+                etc. With any third party claiming to be Bombay taxi company representatives. For any
+                query, please reach out to our official customer care number and/or raise a call back
+                request.
+              </div>
+              <div className='w-full'>
+                ● Your reservation is subject to Bombay taxi company terms and conditions.
+                (http://www.Bombay taxi company.com/terms). We will contact you via email for
+                feedback after this trip. Please promptly write a review so we can address any concerns
+                you raise in conformance with the terms & conditions of this reservation. Our ability to
+                address grievances is severely limited if your feedback is received after 7 calendar days
+                of completion of your trip.
+              </div>
+              <div className='w-full'>
+                ● It is required that the entire itinerary be documented in your reservation. The quoted price
+                will change based on multiple factors including but not limited to the itinerary,
+                waypoints, driving terrain, local union fees, local restrictions and estimated distances to
+                be driven.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </>
+  )
+}
+
+const PreBoardingGuidelines = () => {
+  return (
+    <>
+      <div className='bg-white border m-3 p-4 rounded-lg'>
+        <div>
+          <div className='font-medium text-2xl mb-4'>
+            Pre-boarding guidelines
+          </div>
+          <div className='lg:flex gap-8
+            lg:w-[730px]
+          '>
+            <div className='space-y-1 text-sm'>
+              <div className='w-full'>
+                ● Check identification of the driver
+              </div>
+              <div className='w-full'>
+                ● Are there changes in your trip start address ? -- first update the pickup address with
+                Bombay taxi company. For safety and security reasons, driver is unable start the trip from
+                a location other than the one provided in the booking.
+              </div>
+              <div className='w-full'>
+                ● Do not ride if the vehicle is not commercially licensed. (yellow license plate)
+              </div>
+              <div className='w-full'>
+                ● Do not ride if the vehicle and/or driver information do not match the information
+                provided by Bombay taxi company.
+              </div>
+              <div className='w-full'>
+                ● Bombay taxi company shall not be responsible or liable in any manner if you choose to
+                ride in a vehicle that is not commercially licensed or ride with a driver or vehicle other
+                than the one that we have assigned to you.
+              </div>
+              <div className='w-full'>
+                ● You may ask the driver for identification to ensure that you are riding with the correct
+                driver. Drivers may ask for your identification too. Failure to provide identification will
+                make your booking subject to cancellation at your cost.
+              </div>
+              <div className='w-full'>
+                ● Provide the one-time password (otp) to the driver to start the trip.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </>
+  )
+}
+
 const Details: React.FC = () => {
 
   const { userAuthenticated, setOpenAuthModal } = Context();
@@ -121,6 +294,7 @@ const Details: React.FC = () => {
   const [couponDiscountedAmount, setCouponDiscountedAmount] = useState<number>(0)
   const [paymentType, setPaymentType] = useState<string>("advance");
   const [paymentSelectionOpen, setPaymentSelectionOpen] = useState<boolean>(false);
+  const [isOtherChecked, setIsOtherChecked] = useState(false);
 
   const tripType = state.tripType || null
   const taxiRate = state.taxi_rate || null
@@ -130,6 +304,10 @@ const Details: React.FC = () => {
   const pickupTime = state.pickupTime || null
   const pickupCityId = state.pickupCityId || null
   const hourlyPackage = state.hourlyPackage || null
+
+  const onOtherCheckboxChange = (e: any) => {
+    setIsOtherChecked(e.target.checked);
+  };
 
   const calcAdvancePay = () => {
     return (Math.round(taxiRate.discountedPrice * ((parseInt(settings?.advancePaymentPercentage || '0')) / 100)))?.toLocaleString()
@@ -688,7 +866,7 @@ const Details: React.FC = () => {
                           </Form.Item>
                         </div>
 
-                        <Form.Item
+                        {/* <Form.Item
                           name="termsAndConditions"
                           valuePropName="checked"
                         >
@@ -698,14 +876,104 @@ const Details: React.FC = () => {
                               Confirm and save billing details to your profile
                             </div>
                           </div>
+                        </Form.Item> */}
+
+                        <Form.Item name="termsAndConditions" valuePropName="checked">
+                          <Checkbox value="seniorCitizen">Confirm and save billing details to your profile</Checkbox>
                         </Form.Item>
 
+                        <div className='font-semibold text-lg my-4'>Additional details</div>
+
+                        <div className='lg:flex w-full gap-10'>
+                          <Form.Item
+                            className='w-1/2'
+                            label="No. of passengers"
+                            name="numberOfPassengers"
+                          >
+                            <Select placeholder='Select number of passengers'>
+                              {[...Array(10)].map((_, index) => (
+                                <Option key={(index + 1).toString()} value={(index + 1).toString()}>{index + 1}</Option>
+                              ))}
+                            </Select>
+                          </Form.Item>
+                        </div>
+
+                        <div className='lg:flex w-full gap-10'>
+                          <Form.Item
+                            className='w-1/2'
+                            label="No. of large bags"
+                            name="numberOfLargeBags"
+                          >
+                            <Select placeholder='Select number of large bags'>
+                              {[...Array(5)].map((_, index) => (
+                                <Option key={(index).toString()} value={(index).toString()}>{index}</Option>
+                              ))}
+                            </Select>
+                          </Form.Item>
+
+                          <Form.Item
+                            className='w-1/2'
+                            label="No. of small bags"
+                            name="numberOfSmallBags"
+                          >
+                            <Select placeholder='Select number of small bags'>
+                              {[...Array(5)].map((_, index) => (
+                                <Option key={(index).toString()} value={(index).toString()}>{index}</Option>
+                              ))}
+                            </Select>
+                          </Form.Item>
+                        </div>
+
+                        <div className='pb-4'>
+                          Please provide additional information to help us to serve you better.
+                        </div>
+
+                        <Form.Item>
+                          <Checkbox value="seniorCitizen">Senior citizen traveling</Checkbox>
+                        </Form.Item>
+                        <Form.Item>
+                          <Checkbox value="womenTraveling">Women traveling</Checkbox>
+                        </Form.Item>
+                        <Form.Item>
+                          <Checkbox value="kidsOnBoard">Kids on board</Checkbox>
+                        </Form.Item>
+                        <Form.Item>
+                          <Checkbox value="englishSpeakingDriver">English-speaking driver preferred</Checkbox>
+                        </Form.Item>
+                        <Form.Item>
+                          <Checkbox value="carryingPet">Carrying Pet</Checkbox>
+                        </Form.Item>
+                        <Form.Item>
+                          <Checkbox value="need7Plus1Seater">Need 7+1 seater</Checkbox>
+                        </Form.Item>
+                        <Form.Item>
+                          <Checkbox value="carrierOverTop">Carrier over the top of vehicle</Checkbox>
+                        </Form.Item>
+                        <Form.Item>
+                          <Checkbox value="bookingForSomeoneElse">Booking for someone else</Checkbox>
+                        </Form.Item>
+                        <Form.Item>
+                          <Checkbox onChange={onOtherCheckboxChange} value="other">Other</Checkbox>
+                        </Form.Item>
+
+                        {isOtherChecked && (
+                          <Form.Item>
+                            <Input.TextArea
+                              placeholder="Please specify"
+                              autoSize={{ minRows: 3, maxRows: 3 }}
+                              style={{ resize: 'none' }}
+                            />
+                          </Form.Item>
+                        )}
                       </Form>
                     </div>
                   </div>
                 </div>
               </>
               <ReadBeforeYouBook />
+              <OnTripDosAndDonts />
+              <OtherTerms />
+              <PreBoardingGuidelines />
             </div>
             <>
               <div className='min-w-full lg:min-w-[320px] max-w-xs lg:w-full m-3 sticky top-6 '>
