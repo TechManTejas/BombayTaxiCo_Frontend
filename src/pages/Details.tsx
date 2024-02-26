@@ -475,6 +475,8 @@ const Details: React.FC = () => {
       .then(() => {
         const formValues = form.getFieldsValue();
 
+        console.log(formValues)
+
         const booking = {
           "route_id": route?._id ?? null,
           "trip_type": tripType,
@@ -488,7 +490,19 @@ const Details: React.FC = () => {
           "pickup_city": pickupCityId,
           "hourly_package": hourlyPackage,
           "coupon_id": couponId,
-          "base_fare": couponDiscountedAmount || taxiRate.discountedPrice
+          "base_fare": couponDiscountedAmount || taxiRate.discountedPrice,
+          "numberOfPassengers": formValues.numberOfPassengers,
+          "numberOfSmallBags": formValues.numberOfSmallBags,
+          "numberOfLargeBags": formValues.numberOfLargeBags,
+          "seniorCitizen": formValues.seniorCitizen,
+          "womenTraveling": formValues.womenTraveling,
+          "kidsOnBoard": formValues.kidsOnBoard,
+          "englishSpeakingDriver": formValues.englishSpeakingDriver,
+          "carryingPet": formValues.carryingPet,
+          "need7Plus1Seater": formValues.need7Plus1Seater,
+          "carrierOverTop": formValues.carrierOverTop,
+          "bookingForSomeoneElse": formValues.bookingForSomeoneElse,
+          "otherDetails": formValues.otherDetails
         }
 
         console.log(booking)
@@ -928,36 +942,36 @@ const Details: React.FC = () => {
                           Please provide additional information to help us to serve you better.
                         </div>
 
-                        <Form.Item>
+                        <Form.Item name="seniorCitizen" valuePropName="checked">
                           <Checkbox value="seniorCitizen">Senior citizen traveling</Checkbox>
                         </Form.Item>
-                        <Form.Item>
+                        <Form.Item name="womenTraveling" valuePropName="checked">
                           <Checkbox value="womenTraveling">Women traveling</Checkbox>
                         </Form.Item>
-                        <Form.Item>
+                        <Form.Item name="kidsOnBoard" valuePropName="checked">
                           <Checkbox value="kidsOnBoard">Kids on board</Checkbox>
                         </Form.Item>
-                        <Form.Item>
+                        <Form.Item name="englishSpeakingDriver" valuePropName="checked">
                           <Checkbox value="englishSpeakingDriver">English-speaking driver preferred</Checkbox>
                         </Form.Item>
-                        <Form.Item>
+                        <Form.Item name="carryingPet" valuePropName="checked">
                           <Checkbox value="carryingPet">Carrying Pet</Checkbox>
                         </Form.Item>
-                        <Form.Item>
+                        <Form.Item name="need7Plus1Seater" valuePropName="checked">
                           <Checkbox value="need7Plus1Seater">Need 7+1 seater</Checkbox>
                         </Form.Item>
-                        <Form.Item>
+                        <Form.Item name="carrierOverTop" valuePropName="checked">
                           <Checkbox value="carrierOverTop">Carrier over the top of vehicle</Checkbox>
                         </Form.Item>
-                        <Form.Item>
+                        <Form.Item name="bookingForSomeoneElse" valuePropName="checked">
                           <Checkbox value="bookingForSomeoneElse">Booking for someone else</Checkbox>
                         </Form.Item>
-                        <Form.Item>
+                        <Form.Item name="other" valuePropName="checked">
                           <Checkbox onChange={onOtherCheckboxChange} value="other">Other</Checkbox>
                         </Form.Item>
 
                         {isOtherChecked && (
-                          <Form.Item>
+                          <Form.Item name="otherDetails">
                             <Input.TextArea
                               placeholder="Please specify"
                               autoSize={{ minRows: 3, maxRows: 3 }}
