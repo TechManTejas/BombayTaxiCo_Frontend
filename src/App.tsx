@@ -54,7 +54,8 @@ const UserRoutes: React.FC = () => {
     <ConfigProvider
       theme={{
         token: {
-          borderRadius: 3
+          borderRadius: 3,
+          colorPrimary: '#FDB813'
         },
         components: {
           Tabs: {
@@ -97,7 +98,7 @@ const AdminRoutes: React.FC = () => {
       theme={{
         token: {
           borderRadius: 3,
-          colorPrimary: '#ff4d4f',
+          colorPrimary: '#FDB813',
         },
         components: {
           Tabs: {
