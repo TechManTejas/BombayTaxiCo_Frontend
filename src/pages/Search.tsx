@@ -285,6 +285,7 @@ const Search: React.FC = () => {
 
       // Extract the trip rates from the response
       const rates = response.data.taxi_rates || [];
+      console.log(rates);
       setTripRates(rates);
 
       const route = response.data.route || null
@@ -669,6 +670,18 @@ const Search: React.FC = () => {
           </div>
         </div>
       </div >
+      <div className='flex justify-center py-8'>
+        <div className='container text-center space-x-1'>
+          <span className='text-zinc-800 font-semibold'>
+            Disclaimer:
+          </span>
+          <span className='text-zinc-600'>
+            Fare listed above are estimated based on gathered information. Final fare shall depend on
+            actual traveled distance. Mileage & Timings will be calculated from our garage to garage whereas vehicles
+            will be dispatched from the nearest garage.
+          </span>
+        </div>
+      </div>
       <Footer />
     </ >
   );

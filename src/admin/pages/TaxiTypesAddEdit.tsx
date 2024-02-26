@@ -23,6 +23,7 @@ const TaxiTypesAddEdit: React.FC = () => {
     // Set initial values for the form
     const initialValues: TaxiTypeFormValues = {
         name: '',
+        description: '',
         price_km: 0,
         price_hour: 0,
         extra_km_charges: 0,
@@ -77,6 +78,10 @@ const TaxiTypesAddEdit: React.FC = () => {
 
                 <Form.Item name="name" label="Taxi Type Name" rules={[{ required: true, message: 'Please enter the taxi type name' }]}>
                     <Input className="w-full" />
+                </Form.Item>
+
+                <Form.Item name="description" label="Description" rules={[{ required: true, message: 'Please enter the taxi type description' }]}>
+                    <Input.TextArea rows={4} className="w-full" />
                 </Form.Item>
 
                 <Space>

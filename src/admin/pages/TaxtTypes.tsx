@@ -21,6 +21,7 @@ const TaxiTypes: React.FC = () => {
     interface DataType {
         _id: string;
         name?: string;
+        description?: string;
         price_km?: number;
         price_hour?: number;
         discount_percentage?: number;
@@ -32,6 +33,12 @@ const TaxiTypes: React.FC = () => {
             dataIndex: 'name',
             key: 'name',
             width: 100
+        },
+        {
+            title: 'DESCRIPTION',
+            dataIndex: 'description',
+            key: 'description',
+            width: 150
         },
         {
             title: 'PRICE PER KM',
@@ -151,6 +158,7 @@ const TaxiTypes: React.FC = () => {
     const mapDataToTableFormat = (data: TaxiType[]): Array<{
         _id: string;
         name: string;
+        description: string;
         price_km: number;
         price_hour: number;
         car_features: CarFeature[];
@@ -159,6 +167,7 @@ const TaxiTypes: React.FC = () => {
         return data.map(taxiType => ({
             _id: taxiType?._id,
             name: taxiType?.name,
+            description: taxiType?.description,
             price_km: taxiType?.price_km,
             price_hour: taxiType?.price_hour,
             car_features: taxiType?.car_features || [],

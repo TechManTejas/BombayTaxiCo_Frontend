@@ -20,13 +20,13 @@ const BreadCrumb: React.FC = () => {
   return (
     <>
       <div className='text-gray-700 container py-6 flex space-x-1'>
-        <button className='hover:text-yellow-500 hover:underline' onClick={()=>{
+        <button className='hover:text-yellow-500 hover:underline' onClick={() => {
           navigate("/")
         }}>
-          Home 
+          Home
         </button>
         <div>
-        {'>'} Contact Us
+          {'>'} Contact Us
         </div>
       </div>
     </>
@@ -40,7 +40,7 @@ const Cards: React.FC = () => {
       md:grid-cols-2
       xl:grid-cols-4
     '>
-      <div className='p-4 rounded-3xl bg-white m-8 w-[282px] h-[232px] shadow-xl'>
+      <div className='p-4 rounded-3xl bg-white m-8 w-[282px] h-[280px] shadow-xl'>
         <div className='p-3'>
           <div className='flex flex-col justify-center items-center space-y-3'>
 
@@ -52,36 +52,51 @@ const Cards: React.FC = () => {
           </div>
         </div>
       </div >
-      <div className='p-4 rounded-3xl bg-white m-8 w-[282px] h-[232px] shadow-xl'>
+      <div className='p-4 rounded-3xl bg-white m-8 w-[282px] h-[280px] shadow-xl'>
         <div className='p-3'>
           <div className='flex flex-col justify-center items-center space-y-3'>
             <div className='h-20 w-20 bg-yellow-500 rounded-full flex justify-center items-center'>
               <PhoneOutlined className='text-3xl text-white' />
             </div>
-            <div className='font-black text-2xl'>Call Us</div>
-            <div className='font-medium '>+2 123 4565 789</div>
+            <div className='font-black text-2xl'>For Reservations</div>
+            <div>
+              <div className=''>For Reservations</div>
+              <div className='font-medium '>+35 (70) 8796 054</div>
+              <div className=''>For Reservations</div>
+              <div className='font-medium '>0 (800) 456 4040</div>
+            </div>
           </div>
         </div>
       </div >
-      <div className='p-4 rounded-3xl bg-white m-8 w-[282px] h-[232px] shadow-xl'>
+      <div className='p-4 rounded-3xl bg-white m-8 w-[282px] h-[280px] shadow-xl'>
         <div className='p-3'>
           <div className='flex flex-col justify-center items-center space-y-3'>
             <div className='h-20 w-20 bg-yellow-500 rounded-full flex justify-center items-center'>
               <MailOutlined className='text-3xl text-white' />
             </div>
             <div className='font-black text-2xl'>Email Us</div>
-            <div className='font-medium '>info@example.com</div>
+            <div>
+              <div className=''>Reach us by email</div>
+              <div className='font-medium '>rentals@domain.com</div>
+              <div className=''>Customer Service</div>
+              <div className='font-medium '>vans@domain.com</div>
+            </div>
           </div>
         </div>
       </div >
-      <div className='p-4 rounded-3xl bg-white m-8 w-[282px] h-[232px] shadow-xl'>
+      <div className='p-4 rounded-3xl bg-white m-8 w-[282px] h-[280px] shadow-xl'>
         <div className='p-3'>
           <div className='flex flex-col justify-center items-center space-y-3'>
             <div className='h-20 w-20 bg-yellow-500 rounded-full flex justify-center items-center'>
               <ClockCircleOutlined className='text-3xl text-white' />
             </div>
             <div className='font-black text-2xl'>Open Timing</div>
-            <div className='font-medium '>Mon - Sat (10.00AM - 5.30PM)</div>
+            <div>
+              <div className=''>Operating Hours</div>
+              <div className='font-medium '>Mon - Fri 9.30 am - 8pm</div>
+              <div className=''>Operating Hours</div>
+              <div className='font-medium '>Sat - Sun 10 am - 7pm</div>
+            </div>
           </div>
         </div>
       </div >
@@ -174,6 +189,7 @@ const Contact: React.FC = () => {
       bg-[#F5F5F5]'
       >
         <BreadCrumb />
+        <div className='text-center text-3xl font-medium'>Any questions? Get in touch with us!</div>
         <Cards />
         <GetInTouch />
       </div>
