@@ -6,6 +6,7 @@ export interface CarFeature {
 export interface TaxiType {
   _id: string;
   name: string;
+  description: string;
   price_km: number;
   price_hour: number;
   extra_km_charges: number; 
@@ -15,6 +16,7 @@ export interface TaxiType {
 
 export interface TaxiTypeFormValues {
   name: string;
+  description: string;
   price_km: number;
   price_hour: number;
   extra_km_charges: number; 
