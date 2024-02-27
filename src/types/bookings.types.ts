@@ -54,5 +54,17 @@ export interface IBooking extends Document {
     };
     booking_status: BookingStatus;
     trip_type?: TripType;
+    numberOfPassengers: string,
+    numberOfSmallBags: string,
+    numberOfLargeBags: string,
+    seniorCitizen: boolean,
+    womenTraveling: boolean,
+    kidsOnBoard: boolean,
+    englishSpeakingDriver: boolean,
+    carryingPet: boolean,
+    need7Plus1Seater: boolean,
+    carrierOverTop: boolean,
+    bookingForSomeoneElse: boolean,
+    otherDetails: string
     __v: number;
 }
