@@ -17,6 +17,8 @@ export default function BookingDetails() {
     const booking: IBooking = state?.booking;
     const [form] = Form.useForm();
 
+    console.log(booking);
+
     const isBookingCancelled = booking?.booking_status === BookingStatus.Cancelled;
     const isBookingCompleted = booking?.booking_status === BookingStatus.Completed;
     const isBookingConfirmed = booking?.booking_status === BookingStatus.Confirmed;
@@ -294,41 +296,7 @@ export default function BookingDetails() {
             <hr className="my-5" />
             <div className="flex">
                 <div className=" w-1/3 h-full">
-                    <div>
-                        <div className="text-gray-400 my-3">
-                            USER DETAILS
-                        </div>
-                        <div className="overflow-x-auto">
-                            <table className="divide-y divide-gray-200">
-                                <tbody className="bg-white divide-y divide-gray-200">
-                                    <tr>
-                                        <td className="py-4 whitespace-nowrap">
-                                            <div className="text-sm font-medium text-gray-900">USER NAME</div>
-                                        </td>
-                                        <td className="px-6 py-4 whitespace-nowrap">
-                                            <div className="text-sm text-gray-500">{booking?.user_id?.name}</div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td className="py-4 whitespace-nowrap">
-                                            <div className="text-sm font-medium text-gray-900">USER MOBILE NO</div>
-                                        </td>
-                                        <td className="px-6 py-4 whitespace-nowrap">
-                                            <div className="text-sm text-gray-500">{booking?.user_id?.mobile_no}</div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td className="py-4 whitespace-nowrap">
-                                            <div className="text-sm font-medium text-gray-900">USER EMAIL</div>
-                                        </td>
-                                        <td className="px-6 py-4 whitespace-nowrap">
-                                            <div className="text-sm text-gray-500">{booking?.user_id?.email_id}</div>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
+
                     <div>
                         <div className="text-gray-400 my-3">
                             TRIP DETAILS
@@ -391,6 +359,148 @@ export default function BookingDetails() {
                                         <td className="px-6 py-4">
                                             <div className="text-sm text-green-600">{booking?.coupon_id?.name}</div>
                                             <div className="text-sm text-green-500">{booking?.coupon_id?.discount_perc}%  discount</div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div>
+                        <div className="text-gray-400 my-3">
+                            TRAVELLERS DETAILS
+                        </div>
+                        <div className="overflow-x-auto">
+                            <table className="divide-y divide-gray-200">
+                                <tbody className="bg-white divide-y divide-gray-200">
+                                    <tr>
+                                        <td className="py-4 whitespace-nowrap">
+                                            <div className="text-sm font-medium text-gray-900">NAME</div>
+                                        </td>
+                                        <td className="px-6 py-4 whitespace-nowrap">
+                                            <div className="text-sm text-gray-500">{booking?.user_id?.name}</div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td className="py-4 whitespace-nowrap">
+                                            <div className="text-sm font-medium text-gray-900">EMAIL</div>
+                                        </td>
+                                        <td className="px-6 py-4 whitespace-nowrap">
+                                            <div className="text-sm text-gray-500">{booking?.user_id?.email_id}</div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td className="py-4 whitespace-nowrap">
+                                            <div className="text-sm font-medium text-gray-900">PHONE</div>
+                                        </td>
+                                        <td className="px-6 py-4 whitespace-nowrap">
+                                            <div className="text-sm text-gray-500">+91 {booking?.user_id?.mobile_no}</div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div>
+                        <div className="text-gray-400 my-3">
+                            ADDITIONAL INFORMATION
+                        </div>
+                        <div className="overflow-x-auto">
+                            <table className="divide-y divide-gray-200">
+                                <tbody className="bg-white divide-y divide-gray-200">
+                                    <tr>
+                                        <td className="py-4 whitespace-nowrap">
+                                            <div className="text-sm font-medium text-gray-900">No. of passengers</div>
+                                        </td>
+                                        <td className="px-6 py-4 whitespace-nowrap">
+                                            <div className="text-sm text-gray-500">{booking?.numberOfPassengers ? booking?.numberOfPassengers : "-"}</div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td className="py-4 whitespace-nowrap">
+                                            <div className="text-sm font-medium text-gray-900">No. of small bags</div>
+                                        </td>
+                                        <td className="px-6 py-4 whitespace-nowrap">
+                                            <div className="text-sm text-gray-500">{booking?.numberOfSmallBags ? booking?.numberOfSmallBags : "-"}</div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td className="py-4 whitespace-nowrap">
+                                            <div className="text-sm font-medium text-gray-900">No. of large bags</div>
+                                        </td>
+                                        <td className="px-6 py-4 whitespace-nowrap">
+                                            <div className="text-sm text-gray-500">{booking?.numberOfLargeBags ? booking?.numberOfLargeBags : "-"}</div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td className="py-4 whitespace-nowrap">
+                                            <div className="text-sm font-medium text-gray-900">Senior citizen traveling</div>
+                                        </td>
+                                        <td className="px-6 py-4 whitespace-nowrap">
+                                            <div className="text-sm text-gray-500">{booking?.seniorCitizen ? "YES" : "NO"}</div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td className="py-4 whitespace-nowrap">
+                                            <div className="text-sm font-medium text-gray-900">Women traveling</div>
+                                        </td>
+                                        <td className="px-6 py-4 whitespace-nowrap">
+                                            <div className="text-sm text-gray-500">{booking?.womenTraveling ? "YES" : "NO"}</div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td className="py-4 whitespace-nowrap">
+                                            <div className="text-sm font-medium text-gray-900">Kids on board</div>
+                                        </td>
+                                        <td className="px-6 py-4 whitespace-nowrap">
+                                            <div className="text-sm text-gray-500">{booking?.kidsOnBoard ? "YES" : "NO"}</div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td className="py-4 whitespace-nowrap">
+                                            <div className="text-sm font-medium text-gray-900">English-speaking driver preferred</div>
+                                        </td>
+                                        <td className="px-6 py-4 whitespace-nowrap">
+                                            <div className="text-sm text-gray-500">{booking?.englishSpeakingDriver ? "YES" : "NO"}</div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td className="py-4 whitespace-nowrap">
+                                            <div className="text-sm font-medium text-gray-900">Carrying Pet</div>
+                                        </td>
+                                        <td className="px-6 py-4 whitespace-nowrap">
+                                            <div className="text-sm text-gray-500">{booking?.carryingPet ? "YES" : "NO"}</div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td className="py-4 whitespace-nowrap">
+                                            <div className="text-sm font-medium text-gray-900">Need 7+1 seater</div>
+                                        </td>
+                                        <td className="px-6 py-4 whitespace-nowrap">
+                                            <div className="text-sm text-gray-500">{booking?.need7Plus1Seater ? "YES" : "NO"}</div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td className="py-4 whitespace-nowrap">
+                                            <div className="text-sm font-medium text-gray-900">Carrier over the top of vehicle</div>
+                                        </td>
+                                        <td className="px-6 py-4 whitespace-nowrap">
+                                            <div className="text-sm text-gray-500">{booking?.carrierOverTop ? "YES" : "NO"}</div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td className="py-4 whitespace-nowrap">
+                                            <div className="text-sm font-medium text-gray-900">Booking for someone else</div>
+                                        </td>
+                                        <td className="px-6 py-4 whitespace-nowrap">
+                                            <div className="text-sm text-gray-500">{booking?.bookingForSomeoneElse ? "YES" : "NO"}</div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td className="py-4 whitespace-nowrap">
+                                            <div className="text-sm font-medium text-gray-900">Other</div>
+                                        </td>
+                                        <td className="px-6 py-4 whitespace-nowrap">
+                                            <div className="text-sm text-gray-500">{booking?.otherDetails ? booking?.otherDetails : "-"}</div>
                                         </td>
                                     </tr>
                                 </tbody>
