@@ -3,8 +3,15 @@ import React, { useEffect } from 'react';
 import { Button, Form, Input, Space, message } from 'antd';
 import axios from "../../api/axios"
 import { ISettings } from '../../types/settings.types';
+import { LogoutOutlined } from '@ant-design/icons';
 
 const Settings: React.FC = () => {
+
+  const handleLogout = () => {
+    localStorage.removeItem('admin-token');
+    message.success("Staff logged out successfully")
+    window.location.href = "/admin"
+  };
 
   const goBack = () => {
     window.location.href = '/admin'
@@ -45,8 +52,13 @@ const Settings: React.FC = () => {
 
   return (
     <div className='px-10 py-6'>
-      <div className='text-2xl font-light'>
-        SETTINGS
+      <div className='flex justify-between'>
+        <div className='text-2xl font-light'>
+          SETTINGS
+        </div>
+        <Button icon={<LogoutOutlined />} className='bg-red-600 text-white font-bold rounded' onClick={handleLogout}>
+          LOGOUT
+        </Button>
       </div>
       <Form form={form} onFinish={onFinish} layout="vertical" className="max-w-3xl mt-8">
 

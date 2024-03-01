@@ -37,9 +37,10 @@ import { Context } from './context/context.provider';
 import UserBookingDetails from './pages/UserBookingDetails';
 import InvoiceDetails from './admin/pages/InvoiceDetails';
 import InvoicesAddEdit from './admin/pages/InvoiceAddEdit';
+import Authentication from './pages/Authentication';
 
 const isAuthenticated = () => {
-  return(!!localStorage.getItem('token')); 
+  return (!!localStorage.getItem('token'));
 };
 
 const UserRoutes: React.FC = () => {
@@ -93,50 +94,69 @@ const UserRoutes: React.FC = () => {
 }
 
 const AdminRoutes: React.FC = () => {
+
+  const { adminAuthenticated } = Context();
+
   return (
-    <ConfigProvider
-      theme={{
-        token: {
-          borderRadius: 3,
-          colorPrimary: '#FDB813',
-        },
-        components: {
-          Tabs: {
-            inkBarColor: "#9c9c9c",
-            itemActiveColor: "black",
-            titleFontSize: 18,
-            itemSelectedColor: 'black'
-          }
-        },
-      }}>
+    <>
       <AdminNavbar />
-      <div className='flex'>
-        <Sidebar />
-        <Routes>
-          <Route path="/" element={<Navigate to={"bookings"} />} />
-          <Route path="/bookings" element={<Bookings />} />
-          <Route path="/bookings/details" element={<BookingDetails />} />
-          <Route path="/routes" element={<RoutesPage />} />
-          <Route path="/routes/add-edit" element={<RoutesAddEdit />} />
-          <Route path="/taxis" element={<Taxis />} />
-          <Route path="/taxis/details" element={<TaxiDetails />} />
-          <Route path="/taxis/add-edit/" element={<TaxiAddEdit />} />
-          <Route path="/drivers" element={<Drivers />} />
-          <Route path="/drivers/details" element={<DriverDetails />} />
-          <Route path="/drivers/add-edit" element={<DriversAddEdit />} />
-          <Route path="/coupons" element={<Coupons />} />
-          <Route path="/coupons/add-edit" element={<CouponsAddEdit />} />
-          <Route path="/invoices" element={<Invoices />} />
-          <Route path="/invoices/add-edit" element={<InvoicesAddEdit />} />
-          <Route path="/invoices/details" element={<InvoiceDetails />} />
-          <Route path="/cities" element={<Citys />} />
-          <Route path="/cities/add-edit" element={<CitysAddEdit />} />
-          <Route path="/taxitypes" element={<TaxtTypes />} />
-          <Route path="/taxitypes/add-edit" element={<TaxiTypesAddEdit />} />
-          <Route path="/settings" element={<Settings />} />
-        </Routes>
-      </div>
-    </ConfigProvider>
+      <ConfigProvider
+        theme={{
+          token: {
+            borderRadius: 3,
+            colorPrimary: '#FDB813',
+          },
+          components: {
+            Tabs: {
+              inkBarColor: "#9c9c9c",
+              itemActiveColor: "black",
+              titleFontSize: 18,
+              itemSelectedColor: 'black'
+            }
+          },
+        }}>
+        <>
+          <div className='flex'>
+            {adminAuthenticated &&
+              <Sidebar />
+            }
+            <Routes>
+              {adminAuthenticated && (
+                <>
+                  <Route path="/" element={<Navigate to={"bookings"} />} />
+                  <Route path="/bookings" element={<Bookings />} />
+                  <Route path="/bookings/details" element={<BookingDetails />} />
+                  <Route path="/routes" element={<RoutesPage />} />
+                  <Route path="/routes/add-edit" element={<RoutesAddEdit />} />
+                  <Route path="/taxis" element={<Taxis />} />
+                  <Route path="/taxis/details" element={<TaxiDetails />} />
+                  <Route path="/taxis/add-edit/" element={<TaxiAddEdit />} />
+                  <Route path="/drivers" element={<Drivers />} />
+                  <Route path="/drivers/details" element={<DriverDetails />} />
+                  <Route path="/drivers/add-edit" element={<DriversAddEdit />} />
+                  <Route path="/coupons" element={<Coupons />} />
+                  <Route path="/coupons/add-edit" element={<CouponsAddEdit />} />
+                  <Route path="/invoices" element={<Invoices />} />
+                  <Route path="/invoices/add-edit" element={<InvoicesAddEdit />} />
+                  <Route path="/invoices/details" element={<InvoiceDetails />} />
+                  <Route path="/cities" element={<Citys />} />
+                  <Route path="/cities/add-edit" element={<CitysAddEdit />} />
+                  <Route path="/taxitypes" element={<TaxtTypes />} />
+                  <Route path="/taxitypes/add-edit" element={<TaxiTypesAddEdit />} />
+                  <Route path="/settings" element={<Settings />} />
+                </>
+              )}
+              {!adminAuthenticated && (
+                <>
+                  <Route path="/" element={<Navigate to={"auth"} />} />
+                  <Route path="/auth" element={<Authentication />} />
+                </>
+              )}
+            </Routes>
+          </div>
+        </>
+      </ConfigProvider>
+    </>
   )
 }
 

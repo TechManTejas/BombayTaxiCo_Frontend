@@ -270,7 +270,6 @@ const Hero: React.FC = () => {
           </div>
           <div className='flex flex-col items-center justify-center'>
             <div className='rounded-xl bg-white  shadow-lg -mb-6 z-10
-              px-6
               lg:px-20
             '>
               {/* <Tabs
@@ -300,7 +299,7 @@ const Hero: React.FC = () => {
                 options={[
                   {
                     label: (
-                      <div className='text-lg m-2'>
+                      <div className='lg:text-lg m-2'>
                         <ArrowRightOutlined className='hidden lg:inline-flex' />
                         <span className='mx-2'>
                           One-Way Trip
@@ -311,7 +310,7 @@ const Hero: React.FC = () => {
                   },
                   {
                     label: (
-                      <div className='text-lg m-2'>
+                      <div className='lg:text-lg m-2'>
                         <SyncOutlined className='hidden lg:inline-flex' />
                         <span className='mx-2'>
                           Round Trip
@@ -322,7 +321,7 @@ const Hero: React.FC = () => {
                   },
                   {
                     label: (
-                      <div className='text-lg m-2'>
+                      <div className='lg:text-lg m-2'>
                         <ClockCircleOutlined className='hidden lg:inline-flex' />
                         <span className='mx-2'>
                           Round Trip

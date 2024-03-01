@@ -45,7 +45,7 @@ const InvoiceDetails: React.FC = () => {
                         </button>
                     </div>
                     <div className="flex-shrink max-w-full px-4 w-full mb-6">
-                        <div className="p-6 bg-white dark:bg-gray-800 rounded-lg shadow-lg">
+                        <div className="p-6 bg-white rounded-lg shadow-lg">
                             <div className="flex justify-between items-center pb-4 border-b border-gray-200 dark:border-gray-700 mb-3">
                                 <div className="flex flex-col">
                                     <div className="text-3xl font-bold mb-1">
