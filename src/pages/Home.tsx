@@ -816,7 +816,7 @@ const AwsomeFeatures: React.FC = () => {
           <div className='text-sm text-gray-500
           sm:w-[600px]
         '>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua erat libero condimentum metus.
+            Explore top-tier service excellence with us. We're committed to ensuring your safety and satisfaction. Our affordable rates make luxury accessible, and our skilled drivers guarantee a stellar journey, any time.
           </div>
         </div>
         <div className='flex flex-wrap gap-8 justify-center'>
@@ -888,7 +888,7 @@ const OurBenefitsList: React.FC = () => {
           <div className='text-sm text-gray-500
             sm:w-[600px]
           '>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua erat libero condimentum metus.
+            Discover unmatched services tailored just for you. We prioritize your convenience and safety, delivering quality and reliability with every interaction. Experience excellence redefined.
           </div>
         </div>
         <div className='flex flex-wrap gap-8 justify-center'>
@@ -903,7 +903,7 @@ const OurBenefitsList: React.FC = () => {
                     Support All Payment
                   </div>
                   <div className='font-light text-sm'>
-                    Lorem ipsum dolor sit amet.
+                  Supports all major payment methods.
                   </div>
                 </div>
               </div>
@@ -936,7 +936,7 @@ const OurBenefitsList: React.FC = () => {
                     Safety First
                   </div>
                   <div className='font-light text-sm'>
-                    Lorem ipsum dolor sit amet.
+                    Commitment to safety with every journey you take.
                   </div>
                 </div>
               </div>
@@ -973,7 +973,7 @@ const OurBenefitsList: React.FC = () => {
                     100% Digital
                   </div>
                   <div className='font-light text-sm'>
-                    Lorem ipsum dolor sit amet.
+                    Complete digital experience from booking to payment.
                   </div>
                 </div>
               </div>
@@ -1088,7 +1088,7 @@ const EasyStep: React.FC = () => {
           <div className='text-sm text-gray-500
             sm:w-[600px]
           '>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua erat libero condimentum metus.
+            Four simple steps to a smooth, stress-free taxi booking. We ensure a seamless experience from start to finish.
           </div>
         </div>
         <div className='w-full'>
@@ -1111,7 +1111,7 @@ const EasyStep: React.FC = () => {
                 Booking A Taxi
               </div>
               <div className='text-gray-500 text-sm text-center'>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit
+                Choose your pickup and destination.
               </div>
             </div>
             <div className='w-56 flex flex-col justify-center items-center space-y-2 m-3
@@ -1124,7 +1124,7 @@ const EasyStep: React.FC = () => {
                 Pay Your Taxi
               </div>
               <div className='text-gray-500 text-sm text-center'>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit
+                Safe and secure payment options for you.
               </div>
             </div>
             <div className='w-56 flex flex-col justify-center items-center space-y-2 m-3
@@ -1137,7 +1137,7 @@ const EasyStep: React.FC = () => {
                 Get a Driver
               </div>
               <div className='text-gray-500 text-sm text-center'>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit
+                Match with a skilled local driver for you.
               </div>
             </div>
             <div className='w-56 flex flex-col justify-center items-center space-y-2 m-3
@@ -1150,7 +1150,7 @@ const EasyStep: React.FC = () => {
                 Enjoy Your Ride
               </div>
               <div className='text-gray-500 text-sm text-center'>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit
+              R elax in comfort to your destination.
               </div>
             </div>
           </div>

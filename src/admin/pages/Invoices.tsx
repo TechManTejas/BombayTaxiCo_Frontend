@@ -105,7 +105,7 @@ const Invoices: React.FC = () => {
     fetchData(page);
   };
 
-  const handleDeleteCoupon = async (couponId: string) => {
+  const handleDeleteInvoice = async (couponId: string) => {
     try {
       // Make axios call to delete the coupon
       await axios.delete(`/invoices/${couponId}`);
@@ -128,7 +128,7 @@ const Invoices: React.FC = () => {
     const shouldDelete = await confirmation("Are you sure you want to delete this Invoice?");
     if (shouldDelete) {
       // User confirmed the deletion, call the delete function
-      handleDeleteCoupon(couponId);
+      handleDeleteInvoice(couponId);
     }
   };
 
