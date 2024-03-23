@@ -125,7 +125,7 @@ export const Footer: React.FC = () => {
                     <MailFilled />
                   </div>
                   <div className='text-zinc-500'>
-                    info@Taxiar.com
+                    info@taxiar.com
                   </div>
                 </div>
               </div>

@@ -110,12 +110,12 @@ const EasyStep: React.FC = () => {
           <div className='text-sm text-gray-500
             sm:w-[600px]
           '>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua erat libero condimentum metus.
+            Four simple steps to a smooth, stress-free taxi booking. We ensure a seamless experience from start to finish.
           </div>
         </div>
         <div className='w-full'>
           <div className='flex justify-center -mb-10'>
-            <div className='border border-dashed  justify-center w-[400px]
+            <div className='border border-dashed  justify-center w-[600px]
               hidden
               sm:flex
             '/>
@@ -133,7 +133,20 @@ const EasyStep: React.FC = () => {
                 Booking A Taxi
               </div>
               <div className='text-gray-500 text-sm text-center'>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit
+                Choose your pickup and destination.
+              </div>
+            </div>
+            <div className='w-56 flex flex-col justify-center items-center space-y-2 m-3
+              sm:m-0
+            '>
+              <div className='h-20 w-20 bg-[#ffffff] rounded-2xl flex justify-center items-center shadow-2xl'>
+                <DollarCircleOutlined className='text-3xl text-yellow-500' />
+              </div>
+              <div className='text-xl'>
+                Pay Your Taxi
+              </div>
+              <div className='text-gray-500 text-sm text-center'>
+                Safe and secure payment options for you.
               </div>
             </div>
             <div className='w-56 flex flex-col justify-center items-center space-y-2 m-3
@@ -146,7 +159,7 @@ const EasyStep: React.FC = () => {
                 Get a Driver
               </div>
               <div className='text-gray-500 text-sm text-center'>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit
+                Match with a skilled local driver for you.
               </div>
             </div>
             <div className='w-56 flex flex-col justify-center items-center space-y-2 m-3
@@ -159,7 +172,7 @@ const EasyStep: React.FC = () => {
                 Enjoy Your Ride
               </div>
               <div className='text-gray-500 text-sm text-center'>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit
+              R elax in comfort to your destination.
               </div>
             </div>
           </div>
