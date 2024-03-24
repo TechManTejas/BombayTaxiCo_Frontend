@@ -18,6 +18,8 @@ const InvoiceAddEdit: React.FC = () => {
     const [gst, setGST] = useState<number>(0);
     const [gstPercent, setGSTPercent] = useState<number>(18);
     const [total, setTotal] = useState<number>(0);
+    const [cashPaid, setCashPaid] = useState<number>(0);
+    const [amountDue, setAmountDue] = useState<number>(0);
 
     const goBack = () => {
         window.history.back();
@@ -64,19 +66,35 @@ const InvoiceAddEdit: React.FC = () => {
     }, []);
 
     useEffect(() => {
+        // Whenever there's a change that affects the total amount or the cash paid,
+        // update the amount due as well
+        setAmountDue(total - cashPaid - (selectedBooking?.payments[0].amount / 100));
+    }, [total, cashPaid]);
+
+    useEffect(() => {
         updateValues(); // Call the function to update values whenever relevant state changes
     }, [tripCost, discount, waitingCharges, nightAllowance, otherCharges, gst, gstPercent]);
 
     const onFinish = async (values: IInvoice) => {
         try {
 
-            console.log(values.booking)
+            console.log({
+                user_id: selectedBooking?.user_id?._id,
+                booking: values.booking,
+                date: dayjs(),
+                amount: total,
+                cashPaid: cashPaid,
+                amountDue: amountDue
+            })
 
             // Add new coupon
             await axios.post('/invoices', {
+                user_id: selectedBooking?.user_id?._id,
                 booking: values.booking,
                 date: dayjs(),
-                amount: total
+                amount: total,
+                cashPaid: cashPaid,
+                amountDue: amountDue
             });
             message.success('Invoice Added successfully!');
 
@@ -106,12 +124,14 @@ const InvoiceAddEdit: React.FC = () => {
                             const selectedBookingId = value as string;
                             const booking = bookings.find((booking) => booking._id === selectedBookingId);
 
+                            console.log(booking)
+
                             if (booking) {
 
                                 setWaitingCharges(0)
                                 setNightAllowance(0)
                                 setOtherCharges(0)
-                                
+
                                 setTripCost(booking?.base_fare ?? 0);
                                 setDiscount(Math.ceil((booking?.base_fare ?? 0) * ((booking?.coupon_id?.discount_perc ?? 0) / 100)));
                                 setGST(Math.ceil((booking?.base_fare ?? 0) * (gstPercent / 100)));
@@ -246,6 +266,37 @@ const InvoiceAddEdit: React.FC = () => {
                                             <div className="text-sm text-right">₹ {total?.toLocaleString()}</div>
                                         </td>
                                     </tr>
+                                    <tr>
+                                        <td className="py-4 whitespace-nowrap">
+                                            <div className="text-sm font-bold text-gray-900">ONLINE PAID</div>
+                                        </td>
+                                        <td className="px-6 py-4 whitespace-nowrap text-right">
+                                            <div className="text-sm ">₹ {(selectedBooking?.payments[0].amount / 100).toLocaleString()}</div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td className="py-4 whitespace-nowrap">
+                                            <div className="text-sm font-bold text-gray-900">CASH PAID</div>
+                                        </td>
+                                        <td className="px-6 py-4 whitespace-nowrap">
+                                            <Input
+                                                type="tel"
+                                                className="w-full text-right"
+                                                placeholder="Enter cash paid amount"
+                                                onChange={(e) => setCashPaid(parseInt(e.target.value) || 0)}
+                                            />
+                                        </td>
+                                    </tr>
+                                    {/* Amount Due Display */}
+                                    <tr className='font-bold'>
+                                        <td className="py-4 whitespace-nowrap">
+                                            <div className="text-sm text-gray-900">AMOUNT DUE</div>
+                                        </td>
+                                        <td className="px-6 py-4 whitespace-nowrap">
+                                            <div className="text-sm text-right">₹ {(amountDue).toLocaleString()}</div>
+                                        </td>
+                                    </tr>
+
                                 </tbody>
                             </table>
                         </div>

@@ -426,6 +426,7 @@ const Details: React.FC = () => {
         order_id: order_id,
         handler: async function (response: RazorpayHandlerResponse) {
           const data = {
+            amount,
             orderCreationId: order_id,
             razorpayPaymentId: response.razorpay_payment_id,
             razorpayOrderId: response.razorpay_order_id,
