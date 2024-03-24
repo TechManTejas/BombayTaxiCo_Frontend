@@ -5,6 +5,8 @@ export interface IInvoice {
   date: Date;
   booking: IBooking;
   amount: number;
+  cashPaid: number;
+  amountDue: number;
 }
 
 export interface InvoiceFormValues {

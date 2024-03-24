@@ -5,13 +5,14 @@ import { LeftOutlined } from '@ant-design/icons';
 import { useReactToPrint } from 'react-to-print';
 import { useLocation } from 'react-router-dom';
 import { IInvoice } from '../../types/invoices.types';
+import { TripType } from '../../types/bookings.types';
 
 const InvoiceDetails: React.FC = () => {
 
     const { state } = useLocation();
     const invoice: IInvoice = state?.invoice;
 
-    console.log(invoice);
+    console.log(JSON.stringify(invoice));
 
     const componentRef = useRef(null);
     const handlePrint = useReactToPrint({
@@ -91,7 +92,7 @@ const InvoiceDetails: React.FC = () => {
                                                 </div>
                                             </div>
                                             <div className='px-1'>
-                                                Ms. Gargi Rai
+                                                {invoice.booking.user_id.name ?? ""}
                                             </div>
                                         </div>
                                         <div className='flex'>
@@ -104,7 +105,7 @@ const InvoiceDetails: React.FC = () => {
                                                 </div>
                                             </div>
                                             <div className='px-1'>
-                                                email@gmail.com
+                                                {invoice.booking.user_id.email_id ?? ""}
                                             </div>
                                         </div>
                                         <div className='flex'>
@@ -117,7 +118,7 @@ const InvoiceDetails: React.FC = () => {
                                                 </div>
                                             </div>
                                             <div className='px-1'>
-                                                +91 97663 21428
+                                                {invoice.booking.user_id.mobile_no ?? ""}
                                             </div>
                                         </div>
                                     </div>
@@ -132,7 +133,7 @@ const InvoiceDetails: React.FC = () => {
                                                 </div>
                                             </div>
                                             <div className='px-1'>
-                                                IC-01794
+                                                IC-{invoice._id.slice(-5).toLocaleUpperCase()}
                                             </div>
                                         </div>
                                         <div className='flex'>
@@ -145,7 +146,13 @@ const InvoiceDetails: React.FC = () => {
                                                 </div>
                                             </div>
                                             <div className='px-1'>
-                                                19-11-2021
+                                                {
+                                                    new Date(invoice.date).toLocaleDateString('en-US', {
+                                                        year: 'numeric',
+                                                        month: 'long',
+                                                        day: 'numeric'
+                                                    })
+                                                }
                                             </div>
                                         </div>
                                         <div className='flex'>
@@ -158,7 +165,7 @@ const InvoiceDetails: React.FC = () => {
                                                 </div>
                                             </div>
                                             <div className='px-1'>
-                                                MPRS5375
+                                                {invoice.booking._id.slice(-8).toLocaleUpperCase()}
                                             </div>
                                         </div>
                                     </div>
@@ -185,7 +192,7 @@ const InvoiceDetails: React.FC = () => {
                                                 </div>
                                             </div>
                                             <div className='px-1'>
-                                                RoundTrip
+                                                {invoice.booking.trip_type}
                                             </div>
                                         </div>
                                         <div className='flex'>
@@ -198,7 +205,7 @@ const InvoiceDetails: React.FC = () => {
                                                 </div>
                                             </div>
                                             <div className='px-1'>
-                                                Sedan
+                                                {invoice.booking.taxi_id?.taxi_type_id.name}
                                             </div>
                                         </div>
                                         <div className='flex'>
@@ -211,7 +218,7 @@ const InvoiceDetails: React.FC = () => {
                                                 </div>
                                             </div>
                                             <div className='px-1'>
-                                                Pune, Maharashtra
+                                                {invoice.booking.route_id?.from_id.name}, Maharashtra
                                             </div>
                                         </div>
                                         <div className='flex'>
@@ -224,7 +231,7 @@ const InvoiceDetails: React.FC = () => {
                                                 </div>
                                             </div>
                                             <div className='px-1'>
-                                                Carnation, Raheja Garden, Wanowrie, Pune
+                                                {invoice.booking.pickup_address}
                                             </div>
                                         </div>
                                         <div className='flex'>
@@ -237,7 +244,7 @@ const InvoiceDetails: React.FC = () => {
                                                 </div>
                                             </div>
                                             <div className='px-1'>
-                                                Hotel Sayaji, Kolhapur
+                                                {invoice.booking.drop_address ?? ""}
                                             </div>
                                         </div>
                                         <div className='flex'>
@@ -250,8 +257,20 @@ const InvoiceDetails: React.FC = () => {
                                                 </div>
                                             </div>
                                             <div className='px-1'>
-                                                Pune → Kolhapur → Pune
+                                                {(() => {
+                                                    switch (invoice.booking.trip_type) {
+                                                        case TripType.OneWay:
+                                                            return <div>{invoice.booking.route_id?.from_id.name} → {invoice.booking.route_id?.to_id.name}</div>;
+                                                        case TripType.Round:
+                                                            return <div>{invoice.booking.route_id?.from_id.name} → {invoice.booking.route_id?.to_id.name} → {invoice.booking.route_id?.from_id.name}</div>;
+                                                        case TripType.Hourly:
+                                                            return <div></div>;
+                                                        default:
+                                                            return null;
+                                                    }
+                                                })()}
                                             </div>
+
                                         </div>
                                         <div className='flex'>
                                             <div className='flex flex-shrink-0 justify-between w-36 px-1'>
@@ -263,7 +282,13 @@ const InvoiceDetails: React.FC = () => {
                                                 </div>
                                             </div>
                                             <div className='px-1'>
-                                                17-11-2021, 06:45 am
+                                                {
+                                                    new Date(invoice.booking.pick_up_date).toLocaleDateString('en-US', {
+                                                        year: 'numeric',
+                                                        month: 'long',
+                                                        day: 'numeric'
+                                                    })
+                                                }
                                             </div>
                                         </div>
                                         <div className='flex'>
@@ -276,7 +301,13 @@ const InvoiceDetails: React.FC = () => {
                                                 </div>
                                             </div>
                                             <div className='px-1'>
-                                                18-11-2021, 06:00 pm
+                                                {
+                                                    new Date(invoice.booking.return_date).toLocaleDateString('en-US', {
+                                                        year: 'numeric',
+                                                        month: 'long',
+                                                        day: 'numeric'
+                                                    })
+                                                }
                                             </div>
                                         </div>
                                     </div>
@@ -291,7 +322,7 @@ const InvoiceDetails: React.FC = () => {
                                                 </div>
                                             </div>
                                             <div className='px-1'>
-                                                ₹ 10,000.00
+                                                ₹ {invoice.amount.toLocaleString()}
                                             </div>
                                         </div>
                                         <div className='flex'>
@@ -326,7 +357,7 @@ const InvoiceDetails: React.FC = () => {
                                     <div className='flex w-full border border-black border-t-0' />
                                     <div className='flex flex-shrink-0 w-80 border border-black border-t-0 border-l-0'>
                                         <div className='p-1 flex flex-1 justify-end font-bold text-2xl'>
-                                            ₹ 10,000.00
+                                            ₹ {invoice.amount.toLocaleString()}
                                         </div>
                                     </div>
                                 </div>
@@ -349,20 +380,20 @@ const InvoiceDetails: React.FC = () => {
                                     </div>
                                     <div className='flex-shrink-0 w-80 border border-black border-t-0 border-l-0 py-1'>
                                         <div className='flex w-full justify-end px-1 border-b border-black'>
-                                            ₹ 00.00
+                                            ₹ {(invoice.booking.payments[0].amount / 100).toLocaleString()}
                                         </div>
                                         <div className='flex w-full justify-end px-1 border-b border-black font-bold'>
-                                            ₹ 10,000.00
+                                            ₹ {(invoice.cashPaid).toLocaleString()}
                                         </div>
                                         <div className='flex w-full justify-end px-1 border-black'>
-                                            ₹ 00.00
+                                            ₹ {(invoice.amountDue).toLocaleString()}
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <div className='border border-black h-28 relative'>
                                 <div className='absolute bottom-1 right-1'>
-                                    M/s. Darsh Travels
+                                    Bombay Taxi Company
                                 </div>
                             </div>
                             <div className='border border-black p-1'>

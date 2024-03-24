@@ -9,6 +9,7 @@ import moment from 'moment';
 import axios from "../api/axios";
 import TabPane from 'antd/es/tabs/TabPane';
 import Search from 'antd/es/input/Search';
+import Invoices from './Invoices';
 
 export const Profile = () => {
 
@@ -247,7 +248,7 @@ export const Profile = () => {
           ) : selectedTab === 'profile' ? (
             <ProfileTAB />
           ) : (
-            <></>
+            <Invoices/>
           )}
         </div>
       </div>
