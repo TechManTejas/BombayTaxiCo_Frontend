@@ -114,22 +114,26 @@ const CarCard: React.FC<CarCardProps> = ({
                     <div className='m-3'></div>
                     <div className='flex flex-col items-end space-y-3'>
                         <div className='text-end my-1'>
-                            <div className='font-bold text-yellow-500
+                            {parseInt(discount) > 0 &&
+                                <div className='font-bold text-yellow-500
                                 text-sm
                                 lg:text-base
-                            '>
-                                {discount}% OFF
-                            </div>
+                                '>
+                                    {discount}% OFF
+                                </div>
+                            }
                             <div className='space-x-3'>
-                                <span
-                                    className='font-semibold
-                                        text-sm
-                                        lg:text-base
-                                    '
-                                    style={{ textDecoration: 'line-through', textDecorationColor: '#EAB308' }}
-                                >
-                                    ₹ {originalPrice?.toLocaleString()}
-                                </span>
+                                {parseInt(discount) > 0 &&
+                                    <span
+                                        className='font-semibold
+                                text-sm
+                                lg:text-base
+                                '
+                                        style={{ textDecoration: 'line-through', textDecorationColor: '#EAB308' }}
+                                    >
+                                        ₹ {originalPrice?.toLocaleString()}
+                                    </span>
+                                }
                                 <span className='font-bold
                                     text-lg
                                     lg:text-2xl

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { CallUsNow } from '../components/CallUsNow';
 import { Footer } from '../components/Footer';
 import { Input } from 'antd';
@@ -12,6 +12,7 @@ import {
 
 import Driver from "../assets/images/driver.jpg"
 import { useNavigate } from 'react-router-dom';
+import axios from "../api/axios"
 
 const BreadCrumb: React.FC = () => {
 
@@ -105,6 +106,36 @@ const Cards: React.FC = () => {
 }
 
 const GetInTouch: React.FC = () => {
+
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [subject, setSubject] = useState('');
+  const [message, setMessage] = useState('');
+
+  const handleSubmit = async () => {
+    const messageData = {
+      name, 
+      email, 
+      subject,
+      message,
+    };
+
+    try {
+      const response = await axios.post('/send-email', {
+        subject: messageData.subject,
+        message: `Name: ${messageData.name}\n Email: ${messageData.email}\n Message: ${messageData.message}`
+      }); // Use axios for HTTP POST request
+      const data = response.data;
+      if (data.message) {
+        alert('Message sent successfully');
+      } else {
+        alert('Failed to send message');
+      }
+    } catch (error) {
+      console.error('Error:', error);
+      alert('Error sending message');
+    }
+  };
   return (
     <div className='pb-20'>
       <div className='flex flex-col justify-center items-center py-4 rounded-xl bg-white px-3
@@ -134,21 +165,21 @@ const GetInTouch: React.FC = () => {
               space-x-2
               md:space-x-8
             '>
-              <div className='w-full'><Input className='rounded-lg text-lg h-12' placeholder='Your Name'></Input></div>
-              <div className='w-full'><Input className='rounded-lg text-lg h-12' placeholder='Your Email'></Input></div>
+              <div className='w-full'><Input className='rounded-lg text-lg h-12' placeholder='Your Name' value={name} onChange={(e) => setName(e.target.value)} /></div>
+              <div className='w-full'><Input className='rounded-lg text-lg h-12' placeholder='Your Email' value={email} onChange={(e) => setEmail(e.target.value)} /></div>
             </div>
             <div className='
               my-2
               md:my-8
             '>
-              <Input className='rounded-lg text-lg h-12' placeholder='Your Subject'></Input>
+              <Input className='rounded-lg text-lg h-12' placeholder='Your Subject' value={subject} onChange={(e) => setSubject(e.target.value)} />
             </div>
             <div>
-              <TextArea style={{ height: "160px" }} className='text-lg' placeholder='Write Your Message'></TextArea>
+            <TextArea style={{ height: "160px" }} className='text-lg' placeholder='Write Your Message' value={message} onChange={(e) => setMessage(e.target.value)} />
             </div>
           </div>
           <div className='my-8'>
-            <button className='font-semibold rounded-3xl h-12 w-40 bg-yellow-500 border-yellow-500 hover:bg-yellow-400'>
+            <button onClick={handleSubmit} className='font-semibold rounded-3xl h-12 w-40 bg-yellow-500 border-yellow-500 hover:bg-yellow-400'>
               SEND MESSAGE
             </button>
           </div>

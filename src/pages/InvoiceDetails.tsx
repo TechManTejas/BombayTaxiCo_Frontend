@@ -302,7 +302,7 @@ const InvoiceDetails: React.FC = () => {
                                             </div>
                                             <div className='px-1'>
                                                 {
-                                                    new Date(invoice.booking.return_date).toLocaleDateString('en-US', {
+                                                    new Date(invoice?.booking?.return_date ?? "").toLocaleDateString('en-US', {
                                                         year: 'numeric',
                                                         month: 'long',
                                                         day: 'numeric'

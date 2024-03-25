@@ -38,6 +38,7 @@ import UserBookingDetails from './pages/UserBookingDetails';
 import InvoiceDetails from './admin/pages/InvoiceDetails';
 import InvoicesAddEdit from './admin/pages/InvoiceAddEdit';
 import Authentication from './pages/Authentication';
+import AttachTaxi from './pages/AttachTaxi';
 
 const isAuthenticated = () => {
   return (!!localStorage.getItem('token'));
@@ -86,6 +87,7 @@ const UserRoutes: React.FC = () => {
         <Route path="/details" element={<Details />} />
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} />
+        <Route path="/attach-taxi" element={<AttachTaxi />} />
         <Route path="/signin" element={<Signin />} />
         <Route path="/signup" element={<Signup />} />
       </Routes>

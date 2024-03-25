@@ -854,19 +854,12 @@ const Details: React.FC = () => {
                               </div>
                             }
                             name="state"
-                            rules={[
-                              {
-                                required: true,
-                                message: 'Please enter your state!',
-                              },
-                            ]}
                           >
-                            <Select placeholder="Select State">
+                            <div placeholder="Select State" defaultValue={"Maharashtra"}>
                               {/* Add Option for each state */}
-                              <Option value="Maharashtra">Maharashtra</Option>
-                              <Option value="Goa">Goa</Option>
+                              <div>Maharashtra</div>
                               {/* Add more states as needed */}
-                            </Select>
+                            </div>
                           </Form.Item>
 
                           <Form.Item
@@ -893,9 +886,9 @@ const Details: React.FC = () => {
                           </div>
                         </Form.Item> */}
 
-                        <Form.Item name="termsAndConditions" valuePropName="checked">
+                        {/* <Form.Item name="termsAndConditions" valuePropName="checked">
                           <Checkbox value="seniorCitizen">Confirm and save billing details to your profile</Checkbox>
-                        </Form.Item>
+                        </Form.Item> */}
 
                         <div className='font-semibold text-lg my-4'>Additional details</div>
 
@@ -992,9 +985,9 @@ const Details: React.FC = () => {
             </div>
             <>
               <div className='min-w-full lg:min-w-[320px] max-w-xs lg:w-full m-3 sticky top-6 '>
-                <div className='bg-[#FEF0CF] p-4 text-xs rounded-t-lg'>
+                {/* <div className='bg-[#FEF0CF] p-4 text-xs rounded-t-lg'>
                   Free Cancellation Before 12 Jun 2023, 09:00 Am Ist
-                </div>
+                </div> */}
                 <div className='bg-white border-2 rounded-b-lg p-4'>
                   <div>
                     <Radio.Group onChange={onChange} value={paymentType}>
