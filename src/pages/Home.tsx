@@ -903,7 +903,7 @@ const OurBenefitsList: React.FC = () => {
                     Support All Payment
                   </div>
                   <div className='font-light text-sm'>
-                  Supports all major payment methods.
+                    Supports all major payment methods.
                   </div>
                 </div>
               </div>
@@ -1150,7 +1150,7 @@ const EasyStep: React.FC = () => {
                 Enjoy Your Ride
               </div>
               <div className='text-gray-500 text-sm text-center'>
-              R elax in comfort to your destination.
+                R elax in comfort to your destination.
               </div>
             </div>
           </div>
@@ -1199,33 +1199,49 @@ const WhatWeAreOffering: React.FC = () => {
       title: "Corporate Car Rental",
       description: "Professional corporate car rental services designed for business needs and executive travel."
     },
+    {
+      icon: <EnvironmentOutlined className='text-5xl' />,
+      feature: "FEATURE - 01",
+      title: "Online Easy Booking",
+      description: "Book your ride with ease through our online platform, available 24/7 for your convenience."
+    },
+    {
+      icon: <ArrowRightOutlined className='text-5xl' />,
+      feature: "FEATURE - 02",
+      title: "Onewaytrip",
+      description: "Efficient and comfortable one-way trips to your desired destination, with no return trip required."
+    },
+    {
+      icon: <SyncOutlined className='text-5xl' />,
+      feature: "FEATURE - 03",
+      title: "Roundtrip",
+      description: "Convenient roundtrip services ensuring a seamless journey to your destination and back."
+    },
   ];
 
-  // State to hold currently displayed services
-  const [displayedServices, setDisplayedServices] = useState(services.slice(0, 3));
-  const [currentIndex, setCurrentIndex] = useState(0);
+  const [translateX, setTranslateX] = useState(0);
+  const [transitionDuration, setTransitionDuration] = useState('duration-700');
+  const cardWidthIncludingGap = 600; // This should include the card width plus any gap between cards
+  const numberOfVisibleCards = 1; // Adjust based on how many cards you want visible at the end before reset
+  const slideInterval = 2000; // Time interval for sliding effect
 
   useEffect(() => {
-    const rotateServices = () => {
-      // Update the index to show the next set of services
-      const nextIndex = (currentIndex + 1) % services.length;
-      setCurrentIndex(nextIndex);
+    // Calculate maxTranslate to stop before the reset
+    const maxTranslate = -(services.length * cardWidthIncludingGap - window.innerWidth + cardWidthIncludingGap * numberOfVisibleCards);
+    const interval = setInterval(() => {
+      setTranslateX(currentTranslate => {
+        const newTranslate = currentTranslate - cardWidthIncludingGap;
+        if (newTranslate < maxTranslate) {
+          setTransitionDuration('duration-0'); // Instantly reset position without transition
+          setTimeout(() => setTransitionDuration('duration-700'), 50); // Then restore the transition for the next slide
+          return 0; // Start over
+        }
+        return newTranslate;
+      });
+    }, slideInterval);
 
-      // Calculate the services to display
-      const nextServices = services.slice(nextIndex, nextIndex + 3).concat(
-        services.slice(0, Math.max(0, 3 - (services.length - nextIndex)))
-      );
-
-      setDisplayedServices(nextServices);
-    };
-
-    // Set interval to rotate services every second
-    const intervalId = setInterval(rotateServices, 3000);
-
-    // Clear interval on component unmount
-    return () => clearInterval(intervalId);
-  }, [currentIndex, services]);
-
+    return () => clearInterval(interval);
+  }, [services.length, cardWidthIncludingGap]);
 
   return (
     <>
@@ -1233,29 +1249,22 @@ const WhatWeAreOffering: React.FC = () => {
         <div className='text-center text-3xl font-medium'>
           What We Are Offering?
         </div>
-        <div className='flex justify-center '>
-          <div className='grid grid-cols-1 justify-items-center container
-          lg:grid-cols-3
-        '>
-            {displayedServices.map((service, index) => (
-              <ServiceCard
-                key={index}
-                icon={service.icon}
-                feature={service.feature}
-                title={service.title}
-                description={service.description}
-              />
+        <div className='relative flex justify-center overflow-hidden'>
+          <div className={`flex justify-items-center container gap-60 ${transitionDuration}`}
+            style={{ transform: `translateX(${translateX}px)` }}
+          >
+            {services.map((service, index) => (
+              <div className='service-card' key={index}>
+                <ServiceCard
+                  icon={service.icon}
+                  feature={service.feature}
+                  title={service.title}
+                  description={service.description}
+                />
+              </div>
             ))}
           </div>
         </div>
-        {/* <div className='flex w-full justify-center space-x-6 my-3'>
-          <div className='shadow-xl'>
-            <Button size='large' icon={<ArrowLeftOutlined />} className='bg-white border-white' />
-          </div>
-          <div className='shadow-xl'>
-            <Button size='large' icon={<ArrowRightOutlined />} className='bg-white border-white' />
-          </div>
-        </div> */}
       </div>
     </>
   )
