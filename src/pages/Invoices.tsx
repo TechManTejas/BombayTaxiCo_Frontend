@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Button, Table } from 'antd';
-import { PlusOutlined } from '@ant-design/icons';
-import { ColumnsType } from 'antd/es/table';
+import Table, { ColumnsType } from 'antd/es/table';
 import axios from "../api/axios"
 import Search from 'antd/es/input/Search';
 import { useNavigate } from 'react-router-dom';
@@ -135,13 +133,6 @@ const Invoices: React.FC = () => {
               onChange={(e) => setSearchQuery(e.target.value)}
               // onSearch={fetchData} // Trigger fetchData on search
             />
-            <div>
-              <Button icon={<PlusOutlined />} size={'large'} className='bg-yellow-500 font-bold text-md' onClick={()=>{
-                navigate('/admin/invoices/add-edit')
-              }}>
-                ADD NEW
-              </Button>
-            </div>
           </div>
         </div>
         <Table

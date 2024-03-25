@@ -205,7 +205,7 @@ const InvoiceDetails: React.FC = () => {
                                                 </div>
                                             </div>
                                             <div className='px-1'>
-                                                {invoice.booking.taxi_id?.taxi_type_id.name}
+                                                {invoice.booking.taxi_id?.taxi_type_id?.name}
                                             </div>
                                         </div>
                                         <div className='flex'>
@@ -218,7 +218,7 @@ const InvoiceDetails: React.FC = () => {
                                                 </div>
                                             </div>
                                             <div className='px-1'>
-                                                {invoice.booking.route_id?.from_id.name}, Maharashtra
+                                                {invoice.booking.route_id?.from_id?.name}, Maharashtra
                                             </div>
                                         </div>
                                         <div className='flex'>
@@ -260,9 +260,9 @@ const InvoiceDetails: React.FC = () => {
                                                 {(() => {
                                                     switch (invoice.booking.trip_type) {
                                                         case TripType.OneWay:
-                                                            return <div>{invoice.booking.route_id?.from_id.name} → {invoice.booking.route_id?.to_id.name}</div>;
+                                                            return <div>{invoice.booking.route_id?.from_id?.name} → {invoice.booking.route_id?.to_id?.name}</div>;
                                                         case TripType.Round:
-                                                            return <div>{invoice.booking.route_id?.from_id.name} → {invoice.booking.route_id?.to_id.name} → {invoice.booking.route_id?.from_id.name}</div>;
+                                                            return <div>{invoice.booking.route_id?.from_id?.name} → {invoice.booking.route_id?.to_id?.name} → {invoice.booking.route_id?.from_id.name}</div>;
                                                         case TripType.Hourly:
                                                             return <div></div>;
                                                         default:
