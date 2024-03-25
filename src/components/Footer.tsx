@@ -49,7 +49,8 @@ export const Footer: React.FC = () => {
             </div>
             <div className='text-zinc-500 space-y-3'>
               <button className='flex items-center space-x-3 hover:text-yellow-500 transition-all' onClick={() => {
-
+                  navigate("/attach-taxi")
+                  window.scrollTo(0, 0);
               }}>
                 <ArrowRightOutlined />
                 <div>Attach Your Taxi</div>

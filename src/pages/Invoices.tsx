@@ -14,7 +14,7 @@ const Invoices: React.FC = () => {
   const [invoices, setInvoices] = useState<IInvoice[]>([]);
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [totalInvoices, setTotalInvoices] = useState<number>(0);
-  const [currentPage, setCurrentPage] = useState<number>(1);
+  const [, setCurrentPage] = useState<number>(1);
 
   interface DataType {
     _id: string;
