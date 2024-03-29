@@ -304,6 +304,7 @@ const Details: React.FC = () => {
   const pickupTime = state.pickupTime || null
   const pickupCityId = state.pickupCityId || null
   const hourlyPackage = state.hourlyPackage || null
+  const cancellationDeadline = dayjs(`${pickupDate.format("YYYY-MM-DD")} ${pickupTime}`).subtract(2, 'hour');
 
   const onOtherCheckboxChange = (e: any) => {
     setIsOtherChecked(e.target.checked);
@@ -985,9 +986,9 @@ const Details: React.FC = () => {
             </div>
             <>
               <div className='min-w-full lg:min-w-[320px] max-w-xs lg:w-full m-3 sticky top-6 '>
-                {/* <div className='bg-[#FEF0CF] p-4 text-xs rounded-t-lg'>
-                  Free Cancellation Before 12 Jun 2023, 09:00 Am Ist
-                </div> */}
+                <div className='bg-[#FEF0CF] p-4 text-xs rounded-t-lg'>
+                  Free Cancellation Before {cancellationDeadline.format("D MMM YYYY, hh:mm A")} Ist
+                </div>
                 <div className='bg-white border-2 rounded-b-lg p-4'>
                   <div>
                     <Radio.Group onChange={onChange} value={paymentType}>
@@ -1079,7 +1080,7 @@ const Details: React.FC = () => {
             </>
             <div className='lg:hidden sticky bottom-0 h-full w-full z-40'>
               <div className={`${paymentSelectionOpen ? 'hidden' : ''} bg-[#f0e4c8] p-2 text-xs rounded-t-lg`}>
-                Free Cancellation Before 12 Jun 2023, 09:00 Am Ist
+                Free Cancellation Before {cancellationDeadline.format("D MMM YYYY, hh:mm A")} Ist
               </div>
               <div className={`${paymentSelectionOpen ? '' : 'hidden'}`}>
                 <div className='bg-white p-3'>

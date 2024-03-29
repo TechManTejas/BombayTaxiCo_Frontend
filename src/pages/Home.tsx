@@ -260,11 +260,13 @@ const Hero: React.FC = () => {
             mt-24
             lg:mt-0
           '>
-            <div className='rotating-text-item'>Welcome to Bombay Taxi Co. Book Taxi For Your Ride</div>
+            <div className='rotating-text-item h-40 lg:h-max flex flex-col justify-center'>
+              Welcome to Bombay Taxi Co. Book Taxi For Your Ride
+            </div>
             <div className='rotating-text-item' style={{
               display: 'none'
             }}>24/7 Online taxi For Your Ride Enjoying Comfortable TRip With Bombay Taxi Co.</div>
-            <div className='rotating-text-item' style={{
+            <div className='rotating-text-item h-40 lg:h-max flex flex-col justify-center' style={{
               display: 'none'
             }}>Lets Ride With Us Enjoy Your Luxury Taxi With Low Price</div>
           </div>
@@ -272,26 +274,6 @@ const Hero: React.FC = () => {
             <div className='rounded-xl bg-white  shadow-lg -mb-6 z-10
               lg:px-20
             '>
-              {/* <Tabs
-                activeKey={activeTab}
-                onChange={handleTabChange}
-                tabBarStyle={{ marginBottom: 0 }}
-                tabBarGutter={56}
-                indicatorSize={(origin) => origin + 60}
-              >
-                <TabPane tab={<div className='py-1
-                  text-sm
-                  lg:text-base
-                '> <ArrowRightOutlined className='hidden lg:inline-flex' /> One-Way Trip</div>} key="One-Way Trip" />
-                <TabPane tab={<div className='py-1
-                  text-sm
-                  lg:text-base
-                '><SyncOutlined className='hidden lg:inline-flex' /> Round Trip</div>} key="Round Trip" />
-                <TabPane tab={<div className='py-1
-                  text-sm
-                  lg:text-base
-                '><ClockCircleOutlined className='hidden lg:inline-flex' /> Hourly Rental</div>} key="Hourly Rental" />
-              </Tabs> */}
               <Segmented
                 onChange={(value) => {
                   handleTabChange(value.toString())
@@ -324,7 +306,7 @@ const Hero: React.FC = () => {
                       <div className='lg:text-lg m-2'>
                         <ClockCircleOutlined className='hidden lg:inline-flex' />
                         <span className='mx-2'>
-                          Round Trip
+                          Hourly Rental
                         </span>
                       </div>
                     ),
@@ -340,7 +322,7 @@ const Hero: React.FC = () => {
                 lg:flex
               '>
                 {activeTab === "Hourly Rental" &&
-                  <div className='w-[188px] p-3 pb-4 space-y-1 border'>
+                  <div className='w-full lg:w-[188px] p-3 pb-4 space-y-1 border'>
                     <div className='text-xs'>
                       PICKUP LOCATION
                     </div>
@@ -380,7 +362,7 @@ const Hero: React.FC = () => {
                     </div>
                   </div>
                 }
-                <div className='relative w-[188px] p-3 pb-4 space-y-1 border'>
+                <div className='relative w-full lg:w-[188px] p-3 pb-4 space-y-1 border'>
                   <div className='text-xs'>
                     PICKUP DATE
                   </div>
@@ -400,7 +382,7 @@ const Hero: React.FC = () => {
                     }
                   />
                 </div>
-                <div className='w-[188px] p-3 pb-4 space-y-1 border'>
+                <div className='w-full lg:w-[188px] p-3 pb-4 space-y-1 border'>
                   <div className='text-xs'>
                     PICKUP TIME
                   </div>
@@ -411,7 +393,7 @@ const Hero: React.FC = () => {
                   </Dropdown>
                 </div>
                 {activeTab !== 'Hourly Rental' &&
-                  <div className='relative w-[188px] p-3 pb-4 space-y-1 border'>
+                  <div className='relative w-full lg:w-[188px] p-3 pb-4 space-y-1 border'>
                     <div className='text-xs'>
                       RETURN DATE
                     </div>
