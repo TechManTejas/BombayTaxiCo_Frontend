@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Footer } from '../components/Footer';
 import { CallUsNow } from '../components/CallUsNow';
 import { WhyChooseUsCard } from '../components/WhyChooseUsCard';
-import { ArrowLeftOutlined, ArrowRightOutlined, CarOutlined, CarryOutOutlined, DollarCircleOutlined, LikeOutlined, TrophyOutlined, UserOutlined } from '@ant-design/icons';
+import { ArrowLeftOutlined, ArrowRightOutlined, CarOutlined, CarryOutOutlined, ClockCircleOutlined, DollarCircleOutlined, EnvironmentOutlined, LikeOutlined, SyncOutlined, TeamOutlined, TrophyOutlined, UserOutlined } from '@ant-design/icons';
 
 import AboutImage from "../assets/images/about.jpg"
 import { ServiceCard } from '../components/ServiceCard';
@@ -182,43 +182,109 @@ const EasyStep: React.FC = () => {
   )
 }
 
-const ServiceWeOffer: React.FC = () => {
+const WhatWeAreOffering: React.FC = () => {
+
+  const services = [
+    {
+      icon: <EnvironmentOutlined className='text-5xl' />,
+      feature: "FEATURE - 01",
+      title: "Online Easy Booking",
+      description: "Book your ride with ease through our online platform, available 24/7 for your convenience."
+    },
+    {
+      icon: <ArrowRightOutlined className='text-5xl' />,
+      feature: "FEATURE - 02",
+      title: "Onewaytrip",
+      description: "Efficient and comfortable one-way trips to your desired destination, with no return trip required."
+    },
+    {
+      icon: <SyncOutlined className='text-5xl' />,
+      feature: "FEATURE - 03",
+      title: "Roundtrip",
+      description: "Convenient roundtrip services ensuring a seamless journey to your destination and back."
+    },
+    {
+      icon: <ClockCircleOutlined className='text-5xl' />,
+      feature: "FEATURE - 04",
+      title: "Hourly Car Rental",
+      description: "Flexible hourly car rental services tailored to meet your short-term travel needs."
+    },
+    {
+      icon: <CarOutlined className='text-5xl' />,
+      feature: "FEATURE - 05",
+      title: "Airport Transfer",
+      description: "Reliable airport transfer services for a stress-free journey to and from the airport."
+    },
+    {
+      icon: <TeamOutlined className='text-5xl' />,
+      feature: "FEATURE - 06",
+      title: "Corporate Car Rental",
+      description: "Professional corporate car rental services designed for business needs and executive travel."
+    },
+    {
+      icon: <EnvironmentOutlined className='text-5xl' />,
+      feature: "FEATURE - 01",
+      title: "Online Easy Booking",
+      description: "Book your ride with ease through our online platform, available 24/7 for your convenience."
+    },
+    {
+      icon: <ArrowRightOutlined className='text-5xl' />,
+      feature: "FEATURE - 02",
+      title: "Onewaytrip",
+      description: "Efficient and comfortable one-way trips to your desired destination, with no return trip required."
+    },
+    {
+      icon: <SyncOutlined className='text-5xl' />,
+      feature: "FEATURE - 03",
+      title: "Roundtrip",
+      description: "Convenient roundtrip services ensuring a seamless journey to your destination and back."
+    },
+  ];
+
+  const [translateX, setTranslateX] = useState(0);
+  const [transitionDuration, setTransitionDuration] = useState('duration-700');
+  const cardWidthIncludingGap = 600; // This should include the card width plus any gap between cards
+  const numberOfVisibleCards = 1; // Adjust based on how many cards you want visible at the end before reset
+  const slideInterval = 2000; // Time interval for sliding effect
+
+  useEffect(() => {
+    // Calculate maxTranslate to stop before the reset
+    const maxTranslate = -(services.length * cardWidthIncludingGap - window.innerWidth + cardWidthIncludingGap * numberOfVisibleCards);
+    const interval = setInterval(() => {
+      setTranslateX(currentTranslate => {
+        const newTranslate = currentTranslate - cardWidthIncludingGap;
+        if (newTranslate < maxTranslate) {
+          setTransitionDuration('duration-0'); // Instantly reset position without transition
+          setTimeout(() => setTransitionDuration('duration-700'), 50); // Then restore the transition for the next slide
+          return 0; // Start over
+        }
+        return newTranslate;
+      });
+    }, slideInterval);
+
+    return () => clearInterval(interval);
+  }, [services.length, cardWidthIncludingGap]);
+
   return (
     <>
       <div className='space-y-12 py-20 bg-[#F5F5F5]'>
         <div className='text-center text-3xl font-medium'>
-          Services We offer
+          Services We Offer
         </div>
-        <div className='flex justify-center '>
-          <div className='grid grid-cols-1 justify-items-center container
-            lg:grid-cols-3
-          '>
-            <ServiceCard
-              icon={<CarOutlined />}
-              feature="FEATURE - 01"
-              title="AIRPORT TRANSFERS"
-              description="Monetize flexible action items before mission critical redibly intuitive."
-            />
-            <ServiceCard
-              icon={<CarryOutOutlined />}
-              feature="FEATURE - 02"
-              title="BUSINESS TRANSFERS"
-              description="Monetize flexible action items before mission critical redibly intuitive."
-            />
-            <ServiceCard
-              icon={<TrophyOutlined />}
-              feature="FEATURE - 03"
-              title="EVENTS & WEDDING"
-              description="Monetize flexible action items before mission critical redibly intuitive."
-            />
-          </div>
-        </div>
-        <div className='flex w-full justify-center space-x-6 my-3'>
-          <div className='shadow-xl'>
-            <Button size='large' icon={<ArrowLeftOutlined />} className='bg-white border-white' />
-          </div>
-          <div className='shadow-xl'>
-            <Button size='large' icon={<ArrowRightOutlined />} className='bg-white border-white' />
+        <div className='relative flex justify-center overflow-hidden'>
+          <div className={`flex justify-items-center container gap-60 ${transitionDuration}`}
+            style={{ transform: `translateX(${translateX}px)` }}
+          >
+            {services.map((service, index) => (
+              <div className='service-card' key={index}>
+                <ServiceCard
+                  icon={service.icon}
+                  feature={service.feature}
+                  title={service.title}
+                  description={service.description}
+                />
+              </div>
+            ))}
           </div>
         </div>
       </div>
@@ -242,7 +308,7 @@ const About: React.FC = () => {
         <WhyChooseUs />
       </div>
       <EasyStep />
-      <ServiceWeOffer />
+      <WhatWeAreOffering />
       <CallUsNow />
       <Footer />
     </>

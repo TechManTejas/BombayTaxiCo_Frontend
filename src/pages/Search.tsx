@@ -591,7 +591,7 @@ const Search: React.FC = () => {
               routeDistance={distance || 0}
               tripRates={tripRates}
             />
-            <div className='lg:w-[800px]'>
+            <div className='w-full lg:w-[800px]'>
               {loading ? (
                 // Display loading indicator here
                 <div className="flex justify-center items-center">
@@ -619,8 +619,8 @@ const Search: React.FC = () => {
                 <div className='text-center py-32 text-lg font-medium'>Sorry, we are working to reach out to you.</div>
               )}
             </div>
-            <div className='lg:hidden'>
-              <div className='border w-[440px] flex rounded-lg  gap-2 bg-white shadow-lg flex-row p-1' onClick={() => {
+            <div className='lg:hidden w-full'>
+              <div className='border w-full flex rounded-lg  gap-2 bg-white shadow-lg flex-row p-1' onClick={() => {
                 navigate('/')
               }}>
                 <div className='w-full'>
