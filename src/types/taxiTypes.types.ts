@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 export interface CarFeature {
   _id: string;
   feature: string;
@@ -15,6 +16,7 @@ export interface TaxiType {
 }
 
 export interface TaxiTypeFormValues {
+  [key: string]: any;
   name: string;
   description: string;
   price_km: number;

@@ -1,14 +1,18 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import React, { useEffect } from 'react';
-import { Button, Form, Input, Space, message } from 'antd';
+import React, { useEffect, useState } from 'react';
+import { Button, Form, Input, Space, Upload, UploadFile, message } from 'antd';
+import { UploadOutlined } from '@ant-design/icons';
 import axios from "../../api/axios"
 import { useLocation } from 'react-router-dom';
-import { CityFormValues } from '../../types/citys.types';
 import { TaxiType, TaxiTypeFormValues } from '../../types/taxiTypes.types';
 import { MinusOutlined, PlusOutlined } from '@ant-design/icons';
+import { UploadChangeParam } from 'antd/es/upload';
 
 const TaxiTypesAddEdit: React.FC = () => {
     const { state } = useLocation()
+
+    const [fileList, setFileList] = useState<UploadFile[]>([]);
 
     const goBack = () => {
         window.history.back();
@@ -45,17 +49,37 @@ const TaxiTypesAddEdit: React.FC = () => {
         }
     }, [taxiTypeToEdit, form]);
 
-    const onFinish = async (values: CityFormValues) => {
-        console.log(values)
+    const onFinish = async (values: TaxiTypeFormValues) => {
+
+        const formData = new FormData();
+        Object.keys(values).forEach(key => {
+            if (key === 'car_features') {
+                formData.append(key, JSON.stringify(values[key]));
+            }
+            else 
+            {
+                formData.append(key, values[key]);
+            }
+        });
+        if (fileList.length > 0) {
+            fileList.forEach(file => {
+                if ('originFileObj' in file && file.originFileObj) {
+                    formData.append('image', file.originFileObj);
+                }
+            });
+        }
 
         try {
+            const config = {
+                headers: { 'Content-Type': 'multipart/form-data' },
+            };
             if (id) {
                 // Edit existing coupon
-                await axios.put(`/taxitypes/${id}`, values);
+                await axios.put(`/taxitypes/${id}`, formData, config);
                 message.success('Taxi Type Updated successfully!');
             } else {
                 // Add new coupon
-                await axios.post('/taxitypes', values);
+                await axios.post('/taxitypes', formData, config);
                 message.success('Taxi Type Added successfully!');
                 form.resetFields()
             }
@@ -68,6 +92,9 @@ const TaxiTypesAddEdit: React.FC = () => {
         }
     };
 
+    const onFileChange = ({ fileList: newFileList }: UploadChangeParam<UploadFile<any>>) => {
+        setFileList(newFileList);
+    };
 
     return (
         <div className='px-10 py-6'>
@@ -75,6 +102,17 @@ const TaxiTypesAddEdit: React.FC = () => {
                 {id ? 'EDIT TAXI TYPE' : 'ADD NEW TAXI TYPE'}
             </div>
             <Form form={form} onFinish={onFinish} layout="vertical" className="max-w-3xl mx-auto mt-8">
+
+                <Form.Item name="image" label="Taxi Image">
+                    <Upload
+                        listType="picture"
+                        beforeUpload={() => false}
+                        onChange={onFileChange}
+                        fileList={fileList}
+                    >
+                        <Button icon={<UploadOutlined />}>Select File</Button>
+                    </Upload>
+                </Form.Item>
 
                 <Form.Item name="name" label="Taxi Type Name" rules={[{ required: true, message: 'Please enter the taxi type name' }]}>
                     <Input className="w-full" />
