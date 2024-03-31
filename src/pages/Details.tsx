@@ -7,11 +7,6 @@ import Logo from "../assets/images/logo.png"
 import { Option } from 'antd/es/mentions';
 import { useLocation, useNavigate } from 'react-router-dom';
 
-import Car1 from "../assets/images/economy.webp"
-import Car2 from "../assets/images/comfort.webp"
-import Car3 from "../assets/images/standard.webp"
-import Car4 from "../assets/images/business.webp"
-import Car5 from "../assets/images/family.webp"
 import { ISettings } from '../types/settings.types';
 import { IRoute } from '../types/routes.types';
 import { DownOutlined, UpOutlined } from '@ant-design/icons';
@@ -314,24 +309,6 @@ const Details: React.FC = () => {
     return (Math.round(taxiRate.discountedPrice * ((parseInt(settings?.advancePaymentPercentage || '0')) / 100)))?.toLocaleString()
   }
 
-  const getCarImage = (taxiTypeName: string) => {
-
-    switch (taxiTypeName) {
-      case 'Economy Hatchback':
-        return Car1;
-      case 'Standard Sedan':
-        return Car3;
-      case 'Comfort Sedan':
-        return Car2;
-      case 'Family MUV':
-        return Car5;
-      case 'Business MUV':
-        return Car4;
-      default:
-        return '';
-    }
-  };
-
   useEffect(() => {
     const fetchSettings = async () => {
       try {
@@ -620,7 +597,6 @@ const Details: React.FC = () => {
                 originalPrice={taxiRate.originalPrice || ''}
                 discountedPrice={taxiRate.discountedPrice || ''}
                 discount={(taxiRate.taxiType.discount_percentage).toString() || ''}
-                carImage={getCarImage(taxiRate.taxiType?.name) || ''}
                 preview
               />
               <>

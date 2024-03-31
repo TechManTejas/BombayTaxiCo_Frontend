@@ -1,9 +1,28 @@
 import React from 'react';
 import { Tag } from 'antd';
 import Car from "../assets/images/car.png"
+import { faGasPump, faToolbox, faSnowflake, faUsers, faShoppingBag, faShip, faTachometerAlt, faCar, faLeaf, IconDefinition } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+
+type FeatureIconMap = {
+    [key: string]: IconDefinition;
+};
+
+const featureIconMap: FeatureIconMap = {
+    'CNG': faGasPump,
+    'MANUAL': faToolbox,
+    'AC': faSnowflake,
+    'PASSENGERS': faUsers,
+    'BAGS': faShoppingBag,
+    'CARRIER': faShip,
+    'DIESEL': faTachometerAlt,
+    'BOOT SPACE': faCar,
+    'PETROL & HYBRID': faLeaf,
+    'AUTOMATIC': faTachometerAlt,
+};
 
 export interface Feature {
-    icon?: React.ReactNode;
+    icon?: keyof FeatureIconMap;
     feature: string;
 }
 
@@ -50,10 +69,18 @@ const CarCard: React.FC<CarCardProps> = ({
                     h-16 lg:h-40
                     w-20 lg:w-40
                 '>
-                    <img src={carImage || Car} className='object-fit
-                    h-16 lg:h-32
-                    w-20 lg:w-40
-                    '/>
+                    {
+                        carImage !== 'undefined' ?
+                            <img src={import.meta.env.VITE_BASE_URL + '/' + carImage || Car} className='object-fit
+                                h-16 lg:h-32
+                                w-20 lg:w-40
+                            '/>
+                            :
+                            <img src={Car} className='object-fit
+                                h-16 lg:h-32
+                                w-20 lg:w-40
+                            '/>
+                    }
                 </div>
                 <div
                     className='flex justify-between
@@ -89,12 +116,16 @@ const CarCard: React.FC<CarCardProps> = ({
                                 lg:w-80
                             '>
                                     {features.map((feature, index) => (
-                                        <div key={index}>
-                                            <Tag className='flex items-center gap-1'>
-                                                {feature?.icon}
-                                                <div className=''>{feature.feature}</div>
-                                            </Tag>
-                                        </div>
+                                        <Tag key={index}>
+                                            {feature.icon && featureIconMap[feature.icon] ? (
+                                                <FontAwesomeIcon icon={featureIconMap[feature.icon]} />
+                                            ) : null}
+                                            {feature.feature &&
+                                                <span className='pl-1'>
+                                                    {feature.feature}
+                                                </span>
+                                            }
+                                        </Tag>
                                     ))}
                                 </div>
                                 <div className='flex-wrap

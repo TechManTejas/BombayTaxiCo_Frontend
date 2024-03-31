@@ -69,14 +69,17 @@ const Hero: React.FC = () => {
     setPickupCity(cities.find((c: City) => c._id === e.key)?.name ?? "Select an Option")
     setPickupCityId(e.key)
   };
+
   const handleMenuClickFrom = (e: any) => {
     setFrom(cities.find((c: City) => c._id === e.key)?.name ?? "Select an Option")
     setFromId(e.key)
   };
+
   const handleMenuClickTo = (e: any) => {
     setTo(cities.find((c: City) => c._id === e.key)?.name ?? "Select an Option")
     setToId(e.key)
   };
+
   const handleMenuClickTime = (e: any) => {
     setPickupTime(e.key)
   };
@@ -630,7 +633,9 @@ const StatsAndTestamonials: React.FC = () => {
 
   return (
     <>
-      <div ref={elementRef} className="bg-blue-900 text-white"
+      <div
+        className="bg-blue-900 text-white"
+        ref={elementRef}
         style={{
           backgroundImage: `url(${Experience})`,
           backgroundSize: 'cover'
