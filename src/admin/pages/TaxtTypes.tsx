@@ -9,7 +9,7 @@ import { useNavigate } from 'react-router-dom';
 import { CarFeature, TaxiType } from '../../types/taxiTypes.types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { IconDefinition } from '@fortawesome/fontawesome-svg-core';
-import { faGasPump, faToolbox, faSnowflake, faUsers, faShoppingBag, faShip, faTachometerAlt, faCar, faLeaf } from '@fortawesome/free-solid-svg-icons';
+import { faGasPump, faSnowflake, faUsers, faShoppingBag, faTachometerAlt, faCar, faLeaf, faWrench, faShippingFast } from '@fortawesome/free-solid-svg-icons';
 
 type FeatureIconMap = {
     [key: string]: IconDefinition;
@@ -17,16 +17,17 @@ type FeatureIconMap = {
 
 const featureIconMap: FeatureIconMap = {
     'CNG': faGasPump,
-    'MANUAL': faToolbox,
+    'MANUAL': faWrench,
     'AC': faSnowflake,
     'PASSENGERS': faUsers,
     'BAGS': faShoppingBag,
-    'CARRIER': faShip,
+    'CARRIER': faShippingFast,
     'DIESEL': faTachometerAlt,
     'BOOT SPACE': faCar,
     'PETROL & HYBRID': faLeaf,
     'AUTOMATIC': faTachometerAlt,
 };
+
 
 const TaxiTypes: React.FC = () => {
 
