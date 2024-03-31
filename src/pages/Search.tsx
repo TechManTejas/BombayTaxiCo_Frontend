@@ -9,12 +9,6 @@ import CarCard from '../components/CarCard';
 import { useLocation, useNavigate } from 'react-router-dom';
 import axios from "../api/axios"
 
-import Car1 from "../assets/images/economy.webp"
-import Car2 from "../assets/images/comfort.webp"
-import Car3 from "../assets/images/standard.webp"
-import Car4 from "../assets/images/business.webp"
-import Car5 from "../assets/images/family.webp"
-
 import { generateTimeOptions } from '../utils/GenerateTimeOptions';
 
 import { City } from '../types/citys.types';
@@ -248,24 +242,6 @@ const Search: React.FC = () => {
   const menuTimeOptions = generateTimeOptions()
 
   const menuDistanceOptions = generateDistanceOptions()
-
-  const getCarImage = (taxiTypeName: string) => {
-
-    switch (taxiTypeName) {
-      case 'Economy Hatchback':
-        return Car1;
-      case 'Standard Sedan':
-        return Car3;
-      case 'Comfort Sedan':
-        return Car2;
-      case 'Family MUV':
-        return Car5;
-      case 'Business MUV':
-        return Car4;
-      default:
-        return '';
-    }
-  };
 
   const onSearch = async () => {
     try {
@@ -609,7 +585,7 @@ const Search: React.FC = () => {
                       originalPrice={rate.originalPrice || ''}
                       discountedPrice={rate.discountedPrice || ''}
                       discount={(rate.taxiType.discount_percentage).toString() || ''}
-                      carImage={getCarImage(rate.taxiType?.name) || ''}
+                      carImage={rate.taxiType.image || ''}
                       onBook={() => onBook(rate)}
                     />
                   ))}

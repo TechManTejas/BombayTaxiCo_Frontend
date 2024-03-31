@@ -2,10 +2,12 @@
 export interface CarFeature {
   _id: string;
   feature: string;
+  icon: string; 
 }
 
 export interface TaxiType {
   _id: string;
+  image:string;
   name: string;
   description: string;
   price_km: number;

@@ -7,6 +7,26 @@ import Search from 'antd/es/input/Search';
 import { confirmation } from '../components/Confirmation';
 import { useNavigate } from 'react-router-dom';
 import { CarFeature, TaxiType } from '../../types/taxiTypes.types';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { IconDefinition } from '@fortawesome/fontawesome-svg-core';
+import { faGasPump, faToolbox, faSnowflake, faUsers, faShoppingBag, faShip, faTachometerAlt, faCar, faLeaf } from '@fortawesome/free-solid-svg-icons';
+
+type FeatureIconMap = {
+    [key: string]: IconDefinition;
+};
+
+const featureIconMap: FeatureIconMap = {
+    'CNG': faGasPump,
+    'MANUAL': faToolbox,
+    'AC': faSnowflake,
+    'PASSENGERS': faUsers,
+    'BAGS': faShoppingBag,
+    'CARRIER': faShip,
+    'DIESEL': faTachometerAlt,
+    'BOOT SPACE': faCar,
+    'PETROL & HYBRID': faLeaf,
+    'AUTOMATIC': faTachometerAlt,
+};
 
 const TaxiTypes: React.FC = () => {
 
@@ -65,12 +85,21 @@ const TaxiTypes: React.FC = () => {
             title: 'CAR FEATURES',
             dataIndex: 'car_features',
             key: 'car_features',
-            render: (carFeatures: { feature: string }[]) => (
-                <div>
+            render: (carFeatures: CarFeature[]) => (
+                <>
                     {carFeatures.map((feature, index) => (
-                        <Tag key={index}>{feature.feature}</Tag>
+                        <Tag key={index}>
+                            {feature.icon && featureIconMap[feature.icon] ? (
+                                <FontAwesomeIcon icon={featureIconMap[feature.icon]} />
+                            ) : null}
+                            {feature.feature && 
+                                <span className='pl-1'>
+                                    {feature.feature}
+                                </span>
+                            }
+                        </Tag>
                     ))}
-                </div>
+                </>
             ),
             width: 200,
         },

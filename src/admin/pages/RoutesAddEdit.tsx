@@ -12,6 +12,10 @@ const RoutesAddEdit: React.FC = () => {
     const [cities, setCities] = useState([]);
     // State to store the list of cities
     const [taxiTypes, setTaxiTypes] = useState([]);
+     // State to store the one-way trip distance
+     const [oneWayTripKm, setOneWayTripKm] = useState<number>(0);
+     // State to store the round trip distance
+     const [roundTripKm, setRoundTripKm] = useState<number>(0);
 
     const goBack = () => {
         window.history.back();
@@ -66,12 +70,27 @@ const RoutesAddEdit: React.FC = () => {
                 from_id: routeToEdit.from_id._id,
                 to_id: routeToEdit.to_id._id
             });
+            setOneWayTripKm(routeToEdit.one_way_trip_km);
+            setRoundTripKm(routeToEdit.round_trip_km);
 
         } else {
             // Set initial values for new coupons
             form.setFieldsValue(initialValues);
         }
     }, [routeToEdit, form]);
+
+
+    const handleOneWayTripChange = (value: React.ReactText | null) => {
+        if (typeof value === 'number') {
+            setOneWayTripKm(value);
+        }
+    };
+    
+    const handleRoundTripChange = (value: React.ReactText | null) => {
+        if (typeof value === 'number') {
+            setRoundTripKm(value);
+        }
+    };
 
 
     const onFinish = async (values: RouteFormValues) => {
@@ -135,12 +154,12 @@ const RoutesAddEdit: React.FC = () => {
                     <Space>
                         <Form.Item name="one_way_trip_km" label="One Way Trip Distance (in km)" rules={[{ required: true, message: 'Please enter the one-way trip distance' }]}>
                             {/* Use InputNumber for numeric input */}
-                            <InputNumber className="w-full" />
+                            <InputNumber className="w-full" onChange={handleOneWayTripChange} />
                         </Form.Item>
 
                         <Form.Item name="round_trip_km" label="Round Trip Distance (in km)" rules={[{ required: true, message: 'Please enter the round trip distance' }]}>
                             {/* Use InputNumber for numeric input */}
-                            <InputNumber className="w-full" />
+                            <InputNumber className="w-full" onChange={handleRoundTripChange} />
                         </Form.Item>
                     </Space>
 
@@ -178,12 +197,12 @@ const RoutesAddEdit: React.FC = () => {
                             {
                                 title: 'ONE WAY PRICE',
                                 key: 'oneWayPrice',
-                                render: (record) => `$${record.price_km * form.getFieldValue('one_way_trip_km')}`,
+                                render: (record) => `₹${(record.price_km * oneWayTripKm).toLocaleString()}`,
                             },
                             {
                                 title: 'ROUND TRIP PRICE',
                                 key: 'roundTripPrice',
-                                render: (record) => `$${record.price_km * form.getFieldValue('round_trip_km')}`,
+                                render: (record) => `₹${(record.price_km * roundTripKm).toLocaleString()}`,
                             },
                         ]}
                         pagination={false}
