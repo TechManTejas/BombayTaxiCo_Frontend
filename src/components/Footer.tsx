@@ -22,7 +22,7 @@ export const Footer: React.FC = () => {
               <div className='w-20 border border-yellow-500'></div>
             </div>
             <div className='text-zinc-500'>
-              Centric applications productize front end vortals visualize front end isite results and value added globally for simplify alternative systems without cross-platform models.
+            Traveling one way, but worried about the return journey fare that cab operators make your shell out needlessly? Now stop worrying about return fares as we at Bombay Taxi Company have exclusive one-way taxi fares for you. Our one-way taxi booking service lets you enjoy all the conveniences of our signature car rental services.
             </div>
             <div className='flex space-x-2'>
               <button className='h-10 w-10 border rounded-full border-zinc-500 text-zinc-500 hover:border-yellow-500 hover:text-yellow-500 flex justify-center items-center'>
@@ -49,8 +49,8 @@ export const Footer: React.FC = () => {
             </div>
             <div className='text-zinc-500 space-y-3'>
               <button className='flex items-center space-x-3 hover:text-yellow-500 transition-all' onClick={() => {
-                  navigate("/attach-taxi")
-                  window.scrollTo(0, 0);
+                navigate("/attach-taxi")
+                window.scrollTo(0, 0);
               }}>
                 <ArrowRightOutlined />
                 <div>Attach Your Taxi</div>
@@ -70,25 +70,29 @@ export const Footer: React.FC = () => {
                 <div>Contact Us</div>
               </button>
               <button className='flex items-center space-x-3 hover:text-yellow-500 transition-all' onClick={() => {
-                
+                navigate("/faqs")
+                window.scrollTo(0, 0);
               }}>
                 <ArrowRightOutlined />
                 <div>FAQs</div>
               </button>
               <button className='flex items-center space-x-3 hover:text-yellow-500 transition-all' onClick={() => {
-
+                navigate("/cancellation-policy")
+                window.scrollTo(0, 0);
               }}>
                 <ArrowRightOutlined />
                 <div>Cancellation Policy</div>
               </button>
               <button className='flex items-center space-x-3 hover:text-yellow-500 transition-all' onClick={() => {
-
+                navigate("/terms-conditions")
+                window.scrollTo(0, 0);
               }}>
                 <ArrowRightOutlined />
                 <div>Terms & Conditions</div>
               </button>
               <button className='flex items-center space-x-3 hover:text-yellow-500 transition-all' onClick={() => {
-
+                navigate("/privacy-policy")
+                window.scrollTo(0, 0);
               }}>
                 <ArrowRightOutlined />
                 <div>Privacy Policy</div>

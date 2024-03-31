@@ -39,6 +39,10 @@ import InvoiceDetails from './admin/pages/InvoiceDetails';
 import InvoicesAddEdit from './admin/pages/InvoiceAddEdit';
 import Authentication from './pages/Authentication';
 import AttachTaxi from './pages/AttachTaxi';
+import { TermsAndConditions } from './pages/TermsAndConditions';
+import { CancellationPolicy } from './pages/CancellationPolicy';
+import { PrivacyPolicy } from './pages/PrivacyPolicy';
+import { FAQs } from './pages/FAQs';
 
 const isAuthenticated = () => {
   return (!!localStorage.getItem('token'));
@@ -85,9 +89,13 @@ const UserRoutes: React.FC = () => {
         <Route path="/home" element={<Home />} />
         <Route path="/search" element={<Search />} />
         <Route path="/details" element={<Details />} />
+        <Route path="/attach-taxi" element={<AttachTaxi />} />
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} />
-        <Route path="/attach-taxi" element={<AttachTaxi />} />
+        <Route path="/cancellation-policy" element={<CancellationPolicy />} />
+        <Route path="/terms-conditions" element={<TermsAndConditions />} />
+        <Route path="/faqs" element={<FAQs />} />
+        <Route path="/privacy-policy" element={<PrivacyPolicy />} />
         <Route path="/signin" element={<Signin />} />
         <Route path="/signup" element={<Signup />} />
       </Routes>
