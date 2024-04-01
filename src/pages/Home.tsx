@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { AndroidFilled, AppleFilled, ArrowLeftOutlined, ArrowRightOutlined, BankOutlined, CarOutlined, ClockCircleOutlined, CloseCircleOutlined, CreditCardOutlined, CustomerServiceOutlined, DollarCircleOutlined, DollarOutlined, EnvironmentOutlined, LikeOutlined, MobileOutlined, MoneyCollectOutlined, SafetyOutlined, SmileOutlined, SolutionOutlined, StarOutlined, SwapOutlined, SyncOutlined, TagOutlined, TeamOutlined, UserOutlined } from '@ant-design/icons';
 import { Button, DatePicker, Dropdown, MenuProps, Segmented, message } from 'antd';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import axios from "../api/axios"
 import { City } from '../types/citys.types';
 import { useNavigate } from 'react-router-dom';
@@ -1206,9 +1206,12 @@ const WhatWeAreOffering: React.FC = () => {
     },
   ];
 
+  const parentDivRef = useRef(null); // Step 1: Creating a ref
+  const [gap, setGap] = useState(230); // Initialize with your default gap size
+
   const [translateX, setTranslateX] = useState(0);
   const [transitionDuration, setTransitionDuration] = useState('duration-700');
-  const cardWidthIncludingGap = 600; // This should include the card width plus any gap between cards
+  const cardWidthIncludingGap = gap + 360; // This should include the card width plus any gap between cards
   const numberOfVisibleCards = 1; // Adjust based on how many cards you want visible at the end before reset
   const slideInterval = 2000; // Time interval for sliding effect
 
@@ -1230,15 +1233,38 @@ const WhatWeAreOffering: React.FC = () => {
     return () => clearInterval(interval);
   }, [services.length, cardWidthIncludingGap]);
 
+  useEffect(() => {
+    const resizeObserver = new ResizeObserver(entries => {
+      for (const entry of entries) {
+        const { width } = entry.contentRect;
+        console.log(width)
+
+        const calculatedGap = 230 * ((width / 1600) * (width / 1600) / 2); 
+
+        setGap(calculatedGap);
+      }
+    });
+
+    if (parentDivRef.current) {
+      resizeObserver.observe(parentDivRef.current);
+    }
+
+    return () => {
+      if (parentDivRef.current) {
+        resizeObserver.unobserve(parentDivRef.current);
+      }
+    };
+  }, []);
+
   return (
     <>
-      <div className='space-y-12 py-20 bg-[#F5F5F5]'>
+      <div className='space-y-12 py-20 bg-[#ff0000]' ref={parentDivRef}>
         <div className='text-center text-3xl font-medium'>
           What We Are Offering?
         </div>
         <div className='relative flex justify-center overflow-hidden'>
-          <div className={`flex justify-items-center container gap-60 ${transitionDuration}`}
-            style={{ transform: `translateX(${translateX}px)` }}
+          <div className={`flex justify-items-center container ${transitionDuration}`}
+            style={{ gap: `${gap}px`, transform: `translateX(${translateX}px)` }}
           >
             {services.map((service, index) => (
               <div className='service-card' key={index}>
