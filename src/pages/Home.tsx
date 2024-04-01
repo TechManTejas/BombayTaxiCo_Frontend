@@ -23,7 +23,7 @@ import { generateTimeOptions } from '../utils/GenerateTimeOptions';
 import { generateDistanceOptions } from '../utils/GenerateDistanceOptions';
 import { ServiceCard } from '../components/ServiceCard';
 
-import './rotatingtexts.css'
+import './Fade.css'
 import './ServiceCardAnimation.css';
 import { useIntersectionObserver } from '../components/UseIntersectionObserver.jsx';
 // import useCounter from '../components/Counter';
@@ -244,15 +244,34 @@ const Hero: React.FC = () => {
     fetchCities();
   }, [])
 
-  let currentIndex = 0;
-  const texts = document.querySelectorAll('.rotating-text-item');
-  const textCount = texts.length;
 
-  setInterval(() => {
-    (texts[currentIndex] as any).style.display = 'none';
-    currentIndex = (currentIndex + 1) % textCount;
-    (texts[currentIndex] as any).style.display = 'block';
-  }, 3000); // Change text every 3 seconds
+
+  const [currentTextIndex, setCurrentTextIndex] = useState(0);
+
+  const texts = [
+    {
+
+      text: "Welcome to Bombay Taxi Co. Book Taxi For Your Ride",
+    },
+    {
+      text: "24/7 Online taxi For Your Ride Enjoying Comfortable TRip With Bombay Taxi Co.",
+    },
+    {
+      text: "Lets Ride With Us Enjoy Your Luxury Taxi With Low Price",
+    }
+  ];
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentTextIndex((currentTestimonialIndex) =>
+        (currentTestimonialIndex + 1) % texts.length
+      );
+    }, 3000); // Change every 3 seconds
+
+    return () => clearInterval(interval);
+  }, []);
+
+  const currentText = texts[currentTextIndex];
 
   return (
     <>
@@ -263,15 +282,11 @@ const Hero: React.FC = () => {
             mt-24
             lg:mt-0
           '>
-            <div className='rotating-text-item h-40 lg:h-max flex flex-col justify-center'>
-              Welcome to Bombay Taxi Co. Book Taxi For Your Ride
+            <div className='h-40 lg:h-max flex flex-col justify-center items-center'>
+              <div key={currentTextIndex} className={`text text-center  fade-in`}>
+                {currentText.text}
+              </div>
             </div>
-            <div className='rotating-text-item' style={{
-              display: 'none'
-            }}>24/7 Online taxi For Your Ride Enjoying Comfortable TRip With Bombay Taxi Co.</div>
-            <div className='rotating-text-item h-40 lg:h-max flex flex-col justify-center' style={{
-              display: 'none'
-            }}>Lets Ride With Us Enjoy Your Luxury Taxi With Low Price</div>
           </div>
           <div className='flex flex-col items-center justify-center'>
             <div className='rounded-xl bg-white  shadow-lg -mb-6 z-10
@@ -579,6 +594,7 @@ const WhyChooseUs: React.FC = () => {
 
 const StatsAndTestamonials: React.FC = () => {
 
+  const testimonialsRef = useRef();
   const [isVisible, elementRef] = useIntersectionObserver({});
   const [stats, setStats] = useState({ fleet: 0, trips: 0, dropped: 0, satisfied: 0 });
   const finalStats = { fleet: 32002, trips: 16008, dropped: 17068, satisfied: 19508 };
@@ -586,19 +602,19 @@ const StatsAndTestamonials: React.FC = () => {
 
   const testimonials = [
     {
-      name: "Manik Patil",
-      image: Face1, // Assuming you've imported these images at the top
-      feedback: "Great experience with this company. I have used many others in Oakland but this was by far the best. You guys made our trip so easy. Great customer service, wonderful drivers and by far the best and most affordable transportation company I have used. Thank you soo much!",
+      name: "Aarav Smith",
+      image: Face1, // Replace Face1 with the actual import
+      feedback: "Absolutely fantastic service! The booking was easy, and the ride was comfortable and punctual. This was my first choice for city travel, and I'm extremely satisfied with the professionalism. Will definitely recommend!",
     },
     {
-      name: "Manik Patil",
-      image: Face2, // Assuming you've imported these images at the top
-      feedback: "Great experience with this company. I have used many others in Oakland but this was by far the best. You guys made our trip so easy. Great customer service, wonderful drivers and by far the best and most affordable transportation company I have used. Thank you soo much!",
+      name: "Sophia Johnson",
+      image: Face2, // Replace Face2 with the actual import
+      feedback: "Incredible service and unbeatable prices. I had to arrange transportation for a large event, and everything went off without a hitch. Drivers were courteous and vehicles were top-notch. I’m thoroughly impressed!",
     },
     {
-      name: "Manik Patil",
-      image: Face3, // Assuming you've imported these images at the top
-      feedback: "Great experience with this company. I have used many others in Oakland but this was by far the best. You guys made our trip so easy. Great customer service, wonderful drivers and by far the best and most affordable transportation company I have used. Thank you soo much!",
+      name: "Liam Taylor",
+      image: Face3, // Replace Face3 with the actual import
+      feedback: "I'm blown away by the efficiency and quality of this transport service. The drivers are knowledgeable and friendly, and the support team is always ready to help. They made my weekly commutes a breeze!",
     }
   ];
 
@@ -693,45 +709,6 @@ const StatsAndTestamonials: React.FC = () => {
       </div>
 
       <div className='flex flex-col items-center'>
-        {/* <div className='h-72 flex flex-col justify-center items-center w-full' style={{ backgroundImage: `url(${HappyCustomer})`, backgroundSize: 'cover' }}>
-          <div className='flex flex-col justify-center items-center bg-black w-full h-full -mb-16 bg-opacity-70 text-center p-3'>
-            <div className='text-3xl font-medium text-white'>We Are Experienced Since 1992 Until Now</div>
-            <div className='text-white text-center text-sm
-            md:w-[600px]
-          '>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua erat libero condimentum metus.</div>
-          </div>
-          <div className='h-16' />
-        </div> */}
-        {/* <div className='bg-white border border-black rounded-lg items-center justify-around -mt-16 z-10
-        w-[220px] 
-        sm:w-[600px] sm:flex
-        lg:w-[800px]
-        '>
-          <div className='text-center space-y-1 m-3'>
-            <div className='text-4xl font-medium'>
-              124 <span className='text-yellow-500'>+</span>
-            </div>
-            <div>
-              Years of Experience
-            </div>
-          </div>
-          <div className='text-center space-y-1 m-3'>
-            <div className='text-4xl font-medium'>
-              2,820 <span className='text-yellow-500'>+</span>
-            </div>
-            <div>
-              Happy Customer
-            </div>
-          </div>
-          <div className='text-center space-y-1 m-3'>
-            <div className='text-4xl font-medium'>
-              2,820 <span className='text-yellow-500'>+</span>
-            </div>
-            <div>
-              Km Driver
-            </div>
-          </div>
-        </div> */}
         <div className='py-16  w-full
           md:px-8
           xl:px-32
@@ -755,7 +732,11 @@ const StatsAndTestamonials: React.FC = () => {
               <div className='font-medium text-2xl py-4'>{currentTestimonial.name}</div>
               <div className='relative'>
                 <img src={Quote} className='absolute opacity-10 h-12 -mt-10' alt="Quote" />
-                <div className='text text-center text-gray-800'>{currentTestimonial.feedback}</div>
+
+                <div key={currentTestimonialIndex} className={`text text-center text-gray-800 fade-in`}>
+                  {currentTestimonial.feedback}
+                </div>
+
                 <div className='flex w-full justify-end'>
                   <img src={Quote} className='absolute opacity-10 h-12 -mt-5 transform -scale-x-100' alt="Quote" />
                 </div>
@@ -1239,7 +1220,7 @@ const WhatWeAreOffering: React.FC = () => {
         const { width } = entry.contentRect;
         console.log(width)
 
-        const calculatedGap = 230 * ((width / 1600) * (width / 1600) / 2); 
+        const calculatedGap = 230 * ((width / 1600) * (width / 1600) / 2);
 
         setGap(calculatedGap);
       }
@@ -1258,7 +1239,7 @@ const WhatWeAreOffering: React.FC = () => {
 
   return (
     <>
-      <div className='space-y-12 py-20 bg-[#ff0000]' ref={parentDivRef}>
+      <div className='space-y-12 py-20 bg-[#f5f5f5]' ref={parentDivRef}>
         <div className='text-center text-3xl font-medium'>
           What We Are Offering?
         </div>
