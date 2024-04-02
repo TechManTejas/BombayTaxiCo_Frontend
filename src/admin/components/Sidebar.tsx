@@ -43,7 +43,7 @@ const Sidebar: React.FC = () => {
     return (
         <Sider
             width={200}
-            className="bg-[#242124] h-[calc(100vh-78px)]"
+            className="bg-[#242124] min-h-[calc(100vh-78px)]"
         >
             <Menu
                 mode="inline"

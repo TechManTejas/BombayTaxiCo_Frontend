@@ -116,8 +116,8 @@ export const Footer: React.FC = () => {
                   <div className='h-6 w-6 bg-yellow-500 text-[#2A2A2A] text-xs flex justify-center items-center rounded'>
                     <PhoneFilled />
                   </div>
-                  <a href="tel:+9211144490" className='text-zinc-500 hover:text-yellow-500 hover:underline'>
-                    +468 254 762 443
+                  <a href="tel:+916262744744" className='text-zinc-500 hover:text-yellow-500 hover:underline'>
+                    +91-6262-744-744
                   </a>
                 </div>
               </div>
@@ -129,9 +129,9 @@ export const Footer: React.FC = () => {
                   <div className='h-6 w-6 bg-yellow-500 text-[#2A2A2A] text-xs flex justify-center items-center rounded'>
                     <MailFilled />
                   </div>
-                  <div className='text-zinc-500'>
-                    info@taxiar.com
-                  </div>
+                  <a href="mailto:support@bombaytaxicompany.com" className='text-zinc-500'>
+                    support@bombaytaxicompany.com
+                  </a>
                 </div>
               </div>
               <div className='space-y-1'>
