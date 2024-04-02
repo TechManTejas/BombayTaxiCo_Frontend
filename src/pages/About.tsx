@@ -241,14 +241,11 @@ const WhatWeAreOffering: React.FC = () => {
     },
   ];
 
-  const parentDivRef = useRef(null); // Step 1: Creating a ref
-  const [gap, setGap] = useState(230); // Initialize with your default gap size
-
   const [translateX, setTranslateX] = useState(0);
   const [transitionDuration, setTransitionDuration] = useState('duration-700');
-  const cardWidthIncludingGap = gap + 360; // This should include the card width plus any gap between cards
-  const numberOfVisibleCards = 1; // Adjust based on how many cards you want visible at the end before reset
-  const slideInterval = 2000; // Time interval for sliding effect
+  const cardWidthIncludingGap = 440; 
+  const numberOfVisibleCards = 2; 
+  const slideInterval = 2000; 
 
   useEffect(() => {
     // Calculate maxTranslate to stop before the reset
@@ -261,56 +258,39 @@ const WhatWeAreOffering: React.FC = () => {
           setTimeout(() => setTransitionDuration('duration-700'), 50); // Then restore the transition for the next slide
           return 0; // Start over
         }
-        return newTranslate;
+        return newTranslate
       });
     }, slideInterval);
 
     return () => clearInterval(interval);
   }, [services.length, cardWidthIncludingGap]);
 
-  useEffect(() => {
-    const resizeObserver = new ResizeObserver(entries => {
-      for (const entry of entries) {
-        const { width } = entry.contentRect;
-        console.log(width)
-
-        const calculatedGap = 230 * ((width / 1600) * (width / 1600) / 2); 
-
-        setGap(calculatedGap);
-      }
-    });
-
-    if (parentDivRef.current) {
-      resizeObserver.observe(parentDivRef.current);
-    }
-
-    return () => {
-      if (parentDivRef.current) {
-        resizeObserver.unobserve(parentDivRef.current);
-      }
-    };
-  }, []);
-
   return (
     <>
-      <div className='space-y-12 py-20 bg-[#f5f5f5]' ref={parentDivRef}>
+      <div className='space-y-12 py-20 '>
         <div className='text-center text-3xl font-medium'>
           What We Are Offering?
         </div>
-        <div className='relative flex justify-center overflow-hidden'>
-          <div className={`flex justify-items-center container ${transitionDuration}`}
-            style={{ gap: `${gap}px`, transform: `translateX(${translateX}px)` }}
-          >
-            {services.map((service, index) => (
-              <div className='service-card' key={index}>
-                <ServiceCard
-                  icon={service.icon}
-                  feature={service.feature}
-                  title={service.title}
-                  description={service.description}
-                />
-              </div>
-            ))}
+        <div className='flex justify-center'>
+          <div className='relative overflow-hidden
+            xl:w-[1240px]
+            lg:w-[800px] 
+            w-[360px]
+          '>
+            <div className={`flex justify-items-center gap-20 ${transitionDuration}`}
+              style={{ transform: `translateX(${translateX}px)` }}
+            >
+              {services.map((service, index) => (
+                <div className='service-card' key={index}>
+                  <ServiceCard
+                    icon={service.icon}
+                    feature={service.feature}
+                    title={service.title}
+                    description={service.description}
+                  />
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </div>
