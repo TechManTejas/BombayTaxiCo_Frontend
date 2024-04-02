@@ -293,7 +293,7 @@ const UserNavbar: React.FC = () => {
                         </span>
                     </h1>
 
-                    <div className="flex md:hidden">
+                    <div className="flex md:hidden mr-4">
                         <Button
                             type="text"
                             icon={<MenuOutlined style={{ fontSize: '1.5rem' }} />}
@@ -301,7 +301,7 @@ const UserNavbar: React.FC = () => {
                         />
                     </div>
 
-                    <div className='flex space-x-6'>
+                    <div className='hidden md:flex space-x-6'>
                         {userAuthenticated ?
                             <button className="text-xl font-medium hidden md:block hover:text-yellow-500" onClick={()=>{
                                 navigate('/profile')

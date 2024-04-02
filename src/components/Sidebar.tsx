@@ -24,7 +24,8 @@ const Sidebar: React.FC<SidebarProps> = ({ handleTabChange }) => {
     };
 
     return (
-        <div className="lg:h-[calc(100vh-136px)]
+        <div className="
+            h-[calc(100vh-136px)]
             bg-stone-100
             lg:bg-white
         ">
