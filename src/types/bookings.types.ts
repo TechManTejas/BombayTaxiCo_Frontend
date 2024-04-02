@@ -54,6 +54,12 @@ export interface IBooking extends Document {
     };
     booking_status: BookingStatus;
     trip_type?: TripType;
+    name: string;
+    gender: string;
+    emailId: string;
+    contactNumber: string;
+    pincode: string;
+    address: string;
     numberOfPassengers: string,
     numberOfSmallBags: string,
     numberOfLargeBags: string,

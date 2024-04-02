@@ -470,6 +470,14 @@ const Details: React.FC = () => {
           "hourly_package": hourlyPackage,
           "coupon_id": couponId,
           "base_fare": couponDiscountedAmount || taxiRate.discountedPrice,
+           // 
+          "name": formValues.name,
+          "gender": formValues.gender,
+          "emailId": formValues.emailId,
+          "contactNumber": formValues.contactNumber,
+          "pincode": formValues.pincode,
+          "address": formValues.address, 
+          // 
           "numberOfPassengers": formValues.numberOfPassengers,
           "numberOfSmallBags": formValues.numberOfSmallBags,
           "numberOfLargeBags": formValues.numberOfLargeBags,
@@ -591,6 +599,7 @@ const Details: React.FC = () => {
           '>
             <div>
               <CarCard
+                carImage={taxiRate.taxiType?.image}
                 category={taxiRate.taxiType?.name || ''}
                 description={taxiRate.taxiType?.description || ''}
                 features={taxiRate.taxiType?.car_features || []}
@@ -787,14 +796,14 @@ const Details: React.FC = () => {
 
                         <div>
                           By proceeding to book, I Agree to Bombay Taxi's{' '}
-                          <a className='text-yellow-500 hover:underline'>
-                            Privacy Policy,{' '}
+                          <a href='/privacy-policy' className='text-yellow-500 hover:underline'>
+                            Privacy Policy{' '}
                           </a>
-                          <a className='text-yellow-500 hover:underline'>
+                          {/* <a className='text-yellow-500 hover:underline'>
                             User Agreement{' '}
-                          </a>
+                          </a> */}
                           and
-                          <a className='text-yellow-500 hover:underline'>
+                          <a href='/terms-conditions' className='text-yellow-500 hover:underline'>
                             Terms of Service{' '}
                           </a>
                         </div>
