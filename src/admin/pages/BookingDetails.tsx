@@ -17,8 +17,6 @@ export default function BookingDetails() {
     const booking: IBooking = state?.booking;
     const [form] = Form.useForm();
 
-    console.log(booking);
-
     const isBookingCancelled = booking?.booking_status === BookingStatus.Cancelled;
     const isBookingCompleted = booking?.booking_status === BookingStatus.Completed;
     const isBookingConfirmed = booking?.booking_status === BookingStatus.Confirmed;
@@ -33,8 +31,6 @@ export default function BookingDetails() {
     const handleHover = (taxi: Taxi) => {
         setHoveredTaxi(taxi);
     };
-
-    console.log(booking)
 
     const goBack = () => {
         window.history.back();
@@ -377,7 +373,15 @@ export default function BookingDetails() {
                                             <div className="text-sm font-medium text-gray-900">NAME</div>
                                         </td>
                                         <td className="px-6 py-4 whitespace-nowrap">
-                                            <div className="text-sm text-gray-500">{booking?.user_id?.name}</div>
+                                            <div className="text-sm text-gray-500">{booking?.name}</div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td className="py-4 whitespace-nowrap">
+                                            <div className="text-sm font-medium text-gray-900">GENDER</div>
+                                        </td>
+                                        <td className="px-6 py-4 whitespace-nowrap">
+                                            <div className="text-sm text-gray-500">{booking?.gender}</div>
                                         </td>
                                     </tr>
                                     <tr>
@@ -385,7 +389,7 @@ export default function BookingDetails() {
                                             <div className="text-sm font-medium text-gray-900">EMAIL</div>
                                         </td>
                                         <td className="px-6 py-4 whitespace-nowrap">
-                                            <div className="text-sm text-gray-500">{booking?.user_id?.email_id}</div>
+                                            <div className="text-sm text-gray-500">{booking?.emailId}</div>
                                         </td>
                                     </tr>
                                     <tr>
@@ -393,7 +397,23 @@ export default function BookingDetails() {
                                             <div className="text-sm font-medium text-gray-900">PHONE</div>
                                         </td>
                                         <td className="px-6 py-4 whitespace-nowrap">
-                                            <div className="text-sm text-gray-500">+91 {booking?.user_id?.mobile_no}</div>
+                                            <div className="text-sm text-gray-500">+91 {booking?.contactNumber}</div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td className="py-4 whitespace-nowrap">
+                                            <div className="text-sm font-medium text-gray-900">PHONE</div>
+                                        </td>
+                                        <td className="px-6 py-4 whitespace-nowrap">
+                                            <div className="text-sm text-gray-500">+91 {booking?.pincode}</div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td className="py-4 whitespace-nowrap">
+                                            <div className="text-sm font-medium text-gray-900">PHONE</div>
+                                        </td>
+                                        <td className="px-6 py-4 whitespace-nowrap">
+                                            <div className="text-sm text-gray-500">+91 {booking?.address}</div>
                                         </td>
                                     </tr>
                                 </tbody>
