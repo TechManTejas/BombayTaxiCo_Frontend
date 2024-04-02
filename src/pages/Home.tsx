@@ -659,7 +659,7 @@ const StatsAndTestamonials: React.FC = () => {
       >
         <div className='flex flex-col justify-center items-center bg-blue-950 w-full h-full bg-opacity-70 text-center p-3'>
           <div className="flex justify-center max-w-6xl mx-auto py-32 px-4">
-            <div className="grid text-center gap-y-8
+            <div className="grid text-center gap-y-8 gap-x-8 md:gap-x-0
               grid-cols-2
               lg:grid-cols-4
             ">
@@ -696,7 +696,7 @@ const StatsAndTestamonials: React.FC = () => {
               {/* Satisfied Clients */}
               <div className="flex flex-col items-center">
                 <div className="mb-2 text-5xl md:text-8xl"><SmileOutlined /></div>
-                <div className='hidden md:blockborder-b opacity-60 w-60'></div>
+                <div className='hidden md:block border-b opacity-60 w-60'></div>
                 <div className='hidden md:block bg-white rounded-full p-1 my-3'>
                   <div className='w-2.5 h-2.5 bg-red-600 rounded-full'></div>
                 </div>
