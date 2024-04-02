@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { AndroidFilled, AppleFilled, ArrowLeftOutlined, ArrowRightOutlined, BankOutlined, CarOutlined, ClockCircleOutlined, CloseCircleOutlined, CreditCardOutlined, CustomerServiceOutlined, DollarCircleOutlined, DollarOutlined, EnvironmentOutlined, LikeOutlined, MobileOutlined, MoneyCollectOutlined, SafetyOutlined, SmileOutlined, SolutionOutlined, StarOutlined, SwapOutlined, SyncOutlined, TagOutlined, TeamOutlined, UserOutlined } from '@ant-design/icons';
-import { Button, DatePicker, Dropdown, MenuProps, Segmented, message } from 'antd';
-import React, { useEffect, useRef, useState } from 'react';
+import { AndroidFilled, AppleFilled, ArrowRightOutlined, BankOutlined, CarOutlined, ClockCircleOutlined, CloseCircleOutlined, CreditCardOutlined, CustomerServiceOutlined, DollarCircleOutlined, DollarOutlined, EnvironmentOutlined, LikeOutlined, MobileOutlined, MoneyCollectOutlined, SafetyOutlined, SmileOutlined, SolutionOutlined, StarOutlined, SwapOutlined, SyncOutlined, TagOutlined, TeamOutlined, UserOutlined } from '@ant-design/icons';
+import { DatePicker, Dropdown, MenuProps, Segmented, message } from 'antd';
+import React, { useEffect, useState } from 'react';
 import axios from "../api/axios"
 import { City } from '../types/citys.types';
 import { useNavigate } from 'react-router-dom';
@@ -15,10 +15,7 @@ import HeroImage from "../assets/images/hero.jpg"
 import Experience from "../assets/images/experience.jpg"
 // import HappyCustomer from "../assets/images/happy_customers.jpg"
 // import TajMahal from "../assets/images/taj_mahal.jpg"
-import Quote from "../assets/images/quote.png"
-import Face1 from "../assets/images/face1.jpg"
-import Face2 from "../assets/images/face2.jpg"
-import Face3 from "../assets/images/face3.jpg"
+
 import { generateTimeOptions } from '../utils/GenerateTimeOptions';
 import { generateDistanceOptions } from '../utils/GenerateDistanceOptions';
 import { ServiceCard } from '../components/ServiceCard';
@@ -26,6 +23,7 @@ import { ServiceCard } from '../components/ServiceCard';
 import './Fade.css'
 import './ServiceCardAnimation.css';
 import { useIntersectionObserver } from '../components/UseIntersectionObserver.jsx';
+import { TestimonialCard } from '../components/TestimonialCard.js';
 // import useCounter from '../components/Counter';
 
 const Hero: React.FC = () => {
@@ -594,29 +592,45 @@ const WhyChooseUs: React.FC = () => {
 
 const StatsAndTestamonials: React.FC = () => {
 
-  const testimonialsRef = useRef();
   const [isVisible, elementRef] = useIntersectionObserver({});
   const [stats, setStats] = useState({ fleet: 0, trips: 0, dropped: 0, satisfied: 0 });
   const finalStats = { fleet: 32002, trips: 16008, dropped: 17068, satisfied: 19508 };
-  const [currentTestimonialIndex, setCurrentTestimonialIndex] = useState(0);
+
+  const [translateX, setTranslateX] = useState(0);
+  const [transitionDuration, setTransitionDuration] = useState('duration-700');
+  const cardWidthIncludingGap = 288 + 16;
+  const numberOfVisibleCards = 1;
+  const slideInterval = 2000;
 
   const testimonials = [
-    {
-      name: "Aarav Smith",
-      image: Face1, // Replace Face1 with the actual import
-      feedback: "Absolutely fantastic service! The booking was easy, and the ride was comfortable and punctual. This was my first choice for city travel, and I'm extremely satisfied with the professionalism. Will definitely recommend!",
-    },
-    {
-      name: "Sophia Johnson",
-      image: Face2, // Replace Face2 with the actual import
-      feedback: "Incredible service and unbeatable prices. I had to arrange transportation for a large event, and everything went off without a hitch. Drivers were courteous and vehicles were top-notch. I’m thoroughly impressed!",
-    },
-    {
-      name: "Liam Taylor",
-      image: Face3, // Replace Face3 with the actual import
-      feedback: "I'm blown away by the efficiency and quality of this transport service. The drivers are knowledgeable and friendly, and the support team is always ready to help. They made my weekly commutes a breeze!",
-    }
+    { avatar: "", testimonialText: "Great service, would recommend!", name: "Jane Doe", position: "CEO" },
+    { avatar: "", testimonialText: "Very pleased with the outcome.", name: "John Smith", position: "Director" },
+    { avatar: "", testimonialText: "Exceptional quality and service.", name: "Alice Johnson", position: "Manager" },
+    { avatar: "", testimonialText: "They went above and beyond.", name: "Mark Brown", position: "Team Lead" },
+    { avatar: "", testimonialText: "Could not have asked for better.", name: "Emily Clark", position: "Developer" },
+    { avatar: "", testimonialText: "Outstanding experience from start to finish.", name: "Dave Wilson", position: "Designer" },
+    { avatar: "", testimonialText: "Professional, punctual, and polite.", name: "Sarah Miller", position: "Product Manager" },
+    { avatar: "", testimonialText: "Truly top-notch customer service.", name: "James Davis", position: "Sales Executive" },
+    { avatar: "", testimonialText: "Their expertise is unmatched.", name: "Patricia Taylor", position: "HR Specialist" },
   ];
+
+  useEffect(() => {
+    // Calculate maxTranslate to stop before the reset
+    const maxTranslate = -(9 * cardWidthIncludingGap - window.innerWidth + cardWidthIncludingGap * numberOfVisibleCards);
+    const interval = setInterval(() => {
+      setTranslateX(currentTranslate => {
+        const newTranslate = currentTranslate - cardWidthIncludingGap;
+        if (newTranslate < maxTranslate) {
+          setTransitionDuration('duration-0'); // Instantly reset position without transition
+          setTimeout(() => setTransitionDuration('duration-700'), 50); // Then restore the transition for the next slide
+          return 0; // Start over
+        }
+        return newTranslate;
+      });
+    }, slideInterval);
+
+    return () => clearInterval(interval);
+  }, [9, cardWidthIncludingGap]);
 
   useEffect(() => {
     if (isVisible) {
@@ -632,20 +646,6 @@ const StatsAndTestamonials: React.FC = () => {
       return () => clearInterval(intervalId);
     }
   }, [isVisible]);
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentTestimonialIndex((currentTestimonialIndex) =>
-        (currentTestimonialIndex + 1) % testimonials.length
-      );
-    }, 3000); // Change every 3 seconds
-
-    return () => clearInterval(interval);
-  }, []);
-
-  const currentTestimonial = testimonials[currentTestimonialIndex];
-  const prevTestimonialIndex = currentTestimonialIndex - 1 < 0 ? testimonials.length - 1 : currentTestimonialIndex - 1;
-  const nextTestimonialIndex = (currentTestimonialIndex + 1) % testimonials.length;
 
   return (
     <>
@@ -713,41 +713,25 @@ const StatsAndTestamonials: React.FC = () => {
           md:px-8
           xl:px-32
           '>
-
-          <div className='text-center text-3xl font-medium'>What Our Customers Say</div>
-
-          <div className='flex justify-center items-center p-8'>
-            <div className='flex-col justify-center items-center m-16 hidden md:flex'>
-              <div className='h-20 w-20 bg-yellow-500 rounded-full flex justify-center items-center'>
-                <img src={testimonials[prevTestimonialIndex].image} className='h-[76px] w-[76px] bg-yellow-500 rounded-full object-cover' alt="Previous testimonial" />
-              </div>
-            </div>
-            <div className='m-6 shadow-xl hidden md:block'>
-              <Button size='large' icon={<ArrowLeftOutlined />} className='bg-white border-white' onClick={() => setCurrentTestimonialIndex(prevTestimonialIndex)} />
-            </div>
-            <div className='p-4 flex flex-col justify-center items-center w-full xl:w-2/5 text-center'>
-              <div className='h-40 w-40 bg-yellow-500 rounded-full flex justify-center items-center'>
-                <img src={currentTestimonial.image} className='h-[152px] w-[152px] bg-yellow-500 rounded-full object-cover' alt={currentTestimonial.name} />
-              </div>
-              <div className='font-medium text-2xl py-4'>{currentTestimonial.name}</div>
-              <div className='relative'>
-                <img src={Quote} className='absolute opacity-10 h-12 -mt-10' alt="Quote" />
-
-                <div key={currentTestimonialIndex} className={`text text-center text-gray-800 fade-in`}>
-                  {currentTestimonial.feedback}
-                </div>
-
-                <div className='flex w-full justify-end'>
-                  <img src={Quote} className='absolute opacity-10 h-12 -mt-5 transform -scale-x-100' alt="Quote" />
-                </div>
-              </div>
-            </div>
-            <div className='m-6 shadow-xl hidden md:block'>
-              <Button size='large' icon={<ArrowRightOutlined />} className='bg-white border-white' onClick={() => setCurrentTestimonialIndex(nextTestimonialIndex)} />
-            </div>
-            <div className='flex-col justify-center items-center m-16 hidden md:flex'>
-              <div className='h-20 w-20 bg-yellow-500 rounded-full flex justify-center items-center'>
-                <img src={testimonials[nextTestimonialIndex].image} className='h-[76px] w-[76px] bg-yellow-500 rounded-full object-cover' alt="Next testimonial" />
+          <div className='text-center text-3xl  font-medium'>What Our Customers Say</div>
+          <div className='flex justify-center items-center w-full'>
+            <div className='m-8 py-1 overflow-hidden
+              lg:w-[896px]
+              md:w-[576px]
+              w-[288px]
+            '>
+              <div className={`flex  gap-4  ${transitionDuration}`}
+                style={{ gap: `${16}px`, transform: `translateX(${translateX}px)` }}
+              >
+                {testimonials.map((testimonial, index) => (
+                  <TestimonialCard
+                    key={index}
+                    avatar={testimonial.avatar}
+                    testimonialText={testimonial.testimonialText}
+                    name={testimonial.name}
+                    position={testimonial.position}
+                  />
+                ))}
               </div>
             </div>
           </div>
@@ -1187,14 +1171,11 @@ const WhatWeAreOffering: React.FC = () => {
     },
   ];
 
-  const parentDivRef = useRef(null); // Step 1: Creating a ref
-  const [gap, setGap] = useState(230); // Initialize with your default gap size
-
   const [translateX, setTranslateX] = useState(0);
   const [transitionDuration, setTransitionDuration] = useState('duration-700');
-  const cardWidthIncludingGap = gap + 360; // This should include the card width plus any gap between cards
-  const numberOfVisibleCards = 1; // Adjust based on how many cards you want visible at the end before reset
-  const slideInterval = 2000; // Time interval for sliding effect
+  const cardWidthIncludingGap = 440; 
+  const numberOfVisibleCards = 2; 
+  const slideInterval = 2000; 
 
   useEffect(() => {
     // Calculate maxTranslate to stop before the reset
@@ -1207,56 +1188,39 @@ const WhatWeAreOffering: React.FC = () => {
           setTimeout(() => setTransitionDuration('duration-700'), 50); // Then restore the transition for the next slide
           return 0; // Start over
         }
-        return newTranslate;
+        return newTranslate
       });
     }, slideInterval);
 
     return () => clearInterval(interval);
   }, [services.length, cardWidthIncludingGap]);
 
-  useEffect(() => {
-    const resizeObserver = new ResizeObserver(entries => {
-      for (const entry of entries) {
-        const { width } = entry.contentRect;
-        console.log(width)
-
-        const calculatedGap = 230 * ((width / 1600) * (width / 1600) / 2);
-
-        setGap(calculatedGap);
-      }
-    });
-
-    if (parentDivRef.current) {
-      resizeObserver.observe(parentDivRef.current);
-    }
-
-    return () => {
-      if (parentDivRef.current) {
-        resizeObserver.unobserve(parentDivRef.current);
-      }
-    };
-  }, []);
-
   return (
     <>
-      <div className='space-y-12 py-20 bg-[#f5f5f5]' ref={parentDivRef}>
+      <div className='space-y-12 py-20 '>
         <div className='text-center text-3xl font-medium'>
           What We Are Offering?
         </div>
-        <div className='relative flex justify-center overflow-hidden'>
-          <div className={`flex justify-items-center container ${transitionDuration}`}
-            style={{ gap: `${gap}px`, transform: `translateX(${translateX}px)` }}
-          >
-            {services.map((service, index) => (
-              <div className='service-card' key={index}>
-                <ServiceCard
-                  icon={service.icon}
-                  feature={service.feature}
-                  title={service.title}
-                  description={service.description}
-                />
-              </div>
-            ))}
+        <div className='flex justify-center'>
+          <div className='relative overflow-hidden
+            xl:w-[1240px]
+            lg:w-[800px] 
+            w-[360px]
+          '>
+            <div className={`flex justify-items-center gap-20 ${transitionDuration}`}
+              style={{ transform: `translateX(${translateX}px)` }}
+            >
+              {services.map((service, index) => (
+                <div className='service-card' key={index}>
+                  <ServiceCard
+                    icon={service.icon}
+                    feature={service.feature}
+                    title={service.title}
+                    description={service.description}
+                  />
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </div>
