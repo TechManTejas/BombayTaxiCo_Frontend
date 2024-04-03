@@ -43,6 +43,9 @@ import { TermsAndConditions } from './pages/TermsAndConditions';
 import { CancellationPolicy } from './pages/CancellationPolicy';
 import { PrivacyPolicy } from './pages/PrivacyPolicy';
 import { FAQs } from './pages/FAQs';
+import { HourlyRental } from './pages/HourlyRental';
+import { OneWayTrip } from './pages/OneWayTrip';
+import UserInvoiceDetails from './pages/InvoiceDetails';
 
 const isAuthenticated = () => {
   return (!!localStorage.getItem('token'));
@@ -98,6 +101,9 @@ const UserRoutes: React.FC = () => {
         <Route path="/privacy-policy" element={<PrivacyPolicy />} />
         <Route path="/signin" element={<Signin />} />
         <Route path="/signup" element={<Signup />} />
+        <Route path="/hourly-rental" element={<HourlyRental />} />
+        <Route path="/one-way-trip" element={<OneWayTrip />} />
+        <Route path="/invoices/details" element={<UserInvoiceDetails />} />
       </Routes>
     </ConfigProvider>
   )

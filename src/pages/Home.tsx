@@ -9,22 +9,14 @@ import dayjs, { Dayjs } from 'dayjs';
 import { Footer } from '../components/Footer';
 import { CallUsNow } from '../components/CallUsNow';
 import { WhyChooseUsCard } from '../components/WhyChooseUsCard';
-// import { PackageCard } from '../components/PackageCard';
-
 import HeroImage from "../assets/images/hero.jpg"
 import Experience from "../assets/images/experience.jpg"
-// import HappyCustomer from "../assets/images/happy_customers.jpg"
-// import TajMahal from "../assets/images/taj_mahal.jpg"
-
 import { generateTimeOptions } from '../utils/GenerateTimeOptions';
 import { generateDistanceOptions } from '../utils/GenerateDistanceOptions';
 import { ServiceCard } from '../components/ServiceCard';
-
-import './Fade.css'
-import './ServiceCardAnimation.css';
 import { useIntersectionObserver } from '../components/UseIntersectionObserver.jsx';
 import { TestimonialCard } from '../components/TestimonialCard.js';
-// import useCounter from '../components/Counter';
+import '../css/Fade.css'
 
 const Hero: React.FC = () => {
 
@@ -155,7 +147,7 @@ const Hero: React.FC = () => {
   const menuPropsDistance = {
     items: menuDistance,
     onClick: handleMenuClickPackage,
-    style: { height: '300px', overflow: 'auto' }
+    style: { overflow: 'auto' }
   };
 
   const switchValues = () => {
@@ -276,11 +268,11 @@ const Hero: React.FC = () => {
       <div className='bg-[#2a2a2a81] h-[720px] ' style={{ backgroundImage: `url(${HeroImage})`, backgroundSize: 'cover' }}>
         <div className='bg-[#00000095] h-full w-full flex flex-col justify-center items-center space-y-20'>
           {/* <!-- Rotating Text Container --> */}
-          <div id='rotatingText' className='text-3xl lg:text-4xl font-medium text-white text-center
+          <div id='rotatingText' className='text-2xl lg:text-4xl font-medium text-white text-center
             mt-24
             lg:mt-0
           '>
-            <div className='h-40 lg:h-max flex flex-col justify-center items-center'>
+            <div className='h-16 lg:h-max flex flex-col justify-center items-center'>
               <div key={currentTextIndex} className={`text text-center  fade-in`}>
                 {currentText.text}
               </div>
@@ -1119,63 +1111,72 @@ const WhatWeAreOffering: React.FC = () => {
       icon: <EnvironmentOutlined className='text-5xl' />,
       feature: "FEATURE - 01",
       title: "Online Easy Booking",
-      description: "Book your ride with ease through our online platform, available 24/7 for your convenience."
+      description: "Book your ride with ease through our online platform, available 24/7 for your convenience.",
+      detailsUrl: '/'
     },
     {
       icon: <ArrowRightOutlined className='text-5xl' />,
       feature: "FEATURE - 02",
       title: "Onewaytrip",
-      description: "Efficient and comfortable one-way trips to your desired destination, with no return trip required."
+      description: "Efficient and comfortable one-way trips to your desired destination, with no return trip required.",
+      detailsUrl: '/'
     },
     {
       icon: <SyncOutlined className='text-5xl' />,
       feature: "FEATURE - 03",
       title: "Roundtrip",
-      description: "Convenient roundtrip services ensuring a seamless journey to your destination and back."
+      description: "Convenient roundtrip services ensuring a seamless journey to your destination and back.",
+      detailsUrl: '/'
     },
     {
       icon: <ClockCircleOutlined className='text-5xl' />,
       feature: "FEATURE - 04",
       title: "Hourly Car Rental",
-      description: "Flexible hourly car rental services tailored to meet your short-term travel needs."
+      description: "Flexible hourly car rental services tailored to meet your short-term travel needs.",
+      detailsUrl: '/hourly-rental'
     },
     {
       icon: <CarOutlined className='text-5xl' />,
       feature: "FEATURE - 05",
       title: "Airport Transfer",
-      description: "Reliable airport transfer services for a stress-free journey to and from the airport."
+      description: "Reliable airport transfer services for a stress-free journey to and from the airport.",
+      detailsUrl: '/'
     },
     {
       icon: <TeamOutlined className='text-5xl' />,
       feature: "FEATURE - 06",
       title: "Corporate Car Rental",
-      description: "Professional corporate car rental services designed for business needs and executive travel."
+      description: "Professional corporate car rental services designed for business needs and executive travel.",
+      detailsUrl: '/'
     },
     {
       icon: <EnvironmentOutlined className='text-5xl' />,
       feature: "FEATURE - 01",
       title: "Online Easy Booking",
-      description: "Book your ride with ease through our online platform, available 24/7 for your convenience."
+      description: "Book your ride with ease through our online platform, available 24/7 for your convenience.",
+      detailsUrl: '/'
     },
     {
       icon: <ArrowRightOutlined className='text-5xl' />,
       feature: "FEATURE - 02",
       title: "Onewaytrip",
-      description: "Efficient and comfortable one-way trips to your desired destination, with no return trip required."
+      description: "Efficient and comfortable one-way trips to your desired destination, with no return trip required.",
+      detailsUrl: '/one-way-trip'
     },
     {
       icon: <SyncOutlined className='text-5xl' />,
       feature: "FEATURE - 03",
       title: "Roundtrip",
-      description: "Convenient roundtrip services ensuring a seamless journey to your destination and back."
+      description: "Convenient roundtrip services ensuring a seamless journey to your destination and back.",
+      detailsUrl: '/'
     },
   ];
 
   const [translateX, setTranslateX] = useState(0);
   const [transitionDuration, setTransitionDuration] = useState('duration-700');
-  const cardWidthIncludingGap = 440; 
-  const numberOfVisibleCards = 2; 
-  const slideInterval = 2000; 
+  const cardWidthIncludingGap = 440;
+  const numberOfVisibleCards = 2;
+  const slideInterval = 2000;
 
   useEffect(() => {
     // Calculate maxTranslate to stop before the reset
@@ -1197,7 +1198,7 @@ const WhatWeAreOffering: React.FC = () => {
 
   return (
     <>
-      <div className='space-y-12 py-20 '>
+      <div className='space-y-12 py-20 bg-[#f5f5f5]'>
         <div className='text-center text-3xl font-medium'>
           What We Are Offering?
         </div>
@@ -1217,6 +1218,7 @@ const WhatWeAreOffering: React.FC = () => {
                     feature={service.feature}
                     title={service.title}
                     description={service.description}
+                    detailsUrl={service.detailsUrl}
                   />
                 </div>
               ))}
@@ -1241,14 +1243,23 @@ const Home: React.FC = () => {
         2xl:px-32
       '>
         <AwsomeFeatures /> {/* our awesome features for you - https://www.bombaytaxicompany.com/ */}
-        <WhatWeAreOffering /> {/* // What Were Offering - about us sliding component section should be here */}
+      </div>
+      <WhatWeAreOffering /> {/* // What Were Offering - about us sliding component section should be here */}
+      <div className='
+        px-4
+        sm:px-8
+        md:px-16
+        lg:px-20
+        xl:px-28
+        2xl:px-32
+      '>
         <OurBenefitsList /> {/* Our Benifits List - https://preview.themeforest.net/item/taxico-taxi-company-online-cab-service-elementor-template-kit/full_screen_preview/34438955?_ga=2.197559599.1404235229.1707414958-1271169116.1697727807&_gac=1.124503416.1707415664.CjwKCAiAlJKuBhAdEiwAnZb7lTgzQ4xXO12_mageyJHHEzeZLKuUlDic0mk6CIbaxFw9S68pWfiWVhoCyl4QAvD_BwE */}
         <WhyChooseUs /> {/* Title:Our Experience SubTitle:We Are Experienced Since 1992 Until Now. https://themeholy.com/wordpress/taxiar/home-03/ */}
         <EasyStep />
         {/* <PopularPackages /> */}
       </div>
-      <StatsAndTestamonials />
-      <CallUsNow />
+        <StatsAndTestamonials />
+        <CallUsNow />
       <Footer />
     </>
   )

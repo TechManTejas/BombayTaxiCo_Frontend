@@ -8,7 +8,6 @@ import { Tabs, message } from 'antd';
 import moment from 'moment';
 import axios from "../api/axios";
 import TabPane from 'antd/es/tabs/TabPane';
-import Search from 'antd/es/input/Search';
 import Invoices from './Invoices';
 
 export const Profile = () => {
@@ -27,7 +26,7 @@ export const Profile = () => {
     const [activeTab, setActiveTab] = useState<string>('All');
     const [statusCounts, setStatusCounts] = useState<Record<string, number>>({});
     const [bookings, setBookings] = useState<IBooking[]>([]);
-    const [searchQuery, setSearchQuery] = useState<string>('');
+    const [searchQuery] = useState<string>('');
     const [totalBookings, setTotalBookings] = useState<number>(0);
 
     interface DataType {
@@ -182,7 +181,7 @@ export const Profile = () => {
             md:flex-row
           '>
             <Tabs
-              className='font-light'
+              className='font-light text-sm w-full'
               defaultActiveKey="1"
               tabPosition="top"
               onChange={handleTabChange}
@@ -192,14 +191,13 @@ export const Profile = () => {
               <TabPane tab={renderTabTitle('Completed', 'Completed')} key="Completed" />
               <TabPane tab={renderTabTitle('Cancelled', 'Cancelled')} key="Cancelled" />
             </Tabs >
-            <div className='flex space-x-3'>
+            {/* <div className='flex space-x-3'>
               <Search
                 size={'large'}
                 placeholder="Search..."
                 onChange={(e: any) => setSearchQuery(e.target.value)}
-              // onSearch={fetchData} // Trigger fetchData on search
               />
-            </div>
+            </div> */}
           </div>
           <Table
             columns={columns}

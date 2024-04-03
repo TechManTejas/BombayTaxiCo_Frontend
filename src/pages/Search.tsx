@@ -316,7 +316,7 @@ const Search: React.FC = () => {
 
   return (
     <>
-      <div className='bg-[#F5F5F5]'>
+      <div className='bg-[#F5F5F5] px-1'>
         <div className='justify-center w-full
           hidden
           lg:flex

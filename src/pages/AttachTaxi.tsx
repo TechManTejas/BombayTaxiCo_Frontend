@@ -27,11 +27,11 @@ const BreadCrumb: React.FC = () => {
     )
 }
 
-const GetInTouch: React.FC = () => {
+const Content: React.FC = () => {
 
     const [formData, setFormData] = useState({
         name: '',
-        phonenumber: '',
+        phoneNumber: '',
         email: '',
         address: '',
         city: '',
@@ -53,7 +53,7 @@ const GetInTouch: React.FC = () => {
         try {
             const response = await axios.post('/send-email', {
                 subject: "Attach Taxi",
-                message: `Name: ${formData.name}\n Number: ${formData.phonenumber}\n Email: ${formData.email}\n Address: ${formData.address}\n City: ${formData.city}\n State: ${formData.state}\n Number Of Vehicle: ${formData.numberOfVehicles}`
+                message: `Name: ${formData.name}\n Number: ${formData.phoneNumber}\n Email: ${formData.email}\n Address: ${formData.address}\n City: ${formData.city}\n State: ${formData.state}\n Number Of Vehicle: ${formData.numberOfVehicles}`
             });
             if (response.data.message) {
                 alert('Message sent successfully');
@@ -119,16 +119,16 @@ const AttachTaxi: React.FC = () => {
     return (
         <div >
             <div className='
-        px-4
-        sm:px-8
-        md:px-16
-        lg:px-20
-        xl:px-28
-        2xl:px-32
-      bg-[#F5F5F5]'
-            >
+                px-4
+                sm:px-8
+                md:px-16
+                lg:px-20
+                xl:px-28
+                2xl:px-32
+            bg-[#F5F5F5]
+            '>
                 <BreadCrumb />
-                <GetInTouch />
+                <Content />
             </div>
             <Footer />
         </div>

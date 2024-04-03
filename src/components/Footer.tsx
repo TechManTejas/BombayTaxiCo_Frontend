@@ -14,7 +14,7 @@ export const Footer: React.FC = () => {
           lg:flex-row lg:space-y-0
         '>
           {/* ABOUT COMPANY  */}
-          <div className='space-y-6 w-96'>
+          <div className='space-y-6 md:w-96'>
             <div className='space-y-2'>
               <div className='text-white font-medium text-2xl'>
                 ABOUT COMPANY
@@ -22,7 +22,7 @@ export const Footer: React.FC = () => {
               <div className='w-20 border border-yellow-500'></div>
             </div>
             <div className='text-zinc-500'>
-            Traveling one way, but worried about the return journey fare that cab operators make your shell out needlessly? Now stop worrying about return fares as we at Bombay Taxi Company have exclusive one-way taxi fares for you. Our one-way taxi booking service lets you enjoy all the conveniences of our signature car rental services.
+              Traveling one way, but worried about the return journey fare that cab operators make your shell out needlessly? Now stop worrying about return fares as we at Bombay Taxi Company have exclusive one-way taxi fares for you. Our one-way taxi booking service lets you enjoy all the conveniences of our signature car rental services.
             </div>
             <div className='flex space-x-2'>
               <button className='h-10 w-10 border rounded-full border-zinc-500 text-zinc-500 hover:border-yellow-500 hover:text-yellow-500 flex justify-center items-center'>

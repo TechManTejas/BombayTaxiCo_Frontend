@@ -65,7 +65,7 @@ const CarCard: React.FC<CarCardProps> = ({
                 lg:p-4
             '>
                 <div
-                    className=' bg-white rounded-lg flex justify-center items-center
+                    className='flex-shrink-0 bg-white rounded-lg flex justify-center items-center
                     h-16 lg:h-40
                     w-20 lg:w-40
                 '>
@@ -111,7 +111,7 @@ const CarCard: React.FC<CarCardProps> = ({
                                 lg:block
                             '>FEATURES</div>
                                 <div className='flex-wrap
-                                hidden
+                                
                                 lg:flex
                                 lg:w-80
                             '>
@@ -128,7 +128,7 @@ const CarCard: React.FC<CarCardProps> = ({
                                         </Tag>
                                     ))}
                                 </div>
-                                <div className='flex-wrap
+                                {/* <div className='flex-wrap
                                 flex w-44
                                 lg:hidden
                                 lg:w-80
@@ -138,12 +138,12 @@ const CarCard: React.FC<CarCardProps> = ({
                                             <div>•</div><div className='text-xs'>{feature.feature}</div>
                                         </div>
                                     ))}
-                                </div>
+                                </div> */}
                             </div>
                         }
                     </div>
                     <div className='m-3'></div>
-                    <div className='flex flex-col items-end space-y-3'>
+                    <div className='flex-shrink-0 flex flex-col items-end space-y-3'>
                         <div className='text-end my-1'>
                             {parseInt(discount) > 0 &&
                                 <div className='font-bold text-yellow-500
