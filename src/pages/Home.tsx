@@ -278,11 +278,13 @@ const Hero: React.FC = () => {
               </div>
             </div>
           </div>
-          <div className='flex flex-col items-center justify-center'>
+          <div className='flex flex-col items-center justify-center w-[370px]'>
             <div className='rounded-xl bg-white  shadow-lg -mb-6 z-10
               lg:px-20
+              px-1.5
             '>
               <Segmented
+                
                 onChange={(value) => {
                   handleTabChange(value.toString())
                 }}
@@ -291,7 +293,7 @@ const Hero: React.FC = () => {
                     label: (
                       <div className='lg:text-lg m-2'>
                         <ArrowRightOutlined className='hidden lg:inline-flex' />
-                        <span className='mx-2'>
+                        <span className='md:mx-2'>
                           One-Way Trip
                         </span>
                       </div>
@@ -302,7 +304,7 @@ const Hero: React.FC = () => {
                     label: (
                       <div className='lg:text-lg m-2'>
                         <SyncOutlined className='hidden lg:inline-flex' />
-                        <span className='mx-2'>
+                        <span className='md:mx-2'>
                           Round Trip
                         </span>
                       </div>
@@ -313,7 +315,7 @@ const Hero: React.FC = () => {
                     label: (
                       <div className='lg:text-lg m-2'>
                         <ClockCircleOutlined className='hidden lg:inline-flex' />
-                        <span className='mx-2'>
+                        <span className='md:mx-2'>
                           Hourly Rental
                         </span>
                       </div>
@@ -343,7 +345,7 @@ const Hero: React.FC = () => {
                 }
                 {activeTab !== 'Hourly Rental' &&
                   <div className='flex'>
-                    <div className='w-[188px] p-3 pb-4 space-y-1 border'>
+                    <div className='w-[170px] md:w-[188px]  p-3 pb-4 space-y-1 border'>
                       <div className='text-xs '>
                         FROM
                       </div>
@@ -358,7 +360,7 @@ const Hero: React.FC = () => {
                         <SwapOutlined size={50} className='border rounded-full p-1 text-xl hover:bg-gray-200 shadow-lg' />
                       </button>
                     </div>
-                    <div className='w-[188px] p-3 pb-4 space-y-1 border'>
+                    <div className='w-[170px] md:w-[188px] p-3 pb-4 space-y-1 border'>
                       <div className='text-xs'>
                         TO
                       </div>
