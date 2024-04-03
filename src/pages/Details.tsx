@@ -597,7 +597,7 @@ const Details: React.FC = () => {
             flex-col items-center
             lg:flex-row lg:items-start
           '>
-            <div>
+            <div className='px-1'>
               <CarCard
                 carImage={taxiRate.taxiType?.image}
                 category={taxiRate.taxiType?.name || ''}

@@ -34,7 +34,7 @@ const Invoices: React.FC = () => {
       title: 'DATE',
       dataIndex: 'date', 
       key: 'date',
-      width: 60
+      width: 120
     },
     {
       title: 'BOOKING ID',
@@ -61,7 +61,7 @@ const Invoices: React.FC = () => {
           <a onClick={() => {
             const invoiceToView = invoices.find((c) => c._id === invoice._id)
             console.log(invoiceToView)
-            navigate('/admin/invoices/details', { state: {invoice: invoiceToView}})
+            navigate('/invoices/details', { state: {invoice: invoiceToView}})
           }}>VIEW</a>
         </div>
       ),
@@ -120,19 +120,15 @@ const Invoices: React.FC = () => {
   const formattedData = mapDataToTableFormat(invoices);
 
   return (
-    <div className='px-10 py-6'>
+    <div className='px-2 py-6'>
       <div className=''>
         <div className='flex justify-between items-center w-full gap-x-4'>
-          <div className='text-2xl font-light'>
-            INVOICES
-          </div>
           <div className='flex space-x-3'>
-            <Search
+            {/* <Search
               size={'large'}
               placeholder="Search..."
               onChange={(e) => setSearchQuery(e.target.value)}
-              // onSearch={fetchData} // Trigger fetchData on search
-            />
+            /> */}
           </div>
         </div>
         <Table

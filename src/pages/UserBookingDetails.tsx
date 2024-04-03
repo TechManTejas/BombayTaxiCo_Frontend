@@ -107,7 +107,7 @@ export default function UserBookingDetails() {
     };
 
     return (
-        <div className='px-10 py-6 w-full'>
+        <div className='px-2 md:px-10 py-6 w-full'>
             <div className="">
                 <Button icon={<LeftOutlined />} className="tracking-tight font-medium mb-4" onClick={goBack}>
                     GO BACK
@@ -164,7 +164,7 @@ export default function UserBookingDetails() {
             </div>
             <hr className="my-5" />
             <div className="flex">
-                <div className=" w-1/3 h-full">
+                <div className="h-full">
                     <div>
                         <div className="text-gray-400 my-3">
                             TRIP DETAILS

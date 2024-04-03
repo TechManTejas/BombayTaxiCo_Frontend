@@ -1,16 +1,26 @@
 import { Button } from 'antd';
 import { ReactNode } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 interface ServiceCardProps {
-  icon: ReactNode; // You can use ReactNode for any valid React children, including components
+  icon: ReactNode; 
   feature: string;
   title: string;
   description: string;
+  detailsUrl: string;
 }
 
-export const ServiceCard: React.FC<ServiceCardProps> = ({ icon, feature, title, description }) => {
+export const ServiceCard: React.FC<ServiceCardProps> = ({ icon, feature, title, description, detailsUrl }) => {
 
-  console.log(feature)
+  const navigate = useNavigate(); // Initialize useNavigate hook
+
+  // Function to handle redirection when "READ DETAILS" is clicked
+  const handleReadDetails = () => {
+    navigate(detailsUrl);
+    window.scroll(0, 0);
+  };
+
+  console.log(feature);
 
   return (
     <div className='bg-white w-[360px] h-[340px] p-8 space-y-6 rounded shadow'>
@@ -26,7 +36,7 @@ export const ServiceCard: React.FC<ServiceCardProps> = ({ icon, feature, title, 
             {description}
           </div>
           <div>
-            <Button className='h-12 w-40 font-bold bg-white'>
+            <Button className='h-12 w-40 font-bold bg-white' onClick={handleReadDetails}>
               READ DETAILS
             </Button>
           </div>

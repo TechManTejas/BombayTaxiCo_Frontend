@@ -8,7 +8,7 @@ export const CallUsNow: React.FC = () => {
         <div className='text-4xl  text-center font-medium
           md:text-5xl md:w-[600px]
         '>Call Now & Book Your Taxi For Your Next Ride</div>
-        <a href="tel:+9211144490" className='text-xl font-medium hover:underline'>📞 (021) 111 444 90</a>
+        <a href="tel:+916262744744" className='text-xl font-medium hover:underline'>📞 +91-6262-744-744</a>
       </div>
     </div>
   )

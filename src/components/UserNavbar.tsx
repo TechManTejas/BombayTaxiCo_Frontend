@@ -303,7 +303,7 @@ const UserNavbar: React.FC = () => {
 
                     <div className='hidden md:flex space-x-6'>
                         {userAuthenticated ?
-                            <button className="text-xl font-medium hidden md:block hover:text-yellow-500" onClick={()=>{
+                            <button className="text-xl font-medium hidden md:block hover:text-yellow-500" onClick={() => {
                                 navigate('/profile')
                             }}>
                                 <UserOutlined /> PROFILE
@@ -328,16 +328,6 @@ const UserNavbar: React.FC = () => {
                     defaultSelectedKeys={[]}
                     style={{ width: '100%' }}
                 >
-                    <Menu.Item key="search" onClick={() => {
-                        hideDrawer("search")
-                    }}>
-                        Book a Taxi
-                    </Menu.Item>
-                    <Menu.Item key="details" onClick={() => {
-                        hideDrawer("details")
-                    }}>
-                        Details
-                    </Menu.Item>
                     <Menu.Item key="about" onClick={() => {
                         hideDrawer("about")
                     }}>
@@ -348,18 +338,26 @@ const UserNavbar: React.FC = () => {
                     }}>
                         Contact Us
                     </Menu.Item>
-                    <Menu.Item key="profile" onClick={() => {
-                        hideDrawer("profile")
-                    }}>
-                        Profile
-                    </Menu.Item>
+                    {userAuthenticated ?
+                        <Menu.Item key="profile" onClick={() => {
+                            hideDrawer("profile")
+                        }}>
+                            Bookings
+                        </Menu.Item>
+                        : <Menu.Item key="login" onClick={() => {
+                            showLoginModal()
+                            hideDrawer("profile")
+                        }}>
+                            Login
+                        </Menu.Item>
+                    }
                 </Menu>
             </Drawer>
-            <Button className='bg-red-600 text-white font-bold fixed bottom-5 right-5 z-10 rounded' onClick={() => {
+            {/* <Button className='bg-red-600 text-white font-bold fixed bottom-5 right-5 z-10 rounded' onClick={() => {
                 navigate('/admin')
             }}>
                 Admin
-            </Button>
+            </Button> */}
         </>
     );
 };
