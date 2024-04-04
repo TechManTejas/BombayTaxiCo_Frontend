@@ -267,7 +267,7 @@ const WhatWeAreOffering: React.FC = () => {
 
   return (
     <>
-      <div className='space-y-12 py-20 '>
+      <div className='space-y-12 py-20 bg-[#f5f5f5]'>
         <div className='text-center text-3xl font-medium'>
           What We Are Offering?
         </div>

@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useState } from 'react';
 import { Footer } from '../components/Footer';
-import { Input } from 'antd';
+import { Button, Form, Input, notification } from 'antd';
 
 import Driver from "../assets/images/driver.jpg"
 import { useNavigate } from 'react-router-dom';
@@ -29,42 +29,36 @@ const BreadCrumb: React.FC = () => {
 
 const Content: React.FC = () => {
 
-    const [formData, setFormData] = useState({
-        name: '',
-        phoneNumber: '',
-        email: '',
-        address: '',
-        city: '',
-        state: '',
-        numberOfVehicles: '',
-    });
+    const [form] = Form.useForm();
+    const [loading, setLoading] = useState(false);
 
-    const handleChange = (e: any) => {
-        const { name, value } = e.target;
-        setFormData(prevState => ({
-            ...prevState,
-            [name]: value,
-        }));
-    };
-
-    const handleSubmit = async (e: any) => {
-        e.preventDefault(); // Prevent the form from submitting the traditional way
-
+    const onFinish = async (values: any) => {
+        setLoading(true);
         try {
-            const response = await axios.post('/send-email', {
-                subject: "Attach Taxi",
-                message: `Name: ${formData.name}\n Number: ${formData.phoneNumber}\n Email: ${formData.email}\n Address: ${formData.address}\n City: ${formData.city}\n State: ${formData.state}\n Number Of Vehicle: ${formData.numberOfVehicles}`
-            });
+            const response = await axios.post('/send-email', { ...values });
             if (response.data.message) {
-                alert('Message sent successfully');
+                notification.success({
+                    message: 'Success',
+                    description: 'Your information was successfully submitted!',
+                });
+                form.resetFields();
             } else {
-                alert('Failed to send message');
+                notification.error({
+                    message: 'Submission Failed',
+                    description: 'We could not send your information. Please try again later.',
+                });
             }
         } catch (error) {
             console.error('Error:', error);
-            alert('Error sending message');
+            notification.error({
+                message: 'Error',
+                description: 'An error occurred while sending your information.',
+            });
+        } finally {
+            setLoading(false);
         }
     };
+
 
     return (
         <div className='pb-20'>
@@ -89,25 +83,57 @@ const Content: React.FC = () => {
                     <div className='space-y-3'>
                         <div className='text-3xl font-bold'>Taxi Service Form</div>
                     </div>
-                    <form className='w-full my-8' onSubmit={handleSubmit}>
-                        {/* Mapping through each field dynamically */}
-                        {Object.entries(formData).map(([key, value]) => (
-                            <div className='my-4' key={key}>
-                                <Input
-                                    className='rounded-lg text-lg h-12'
-                                    placeholder={key.charAt(0).toUpperCase() + key.slice(1).replace(/([A-Z])/g, ' $1').trim()} // Converts camelCase to Regular Case
-                                    name={key}
-                                    value={value}
-                                    onChange={handleChange}
-                                />
-                            </div>
-                        ))}
+                    <Form form={form} onFinish={onFinish} className='lg:w-1/2' layout="vertical">
+                        <Form.Item
+                            name="name"
+                            rules={[{ required: true, message: 'Please input your name!' }]}
+                            label="Name">
+                            <Input />
+                        </Form.Item>
+                        <Form.Item
+                            name="phoneNumber"
+                            rules={[{ required: true, message: 'Please input your phone number!' }]}
+                            label="Phone Number">
+                            <Input />
+                        </Form.Item>
+                        <Form.Item
+                            name="email"
+                            rules={[{ required: true, type: 'email', message: 'Please input your Email!' }]}
+                            label="Email">
+                            <Input />
+                        </Form.Item>
+                        <Form.Item
+                            name="address"
+                            rules={[{ required: true, message: 'Please enter your Address!' }]}
+                            label="Address">
+                            <Input />
+                        </Form.Item>
+                        <Form.Item
+                            name="city"
+                            rules={[{ required: true, message: 'Please enter your City!' }]}
+                            label="City">
+                            <Input />
+                        </Form.Item>
+                        <Form.Item
+                            name="state"
+                            rules={[{ required: true, message: 'Please enter your State!' }]}
+                            label="State">
+                            <Input />
+                        </Form.Item>
+                        <Form.Item
+                            name="numberOfVehicles"
+                            rules={[{ required: true, message: 'Please enter the number of vehicles you have!' }]}
+                            label="Number Of Vehicles">
+                            <Input />
+                        </Form.Item>
                         <div className='my-8'>
-                            <button type="submit" className='font-semibold rounded-3xl h-12 w-40 bg-yellow-500 border-yellow-500 hover:bg-yellow-400'>
-                                SEND MESSAGE
-                            </button>
+                            <Form.Item>
+                                <Button loading={loading} type='link' htmlType='submit' className='font-semibold rounded-3xl h-12 w-40 bg-yellow-500 border-yellow-500 hover:bg-yellow-400 text-black'>
+                                    SEND MESSAGE
+                                </Button>
+                            </Form.Item>
                         </div>
-                    </form>
+                    </Form>
                 </div>
             </div>
         </div>
