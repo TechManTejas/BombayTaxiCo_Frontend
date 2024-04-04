@@ -1,7 +1,8 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useState } from 'react';
 import { CallUsNow } from '../components/CallUsNow';
 import { Footer } from '../components/Footer';
-import { Input } from 'antd';
+import { Button, Form, Input, notification } from 'antd';
 import TextArea from 'antd/es/input/TextArea';
 import {
   EnvironmentOutlined,
@@ -62,9 +63,9 @@ const Cards: React.FC = () => {
             <div className='font-black text-2xl'>For Reservations</div>
             <div>
               <div className=''>For Reservations</div>
-              <div className='font-medium '>+35 (70) 8796 054</div>
-              <div className=''>For Reservations</div>
-              <div className='font-medium '>0 (800) 456 4040</div>
+              <div className='font-medium '>+91-6262-744-744</div>
+              {/* <div className=''>For Reservations</div>
+              <div className='font-medium '>0 (800) 456 4040</div> */}
             </div>
           </div>
         </div>
@@ -77,10 +78,10 @@ const Cards: React.FC = () => {
             </div>
             <div className='font-black text-2xl'>Email Us</div>
             <div>
-              <div className=''>Reach us by email</div>
-              <div className='font-medium '>rentals@domain.com</div>
-              <div className=''>Customer Service</div>
-              <div className='font-medium '>vans@domain.com</div>
+              <div className='text-center'>Reach us by email</div>
+              <div className='font-medium '>support@bombaytaxicompany.com</div>
+              {/* <div className=''>Customer Service</div>
+              <div className='font-medium '>vans@domain.com</div> */}
             </div>
           </div>
         </div>
@@ -107,35 +108,41 @@ const Cards: React.FC = () => {
 
 const GetInTouch: React.FC = () => {
 
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [subject, setSubject] = useState('');
-  const [message, setMessage] = useState('');
-
-  const handleSubmit = async () => {
-    const messageData = {
-      name, 
-      email, 
-      subject,
-      message,
-    };
-
+  const [form] = Form.useForm(); 
+  const [loading, setLoading] = useState(false);
+  
+  const onFinish = async (values: any) => {
+    setLoading(true);
     try {
       const response = await axios.post('/send-email', {
-        subject: messageData.subject,
-        message: `Name: ${messageData.name}\n Email: ${messageData.email}\n Message: ${messageData.message}`
-      }); // Use axios for HTTP POST request
+        subject: values.subject,
+        message: `Name: ${values.name}\nEmail: ${values.email}\nMessage: ${values.message}`,
+      });
       const data = response.data;
       if (data.message) {
-        alert('Message sent successfully');
+        notification.success({
+          message: 'Message Sent',
+          description: 'Your message has been sent successfully.',
+        });
+        form.resetFields(); 
       } else {
-        alert('Failed to send message');
+        notification.error({
+          message: 'Failed',
+          description: 'Failed to send message.',
+        });
       }
     } catch (error) {
       console.error('Error:', error);
-      alert('Error sending message');
+      notification.error({
+        message: 'Error',
+        description: 'Error sending message.',
+      });
+    }finally {
+      setLoading(false); 
+      window.location.reload()
     }
   };
+
   return (
     <div className='pb-20'>
       <div className='flex flex-col justify-center items-center py-4 rounded-xl bg-white px-3
@@ -153,37 +160,62 @@ const GetInTouch: React.FC = () => {
             '/>
           </div>
         </div>
-        <div className='
+        <Form form={form} onFinish={onFinish} className='
           lg:w-1/2
         '>
           <div className='space-y-3'>
             <div className='text-3xl font-bold'>Get In Touch</div>
-            <div className='text-gray-500'>It is a long established face that a reader will be distracted by th readable content of a page randomised words slighty when looking at this layout</div>
+            <div className='text-gray-500'>We're here to help! Whether you have a question about our services, need assistance or just want to talk, don't hesitate to reach out. Our team is eager to assist you. Drop us a message using the form below or get in touch through any of our contact channels. We look forward to hearing from you!</div>
           </div>
           <div className='w-full my-8'>
             <div className='flex w-full
               space-x-2
               md:space-x-8
             '>
-              <div className='w-full'><Input className='rounded-lg text-lg h-12' placeholder='Your Name' value={name} onChange={(e) => setName(e.target.value)} /></div>
-              <div className='w-full'><Input className='rounded-lg text-lg h-12' placeholder='Your Email' value={email} onChange={(e) => setEmail(e.target.value)} /></div>
+              <div className='w-full'>
+                <Form.Item
+                  name="name"
+                  rules={[{ required: true, message: 'Please input your name!' }]}
+                >
+                  <Input className='rounded-lg text-lg h-12' placeholder='Your Name' />
+                </Form.Item>
+              </div>
+              <div className='w-full'>
+                <Form.Item
+                  name="email"
+                  rules={[{ required: true, message: 'Please input your email!', type: 'email' }]}
+                >
+                  <Input className='rounded-lg text-lg h-12' placeholder='Your Email' />
+                </Form.Item>
+              </div>
             </div>
             <div className='
               my-2
-              md:my-8
             '>
-              <Input className='rounded-lg text-lg h-12' placeholder='Your Subject' value={subject} onChange={(e) => setSubject(e.target.value)} />
+              <Form.Item
+                name="subject"
+                rules={[{ required: true, message: 'Please input your subject!' }]}
+              >
+                <Input className='rounded-lg text-lg h-12' placeholder='Your Subject' />
+              </Form.Item>
             </div>
             <div>
-            <TextArea style={{ height: "160px" }} className='text-lg' placeholder='Write Your Message' value={message} onChange={(e) => setMessage(e.target.value)} />
+              <Form.Item
+                name="message"
+                rules={[{ required: true, message: 'Please input your message!' }]}
+              >
+                <TextArea style={{ height: "160px" }} className='text-lg' placeholder='Write Your Message' />
+              </Form.Item>
             </div>
           </div>
           <div className='my-8'>
-            <button onClick={handleSubmit} className='font-semibold rounded-3xl h-12 w-40 bg-yellow-500 border-yellow-500 hover:bg-yellow-400'>
-              SEND MESSAGE
-            </button>
+            <Form.Item>
+              <Button loading={loading} type='link'  htmlType='submit' className='font-semibold rounded-3xl h-12 w-40 bg-yellow-500 border-yellow-500 hover:bg-yellow-400 text-black'>
+                SEND MESSAGE
+              </Button>
+            </Form.Item>
           </div>
-        </div>
+        </Form>
       </div>
     </div>
   )
