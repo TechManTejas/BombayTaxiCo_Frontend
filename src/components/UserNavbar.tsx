@@ -232,8 +232,8 @@ const UserNavbar: React.FC = () => {
                     </div>
                 </div>
             </div>
-            <div className="container mx-auto">
-                <nav className="bg-secondary rounded-xl drop-shadow flex justify-between items-center content-center">
+            <div className="bg-white  ">
+                <nav className="bg-secondary mx-auto container rounded-xl drop-shadow flex justify-between items-center content-center">
                     <h1 className="p-4 w-52 md:w-72">
                         <span
                             style={{

@@ -767,6 +767,7 @@ const Details: React.FC = () => {
                             rules={[
                               {
                                 required: true,
+                                type:'email',
                                 message: 'Please enter your email address!',
                               },
                             ]}
@@ -788,9 +789,17 @@ const Details: React.FC = () => {
                                 required: true,
                                 message: 'Please enter your contact number!',
                               },
+                              {
+                                pattern: new RegExp(/^\d+$/),
+                                message: 'Please enter a valid contact number!',
+                              },
+                              {
+                                len: 10,
+                                message: 'Contact number must be exactly 10 digits long.',
+                              },
                             ]}
                           >
-                            <Input placeholder='Enter your contact number' />
+                            <Input  type='tel' placeholder='Enter your contact number' maxLength={10}/>
                           </Form.Item>
                         </div>
 
@@ -970,7 +979,7 @@ const Details: React.FC = () => {
               <PreBoardingGuidelines />
             </div>
             <>
-              <div className='min-w-full lg:min-w-[320px] max-w-xs lg:w-full m-3 sticky top-6 '>
+              <div className='min-w-full lg:min-w-[320px] max-w-xs lg:w-full m-3 sticky top-36 '>
                 <div className='bg-[#FEF0CF] p-4 text-xs rounded-t-lg'>
                   Free Cancellation Before {cancellationDeadline.format("D MMM YYYY, hh:mm A")} Ist
                 </div>
