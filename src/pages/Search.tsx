@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { LeftOutlined, SwapOutlined } from '@ant-design/icons';
 import React, { useEffect, useState } from 'react';
-import { DatePicker, Select, Spin } from 'antd';
+import { DatePicker, Select, Spin, message } from 'antd';
 import { Option } from 'antd/es/mentions';
 import dayjs, { Dayjs } from 'dayjs';
 import { Footer } from '../components/Footer';
@@ -49,7 +49,7 @@ const BillCard: React.FC<BillCardProps> = ({ routeDistance, tripRates }) => {
 
   return (
     <>
-      <div className='min-w-[360px] max-w-xs w-full m-1 p-3 sticky top-1 bg-white border rounded-lg'>
+      <div className='min-w-[360px] max-w-xs w-full m-1 p-3 sticky top-36 bg-white border rounded-lg'>
         <div>
           <div className='text-xl my-1'>Fare Details</div>
           <div className='font-light space-y-1'>
@@ -167,11 +167,11 @@ const Search: React.FC = () => {
     setToOpen(!toOpen)
   };
 
-  const togglePickupDate = () => {
+  const togglePickupDatePicker = () => {
     setPickupDateOpen(!pickupDateOpen)
   };
 
-  const toggleReturnDate = () => {
+  const toggleReturnDatePicker = () => {
     if (tripType === 'One-Way Trip') {
       setTripType('Round Trip')
     }
@@ -221,15 +221,25 @@ const Search: React.FC = () => {
 
   const handlePickupDateChange = (date: Dayjs | null, dateString: string) => {
     console.log('Selected Date:', dateString);
-    setPickupDate(date)
-    togglePickupDate()
-  }
+    if (date) {
+      setPickupDate(date);
+      if (!returnDate || returnDate.isBefore(date, 'day') || returnDate.isSame(date, 'day')) {
+        setReturnDate(date.add(1, 'day'));
+      }
+    }
+  };
 
   const handleReturnDateChange = (date: Dayjs | null, dateString: string) => {
-    console.log('Selected Date:', dateString);
-    setReturnDate(date)
-    toggleReturnDate()
-  }
+    console.log('Selected Return Date:', dateString);
+    if (date) {
+      if (pickupDate && date.isBefore(pickupDate, 'day')) {
+        setReturnDate(pickupDate.add(1, 'day'));
+        message.warning("Return date cannot be before the pickup date.");
+      } else {
+        setReturnDate(date);
+      }
+    }
+  };
 
   const handlePickupTimeChange = (value: string) => {
     setPickupTime(value)
@@ -438,19 +448,19 @@ const Search: React.FC = () => {
               <div className='relative bg-[#404040] mx-1 py-2 rounded-lg text-sm hover:bg-gray-700 hover:cursor-pointer
                 w-32
                 xl:w-36
-              ' onClick={togglePickupDate}>
-                <div className='px-2'>
+              '>
+                <div className='px-2' onClick={togglePickupDatePicker}>
                   <div className='text-yellow-500'>PICKUP DATE</div>
                   <div className='text-white'>{pickupDate?.format('D MMM YYYY')}</div>
                 </div>
                 <DatePicker
-                  open={pickupDateOpen}
-                  onOpenChange={(open) => setPickupDateOpen(open)}
-                  onChange={handlePickupDateChange}
                   className='absolute bottom-0 left-0 w-0 h-0'
                   style={{
                     visibility: 'hidden'
                   }}
+                  open={pickupDateOpen}
+                  onOpenChange={(open) => setPickupDateOpen(open)}
+                  onChange={handlePickupDateChange}
                   disabledDate={(current: Dayjs | null) =>
                     current ? current.isBefore(dayjs().startOf('day')) || current.isAfter(dayjs().add(30, 'days')) : false
                   }
@@ -486,13 +496,16 @@ const Search: React.FC = () => {
                 <div className='relative bg-[#404040] mx-1 p-2 rounded-lg text-sm hover:bg-gray-700 hover:cursor-pointer
                 w-32
                 xl:w-36
-              ' onClick={toggleReturnDate}>
-                  <div className='text-yellow-500'>RETURN DATE</div>
+              ' >
                   {tripType === 'Round Trip' ?
                     (
                       <>
-                        <div className='text-white'>{returnDate?.format('D MMM YYYY')}</div>
+                        <div className='' onClick={toggleReturnDatePicker}>
+                          <div className='text-yellow-500'>RETURN DATE</div>
+                          <div className='text-white'>{returnDate?.format('D MMM YYYY')}</div>
+                        </div>
                         <DatePicker
+                          value={returnDate}
                           open={returnDateOpen}
                           onOpenChange={(open) => setReturnDateOpen(open)}
                           onChange={handleReturnDateChange}
@@ -501,13 +514,14 @@ const Search: React.FC = () => {
                             visibility: 'hidden'
                           }}
                           disabledDate={(current: Dayjs | null) =>
-                            current ? current.isBefore(dayjs().startOf('day')) || current.isAfter(dayjs().add(30, 'days')) : false
+                            current ? current.isBefore(pickupDate, 'day') || current.isSame(pickupDate, 'day') || current.isAfter(dayjs().add(30, 'days')) : false
                           }
                         />
                       </>
                     ) :
                     (
                       <>
+                        <div className='text-yellow-500'>RETURN DATE</div>
                         <div className='text-white text-center'>--- --- ---</div>
                       </>
                     )

@@ -80,16 +80,26 @@ const Hero: React.FC = () => {
 
   const handlePickupDateChange = (date: Dayjs | null, dateString: string) => {
     console.log('Selected Date:', dateString);
-    console.log(date)
-    setPickupDate(date)
-    togglePickupDatePicker()
+    if (date) {
+      setPickupDate(date);
+      if (!returnDate || returnDate.isBefore(date, 'day') || returnDate.isSame(date, 'day')) {
+        setReturnDate(date.add(1, 'day'));
+      }
+      // togglePickupDatePicker()
+    }
   };
 
   const handleReturnDateChange = (date: Dayjs | null, dateString: string) => {
-    console.log('Selected Date:', dateString);
-    console.log(date)
-    setReturnDate(date)
-    toggleReturnDatePicker()
+    console.log('Selected Return Date:', dateString);
+    if (date) {
+      if (pickupDate && date.isBefore(pickupDate, 'day')) {
+        setReturnDate(pickupDate.add(1, 'day'));
+        message.warning("Return date cannot be before the pickup date.");
+      } else {
+        setReturnDate(date);
+      }
+      // toggleReturnDatePicker();
+    }
   };
 
   const menuCities: MenuProps['items'] = cities.map((city: City) => ({
@@ -234,8 +244,6 @@ const Hero: React.FC = () => {
     fetchCities();
   }, [])
 
-
-
   const [currentTextIndex, setCurrentTextIndex] = useState(0);
 
   const texts = [
@@ -244,7 +252,7 @@ const Hero: React.FC = () => {
       text: "Welcome to Bombay Taxi Co. Book Taxi For Your Ride",
     },
     {
-      text: "24/7 Online taxi For Your Ride Enjoying Comfortable TRip With Bombay Taxi Co.",
+      text: "24/7 Online taxi For Your Ride Enjoying Comfortable Trip With Bombay Taxi Co.",
     },
     {
       text: "Lets Ride With Us Enjoy Your Luxury Taxi With Low Price",
@@ -256,7 +264,7 @@ const Hero: React.FC = () => {
       setCurrentTextIndex((currentTestimonialIndex) =>
         (currentTestimonialIndex + 1) % texts.length
       );
-    }, 3000); // Change every 3 seconds
+    }, 5000); // Change every 3 seconds
 
     return () => clearInterval(interval);
   }, []);
@@ -428,7 +436,7 @@ const Hero: React.FC = () => {
                               onOpenChange={(open) => setReturnDateOpen(open)}
                               onChange={handleReturnDateChange}
                               disabledDate={(current: Dayjs | null) =>
-                                current ? current.isBefore(dayjs().startOf('day')) || current.isAfter(dayjs().add(30, 'days')) : false
+                                current ? current.isBefore(pickupDate, 'day') || current.isSame(pickupDate, 'day') || current.isAfter(dayjs().add(30, 'days')) : false
                               }
                             />
                           </>
@@ -476,7 +484,7 @@ const Hero: React.FC = () => {
 const WhyChooseUs: React.FC = () => {
   return (
     <>
-      <div className='space-y-12 py-20'>
+      <div className='space-y-12 py-20 bg-[#f5f5f5]'>
         <div className='text-center text-3xl font-medium'>
           Why Choose Us?
         </div>
@@ -597,15 +605,15 @@ const StatsAndTestamonials: React.FC = () => {
   const slideInterval = 2000;
 
   const testimonials = [
-    { avatar: "", testimonialText: "Great service, would recommend!", name: "Jane Doe", position: "CEO" },
-    { avatar: "", testimonialText: "Very pleased with the outcome.", name: "John Smith", position: "Director" },
-    { avatar: "", testimonialText: "Exceptional quality and service.", name: "Alice Johnson", position: "Manager" },
-    { avatar: "", testimonialText: "They went above and beyond.", name: "Mark Brown", position: "Team Lead" },
-    { avatar: "", testimonialText: "Could not have asked for better.", name: "Emily Clark", position: "Developer" },
-    { avatar: "", testimonialText: "Outstanding experience from start to finish.", name: "Dave Wilson", position: "Designer" },
-    { avatar: "", testimonialText: "Professional, punctual, and polite.", name: "Sarah Miller", position: "Product Manager" },
-    { avatar: "", testimonialText: "Truly top-notch customer service.", name: "James Davis", position: "Sales Executive" },
-    { avatar: "", testimonialText: "Their expertise is unmatched.", name: "Patricia Taylor", position: "HR Specialist" },
+    { avatar: "", testimonialText: "Using Bombay taxi company was an absolute breeze! From booking to drop-off, everything was seamless. The driver was punctual, courteous, and the vehicle was clean and comfortable. I highly recommend them for anyone looking for a reliable and stress-free transportation option.", name: "Jane Doe" },
+    { avatar: "", testimonialText: "I've been using Bombay Taxi company for my business travel needs for years now, and they never disappoint. Their customer service is top-notch, their vehicles are well-maintained, and their drivers are professional and knowledgeable. I wouldn't trust anyone else with my transportation needs.", name: "John Smith" },
+    { avatar: "", testimonialText: "I recently used Bombay Taxi Company for a family trip, and I couldn't be happier with the service. The booking process was quick and easy, the vehicle was spacious enough for my family, and the driver went above and beyond to make sure we had a comfortable journey. I will definitely be using them again for future trips.", name: "Alice Johnson"},
+    { avatar: "", testimonialText: "As a frequent traveller, I've tried many cab rental services, but none compare to Bombay Taxi Company. Their prices are competitive, their fleet is diverse, and their drivers are always professional and courteous. Whether it's a short trip around town or a long-distance journey, I trust Bombay Taxi Company to get me to my destination safely and on time.", name: "Mark Brown"},
+    { avatar: "", testimonialText: "I recently used Bombay Taxi Company for airport transfer, and I was thoroughly impressed. The driver was waiting for me at the arrivals area, holding a sign with my name, making it easy for me to locate them. I will definitely be using Bombay Taxi Company for all my future transportation needs.", name: "Emily Clark"},
+    // repeat
+    { avatar: "", testimonialText: "Using Bombay taxi company was an absolute breeze! From booking to drop-off, everything was seamless. The driver was punctual, courteous, and the vehicle was clean and comfortable. I highly recommend them for anyone looking for a reliable and stress-free transportation option.", name: "Jane Doe" },
+    { avatar: "", testimonialText: "I've been using Bombay Taxi company for my business travel needs for years now, and they never disappoint. Their customer service is top-notch, their vehicles are well-maintained, and their drivers are professional and knowledgeable. I wouldn't trust anyone else with my transportation needs.", name: "John Smith" },
+    { avatar: "", testimonialText: "I recently used Bombay Taxi Company for a family trip, and I couldn't be happier with the service. The booking process was quick and easy, the vehicle was spacious enough for my family, and the driver went above and beyond to make sure we had a comfortable journey. I will definitely be using them again for future trips.", name: "Alice Johnson"},
   ];
 
   useEffect(() => {
@@ -723,7 +731,7 @@ const StatsAndTestamonials: React.FC = () => {
                     avatar={testimonial.avatar}
                     testimonialText={testimonial.testimonialText}
                     name={testimonial.name}
-                    position={testimonial.position}
+                    // position={testimonial.position}
                   />
                 ))}
               </div>
@@ -1180,23 +1188,49 @@ const WhatWeAreOffering: React.FC = () => {
   const numberOfVisibleCards = 2;
   const slideInterval = 2000;
 
-  useEffect(() => {
-    // Calculate maxTranslate to stop before the reset
-    const maxTranslate = -(services.length * cardWidthIncludingGap - window.innerWidth + cardWidthIncludingGap * numberOfVisibleCards);
-    const interval = setInterval(() => {
-      setTranslateX(currentTranslate => {
-        const newTranslate = currentTranslate - cardWidthIncludingGap;
-        if (newTranslate < maxTranslate) {
-          setTransitionDuration('duration-0'); // Instantly reset position without transition
-          setTimeout(() => setTransitionDuration('duration-700'), 50); // Then restore the transition for the next slide
-          return 0; // Start over
-        }
-        return newTranslate
-      });
-    }, slideInterval);
+  const [isHovering, setIsHovering] = useState(false);
+  const [isDragging, setIsDragging] = useState(false);
+  const [startX, setStartX] = useState(0);
+  const [currentX, setCurrentX] = useState(0);
 
-    return () => clearInterval(interval);
-  }, [services.length, cardWidthIncludingGap]);
+  useEffect(() => {
+    if (!isHovering) {
+      // Only run the interval if not hovering
+      const maxTranslate = -(services.length * cardWidthIncludingGap - window.innerWidth + cardWidthIncludingGap * numberOfVisibleCards);
+      const interval = setInterval(() => {
+        if (!isDragging) { // Pause sliding if dragging
+          setTranslateX(currentTranslate => {
+            const newTranslate = currentTranslate - cardWidthIncludingGap;
+            if (newTranslate < maxTranslate) {
+              setTransitionDuration('duration-0');
+              setTimeout(() => setTransitionDuration('duration-700'), 50);
+              return 0;
+            }
+            return newTranslate;
+          });
+        }
+      }, slideInterval);
+
+      return () => clearInterval(interval);
+    }
+  }, [services.length, cardWidthIncludingGap, isHovering, isDragging]);
+
+  const handleMouseDown = (e: any) => {
+    setIsDragging(true);
+    setStartX(e.clientX);
+    setCurrentX(translateX);
+  };
+
+  const handleMouseMove = (e: any) => {
+    if (isDragging) {
+      const dragDistance = e.clientX - startX;
+      setTranslateX(currentX + dragDistance);
+    }
+  };
+
+  const handleMouseUp = () => {
+    setIsDragging(false);
+  };
 
   return (
     <>
@@ -1204,17 +1238,30 @@ const WhatWeAreOffering: React.FC = () => {
         <div className='text-center text-3xl font-medium'>
           What We Are Offering?
         </div>
-        <div className='flex justify-center'>
+        <div 
+          className='flex justify-center'
+          onMouseLeave={() => setIsHovering(false)}
+        >
           <div className='relative overflow-hidden
             xl:w-[1240px]
             lg:w-[800px] 
             w-[360px]
-          '>
+          '
+          onMouseDown={handleMouseDown}
+          onMouseMove={handleMouseMove}
+          onMouseUp={handleMouseUp}
+          onMouseLeave={handleMouseUp}
+          >
             <div className={`flex justify-items-center gap-20 ${transitionDuration}`}
               style={{ transform: `translateX(${translateX}px)` }}
             >
               {services.map((service, index) => (
-                <div className='service-card' key={index}>
+                <div 
+                  className='service-card' 
+                  key={index}
+                  onMouseOver={() => setIsHovering(true)}
+                  onMouseLeave={() => setIsHovering(false)}
+                >
                   <ServiceCard
                     icon={service.icon}
                     feature={service.feature}
@@ -1256,9 +1303,17 @@ const Home: React.FC = () => {
         2xl:px-32
       '>
         <OurBenefitsList /> {/* Our Benifits List - https://preview.themeforest.net/item/taxico-taxi-company-online-cab-service-elementor-template-kit/full_screen_preview/34438955?_ga=2.197559599.1404235229.1707414958-1271169116.1697727807&_gac=1.124503416.1707415664.CjwKCAiAlJKuBhAdEiwAnZb7lTgzQ4xXO12_mageyJHHEzeZLKuUlDic0mk6CIbaxFw9S68pWfiWVhoCyl4QAvD_BwE */}
-        <WhyChooseUs /> {/* Title:Our Experience SubTitle:We Are Experienced Since 1992 Until Now. https://themeholy.com/wordpress/taxiar/home-03/ */}
+      </div>
+      <WhyChooseUs /> {/* Title:Our Experience SubTitle:We Are Experienced Since 1992 Until Now. https://themeholy.com/wordpress/taxiar/home-03/ */}
+      <div className='
+        px-4
+        sm:px-8
+        md:px-16
+        lg:px-20
+        xl:px-28
+        2xl:px-32
+      '>
         <EasyStep />
-        {/* <PopularPackages /> */}
       </div>
         <StatsAndTestamonials />
         <CallUsNow />

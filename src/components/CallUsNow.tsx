@@ -1,3 +1,4 @@
+import { PhoneFilled } from '@ant-design/icons'
 import React from 'react'
 
 export const CallUsNow: React.FC = () => {
@@ -8,7 +9,7 @@ export const CallUsNow: React.FC = () => {
         <div className='text-4xl  text-center font-medium
           md:text-5xl md:w-[600px]
         '>Call Now & Book Your Taxi For Your Next Ride</div>
-        <a href="tel:+916262744744" className='text-xl font-medium hover:underline'>📞 +91-6262-744-744</a>
+        <a href="tel:+916262744744" className='text-xl font-medium hover:underline'><span> <PhoneFilled className='text'/> </span> +91-6262-744-744</a>
       </div>
     </div>
   )

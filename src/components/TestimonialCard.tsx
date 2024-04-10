@@ -1,9 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import Quote from "../assets/images/quote.png"
 
-export const TestimonialCard:React.FC<{avatar: any, testimonialText: any, name: any, position: any}> = ({ avatar, testimonialText, name, position }) => {
+export const TestimonialCard:React.FC<{avatar: any, testimonialText: any, name: any, position?: any}> = ({ avatar, testimonialText, name, position }) => {
   return (
-    <div className="flex-shrink-0 bg-white w-72 h-72 rounded-3xl flex flex-col p-8 space-y-4 shadow">
+    <div className="flex-shrink-0 bg-white w-72 h-96 rounded-3xl flex flex-col p-8 space-y-4 shadow">
       <div className="relative flex flex-col flex-1 justify-center items-center">
         {/* Conditionally render avatar if provided */}
         <div className={`bg-yellow-500 h-16 w-16 rounded-full ${avatar ? 'bg-cover' : ''}`} style={{ backgroundImage: `url(${avatar})` }}>
