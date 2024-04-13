@@ -10,7 +10,7 @@ const Settings: React.FC = () => {
   const handleLogout = () => {
     localStorage.removeItem('admin-token');
     message.success("Staff logged out successfully")
-    window.location.href = "/admin"
+    window.location.href = "/admin/auth/"
   };
 
   const goBack = () => {
@@ -23,7 +23,7 @@ const Settings: React.FC = () => {
     try {
       const response = await axios.get('/settings/get');
       form.setFieldsValue({
-        ...response.data
+        ...response.data.settings
       });
 
     } catch (error) {

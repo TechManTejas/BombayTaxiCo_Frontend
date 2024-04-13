@@ -1,7 +1,7 @@
 import React from 'react';
 import { Tag } from 'antd';
 import Car from "../assets/images/car.png"
-import { faGasPump, faSnowflake, faUsers, faShoppingBag, faTachometerAlt, faCar, faLeaf, IconDefinition, faWrench, faShippingFast } from '@fortawesome/free-solid-svg-icons';
+import { faGasPump, faSnowflake, faUsers, faTachometerAlt, faCar, faLeaf, IconDefinition, faWrench, faSuitcase, faBoxes } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 type FeatureIconMap = {
@@ -13,8 +13,8 @@ const featureIconMap: FeatureIconMap = {
     'MANUAL': faWrench,
     'AC': faSnowflake,
     'PASSENGERS': faUsers,
-    'BAGS': faShoppingBag,
-    'CARRIER': faShippingFast,
+    'BAGS': faSuitcase,
+    'CARRIER': faBoxes,
     'DIESEL': faTachometerAlt,
     'BOOT SPACE': faCar,
     'PETROL & HYBRID': faLeaf,

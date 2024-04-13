@@ -13,6 +13,7 @@ export enum BookingStatus {
     OnRide = 'On Ride',
     Completed = 'Completed',
     Cancelled = 'Cancelled',
+    CancelledByUser = 'CancelledByUser',
 }
 
 export enum TripType {
@@ -71,6 +72,7 @@ export interface IBooking extends Document {
     need7Plus1Seater: boolean,
     carrierOverTop: boolean,
     bookingForSomeoneElse: boolean,
-    otherDetails: string
+    otherDetails: string,
+    createdAt: string,
     __v: number;
 }

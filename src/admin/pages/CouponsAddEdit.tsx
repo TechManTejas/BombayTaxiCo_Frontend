@@ -123,7 +123,7 @@ const CouponsAddEdit: React.FC = () => {
                 </div>
 
                 <Form.Item name="status" label="Status" rules={[{ required: true, message: 'Please select the status' }]}>
-                    <Switch checkedChildren="Active" unCheckedChildren="Inactive" className='bg-yellow-800' defaultChecked={couponToEdit.status === "Active"} />
+                    <Switch checkedChildren="Active" unCheckedChildren="Inactive" className='bg-yellow-800' defaultChecked={couponToEdit ? couponToEdit?.status === "Active" : true} />
                 </Form.Item>
 
                 <Form.Item>

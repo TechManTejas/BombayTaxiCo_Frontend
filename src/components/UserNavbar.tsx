@@ -21,8 +21,11 @@ const LoginForm: React.FC<LoginFormProps> = ({ hideLoginModal }) => {
             // Send a post request to the /signin endpoint with the mobile number
             const response = await axios.post('/users/signin', { mobile_no: values.number });
 
+            console.log(response.data)
+
             // Save the JWT token in localStorage
             localStorage.setItem('token', response.data.token);
+            localStorage.setItem('userInfo', JSON.stringify(response.data.user));
             setUserAuthenticated(true)
 
             // Close the login modal
@@ -180,7 +183,7 @@ const UserNavbar: React.FC = () => {
                     <div>
                         <div className="inline-block mr-4">
                             <a
-                                href="mailto:support@bombaytaxicompany.com"
+                                href="mailto:contact@bombaytaxicompany.com"
                                 className="inline-block text-xs md:text-sm align-middle text-white hover-desktop:hover:underline"
                             >
                                 <span className="inline-block mr-1 align-middle">
@@ -201,7 +204,7 @@ const UserNavbar: React.FC = () => {
                                 </span>
                                 <span className='hidden md:inline-block'>
                                     {" "}
-                                    {/* */}support@bombaytaxicompany.com{/* */} {/* */}
+                                    {/* */}contact@bombaytaxicompany.com{/* */} {/* */}
                                 </span>
                             </a>
                         </div>
