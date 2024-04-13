@@ -79,7 +79,7 @@ const Cards: React.FC = () => {
             <div className='font-black text-2xl'>Email Us</div>
             <div>
               <div className='text-center'>Reach us by email</div>
-              <div className='font-medium '>contact@bombaytaxicompany.com</div>
+              <div className='font-medium '>bombaytaxicompany@gmail.com</div>
               {/* <div className=''>Customer Service</div>
               <div className='font-medium '>vans@domain.com</div> */}
             </div>
