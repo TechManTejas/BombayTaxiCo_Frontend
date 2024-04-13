@@ -205,6 +205,7 @@ const App: React.FC = () => {
         <Routes>
           {/* User Route  */}
           <Route path="/*" element={<UserRoutes />} />
+          {/* <Route path="/*" element={<Navigate to={'admin'} />} /> */}
           {/* Admin Route  */}
           <Route path="/admin/*" element={<AdminRoutes />} />
         </Routes>
