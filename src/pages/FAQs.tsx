@@ -126,7 +126,7 @@ const Content: React.FC = () => {
                                     3. How can I modify my booking?
                                 </div>
                                 <div className='text-gray-700'>
-                                    You can modify a booking by sending an email to support@BombayTaxiCompany.in or calling us. You can change the pick-up date, time, location, passenger details or vehicle type. However, the confirmation of modification depends upon the availability of taxi on modified time and date.
+                                    You can modify a booking by sending an email to contact@bombaytaxicompany.in or calling us. You can change the pick-up date, time, location, passenger details or vehicle type. However, the confirmation of modification depends upon the availability of taxi on modified time and date.
                                 </div>
                             </div>
                             <div className="space-y-3">
@@ -134,7 +134,7 @@ const Content: React.FC = () => {
                                     4. How do I cancel my booking?
                                 </div>
                                 <div className='text-gray-700'>
-                                    You can email us at support@BombayTaxiCompany.in or call our customer care number +91 6262 744 744 for booking cancellation. You will need to provide you’re booking reference number and contact details for the same. Please read our cancellation and modification policy to know about cancellation rules and refund policies.
+                                    You can email us at contact@bombaytaxicompany.in or call our customer care number +91 6262 744 744 for booking cancellation. You will need to provide you’re booking reference number and contact details for the same. Please read our cancellation and modification policy to know about cancellation rules and refund policies.
                                 </div>
                             </div>
                             <div className="space-y-3">
@@ -288,7 +288,7 @@ const Content: React.FC = () => {
                                 1. Where can I give feedback regarding Bombay Taxi Company?
                                 </div>
                                 <div className='text-gray-700'>
-                                    We value customers' feedback and love to hear about their experience of booking with us, good or bad. You can write to us at support@BombayTaxiCompany.in or call us. You can also reach us through our Facebook or Twitter accounts. We read every feedback that comes from our valued customers. We communicate the necessary Feedback to the concerned operator and take action against them, if necessary.
+                                    We value customers' feedback and love to hear about their experience of booking with us, good or bad. You can write to us at contact@bombaytaxicompany.in or call us. You can also reach us through our Facebook or Twitter accounts. We read every feedback that comes from our valued customers. We communicate the necessary Feedback to the concerned operator and take action against them, if necessary.
                                 </div>
                             </div>
                             <div className="space-y-3">

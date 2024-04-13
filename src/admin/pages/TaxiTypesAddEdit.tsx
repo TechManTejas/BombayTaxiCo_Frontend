@@ -14,20 +14,25 @@ import {
     faWrench,
     faSnowflake,
     faUsers,
-    faShoppingBag,
-    faShippingFast,
     faTachometerAlt,
     faCar,
-    faLeaf
+    faLeaf,
+    IconDefinition,
+    faSuitcase,
+    faBoxes
 } from '@fortawesome/free-solid-svg-icons';
 
-const featureIconMap = {
+type FeatureIconMap = {
+    [key: string]: IconDefinition;
+};
+
+const featureIconMap: FeatureIconMap = {
     'CNG': faGasPump,
     'MANUAL': faWrench,
     'AC': faSnowflake,
     'PASSENGERS': faUsers,
-    'BAGS': faShoppingBag,
-    'CARRIER': faShippingFast,
+    'BAGS': faSuitcase,
+    'CARRIER': faBoxes,
     'DIESEL': faTachometerAlt,
     'BOOT SPACE': faCar,
     'PETROL & HYBRID': faLeaf,
@@ -126,7 +131,7 @@ const TaxiTypesAddEdit: React.FC = () => {
             <div className='text-2xl font-light'>
                 {id ? 'EDIT TAXI TYPE' : 'ADD NEW TAXI TYPE'}
             </div>
-            <Form form={form} onFinish={onFinish} layout="vertical" className="max-w-3xl mx-auto mt-8">
+            <Form form={form} onFinish={onFinish} layout="vertical" className="max-w-4xl mx-auto mt-8">
 
                 <Form.Item name="image" label="Taxi Image">
                     <Upload
@@ -147,12 +152,12 @@ const TaxiTypesAddEdit: React.FC = () => {
                     <Input.TextArea rows={4} className="w-full" />
                 </Form.Item>
 
-                <Space>
-                    <Form.Item name="price_km" label="Price Per Km" rules={[{ required: true, message: 'Please enter the taxi type name' }]}>
+                <Space className='w-full'>
+                    <Form.Item name="price_km" label="Price Per Km" rules={[{ required: true, message: 'Please enter the price per km' }]}>
                         <Input className="w-full" />
                     </Form.Item>
 
-                    <Form.Item name="price_hour" label="Price Per Hr" rules={[{ required: true, message: 'Please enter the taxi type name' }]}>
+                    <Form.Item name="price_hour" label="Price Per Hr" rules={[{ required: true, message: 'Please enter the price per hour' }]}>
                         <Input className="w-full" />
                     </Form.Item>
 

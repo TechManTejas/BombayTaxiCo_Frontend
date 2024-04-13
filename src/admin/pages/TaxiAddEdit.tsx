@@ -35,7 +35,7 @@ const TaxiAddEdit: React.FC = () => {
             // Set form fields
             form.setFieldsValue({
                 ...taxiToEdit,
-                taxi_type_id: taxiToEdit.taxi_type_id._id
+                taxi_type_id: taxiToEdit?.taxi_type_id?._id
             });
         } else {
             // Set initial values for new coupons
@@ -81,7 +81,7 @@ const TaxiAddEdit: React.FC = () => {
     return (
         <div className='px-10 py-6'>
             <div className='text-2xl font-light'>
-                {id ? 'EDIT DRIVER' : 'ADD NEW DRIVER'}
+                {id ? 'EDIT TAXI' : 'ADD NEW TAXI'}
             </div>
             <Form form={form} onFinish={onFinish} layout="vertical" className="max-w-xl mx-auto mt-8">
 

@@ -129,8 +129,8 @@ export const Footer: React.FC = () => {
                   <div className='h-6 w-6 bg-yellow-500 text-[#2A2A2A] text-xs flex justify-center items-center rounded'>
                     <MailFilled />
                   </div>
-                  <a href="mailto:support@bombaytaxicompany.com" className='text-zinc-500'>
-                    support@bombaytaxicompany.com
+                  <a href="mailto:contact@bombaytaxicompany.com" className='text-zinc-500'>
+                    contact@bombaytaxicompany.com
                   </a>
                 </div>
               </div>
@@ -142,8 +142,8 @@ export const Footer: React.FC = () => {
                   <div className='h-6 w-6 bg-yellow-500 text-[#2A2A2A] text-xs flex justify-center items-center rounded'>
                     <EnvironmentFilled />
                   </div>
-                  <div className='text-zinc-500'>
-                    25 Street, 145 City Road New Town DD14, USA
+                  <div className='text-zinc-500 max-w-sm'>
+                    Shop no. 1 Sai Society, Mhada Colony, Laxmi Nagar, Ghatkopar East, Mumbai 400075
                   </div>
                 </div>
               </div>

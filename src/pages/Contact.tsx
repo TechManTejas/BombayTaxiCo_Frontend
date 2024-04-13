@@ -50,7 +50,7 @@ const Cards: React.FC = () => {
               <EnvironmentOutlined className='text-3xl text-white' />
             </div>
             <div className='font-black text-2xl'>Office Address</div>
-            <div className='font-medium '>25/B Milford, New York, USA</div>
+            <div className='font-medium '>Shop no. 1 Sai Society, Mhada Colony, Laxmi Nagar, Ghatkopar East, Mumbai 400075</div>
           </div>
         </div>
       </div >
@@ -79,7 +79,7 @@ const Cards: React.FC = () => {
             <div className='font-black text-2xl'>Email Us</div>
             <div>
               <div className='text-center'>Reach us by email</div>
-              <div className='font-medium '>support@bombaytaxicompany.com</div>
+              <div className='font-medium '>contact@bombaytaxicompany.com</div>
               {/* <div className=''>Customer Service</div>
               <div className='font-medium '>vans@domain.com</div> */}
             </div>
