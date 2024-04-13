@@ -129,8 +129,8 @@ export const Footer: React.FC = () => {
                   <div className='h-6 w-6 bg-yellow-500 text-[#2A2A2A] text-xs flex justify-center items-center rounded'>
                     <MailFilled />
                   </div>
-                  <a href="mailto:contact@bombaytaxicompany.com" className='text-zinc-500'>
-                    contact@bombaytaxicompany.com
+                  <a href="mailto:bombaytaxicompany@gmail.com" className='text-zinc-500'>
+                    bombaytaxicompany@gmail.com
                   </a>
                 </div>
               </div>

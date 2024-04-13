@@ -183,7 +183,7 @@ const UserNavbar: React.FC = () => {
                     <div>
                         <div className="inline-block mr-4">
                             <a
-                                href="mailto:contact@bombaytaxicompany.com"
+                                href="mailto:bombaytaxicompany@gmail.com"
                                 className="inline-block text-xs md:text-sm align-middle text-white hover-desktop:hover:underline"
                             >
                                 <span className="inline-block mr-1 align-middle">
@@ -204,7 +204,7 @@ const UserNavbar: React.FC = () => {
                                 </span>
                                 <span className='hidden md:inline-block'>
                                     {" "}
-                                    {/* */}contact@bombaytaxicompany.com{/* */} {/* */}
+                                    {/* */}bombaytaxicompany@gmail.com{/* */} {/* */}
                                 </span>
                             </a>
                         </div>
