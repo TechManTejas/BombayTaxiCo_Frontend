@@ -35,7 +35,19 @@ const Content: React.FC = () => {
     const onFinish = async (values: any) => {
         setLoading(true);
         try {
-            const response = await axios.post('/send-email', { ...values });
+            const response = await axios.post('/emails/send-email-attach-taxi', { 
+                subject:"Attach Taxi Form",
+                message: `
+                <div>
+                    <p>Name: ${values.name}</p>
+                    <p>Email: ${values.email}</p>
+                    <p>Phone Number: ${values.phoneNumber}</p>
+                    <p>Address: ${values.address}</p>
+                    <p>City: ${values.city}</p>
+                    <p>State: ${values.state}</p>
+                    <p>Number Of Vehicles: ${values.numberOfVehicles}</p>
+                </div>`
+            });
             if (response.data.message) {
                 notification.success({
                     message: 'Success',

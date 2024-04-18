@@ -7,6 +7,7 @@ import {
   Divider,
   Form,
   Input,
+  Modal,
   Radio,
   RadioChangeEvent,
   Select,
@@ -23,6 +24,7 @@ import { IRoute } from "../types/routes.types";
 import { DownOutlined, UpOutlined } from "@ant-design/icons";
 import dayjs, { Dayjs } from "dayjs";
 import { Context } from "../context/context.provider";
+import { BookingConfirmed } from "../components/BookingConfirmed";
 
 interface RazorpayResponse {
   amount: number;
@@ -356,6 +358,7 @@ const Details: React.FC = () => {
   const [paymentSelectionOpen, setPaymentSelectionOpen] =
     useState<boolean>(false);
   const [isOtherChecked, setIsOtherChecked] = useState(false);
+  const [showConfirmationModal, setShowConfirmationModal] = useState(false);
 
   const tripType = state.tripType || null;
   const taxiRate = state.taxi_rate || null;
@@ -442,6 +445,16 @@ const Details: React.FC = () => {
     });
   }
 
+  const handlePaymentSuccess = async () => {
+    // Simulate payment success
+    setShowConfirmationModal(true);
+
+    setTimeout(() => {
+      setShowConfirmationModal(false);
+      navigate("/profile"); // Redirect to profile after 5 seconds
+    }, 5000);
+  };
+
   async function displayRazorpay(booking: any) {
     const res = await loadScript(
       "https://checkout.razorpay.com/v1/checkout.js"
@@ -490,7 +503,7 @@ const Details: React.FC = () => {
 
           if (result.data.msg === "success") {
             message.success("Booking created successfully");
-            navigate("/profile");
+            handlePaymentSuccess()
           }
         },
         prefill: {
@@ -660,6 +673,15 @@ const Details: React.FC = () => {
 
   return (
     <>
+      <Modal
+        title={null}
+        footer={null}
+        open={showConfirmationModal}
+        closable={false}
+        centered
+      >
+        <BookingConfirmed />
+      </Modal>
       <div
         className={`${
           paymentSelectionOpen ? "" : "hidden"

@@ -25,6 +25,8 @@ export default function UserBookingDetails() {
   const isBookingConfirmed =
     booking?.booking_status === BookingStatus.Confirmed;
   const isBookingOnRide = booking?.booking_status === BookingStatus.OnRide;
+  const isBookingCompleted = booking?.booking_status === BookingStatus.Completed;
+  const isBookingCancelledByUser = booking?.booking_status === BookingStatus.CancelledByUser;
 
   console.log(booking);
 
@@ -186,7 +188,7 @@ export default function UserBookingDetails() {
               Booking ID: {booking?._id}
               <br />
               Booking Date & Time:{" "}
-              {dayjs(booking?.createdAt).format("YYYY-MM-DD HH:mm")}
+              {dayjs(booking?.createdAt).format("DD-MM-YYYY hh:mm A")}
             </div>
             <div className="text-xl flex items-center space-x-3">
               {booking?.trip_type !== "Hourly Rental" ? (
@@ -218,7 +220,7 @@ export default function UserBookingDetails() {
           </div>
           <Form form={form}>
             <Space className="space-x-4">
-              {!isBookingConfirmed && !isBookingCancelled && (
+              {!isBookingConfirmed && !isBookingCancelled && !isBookingOnRide && !isBookingCompleted && !isBookingCancelledByUser &&(
                 <>
                   <Button
                     className="font-semibold w-28 h-10"
