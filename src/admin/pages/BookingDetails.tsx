@@ -32,6 +32,7 @@ export default function BookingDetails() {
   const isBookingConfirmed =
     booking?.booking_status === BookingStatus.Confirmed;
   const isBookingOnRide = booking?.booking_status === BookingStatus.OnRide;
+  const isBookingCancelledByUser = booking?.booking_status === BookingStatus.CancelledByUser;
 
   const [drivers, setDrivers] = useState([]);
   const [taxis, setTaxis] = useState([]);
@@ -160,6 +161,9 @@ export default function BookingDetails() {
         // Make Axios post request to /assign-taxi-driver endpoint
         const response = await axios.put(`/bookings/${booking?._id}`, {
           booking_status: "Cancelled",
+        });
+        await axios.post('/emails/send-email-cancel-ride', {
+          booking: booking
         });
 
         // Handle response as needed
@@ -291,7 +295,7 @@ export default function BookingDetails() {
               Booking ID: {booking?._id}
               <br />
               Booking Date & Time:{" "}
-              {dayjs(booking?.createdAt).format("YYYY-MM-DD HH:mm")}
+              {dayjs(booking?.createdAt).format("DD-MM-YYYY hh:mm A")}
             </div>
             <div className="text-xl flex items-center space-x-3">
               {booking?.trip_type !== "Hourly Rental" ? (
@@ -343,7 +347,8 @@ export default function BookingDetails() {
               {!isBookingConfirmed &&
                 !isBookingOnRide &&
                 !isBookingCompleted &&
-                !isBookingCancelled && (
+                !isBookingCancelled && 
+                !isBookingCancelledByUser && (
                   <>
                     <Button
                       htmlType="submit"
@@ -746,7 +751,8 @@ export default function BookingDetails() {
         {!isBookingConfirmed &&
           !isBookingOnRide &&
           !isBookingCompleted &&
-          !isBookingCancelled && (
+          !isBookingCancelled && 
+          !isBookingCancelledByUser && (
             <>
               <div className=" w-1/3">
                 <Form
@@ -755,7 +761,7 @@ export default function BookingDetails() {
                   layout="vertical"
                   className="max-w-md mx-auto mt-8"
                 >
-                  <div className="shadow-lg border-2 mb-4 h-64 rounded">
+                  <div className="shadow-lg border-2 mb-4 h-64 rounded overflow-y-scroll">
                     {hoveredTaxi ? (
                       <TaxiDetailsBookingForm
                         taxi={hoveredTaxi}
@@ -798,7 +804,7 @@ export default function BookingDetails() {
                   layout="vertical"
                   className="max-w-md mx-auto mt-8"
                 >
-                  <div className="shadow-lg border-2 mb-4 h-64 rounded">
+                  <div className="shadow-lg border-2 mb-4 h-64 rounded overflow-y-scroll">
                     {hoveredDriver ? (
                       <DriverDetailsBookingForm driver={hoveredDriver} />
                     ) : (

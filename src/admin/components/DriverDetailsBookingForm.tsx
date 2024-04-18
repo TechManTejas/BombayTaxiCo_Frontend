@@ -25,8 +25,8 @@ export const DriverDetailsBookingForm: React.FC<DriverDetailsProps> = ({ driver 
         ASSIGNED TRIPS:
         <ul>
           {driver.assigned_trips?.map((booking: IBooking) => (
-            <li key={booking._id}>
-              <div>{dayjs(booking.pick_up_date).toString()}</div>
+            <li key={booking._id} className='border p-1'>
+              <div className='font-bold'>{dayjs(booking.pick_up_date).toString()}</div>
               <div>
                 From: {booking.route_id?.from_id.name} - To: {booking.route_id?.to_id.name}
               </div>
