@@ -580,7 +580,6 @@ const Search: React.FC = () => {
                         disabledDate={(current: Dayjs | null) =>
                           current
                             ? current.isBefore(pickupDate, "day") ||
-                              current.isSame(pickupDate, "day") ||
                               current.isAfter(dayjs().add(30, "days"))
                             : false
                         }

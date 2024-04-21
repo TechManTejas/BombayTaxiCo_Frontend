@@ -3,11 +3,11 @@ import Quote from "../assets/images/quote.png"
 
 export const TestimonialCard:React.FC<{avatar: any, testimonialText: any, name: any, position?: any}> = ({ avatar, testimonialText, name, position }) => {
   return (
-    <div className="flex-shrink-0 bg-white w-72 h-96 rounded-3xl flex flex-col p-8 space-y-4 shadow">
-      <div className="relative flex flex-col flex-1 justify-center items-center">
+    <div className="flex-shrink-0 bg-white w-72 rounded-3xl flex flex-col p-8 space-y-4 shadow">
+      <div className="relative justify-center items-center">
         {/* Conditionally render avatar if provided */}
-        <div className={`bg-yellow-500 h-16 w-16 rounded-full ${avatar ? 'bg-cover' : ''}`} style={{ backgroundImage: `url(${avatar})` }}>
-        </div>
+        {/* <div className={`bg-yellow-500 h-16 w-16 rounded-full ${avatar ? 'bg-cover' : ''}`} style={{ backgroundImage: `url(${avatar})` }}>
+        </div> */}
         <div className="absolute right-0 top-8">
           <img src={Quote} className='rotate-180 h-12 -mt-10 opacity-10' alt="Quote" />
         </div>

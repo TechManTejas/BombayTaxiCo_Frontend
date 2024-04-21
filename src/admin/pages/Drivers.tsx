@@ -78,8 +78,6 @@ const Drivers: React.FC = () => {
       width: 100,
       render: (_, driver) => (
         <div className='text-amber-500 font-bold flex flex-wrap space-x-1'>
-          <a onClick={() => { }}>ASSIGN</a>
-          <div>|</div>
           <a onClick={() => {
             const driverToView = drivers.find((d) => d._id === driver._id)
             console.log(driverToView)

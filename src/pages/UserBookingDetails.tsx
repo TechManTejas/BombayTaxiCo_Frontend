@@ -8,25 +8,86 @@ import {
   SwapOutlined,
   ClockCircleOutlined,
 } from "@ant-design/icons";
-import { Button, Form, Space, Tag, message } from "antd";
+import {
+  Button,
+  DatePicker,
+  Dropdown,
+  Form,
+  Menu,
+  Space,
+  Tag,
+  message,
+} from "antd";
 import { useLocation } from "react-router-dom";
 import { BookingStatus, IBooking, TripType } from "../types/bookings.types";
-import dayjs from "dayjs";
+import dayjs, { Dayjs } from "dayjs";
 import axios from "../api/axios";
 import { confirmation } from "../components/Confirmation";
+import { useEffect, useState } from "react";
+import { generateTimeOptions } from "../utils/GenerateTimeOptions";
 
 export default function UserBookingDetails() {
   const { state } = useLocation();
   const booking: IBooking = state?.booking;
   const [form] = Form.useForm();
 
+  const [pickupDate, setPickupDate] = useState<Dayjs>(
+    dayjs(booking.pick_up_date)
+  );
+  const [pickupTime, setPickupTime] = useState<string>(booking.pick_up_time);
+  const [returnDate, setReturnDate] = useState<Dayjs | null>(
+    booking.return_date ? dayjs(booking.return_date) : null
+  );
+  const [timeOptions, setTimeOptions] = useState(generateTimeOptions());
+  const [originalDuration, setOriginalDuration] = useState<number>();
+
+  const onTimeChange = (e: any) => {
+    setPickupTime(e.key);
+  };
+
+  const isEditable =
+    booking?.booking_status === BookingStatus.New ||
+    booking?.booking_status === BookingStatus.Confirmed ||
+    booking?.booking_status === BookingStatus.Resheduled;
+
+  const handleUpdateBooking = async () => {
+    try {
+      // Show confirmation dialog and wait for user response
+      const isConfirmed = await confirmation("Are you sure you want to reschedule the booking?");
+      if (!isConfirmed) {
+        console.log("Rescheduling aborted by user");
+        message.info("Rescheduling cancelled.");
+        return; // Stop the update if user cancels
+      }
+
+      const updatedData = {
+        pick_up_date: pickupDate.format("YYYY-MM-DD"),
+        pick_up_time: pickupTime,
+        return_date: returnDate ? returnDate.format("YYYY-MM-DD") : null,
+        booking_status: BookingStatus.Resheduled,
+      };
+
+      console.log(updatedData);
+
+      const response = await axios.put(`/bookings/${booking._id}`, updatedData);
+      message.success("Booking rescheduled successfully.");
+      console.log(response.data);
+      goBack();
+    } catch (error) {
+      console.error("Failed to reschedule booking:", error);
+      message.error("Failed to update booking details");
+    }
+  };
+
   const isBookingCancelled =
     booking?.booking_status === BookingStatus.Cancelled;
   const isBookingConfirmed =
     booking?.booking_status === BookingStatus.Confirmed;
   const isBookingOnRide = booking?.booking_status === BookingStatus.OnRide;
-  const isBookingCompleted = booking?.booking_status === BookingStatus.Completed;
-  const isBookingCancelledByUser = booking?.booking_status === BookingStatus.CancelledByUser;
+  const isBookingCompleted =
+    booking?.booking_status === BookingStatus.Completed;
+  const isBookingCancelledByUser =
+    booking?.booking_status === BookingStatus.CancelledByUser;
 
   console.log(booking);
 
@@ -44,33 +105,26 @@ export default function UserBookingDetails() {
     window.history.back();
   };
 
-  // const onCancelTrip = async () => {
-  //     try {
-  //         // Show confirmation dialog
-  //         const isConfirmed = await confirmation('Are you sure you want to cancel the trip?');
+  useEffect(() => {
+    if (booking.pick_up_date) {
+      const pickup = dayjs(booking.pick_up_date);
+      const returnD = dayjs(booking.return_date);
+      const duration = returnD.diff(pickup, "day");
+      setOriginalDuration(duration);
+      console.log("Original Duration Set:", duration); // Debug log
+    }
+  }, [booking.pick_up_date, booking.return_date]);
 
-  //         // If user confirms, proceed with the Axios post request
-  //         if (isConfirmed) {
-  //             // Make Axios post request to /assign-taxi-driver endpoint
-  //             const response = await axios.put(`/bookings/${booking?._id}`, {
-  //                 booking_status: 'Cancelled'
-  //             });
-
-  //             // Handle response as needed
-  //             console.log('Status successful:', response.data);
-  //             message.info("Trip Cancelled!")
-  //             goBack()
-
-  //             // Optionally navigate or perform other actions after successful assignment
-  //         } else {
-  //             // Handle if user cancels the confirmation
-  //             console.log('Assignment cancelled by user');
-  //         }
-  //     } catch (error) {
-  //         console.error('Error:', error);
-  //         message.error('Error adding/updating route');
-  //     }
-  // }
+  const handlePickupDateChange = (date: Dayjs | null) => {
+    if (date) {
+      setPickupDate(date);
+      if (originalDuration !== undefined) {
+        const newReturnDate = date.add(originalDuration, "day");
+        setReturnDate(newReturnDate);
+        console.log("Updated Return Date:", newReturnDate.format("YYYY-MM-DD")); // Debug log
+      }
+    }
+  };
 
   const getStatusTag = (status: string | undefined) => {
     switch (status) {
@@ -84,6 +138,12 @@ export default function UserBookingDetails() {
         return (
           <Tag icon={<CheckCircleOutlined />} color="success">
             Confirmed
+          </Tag>
+        );
+      case BookingStatus.Resheduled:
+        return (
+          <Tag icon={<CloseCircleOutlined />} color="cyan">
+            Resheduled
           </Tag>
         );
       case BookingStatus.OnRide:
@@ -220,16 +280,20 @@ export default function UserBookingDetails() {
           </div>
           <Form form={form}>
             <Space className="space-x-4">
-              {!isBookingConfirmed && !isBookingCancelled && !isBookingOnRide && !isBookingCompleted && !isBookingCancelledByUser &&(
-                <>
-                  <Button
-                    className="font-semibold w-28 h-10"
-                    onClick={onCancelTrip}
-                  >
-                    CANCEL
-                  </Button>
-                </>
-              )}
+              {!isBookingConfirmed &&
+                !isBookingCancelled &&
+                !isBookingOnRide &&
+                !isBookingCompleted &&
+                !isBookingCancelledByUser && (
+                  <>
+                    <Button
+                      className="font-semibold w-28 h-10"
+                      onClick={onCancelTrip}
+                    >
+                      CANCEL
+                    </Button>
+                  </>
+                )}
             </Space>
           </Form>
         </div>
@@ -238,6 +302,67 @@ export default function UserBookingDetails() {
       <div className="flex">
         <div className="h-full">
           <div>
+            {isEditable && (
+              <Form
+                className="border-red-100 border p-2"
+                form={form}
+                onFinish={handleUpdateBooking}
+                layout="vertical"
+              >
+                <div className="flex gap-4">
+                  <Form.Item
+                    className="w-full"
+                    label="Pickup Date"
+                    name="pickupDate"
+                    initialValue={pickupDate}
+                  >
+                    <DatePicker
+                      className="w-full"
+                      format="DD-MM-YYYY"
+                      onChange={handlePickupDateChange}
+                      disabledDate={(current: Dayjs | null) =>
+                        current
+                          ? current.isBefore(dayjs().startOf("day")) ||
+                            current.isAfter(dayjs().add(30, "days"))
+                          : false
+                      }
+                    />
+                  </Form.Item>
+                  <Form.Item
+                    className="w-full"
+                    label="Pickup Time"
+                    name="pickupTime"
+                    initialValue={pickupTime}
+                  >
+                    <Dropdown
+                      className="w-full"
+                      overlay={
+                        <Menu
+                          items={timeOptions}
+                          onClick={onTimeChange}
+                          className="h-60 overflow-y-auto"
+                        />
+                      }
+                      trigger={["click"]}
+                    >
+                      <Button>{pickupTime}</Button>
+                    </Dropdown>
+                  </Form.Item>
+                </div>
+                {/* {booking?.trip_type === TripType.Round && (
+                  <Form.Item
+                    label="Return Date"
+                    name="returnDate"
+                    initialValue={returnDate}
+                  >
+                    <DatePicker disabled={true} value={returnDate}/>
+                  </Form.Item>
+                )} */}
+                <Button danger htmlType="submit" className="w-full">
+                  Reschedule Booking
+                </Button>
+              </Form>
+            )}
             <div className="text-gray-400 my-3">PAYMENT DETAILS</div>
             <div className="overflow-x-auto">
               <table className="divide-y divide-gray-200">

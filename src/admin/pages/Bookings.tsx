@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from "react";
 import { Table, Tabs, Tag, message } from "antd";
 import {
+  CalendarOutlined,
   CarOutlined,
   CarryOutOutlined,
   CheckCircleOutlined,
@@ -12,7 +13,6 @@ import {
 } from "@ant-design/icons";
 import { ColumnsType } from "antd/es/table";
 import axios from "../../api/axios";
-import Search from "antd/es/input/Search";
 import { useNavigate } from "react-router-dom";
 import moment from "moment";
 import TabPane from "antd/es/tabs/TabPane";
@@ -42,6 +42,12 @@ const Bookings: React.FC = () => {
             Confirmed
           </Tag>
         );
+        case BookingStatus.Resheduled:
+          return (
+            <Tag icon={<CloseCircleOutlined />} color="cyan">
+              Resheduled
+            </Tag>
+          );
       case BookingStatus.OnRide:
         return (
           <Tag icon={<CarOutlined />} color="warning">
@@ -104,6 +110,10 @@ const Bookings: React.FC = () => {
       dataIndex: "createdAt",
       key: "createdAt",
       width: 90,
+      render: (text: string) => {
+        // Use moment.js to format the date
+        return moment(text).format("DD-MM-YYYY hh:mm A");
+      },
     },
     // {
     //   title: "BOOKING ID",
@@ -289,10 +299,10 @@ const Bookings: React.FC = () => {
         ? "₹" + (booking.base_fare - paymentsTotal).toFixed(2)
         : "---";
 
-      let tripDates = moment(booking?.pick_up_date).format("YYYY-MM-DD");
+      let tripDates = moment(booking?.pick_up_date).format("D-MM-YYYY");
       // If trip type is not 'OneWay', add the return date to the tripDates string
-      if (booking.trip_type !== TripType.OneWay && booking?.return_date) {
-        tripDates += ` to ${moment(booking.return_date).format("YYYY-MM-DD")}`;
+      if (booking.trip_type === TripType.Round && booking?.return_date) {
+        tripDates += ` to ${moment(booking.return_date).format("DD-MM-YYYY")}`;
       }
 
       const createdAt = moment(booking?.createdAt).format("YYYY-MM-DD HH:mm");
@@ -347,6 +357,14 @@ const Bookings: React.FC = () => {
             />
             <TabPane
               tab={renderTabTitle(
+                <CalendarOutlined />,
+                "Rescheduled",
+                "Rescheduled"
+              )}
+              key="Rescheduled"
+            />
+            <TabPane
+              tab={renderTabTitle(
                 <ClockCircleOutlined />,
                 "Confirmed",
                 "Confirmed"
@@ -382,14 +400,14 @@ const Bookings: React.FC = () => {
               key="CancelledByUser"
             />
           </Tabs>
-          <div className="flex space-x-3">
+          {/* <div className="flex space-x-3">
             <Search
               size={"large"}
               placeholder="Search..."
               onChange={(e) => setSearchQuery(e.target.value)}
               // onSearch={fetchData} // Trigger fetchData on search
             />
-          </div>
+          </div> */}
         </div>
         <Table
           columns={columns}
