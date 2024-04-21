@@ -13,35 +13,47 @@ interface LoginFormProps {
 }
 
 const LoginForm: React.FC<LoginFormProps> = ({ hideLoginModal }) => {
-
+    const [form] = Form.useForm();
     const { setUserAuthenticated } = Context();
+    const [otpRequired, setOtpRequired] = useState(false);
 
     const onFinish = async (values: any) => {
         try {
-            // Send a post request to the /signin endpoint with the mobile number
-            const response = await axios.post('/users/signin', { mobile_no: values.number });
-
-            console.log(response.data)
-
-            // Save the JWT token in localStorage
-            localStorage.setItem('token', response.data.token);
-            localStorage.setItem('userInfo', JSON.stringify(response.data.user));
-            setUserAuthenticated(true)
-
-            // Close the login modal
-            hideLoginModal();
-
-            // Show a success message
-            message.success('Login successful');
+            if (!otpRequired) {
+                // Initial login attempt
+                const response = await axios.post('/users/register', { mobile_no: values.number });
+                if (response.data) {
+                    // Server requests OTP verification
+                    setOtpRequired(true);
+                    message.info('Please enter the OTP sent to your mobile.');
+                } else {
+                    // Successful login without OTP
+                    localStorage.setItem('token', response.data.token);
+                    localStorage.setItem('userInfo', JSON.stringify(response.data.user));
+                    setUserAuthenticated(true);
+                    hideLoginModal();
+                    message.success('Login successful');
+                }
+            } else {
+                // OTP verification step
+                const otpResponse = await axios.post('/users/verify-registered-user', {
+                    mobile_no: values.number,
+                    otp: values.otp
+                });
+                localStorage.setItem('token', otpResponse.data.token);
+                localStorage.setItem('userInfo', JSON.stringify(otpResponse.data.user));
+                setUserAuthenticated(true);
+                hideLoginModal();
+                message.success('OTP verified and login successful');
+            }
         } catch (error) {
-            // Handle and display error messages
             console.error(error);
             message.error('Login failed. Please try again.');
         }
     };
 
     return (
-        <Form name="login" onFinish={onFinish}>
+        <Form form={form} name="login" onFinish={onFinish}>
             <Form.Item
                 name="number"
                 rules={[{ required: true, message: 'Please enter your mobile number' }]}
@@ -49,70 +61,111 @@ const LoginForm: React.FC<LoginFormProps> = ({ hideLoginModal }) => {
                 <Input placeholder="Mobile Number" />
             </Form.Item>
 
+            {otpRequired && (
+                <Form.Item
+                    name="otp"
+                    rules={[{ required: true, message: 'Please enter the OTP' }]}
+                >
+                    <Input placeholder="OTP" />
+                </Form.Item>
+            )}
+
             <Form.Item>
-                <button onSubmit={onFinish} className="bg-yellow-500 hover:bg-yellow-400 text-black font-semibold w-full h-10 rounded-lg border-yellow-500 z-10">
-                    Login
+                <button type="submit" className="bg-yellow-500 hover:bg-yellow-400 text-black font-semibold w-full h-10 rounded-lg border-yellow-500 z-10">
+                    {otpRequired ? 'Verify OTP' : 'Login'}
                 </button>
             </Form.Item>
         </Form>
     );
 };
 
+
 interface RegisterFormProps {
     hideLoginModal: () => void;
 }
 
 const RegisterForm: React.FC<RegisterFormProps> = ({ hideLoginModal }) => {
+    const [form] = Form.useForm();
+    const [otpSent, setOtpSent] = useState(false);
+
     const onFinish = async (values: any) => {
-        try {
-            // Send a post request to the /register endpoint with user details
-            await axios.post('/users/register', {
-                mobile_no: values.number,
-                email_id: values.email,
-                name: values.name,
-            });
+        if (!otpSent) {
+            try {
+                // Send a post request to the /register endpoint with user details
+                await axios.post('/users/register', {
+                    mobile_no: values.number,
+                    email_id: values.email,
+                    name: values.name,
+                });
+                setOtpSent(true);
+                message.success('OTP sent to your mobile and email.');
+            } catch (error: any) {
+                console.error(error);
+                const status = error.response ? error.response.status : null;
+                if(status === 409) {
+                    message.error('User already exists, signing in.');
+                } else {
+                    message.error('Registration failed. Please try again.');
+                }
+            }
+        } else {
+            try {
+                // Send a post request to the /verify-otp endpoint with OTP details
+                const response = await axios.post('/users/verify-otp', {
+                    mobile_no: values.number,
+                    email_id: values.email,
+                    otp: values.otp
+                });
 
-            // Close the login modal
-            hideLoginModal();
+                localStorage.setItem('token', response.data.token);
+                localStorage.setItem('userInfo', JSON.stringify(response.data.user));
+                message.success('Registration and login successful.');
 
-            // Show a success message
-            message.success('Registration successful');
-        } catch (error) {
-            // Handle and display error messages
-            console.error(error);
-            message.error('Registration failed. Please try again.');
+                hideLoginModal();
+            } catch (error) {
+                console.error(error);
+                message.error('OTP verification failed. Please try again.');
+            }
         }
     };
 
     return (
-        <Form name="register" onFinish={onFinish}>
-            <Form.Item
-                name="name"
-                rules={[{ required: true, message: 'Please enter your name' }]}
-            >
-                <Input placeholder="Name" />
-            </Form.Item>
-
-            <Form.Item
-                name="number"
-                rules={[{ required: true, message: 'Please enter your mobile number' }]}
-            >
-                <Input placeholder="Mobile Number" />
-            </Form.Item>
-
-            <Form.Item
-                name="email"
-                rules={[
-                    { required: true, message: 'Please enter your email' },
-                    { type: 'email', message: 'Invalid email address' },
-                ]}
-            >
-                <Input placeholder="Email" />
-            </Form.Item>
-
+        <Form form={form} name="register" onFinish={onFinish}>
+            {!otpSent ? (
+                <>
+                    <Form.Item
+                        name="name"
+                        rules={[{ required: true, message: 'Please enter your name' }]}
+                    >
+                        <Input placeholder="Name" />
+                    </Form.Item>
+                    <Form.Item
+                        name="number"
+                        rules={[{ required: true, message: 'Please enter your mobile number' }]}
+                    >
+                        <Input placeholder="Mobile Number" />
+                    </Form.Item>
+                    <Form.Item
+                        name="email"
+                        rules={[
+                            { required: true, message: 'Please enter your email' },
+                            { type: 'email', message: 'Invalid email address' },
+                        ]}
+                    >
+                        <Input placeholder="Email" />
+                    </Form.Item>
+                </>
+            ) : (
+                <Form.Item
+                    name="otp"
+                    rules={[{ required: true, message: 'Please enter the OTP sent to your email/mobile' }]}
+                >
+                    <Input placeholder="Enter OTP" />
+                </Form.Item>
+            )}
             <Form.Item>
-                <button onSubmit={onFinish} className="bg-yellow-500 hover:bg-yellow-400 text-black font-semibold w-full h-10 rounded-lg border-yellow-500 z-10">
-                    Register
+                <button type="submit" className="bg-yellow-500 hover:bg-yellow-400 text-black font-semibold w-full h-10 rounded-lg border-yellow-500 z-10">
+                    {otpSent ? 'Verify OTP' : 'Register'}
                 </button>
             </Form.Item>
         </Form>

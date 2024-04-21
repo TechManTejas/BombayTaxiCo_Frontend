@@ -47,6 +47,10 @@ export const Profile = () => {
         dataIndex: "createdAt",
         key: "createdAt",
         width: 90,
+        render: (text: string) => {
+          // Use moment.js to format the date
+          return moment(text).format('DD-MM-YYYY hh:mm A');
+        },
       },
       // {
       //   title: "BOOKING ID",
@@ -209,11 +213,11 @@ export const Profile = () => {
           ? "₹" + (booking.base_fare - paymentsTotal).toFixed(2)
           : "---";
 
-        let tripDates = moment(booking?.pick_up_date).format("YYYY-MM-DD");
+        let tripDates = moment(booking?.pick_up_date).format("DD-MM-YYYY");
         // If trip type is not 'OneWay', add the return date to the tripDates string
-        if (booking.trip_type !== TripType.OneWay && booking?.return_date) {
+        if (booking.trip_type === TripType.Round && booking?.return_date) {
           tripDates += ` to ${moment(booking.return_date).format(
-            "YYYY-MM-DD"
+            "DD-MM-YYYY"
           )}`;
         }
 
@@ -263,6 +267,10 @@ export const Profile = () => {
               <TabPane
                 tab={renderTabTitle("Upcoming", "Confirmed")}
                 key="Confirmed"
+              />
+              <TabPane
+                tab={renderTabTitle("Rescheduled", "Rescheduled")}
+                key="Rescheduled"
               />
               <TabPane
                 tab={renderTabTitle("Completed", "Completed")}

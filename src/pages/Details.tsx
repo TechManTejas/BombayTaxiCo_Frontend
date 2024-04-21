@@ -674,7 +674,6 @@ const Details: React.FC = () => {
   return (
     <>
       <Modal
-        title={null}
         footer={null}
         open={showConfirmationModal}
         closable={false}

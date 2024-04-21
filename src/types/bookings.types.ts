@@ -9,6 +9,7 @@ import { IUser } from "./user.types";
 
 export enum BookingStatus {
     New = 'New',
+    Resheduled = 'Rescheduled',
     Confirmed = 'Confirmed',
     OnRide = 'On Ride',
     Completed = 'Completed',

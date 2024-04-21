@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { AndroidFilled, AppleFilled, ArrowRightOutlined, BankOutlined, CarOutlined, ClockCircleOutlined, CloseCircleOutlined, CreditCardOutlined, CustomerServiceOutlined, DollarCircleOutlined, DollarOutlined, EnvironmentOutlined, LikeOutlined, MobileOutlined, MoneyCollectOutlined, SafetyOutlined, SmileOutlined, SolutionOutlined, StarOutlined, SwapOutlined, SyncOutlined, TagOutlined, TeamOutlined, UserOutlined } from '@ant-design/icons';
+import { AndroidFilled, AppleFilled, ArrowRightOutlined, BankOutlined, CarOutlined, ClockCircleOutlined, CloseCircleOutlined, CreditCardOutlined, CustomerServiceOutlined, DollarCircleOutlined, DollarOutlined, EnvironmentOutlined, LeftCircleFilled, LeftOutlined, LikeOutlined, MobileOutlined, MoneyCollectOutlined, RightOutlined, SafetyOutlined, SmileOutlined, SolutionOutlined, StarOutlined, SwapOutlined, SyncOutlined, TagOutlined, TeamOutlined, UserOutlined } from '@ant-design/icons';
 import { DatePicker, Dropdown, MenuProps, Segmented, message } from 'antd';
 import React, { useEffect, useState } from 'react';
 import axios from "../api/axios"
@@ -436,7 +436,7 @@ const Hero: React.FC = () => {
                               onOpenChange={(open) => setReturnDateOpen(open)}
                               onChange={handleReturnDateChange}
                               disabledDate={(current: Dayjs | null) =>
-                                current ? current.isBefore(pickupDate, 'day') || current.isSame(pickupDate, 'day') || current.isAfter(dayjs().add(30, 'days')) : false
+                                current ? current.isBefore(pickupDate, 'day') || current.isAfter(dayjs().add(30, 'days')) : false
                               }
                             />
                           </>
@@ -603,22 +603,24 @@ const StatsAndTestamonials: React.FC = () => {
   const cardWidthIncludingGap = 288 + 16;
   const numberOfVisibleCards = 1;
   const slideInterval = 2000;
+  const [isHovering, setIsHovering] = useState(false);
 
   const testimonials = [
-    { avatar: "", testimonialText: "Using Bombay taxi company was an absolute breeze! From booking to drop-off, everything was seamless. The driver was punctual, courteous, and the vehicle was clean and comfortable. I highly recommend them for anyone looking for a reliable and stress-free transportation option.", name: "Jane Doe" },
+    { avatar: "", testimonialText: "Using Bombay taxi company was an absolute breeze! From booking to drop-off, everything was seamless. The driver was punctual, courteous, and the vehicle was clean and comfortable. I highly recommend them for anyone looking for a reliable and stress-free transportation option.", name: "Jane Doe", position:"Managing Director" },
     { avatar: "", testimonialText: "I've been using Bombay Taxi company for my business travel needs for years now, and they never disappoint. Their customer service is top-notch, their vehicles are well-maintained, and their drivers are professional and knowledgeable. I wouldn't trust anyone else with my transportation needs.", name: "John Smith" },
-    { avatar: "", testimonialText: "I recently used Bombay Taxi Company for a family trip, and I couldn't be happier with the service. The booking process was quick and easy, the vehicle was spacious enough for my family, and the driver went above and beyond to make sure we had a comfortable journey. I will definitely be using them again for future trips.", name: "Alice Johnson"},
+    { avatar: "", testimonialText: "I recently used Bombay Taxi Company for a family trip, and I couldn't be happier with the service. The booking process was quick and easy, the vehicle was spacious enough for my family, and the driver went above and beyond to make sure we had a comfortable journey. I will definitely be using them again for future trips.", name: "Alice Johnson", position:"CEO"},
     { avatar: "", testimonialText: "As a frequent traveller, I've tried many cab rental services, but none compare to Bombay Taxi Company. Their prices are competitive, their fleet is diverse, and their drivers are always professional and courteous. Whether it's a short trip around town or a long-distance journey, I trust Bombay Taxi Company to get me to my destination safely and on time.", name: "Mark Brown"},
-    { avatar: "", testimonialText: "I recently used Bombay Taxi Company for airport transfer, and I was thoroughly impressed. The driver was waiting for me at the arrivals area, holding a sign with my name, making it easy for me to locate them. I will definitely be using Bombay Taxi Company for all my future transportation needs.", name: "Emily Clark"},
+    { avatar: "", testimonialText: "I recently used Bombay Taxi Company for airport transfer, and I was thoroughly impressed. The driver was waiting for me at the arrivals area, holding a sign with my name, making it easy for me to locate them. I will definitely be using Bombay Taxi Company for all my future transportation needs.", name: "Emily Clark", position:"Chairmen"},
     // repeat
-    { avatar: "", testimonialText: "Using Bombay taxi company was an absolute breeze! From booking to drop-off, everything was seamless. The driver was punctual, courteous, and the vehicle was clean and comfortable. I highly recommend them for anyone looking for a reliable and stress-free transportation option.", name: "Jane Doe" },
+    { avatar: "", testimonialText: "Using Bombay taxi company was an absolute breeze! From booking to drop-off, everything was seamless. The driver was punctual, courteous, and the vehicle was clean and comfortable. I highly recommend them for anyone looking for a reliable and stress-free transportation option.", name: "Jane Doe" , position:"Managing Director" },
     { avatar: "", testimonialText: "I've been using Bombay Taxi company for my business travel needs for years now, and they never disappoint. Their customer service is top-notch, their vehicles are well-maintained, and their drivers are professional and knowledgeable. I wouldn't trust anyone else with my transportation needs.", name: "John Smith" },
-    { avatar: "", testimonialText: "I recently used Bombay Taxi Company for a family trip, and I couldn't be happier with the service. The booking process was quick and easy, the vehicle was spacious enough for my family, and the driver went above and beyond to make sure we had a comfortable journey. I will definitely be using them again for future trips.", name: "Alice Johnson"},
+    { avatar: "", testimonialText: "I recently used Bombay Taxi Company for a family trip, and I couldn't be happier with the service. The booking process was quick and easy, the vehicle was spacious enough for my family, and the driver went above and beyond to make sure we had a comfortable journey. I will definitely be using them again for future trips.", name: "Alice Johnson", position:"CEO"},
   ];
 
+  const maxTranslate = -(testimonials.length * cardWidthIncludingGap - window.innerWidth + cardWidthIncludingGap * numberOfVisibleCards);
+
   useEffect(() => {
-    // Calculate maxTranslate to stop before the reset
-    const maxTranslate = -(9 * cardWidthIncludingGap - window.innerWidth + cardWidthIncludingGap * numberOfVisibleCards);
+    if (!isHovering) {
     const interval = setInterval(() => {
       setTranslateX(currentTranslate => {
         const newTranslate = currentTranslate - cardWidthIncludingGap;
@@ -632,7 +634,8 @@ const StatsAndTestamonials: React.FC = () => {
     }, slideInterval);
 
     return () => clearInterval(interval);
-  }, [9, cardWidthIncludingGap]);
+  }
+  }, [testimonials.length, cardWidthIncludingGap, isHovering]);
 
   useEffect(() => {
     if (isVisible) {
@@ -648,6 +651,18 @@ const StatsAndTestamonials: React.FC = () => {
       return () => clearInterval(intervalId);
     }
   }, [isVisible]);
+
+  const handleNext = () => {
+    if (translateX > maxTranslate) {
+      setTranslateX(translateX - cardWidthIncludingGap);
+    }
+  };
+
+  const handlePrev = () => {
+    if (translateX < 0) {
+      setTranslateX(translateX + cardWidthIncludingGap);
+    }
+  };
 
   return (
     <>
@@ -710,13 +725,19 @@ const StatsAndTestamonials: React.FC = () => {
         </div>
       </div>
 
-      <div className='flex flex-col items-center'>
+      <div className='flex flex-col items-center'
+        onMouseOver={() => setIsHovering(true)}
+        onMouseLeave={() => setIsHovering(false)}
+      >
         <div className='py-16  w-full
           md:px-8
           xl:px-32
           '>
           <div className='text-center text-3xl  font-medium'>What Our Customers Say</div>
-          <div className='flex justify-center items-center w-full'>
+          <div className='flex justify-center items-center w-full relative'>
+            <button className="bg-yellow-500 hover:bg-yellow-400 text-black font-semibold h-12 px-4 rounded-lg border-yellow-500 z-10" onClick={handlePrev}>
+                <LeftOutlined/>
+              </button>
             <div className='m-8 py-1 overflow-hidden
               lg:w-[896px]
               md:w-[576px]
@@ -731,11 +752,14 @@ const StatsAndTestamonials: React.FC = () => {
                     avatar={testimonial.avatar}
                     testimonialText={testimonial.testimonialText}
                     name={testimonial.name}
-                    // position={testimonial.position}
+                    position={testimonial.position}
                   />
                 ))}
               </div>
             </div>
+            <button className="bg-yellow-500 hover:bg-yellow-400 text-black font-semibold h-12 px-4 rounded-lg border-yellow-500 z-10" onClick={handleNext}>
+                <RightOutlined/>
+              </button>
           </div>
         </div>
       </div>

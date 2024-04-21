@@ -25,6 +25,8 @@ export default function BookingDetails() {
   const booking: IBooking = state?.booking;
   const [form] = Form.useForm();
 
+  console.log(booking);
+
   const isBookingCancelled =
     booking?.booking_status === BookingStatus.Cancelled;
   const isBookingCompleted =
@@ -32,7 +34,11 @@ export default function BookingDetails() {
   const isBookingConfirmed =
     booking?.booking_status === BookingStatus.Confirmed;
   const isBookingOnRide = booking?.booking_status === BookingStatus.OnRide;
-  const isBookingCancelledByUser = booking?.booking_status === BookingStatus.CancelledByUser;
+  const isBookingCancelledByUser =
+    booking?.booking_status === BookingStatus.CancelledByUser;
+  const isBookingResheduled =
+    booking?.booking_status === BookingStatus.Resheduled;
+  const hasDriverTaxi = !!booking?.driver_id && !!booking?.taxi_id
 
   const [drivers, setDrivers] = useState([]);
   const [taxis, setTaxis] = useState([]);
@@ -40,8 +46,12 @@ export default function BookingDetails() {
   const [hoveredTaxi, setHoveredTaxi] = useState<Taxi | null>(null);
   const [hoveredDriver, setHoveredDriver] = useState<Driver | null>(null);
 
-  const handleHover = (taxi: Taxi) => {
+  const handleHoverTaxi = (taxi: Taxi) => {
     setHoveredTaxi(taxi);
+  };
+
+  const handleHoverDriver = (driver: Driver) => {
+    setHoveredDriver(driver);
   };
 
   const totalAmount = "₹" + booking.base_fare?.toFixed(2) || "₹0.00";
@@ -58,7 +68,7 @@ export default function BookingDetails() {
     window.history.back();
   };
 
-  const onFinish = async (values: IBooking) => {
+  const onAssignOrReassign = async (values: IBooking) => {
     try {
       // Show confirmation dialog
       const isConfirmed = await confirmation(
@@ -68,7 +78,7 @@ export default function BookingDetails() {
       // If user confirms, proceed with the Axios post request
       if (isConfirmed) {
         // Make Axios post request to /assign-taxi-driver endpoint
-        const response = await axios.post("/bookings/assign-taxi-driver", {
+        const response = await axios.post(hasDriverTaxi ? "/bookings/reassign-taxi-driver" : "/bookings/assign-taxi-driver", {
           ...values,
           booking_id: booking?._id,
         });
@@ -128,13 +138,30 @@ export default function BookingDetails() {
 
       // If user confirms, proceed with the Axios post request
       if (isConfirmed) {
-        // Make Axios post request to /assign-taxi-driver endpoint
-        const response = await axios.post("/bookings/end-trip", {
-          booking_id: booking?._id,
+        // End the trip by updating the trip status
+        const endTripResponse = await axios.post("/bookings/end-trip", {
+          booking_id: booking._id,
         });
 
+        console.log(booking);
+
+        // After ending the trip, send the feedback email
+        const feedbackEmailResponse = await axios.post(
+          "/emails/send-feedback-email",
+          {
+            email: booking.user_id.email_id, // assuming the email is part of the booking object
+            feedback: `Dear ${booking.name}, please provide us with feedback about your trip.`,
+          }
+        );
+
+        if (feedbackEmailResponse.status === 200) {
+          message.success("Feedback email sent successfully.");
+        } else {
+          message.error("Failed to send feedback email.");
+        }
+
         // Handle response as needed
-        console.log("Status successful:", response.data);
+        console.log("Status successful:", endTripResponse.data);
         message.success("Trip Ended!");
         goBack();
 
@@ -162,8 +189,8 @@ export default function BookingDetails() {
         const response = await axios.put(`/bookings/${booking?._id}`, {
           booking_status: "Cancelled",
         });
-        await axios.post('/emails/send-email-cancel-ride', {
-          booking: booking
+        await axios.post("/emails/send-email-cancel-ride", {
+          booking: booking,
         });
 
         // Handle response as needed
@@ -202,6 +229,12 @@ export default function BookingDetails() {
             On Ride
           </Tag>
         );
+      case BookingStatus.Resheduled:
+        return (
+          <Tag icon={<CloseCircleOutlined />} color="cyan">
+            Resheduled
+          </Tag>
+        );
       case BookingStatus.Completed:
         return (
           <Tag icon={<CarryOutOutlined />} color="success">
@@ -214,12 +247,12 @@ export default function BookingDetails() {
             Cancelled
           </Tag>
         );
-        case BookingStatus.CancelledByUser:
-          return (
-            <Tag icon={<CloseCircleOutlined />} color="error">
-              Cancelled By User
-            </Tag>
-          );
+      case BookingStatus.CancelledByUser:
+        return (
+          <Tag icon={<CloseCircleOutlined />} color="error">
+            Cancelled By User
+          </Tag>
+        );
       case TripType.OneWay:
         return (
           <Tag icon={<SwapOutlined />} color="blue">
@@ -245,10 +278,15 @@ export default function BookingDetails() {
 
   useEffect(() => {
     // Fetch drivers and taxis on component mount
-    if (!isBookingConfirmed) {
+    {
       fetchDrivers();
       fetchTaxis();
     }
+
+    form.setFieldsValue({
+      driver_id: booking?.driver_id?._id,
+      taxi_id: booking?.taxi_id?._id,
+    });
   }, []);
 
   const fetchDrivers = () => {
@@ -257,11 +295,15 @@ export default function BookingDetails() {
       .get("/drivers/", {
         params: {
           filter: JSON.stringify({
-            driver_status: { $nin: ["On a Trip", "Unavailable"] },
+            driver_status: { $nin: ["Unavailable"] },
           }),
         },
       })
-      .then((response) => setDrivers(response.data.drivers))
+      .then((response) => {
+        setDrivers(response.data.drivers)
+        const driver = response.data.drivers.find((driver: Driver) => driver._id === booking?.driver_id?._id);
+        handleHoverDriver(driver);
+      })
       .catch((error) => console.error("Error fetching drivers:", error));
   };
 
@@ -271,11 +313,15 @@ export default function BookingDetails() {
       .get("/taxis/", {
         params: {
           filter: JSON.stringify({
-            taxi_status: { $nin: ["On a Trip", "Unavailable"] },
+            taxi_status: { $nin: ["Unavailable"] },
           }),
         },
       })
-      .then((response) => setTaxis(response.data.taxis))
+      .then((response) => {
+        setTaxis(response.data.taxis);
+        const taxi = response.data.taxis.find((taxi: Taxi) => taxi._id === booking?.taxi_id?._id);
+        handleHoverTaxi(taxi);
+      })
       .catch((error) => console.error("Error fetching taxis:", error));
   };
 
@@ -347,8 +393,9 @@ export default function BookingDetails() {
               {!isBookingConfirmed &&
                 !isBookingOnRide &&
                 !isBookingCompleted &&
-                !isBookingCancelled && 
-                !isBookingCancelledByUser && (
+                !isBookingCancelled &&
+                !isBookingCancelledByUser &&
+                !isBookingResheduled && (
                   <>
                     <Button
                       htmlType="submit"
@@ -357,14 +404,14 @@ export default function BookingDetails() {
                       CONFIRM
                     </Button>
                     <Button
-                      className="font-semibold w-28 h-10"
+                      className="font-semibold w-32 h-10"
                       onClick={onCancelTrip}
                     >
-                      CANCEL
+                      CANCEL TRIP
                     </Button>
                   </>
                 )}
-              {isBookingConfirmed && (
+              {(isBookingConfirmed || (isBookingResheduled && !hasDriverTaxi)) && (
                 <>
                   <div className="w-28" />
                   <Button
@@ -373,8 +420,33 @@ export default function BookingDetails() {
                   >
                     START TRIP
                   </Button>
+                  {!isBookingConfirmed &&
+                    <Button
+                    className="font-semibold w-32 h-10"
+                    onClick={onCancelTrip}
+                    >
+                      CANCEL TRIP
+                    </Button>
+                    }
                 </>
               )}
+               {(isBookingConfirmed ||
+                isBookingResheduled) && hasDriverTaxi && (
+                  <>
+                    <Button
+                      htmlType="submit"
+                      className="bg-red-500 hover:bg-red-600 text-black font-semibold w-28 h-10"
+                    >
+                      REASSIGN
+                    </Button>
+                    <Button
+                      className="font-semibold w-32 h-10"
+                      onClick={onCancelTrip}
+                    >
+                      CANCEL TRIP
+                    </Button>
+                  </>
+                )}
             </Space>
           </Form>
         </div>
@@ -748,16 +820,16 @@ export default function BookingDetails() {
             </div>
           </div>
         </div>
-        {!isBookingConfirmed &&
+        {
           !isBookingOnRide &&
           !isBookingCompleted &&
-          !isBookingCancelled && 
+          !isBookingCancelled &&
           !isBookingCancelledByUser && (
             <>
               <div className=" w-1/3">
                 <Form
                   form={form}
-                  onFinish={onFinish}
+                  onFinish={onAssignOrReassign}
                   layout="vertical"
                   className="max-w-md mx-auto mt-8"
                 >
@@ -788,7 +860,7 @@ export default function BookingDetails() {
                         <Select.Option
                           key={taxi._id}
                           value={taxi._id}
-                          onMouseEnter={() => handleHover(taxi)}
+                          onMouseEnter={() => handleHoverTaxi(taxi)}
                         >
                           {taxi.taxi_type_id?.name} - {taxi.taxi_no}
                         </Select.Option>
@@ -800,7 +872,7 @@ export default function BookingDetails() {
               <div className=" w-1/3">
                 <Form
                   form={form}
-                  onFinish={onFinish}
+                  onFinish={onAssignOrReassign}
                   layout="vertical"
                   className="max-w-md mx-auto mt-8"
                 >
@@ -827,7 +899,7 @@ export default function BookingDetails() {
                         <Select.Option
                           key={driver._id}
                           value={driver._id}
-                          onMouseEnter={() => setHoveredDriver(driver)}
+                          onMouseEnter={() => handleHoverDriver(driver)}
                         >
                           {driver.name}
                         </Select.Option>
@@ -838,7 +910,7 @@ export default function BookingDetails() {
               </div>
             </>
           )}
-        {(isBookingConfirmed || isBookingOnRide || isBookingCompleted) && (
+        {(isBookingOnRide || isBookingCompleted) && (
           <>
             <div className=" w-1/3 h-full">
               <div>
