@@ -1,7 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { AndroidFilled, AppleFilled, ArrowRightOutlined, BankOutlined, CarOutlined, ClockCircleOutlined, CloseCircleOutlined, CreditCardOutlined, CustomerServiceOutlined, DollarCircleOutlined, DollarOutlined, EnvironmentOutlined, LeftCircleFilled, LeftOutlined, LikeOutlined, MobileOutlined, MoneyCollectOutlined, RightOutlined, SafetyOutlined, SmileOutlined, SolutionOutlined, StarOutlined, SwapOutlined, SyncOutlined, TagOutlined, TeamOutlined, UserOutlined } from '@ant-design/icons';
+import { AndroidFilled, AppleFilled, ArrowRightOutlined, BankOutlined, CarOutlined, ClockCircleOutlined, CloseCircleOutlined, CreditCardOutlined, CustomerServiceOutlined, DollarCircleOutlined, DollarOutlined, EnvironmentOutlined, LeftOutlined, LikeOutlined, MobileOutlined, MoneyCollectOutlined, RightOutlined, SafetyOutlined, SmileOutlined, SolutionOutlined, StarOutlined, SwapOutlined, SyncOutlined, TagOutlined, TeamOutlined, UserOutlined } from '@ant-design/icons';
 import { DatePicker, Dropdown, MenuProps, Segmented, message } from 'antd';
 import React, { useEffect, useState } from 'react';
+import { motion } from 'framer-motion';
 import axios from "../api/axios"
 import { City } from '../types/citys.types';
 import { useNavigate } from 'react-router-dom';
@@ -482,13 +483,32 @@ const Hero: React.FC = () => {
 };
 
 const WhyChooseUs: React.FC = () => {
+
+  const fadeInDown = {
+    hidden: { opacity: 0, y: -50 },
+    visible: { opacity: 1, y: 0, transition: { duration: 1 } },
+  };
+  
+  const slideIn = {
+    hidden: { x: -100, opacity: 0 },
+    visible: { x: 0, opacity: 1, transition: { duration: 1 } },
+  };
+
   return (
-    <>
-      <div className='space-y-12 py-20 bg-[#f5f5f5]'>
-        <div className='text-center text-3xl font-medium'>
+    <div className='flex w-full justify-center bg-[#f5f5f5]'>
+      <div className='space-y-12 py-20 w-full container'>
+        <motion.div
+            initial="hidden"
+            whileInView="visible"
+            variants={fadeInDown}
+            viewport={{ once: true, amount: 0.5 }} className='text-center text-3xl font-medium'>
           Why Choose Us?
-        </div>
-        <div className='grid grid-cols-1 items-center justify-items-center
+        </motion.div>
+        <motion.div
+            initial="hidden"
+            whileInView="visible"
+            variants={slideIn}
+            viewport={{ once: true, amount: 0.5 }} className='grid grid-cols-1 items-center justify-items-center
           sm:grid-cols-2
           xl:grid-cols-4
         '>
@@ -496,9 +516,9 @@ const WhyChooseUs: React.FC = () => {
           <WhyChooseUsCard icon={<CarOutlined />} title="Quality Car" description="Luxurious and well-maintained vehicles for your comfort." />
           <WhyChooseUsCard icon={<DollarCircleOutlined />} title="Affordable Pricing" description="Competitive and budget-friendly prices for quality transportation." />
           <WhyChooseUsCard icon={<CarOutlined />} title="Largest Fleet" description="Choose from our extensive fleet for your transportation needs." />
-        </div>
+        </motion.div>
       </div>
-    </>
+    </div>
   )
 }
 
@@ -594,6 +614,16 @@ const WhyChooseUs: React.FC = () => {
 
 const StatsAndTestamonials: React.FC = () => {
 
+  const fadeInDown = {
+    hidden: { opacity: 0, y: -50 },
+    visible: { opacity: 1, y: 0, transition: { duration: 1 } },
+  };
+
+  const zoomIn = {
+    hidden: { scale: 0.8, opacity: 0 },
+    visible: { scale: 1, opacity: 1, transition: { duration: 1 } },
+  };
+
   const [isVisible, elementRef] = useIntersectionObserver({});
   const [stats, setStats] = useState({ fleet: 0, trips: 0, dropped: 0, satisfied: 0 });
   const finalStats = { fleet: 32002, trips: 16008, dropped: 17068, satisfied: 19508 };
@@ -667,6 +697,10 @@ const StatsAndTestamonials: React.FC = () => {
   return (
     <>
       <div
+            initial="hidden"
+            whileInView="visible"
+            variants={fadeInDown}
+            viewport={{ once: true, amount: 0.5 }}
         className="bg-blue-900 text-white"
         ref={elementRef}
         style={{
@@ -675,7 +709,11 @@ const StatsAndTestamonials: React.FC = () => {
         }}
       >
         <div className='flex flex-col justify-center items-center bg-blue-950 w-full h-full bg-opacity-70 text-center p-3'>
-          <div className="flex justify-center max-w-6xl mx-auto py-32 px-4">
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            variants={fadeInDown}
+            viewport={{ once: true, amount: 0.5 }} className="flex justify-center max-w-6xl mx-auto py-32 px-4">
             <div className="grid text-center gap-y-8 gap-x-8 md:gap-x-0
               grid-cols-2
               lg:grid-cols-4
@@ -721,7 +759,7 @@ const StatsAndTestamonials: React.FC = () => {
                 <div>Satisfied Client</div>
               </div>
             </div>
-          </div>
+          </motion.div>
         </div>
       </div>
 
@@ -733,8 +771,16 @@ const StatsAndTestamonials: React.FC = () => {
           md:px-8
           xl:px-32
           '>
-          <div className='text-center text-3xl  font-medium'>What Our Customers Say</div>
-          <div className='flex justify-center items-center w-full relative'>
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            variants={fadeInDown}
+            viewport={{ once: true, amount: 0.5 }} className='text-center text-3xl  font-medium'>What Our Customers Say</motion.div>
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            variants={zoomIn}
+            viewport={{ once: true, amount: 0.5 }} className='flex justify-center items-center w-full relative'>
             <button className="bg-yellow-500 hover:bg-yellow-400 text-black font-semibold h-12 px-4 rounded-lg border-yellow-500 z-10" onClick={handlePrev}>
                 <LeftOutlined/>
               </button>
@@ -760,7 +806,7 @@ const StatsAndTestamonials: React.FC = () => {
             <button className="bg-yellow-500 hover:bg-yellow-400 text-black font-semibold h-12 px-4 rounded-lg border-yellow-500 z-10" onClick={handleNext}>
                 <RightOutlined/>
               </button>
-          </div>
+          </motion.div>
         </div>
       </div>
     </>
@@ -768,6 +814,16 @@ const StatsAndTestamonials: React.FC = () => {
 }
 
 const AwsomeFeatures: React.FC = () => {
+
+  const fadeInDown = {
+    hidden: { opacity: 0, y: -50 },
+    visible: { opacity: 1, y: 0, transition: { duration: 1 } },
+  };
+  
+  const slideIn = {
+    hidden: { x: -100, opacity: 0 },
+    visible: { x: 0, opacity: 1, transition: { duration: 1 } },
+  };
 
   const features = [
     { icon: <StarOutlined className='text-5xl' />, text: 'Premium Services' },
@@ -790,33 +846,61 @@ const AwsomeFeatures: React.FC = () => {
         xl:px-20
         2xl:px:32
       '>
-          <div className='text-3xl font-medium '>Our Awesome Features<span className='text-yellow-500'>.</span></div>
-          <div className='text-sm text-gray-500
-          sm:w-[600px]
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            variants={fadeInDown}
+            viewport={{ once: true, amount: 0.5 }} 
+            className='text-3xl font-medium '>
+            Our Awesome Features
+            <span className='text-yellow-500'>.</span>
+          </motion.div>
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            variants={fadeInDown}
+            viewport={{ once: true, amount: 0.5 }} 
+            className='text-sm text-gray-500
+              sm:w-[600px]
         '>
             Explore top-tier service excellence with us. We're committed to ensuring your safety and satisfaction. Our affordable rates make luxury accessible, and our skilled drivers guarantee a stellar journey, any time.
+          </motion.div>
+        </div>
+        <motion.div
+          initial="hidden"
+          whileInView="visible"
+          variants={slideIn}
+          viewport={{ once: true, amount: 0.5 }}
+        >
+          <div className='flex flex-wrap gap-8 justify-center'>
+            {features.map((feature, index) => (
+              <div key={index} className='flex items-center gap-2 text-zinc-600 w-40'>
+                <div>
+                  {feature.icon}
+                </div>
+                <div className='font-semibold'>
+                  {feature.text}<span className='text-yellow-500'>.</span>
+                </div>
+              </div>
+            ))}
           </div>
-        </div>
-        <div className='flex flex-wrap gap-8 justify-center'>
-
-          {features.map((feature, index) => (
-            <div key={index} className='flex items-center gap-2 text-zinc-600 w-40'>
-              <div>
-                {feature.icon}
-              </div>
-              <div className='font-semibold'>
-                {feature.text}<span className='text-yellow-500'>.</span>
-              </div>
-            </div>
-          ))}
-
-        </div>
+        </motion.div>
       </div>
     </>
   )
 }
 
 const OurBenefitsList: React.FC = () => {
+
+  const fadeInDown = {
+    hidden: { opacity: 0, y: -50 },
+    visible: { opacity: 1, y: 0, transition: { duration: 1 } },
+  };
+  
+  const slideIn = {
+    hidden: { x: -100, opacity: 0 },
+    visible: { x: 0, opacity: 1, transition: { duration: 1 } },
+  };
 
   // const benefits = [
   //   {
@@ -862,14 +946,26 @@ const OurBenefitsList: React.FC = () => {
           xl:px-20
           2xl:px:32
         '>
-          <div className='text-3xl font-medium '>We Offer The Best For You<span className='text-yellow-500'>.</span></div>
-          <div className='text-sm text-gray-500
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            variants={fadeInDown}
+            viewport={{ once: true, amount: 0.5 }} className='text-3xl font-medium '>We Offer The Best For You<span className='text-yellow-500'>.</span></motion.div>
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            variants={fadeInDown}
+            viewport={{ once: true, amount: 0.5 }} className='text-sm text-gray-500
             sm:w-[600px]
           '>
             Discover unmatched services tailored just for you. We prioritize your convenience and safety, delivering quality and reliability with every interaction. Experience excellence redefined.
-          </div>
+          </motion.div>
         </div>
-        <div className='flex flex-wrap gap-8 justify-center'>
+        <motion.div
+            initial="hidden"
+            whileInView="visible"
+            variants={slideIn}
+            viewport={{ once: true, amount: 0.5 }} className='flex flex-wrap gap-8 justify-center'>
           <div className='max-w-xs min-w-[320px]'>
             <div className='bg-[#2A2A2A] rounded-2xl p-5 py-8 flex flex-col gap-5 w-full'>
               <div className='flex gap-x-3'>
@@ -992,7 +1088,7 @@ const OurBenefitsList: React.FC = () => {
               </div>
             </div>
           ))} */}
-        </div>
+        </motion.div>
 
         {/* <div className='w-full'>
           <div className='flex justify-center -mb-10'>
@@ -1051,6 +1147,17 @@ const OurBenefitsList: React.FC = () => {
 }
 
 const EasyStep: React.FC = () => {
+
+  const fadeInDown = {
+    hidden: { opacity: 0, y: -50 },
+    visible: { opacity: 1, y: 0, transition: { duration: 1 } },
+  };
+
+  const zoomIn = {
+    hidden: { scale: 0.8, opacity: 0 },
+    visible: { scale: 1, opacity: 1, transition: { duration: 1 } },
+  };
+
   return (
     <>
       <div className='space-y-24 py-20'>
@@ -1062,14 +1169,29 @@ const EasyStep: React.FC = () => {
           xl:px-20
           2xl:px:32
         '>
-          <div className='text-3xl font-medium '>Easy Step For Book Your Taxi<span className='text-yellow-500'>.</span></div>
-          <div className='text-sm text-gray-500
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            variants={fadeInDown}
+            viewport={{ once: true, amount: 0.5 }} 
+            className='text-3xl font-medium '>
+              Easy Step For Book Your Taxi<span className='text-yellow-500'>.</span>
+          </motion.div>
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            variants={fadeInDown}
+            viewport={{ once: true, amount: 0.5 }} className='text-sm text-gray-500
             sm:w-[600px]
           '>
             Four simple steps to a smooth, stress-free taxi booking. We ensure a seamless experience from start to finish.
-          </div>
+          </motion.div>
         </div>
-        <div className='w-full'>
+        <motion.div
+            initial="hidden"
+            whileInView="visible"
+            variants={zoomIn}
+            viewport={{ once: true, amount: 0.5 }} className='w-full'>
           <div className='flex justify-center -mb-10'>
             <div className='border border-dashed  justify-center w-[600px]
               hidden
@@ -1132,13 +1254,18 @@ const EasyStep: React.FC = () => {
               </div>
             </div>
           </div>
-        </div>
+        </motion.div>
       </div>
     </>
   )
 }
 
 const WhatWeAreOffering: React.FC = () => {
+
+  const fadeInDown = {
+    hidden: { opacity: 0, y: -50 },
+    visible: { opacity: 1, y: 0, transition: { duration: 1 } },
+  };
 
   const services = [
     {
@@ -1259,14 +1386,22 @@ const WhatWeAreOffering: React.FC = () => {
   return (
     <>
       <div className='space-y-12 py-20 bg-[#f5f5f5]'>
-        <div className='text-center text-3xl font-medium'>
+        <motion.div
+            initial="hidden"
+            whileInView="visible"
+            variants={fadeInDown}
+            viewport={{ once: true, amount: 0.5 }} className='text-center text-3xl font-medium'>
           What We Are Offering?
-        </div>
+        </motion.div>
         <div 
           className='flex justify-center'
           onMouseLeave={() => setIsHovering(false)}
         >
-          <div className='relative overflow-hidden
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            variants={fadeInDown}
+            viewport={{ once: true, amount: 0.5 }} className='relative overflow-hidden
             xl:w-[1240px]
             lg:w-[800px] 
             w-[360px]
@@ -1296,7 +1431,7 @@ const WhatWeAreOffering: React.FC = () => {
                 </div>
               ))}
             </div>
-          </div>
+          </motion.div>
         </div>
       </div>
     </>

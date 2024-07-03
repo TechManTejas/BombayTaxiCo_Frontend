@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import Logo from "../assets/images/logo.webp"
 import { Button, Drawer, Form, Input, Menu, Modal, Tabs, message } from 'antd';
 import { useNavigate } from 'react-router-dom';
-import { MenuOutlined, UserOutlined } from '@ant-design/icons';
+import { MenuOutlined, UserOutlined, LogoutOutlined } from '@ant-design/icons';
 import axios from '../api/axios';
 import TabPane from 'antd/es/tabs/TabPane';
 import { Context } from '../context/context.provider';
@@ -230,7 +230,7 @@ const UserNavbar: React.FC = () => {
                             <span className="text-yellow-500 mx-1">
                                 The Best Service &amp; Discounts
                             </span>
-                            for you{/* */}
+                            for your every Trip{/* */}
                         </p>
                     </div>
                     <div>
@@ -365,7 +365,7 @@ const UserNavbar: React.FC = () => {
                                 <UserOutlined /> PROFILE
                             </button>
                             : <button className="text-xl font-medium hidden md:block hover:text-yellow-500" onClick={showLoginModal}>
-                                <UserOutlined /> LOGIN
+                                <LogoutOutlined /> LOGIN
                             </button>
                         }
                     </div>

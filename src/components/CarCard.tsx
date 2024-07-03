@@ -68,6 +68,7 @@ const CarCard: React.FC<CarCardProps> = ({
                     className='flex-shrink-0 bg-white rounded-lg flex justify-center items-center
                     h-16 lg:h-40
                     w-20 lg:w-40
+                    border-[#e5e7eb] border
                 '>
                     {
                         carImage !== 'undefined' ?
