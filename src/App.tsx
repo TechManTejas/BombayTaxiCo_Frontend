@@ -84,33 +84,35 @@ const UserRoutes: React.FC = () => {
         },
       }}
     >
-      <div className="sticky top-0 z-50 shadow-md">
-        <UserNavbar />
-      </div>
-      <Routes>
-        {isAuthenticated() && (
-          <>
-            <Route path="/profile" element={<Profile />} />
-            <Route path="/profile/booking" element={<UserBookingDetails />} />
-          </>
-        )}
-        <Route path="/" element={<Navigate to="/home" />} />
-        <Route path="/home" element={<Home />} />
-        <Route path="/search" element={<Search />} />
-        <Route path="/details" element={<Details />} />
-        <Route path="/attach-taxi" element={<AttachTaxi />} />
-        <Route path="/about" element={<About />} />
-        <Route path="/contact" element={<Contact />} />
-        <Route path="/cancellation-policy" element={<CancellationPolicy />} />
-        <Route path="/terms-conditions" element={<TermsAndConditions />} />
-        <Route path="/faqs" element={<FAQs />} />
-        <Route path="/privacy-policy" element={<PrivacyPolicy />} />
-        <Route path="/signin" element={<Signin />} />
-        <Route path="/signup" element={<Signup />} />
-        <Route path="/hourly-rental" element={<HourlyRental />} />
-        <Route path="/one-way-trip" element={<OneWayTrip />} />
-        <Route path="/invoices/details" element={<UserInvoiceDetails />} />
-      </Routes>
+      <>
+        <div className="sticky top-0 z-40 shadow-md">
+          <UserNavbar />
+        </div>
+        <Routes>
+          {isAuthenticated() && (
+            <>
+              <Route path="/profile" element={<Profile />} />
+              <Route path="/profile/booking" element={<UserBookingDetails />} />
+            </>
+          )}
+          <Route path="/" element={<Navigate to="/home" />} />
+          <Route path="/home" element={<Home />} />
+          <Route path="/search" element={<Search />} />
+          <Route path="/details" element={<Details />} />
+          <Route path="/attach-taxi" element={<AttachTaxi />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/contact" element={<Contact />} />
+          <Route path="/cancellation-policy" element={<CancellationPolicy />} />
+          <Route path="/terms-conditions" element={<TermsAndConditions />} />
+          <Route path="/faqs" element={<FAQs />} />
+          <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+          <Route path="/signin" element={<Signin />} />
+          <Route path="/signup" element={<Signup />} />
+          <Route path="/hourly-rental" element={<HourlyRental />} />
+          <Route path="/one-way-trip" element={<OneWayTrip />} />
+          <Route path="/invoices/details" element={<UserInvoiceDetails />} />
+        </Routes>
+      </>
     </ConfigProvider>
   );
 };
