@@ -376,6 +376,8 @@ const Details: React.FC = () => {
     setIsOtherChecked(e.target.checked);
   };
 
+  console.log(state)
+
   const calcAdvancePay = () => {
     return Math.round(
       taxiRate.discountedPrice *
@@ -503,7 +505,7 @@ const Details: React.FC = () => {
 
           if (result.data.msg === "success") {
             message.success("Booking created successfully");
-            handlePaymentSuccess()
+            handlePaymentSuccess();
           }
         },
         prefill: {
@@ -708,6 +710,52 @@ const Details: React.FC = () => {
                 }
                 preview
               />
+              <>
+                <div className="bg-white border m-3 p-4 rounded-lg">
+                  <div
+                    className="flex h-full
+                      flex-col
+                      lg:flex-row
+                    "
+                  >
+                    <div>
+                      <div className="font-light space-y-2">
+                        <div className="font-medium text-2xl mb-4">
+                          {tripType}
+                        </div>
+                        <div>
+                          <strong>Pickup Date:</strong>{" "}
+                          {pickupDate.format("D MMM YYYY")}
+                        </div>
+                        <div>
+                          <strong>Pickup Time:</strong> {pickupTime}
+                        </div>
+                        {tripType !== "Hourly Rental" && (
+                          <>
+                            <div>
+                              <strong>From:</strong> {state?.from}
+                            </div>
+                            <div>
+                              <strong>To:</strong> {state?.to}
+                            </div>
+                          </>
+                        )}
+                        {tripType === "Round Trip" && returnDate && (
+                          <div>
+                            <strong>Return Date:</strong>{" "}
+                            {returnDate.format("D MMM YYYY")}
+                          </div>
+                        )}
+                        {tripType === "Hourly Rental" && (
+                          <div>
+                            <strong>Selected Package:</strong> {hourlyPackage}
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </>
               <>
                 <div className="bg-white border m-3 p-4 rounded-lg">
                   <div
@@ -1272,8 +1320,7 @@ const Details: React.FC = () => {
                         </div>
                         <div className="space-x-3">
                           <span className="text-2xl font-bold">
-                            ₹{" "}
-                            {calcAdvancePay()}
+                            ₹ {calcAdvancePay()}
                           </span>
                         </div>
                       </div>
