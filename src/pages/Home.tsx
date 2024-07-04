@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { AndroidFilled, AppleFilled, ArrowRightOutlined, BankOutlined, CarOutlined, ClockCircleOutlined, CloseCircleOutlined, CreditCardOutlined, CustomerServiceOutlined, DollarCircleOutlined, DollarOutlined, EnvironmentOutlined, LeftOutlined, LikeOutlined, MobileOutlined, MoneyCollectOutlined, RightOutlined, SafetyOutlined, SmileOutlined, SolutionOutlined, StarOutlined, SwapOutlined, SyncOutlined, TagOutlined, TeamOutlined, UserOutlined } from '@ant-design/icons';
+import { AndroidFilled, AppleFilled, ArrowRightOutlined, ArrowUpOutlined, BankOutlined, CarOutlined, ClockCircleOutlined, CloseCircleOutlined, CreditCardOutlined, CustomerServiceOutlined, DollarCircleOutlined, DollarOutlined, EnvironmentOutlined, LeftOutlined, LikeOutlined, MobileOutlined, MoneyCollectOutlined, RightOutlined, SafetyOutlined, SmileOutlined, SolutionOutlined, StarOutlined, SwapOutlined, SyncOutlined, TagOutlined, TeamOutlined, UserOutlined } from '@ant-design/icons';
 import { DatePicker, Dropdown, MenuProps, Segmented, message } from 'antd';
 import React, { useEffect, useState } from 'react';
-import { motion } from 'framer-motion';
+import { AnimatePresence, motion } from 'framer-motion';
 import axios from "../api/axios"
 import { City } from '../types/citys.types';
 import { useNavigate } from 'react-router-dom';
@@ -10,7 +10,15 @@ import dayjs, { Dayjs } from 'dayjs';
 import { Footer } from '../components/Footer';
 import { CallUsNow } from '../components/CallUsNow';
 import { WhyChooseUsCard } from '../components/WhyChooseUsCard';
-import HeroImage from "../assets/images/hero.jpg"
+import HeroImage1 from "../assets/images/hero1.jpg";
+import HeroImage2 from "../assets/images/hero2.jpg";
+import HeroImage3 from "../assets/images/hero3.jpg";
+import WeOffer1 from "../assets/images/weoffer1.jpg";
+import WeOffer2 from "../assets/images/weoffer2.jpg";
+import WeOffer3 from "../assets/images/weoffer3.jpg";
+import WeOffer4 from "../assets/images/weoffer4.jpg";
+import WeOffer5 from "../assets/images/weoffer5.jpg";
+import WeOffer6 from "../assets/images/weoffer6.jpg";
 import Experience from "../assets/images/experience.jpg"
 import { generateTimeOptions } from '../utils/GenerateTimeOptions';
 import { generateDistanceOptions } from '../utils/GenerateDistanceOptions';
@@ -18,6 +26,7 @@ import { ServiceCard } from '../components/ServiceCard';
 import { useIntersectionObserver } from '../components/UseIntersectionObserver.jsx';
 import { TestimonialCard } from '../components/TestimonialCard.js';
 import '../css/Fade.css'
+import '../css/NoScrollbar.css'
 
 const Hero: React.FC = () => {
 
@@ -249,14 +258,16 @@ const Hero: React.FC = () => {
 
   const texts = [
     {
-
       text: "Welcome to Bombay Taxi Co. Book Taxi For Your Ride",
+      background: HeroImage1
     },
     {
-      text: "24/7 Online taxi For Your Ride Enjoying Comfortable Trip With Bombay Taxi Co.",
+      text: "24/7 Online taxi For Your Ride Enjoying a Comfortable Trip With Bombay Taxi Co.",
+      background: HeroImage2
     },
     {
       text: "Lets Ride With Us Enjoy Your Luxury Taxi With Low Price",
+      background: HeroImage3
     }
   ];
 
@@ -273,27 +284,39 @@ const Hero: React.FC = () => {
   const currentText = texts[currentTextIndex];
 
   return (
-    <>
-      <div className='bg-[#2a2a2a81] h-[720px] ' style={{ backgroundImage: `url(${HeroImage})`, backgroundSize: 'cover' }}>
+    <AnimatePresence mode='popLayout'>
+      <motion.div
+            key={currentTextIndex}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 1 }}
+            className='h-[720px]'
+            style={{ backgroundImage: `url(${currentText.background})`, backgroundSize: 'cover' }} >
         <div className='bg-[#00000095] h-full w-full flex flex-col justify-center items-center space-y-20'>
           {/* <!-- Rotating Text Container --> */}
-          <div id='rotatingText' className='text-2xl lg:text-4xl font-medium text-white text-center
+          <div className='text-2xl lg:text-5xl font-bold text-white lg:w-[1036px] 
             mt-24
             lg:mt-0
           '>
-            <div className='h-16 lg:h-max flex flex-col justify-center items-center'>
-              <div key={currentTextIndex} className={`text text-center  fade-in`}>
+            <div className='h-16 lg:h-max'>
+            <motion.div
+              key={currentTextIndex}
+              initial={{ opacity: 0, x: -50, scale: 0.95 }}
+              animate={{ opacity: 1, x: 0, scale: 1 }}
+              exit={{ opacity: 0, x: 50, scale: 0.8 }}
+              transition={{ duration: 1.5, ease: 'easeInOut' }}
+              className='text-left fade-in'
+            >
                 {currentText.text}
-              </div>
+              </motion.div>
             </div>
           </div>
           <div className='flex flex-col items-center justify-center w-[370px]'>
             <div className='rounded-xl bg-white  shadow-lg -mb-6 z-10
-              lg:px-20
-              px-1.5
+              
             '>
               <Segmented
-                
                 onChange={(value) => {
                   handleTabChange(value.toString())
                 }}
@@ -301,8 +324,8 @@ const Hero: React.FC = () => {
                   {
                     label: (
                       <div className='lg:text-lg m-2'>
-                        <ArrowRightOutlined className='hidden lg:inline-flex' />
-                        <span className='md:mx-2'>
+                        <ArrowUpOutlined className='hidden lg:inline-flex' />
+                        <span className='mx-0.5 md:mx-2'>
                           One-Way Trip
                         </span>
                       </div>
@@ -313,7 +336,7 @@ const Hero: React.FC = () => {
                     label: (
                       <div className='lg:text-lg m-2'>
                         <SyncOutlined className='hidden lg:inline-flex' />
-                        <span className='md:mx-2'>
+                        <span className='mx-0.5 md:mx-2'>
                           Round Trip
                         </span>
                       </div>
@@ -324,7 +347,7 @@ const Hero: React.FC = () => {
                     label: (
                       <div className='lg:text-lg m-2'>
                         <ClockCircleOutlined className='hidden lg:inline-flex' />
-                        <span className='md:mx-2'>
+                        <span className='mx-0.5 md:mx-2'>
                           Hourly Rental
                         </span>
                       </div>
@@ -341,7 +364,7 @@ const Hero: React.FC = () => {
                 lg:flex
               '>
                 {activeTab === "Hourly Rental" &&
-                  <div className='w-full lg:w-[188px] p-3 pb-4 space-y-1 border'>
+                  <div className='w-full lg:w-[220px] p-3 pb-4 space-y-1 border rounded-xl'>
                     <div className='text-xs'>
                       PICKUP LOCATION
                     </div>
@@ -354,7 +377,7 @@ const Hero: React.FC = () => {
                 }
                 {activeTab !== 'Hourly Rental' &&
                   <div className='flex'>
-                    <div className='w-[170px] md:w-[188px]  p-3 pb-4 space-y-1 border'>
+                    <div className='w-[170px] md:w-[220px]  p-3 pb-4 space-y-1 border rounded-xl'>
                       <div className='text-xs '>
                         FROM
                       </div>
@@ -369,7 +392,7 @@ const Hero: React.FC = () => {
                         <SwapOutlined size={50} className='border rounded-full p-1 text-xl hover:bg-gray-200 shadow-lg' />
                       </button>
                     </div>
-                    <div className='w-[170px] md:w-[188px] p-3 pb-4 space-y-1 border'>
+                    <div className='w-[170px] md:w-[220px] p-3 pb-4 space-y-1 border rounded-xl'>
                       <div className='text-xs'>
                         TO
                       </div>
@@ -381,7 +404,7 @@ const Hero: React.FC = () => {
                     </div>
                   </div>
                 }
-                <div className='relative w-full lg:w-[188px] p-3 pb-4 space-y-1 border'>
+                <div className='relative w-full lg:w-[164px] p-3 pb-4 space-y-1 border rounded-xl'>
                   <div className='text-xs'>
                     PICKUP DATE
                   </div>
@@ -401,7 +424,7 @@ const Hero: React.FC = () => {
                     }
                   />
                 </div>
-                <div className='w-full lg:w-[188px] p-3 pb-4 space-y-1 border'>
+                <div className='w-full lg:w-[164px] p-3 pb-4 space-y-1 border rounded-xl'>
                   <div className='text-xs'>
                     PICKUP TIME
                   </div>
@@ -412,7 +435,7 @@ const Hero: React.FC = () => {
                   </Dropdown>
                 </div>
                 {activeTab !== 'Hourly Rental' &&
-                  <div className='relative w-full lg:w-[188px] p-3 pb-4 space-y-1 border'>
+                  <div className='relative w-full lg:w-[164px] p-3 pb-4 space-y-1 border rounded-xl'>
                     <div className='text-xs'>
                       RETURN DATE
                     </div>
@@ -454,7 +477,7 @@ const Hero: React.FC = () => {
                 }
                 {activeTab === 'Hourly Rental' &&
                   <div>
-                    <div className='w-[393px] lg:w-[250px] p-3 pb-4 space-y-1 border'>
+                    <div className='w-[393px] lg:w-[250px] p-3 pb-4 space-y-1 border rounded-xl'>
                       <div className='text-xs'>
                         SELECT PACKAGE
                       </div>
@@ -470,15 +493,15 @@ const Hero: React.FC = () => {
             </div>
             <div className='w-full flex justify-center'>
               <button className="bg-yellow-500 hover:bg-yellow-400 text-black font-semibold w-full lg:w-36 h-12 rounded-lg border-yellow-500 z-10" onClick={handleLetsRideClick}>
-                LET'S RIDE
+                SEE PRICES
               </button>
             </div>
           </div>
           {/* extra div  */}
           <div />
         </div>
-      </div>
-    </>
+      </motion.div>
+    </AnimatePresence>
   );
 };
 
@@ -630,7 +653,7 @@ const StatsAndTestamonials: React.FC = () => {
 
   const [translateX, setTranslateX] = useState(0);
   const [transitionDuration, setTransitionDuration] = useState('duration-700');
-  const cardWidthIncludingGap = 288 + 16;
+  const cardWidthIncludingGap = 320 + 16;
   const numberOfVisibleCards = 1;
   const slideInterval = 2000;
   const [isHovering, setIsHovering] = useState(false);
@@ -697,10 +720,10 @@ const StatsAndTestamonials: React.FC = () => {
   return (
     <>
       <div
-            initial="hidden"
-            whileInView="visible"
-            variants={fadeInDown}
-            viewport={{ once: true, amount: 0.5 }}
+        initial="hidden"
+        whileInView="visible"
+        variants={fadeInDown}
+        viewport={{ once: true, amount: 0.5 }}
         className="bg-blue-900 text-white"
         ref={elementRef}
         style={{
@@ -767,7 +790,7 @@ const StatsAndTestamonials: React.FC = () => {
         onMouseOver={() => setIsHovering(true)}
         onMouseLeave={() => setIsHovering(false)}
       >
-        <div className='py-16  w-full
+        <div className='py-16 w-full
           md:px-8
           xl:px-32
           '>
@@ -784,12 +807,12 @@ const StatsAndTestamonials: React.FC = () => {
             <button className="bg-yellow-500 hover:bg-yellow-400 text-black font-semibold h-12 px-4 rounded-lg border-yellow-500 z-10" onClick={handlePrev}>
                 <LeftOutlined/>
               </button>
-            <div className='m-8 py-1 overflow-hidden
-              lg:w-[896px]
-              md:w-[576px]
-              w-[288px]
+            <div className='m-8 py-1 overflow-x-scroll scroll-smooth no-scrollbar
+              lg:w-[992px]
+              md:w-[656px]
+              w-[320px]
             '>
-              <div className={`flex  gap-4  ${transitionDuration}`}
+              <div className={`flex gap-4  ${transitionDuration}`}
                 style={{ gap: `${16}px`, transform: `translateX(${translateX}px)` }}
               >
                 {testimonials.map((testimonial, index) => (
@@ -825,15 +848,54 @@ const AwsomeFeatures: React.FC = () => {
     visible: { x: 0, opacity: 1, transition: { duration: 1 } },
   };
 
+  const [translateX, setTranslateX] = useState(0);
+  const [transitionDuration, setTransitionDuration] = useState('duration-700');
+  const cardWidthIncludingGap = 320 + 16;
+  const numberOfVisibleCards = 1;
+  const slideInterval = 2000;
+  const [isHovering, setIsHovering] = useState(false);
+
   const features = [
     { icon: <StarOutlined className='text-5xl' />, text: 'Premium Services' },
     { icon: <SafetyOutlined className='text-5xl' />, text: '100% Safety Guarantee' },
     { icon: <TagOutlined className='text-5xl' />, text: 'Affordable Pricing' },
-    { icon: <CarOutlined className='text-5xl' />, text: 'Quality Taxi' },
-    { icon: <SolutionOutlined className='text-5xl' />, text: 'Professional Drivers' },
+    { icon: <CarOutlined className='text-5xl' />, text: 'Best Quality Fleet' },
+    { icon: <SolutionOutlined className='text-5xl' />, text: 'Professional Expert Drivers' },
     { icon: <CustomerServiceOutlined className='text-5xl' />, text: '24/7 Quick Support' },
-    { icon: <CloseCircleOutlined className='text-5xl' />, text: 'Free Cancellations' },
+    { icon: <CloseCircleOutlined className='text-5xl' />, text: 'Best Deals & Discounts' },
   ];
+
+  const maxTranslate = -(features.length * cardWidthIncludingGap - window.innerWidth + cardWidthIncludingGap * numberOfVisibleCards);
+
+  useEffect(() => {
+    if (!isHovering) {
+    const interval = setInterval(() => {
+      setTranslateX(currentTranslate => {
+        const newTranslate = currentTranslate - cardWidthIncludingGap;
+        if (newTranslate < maxTranslate) {
+          setTransitionDuration('duration-0'); // Instantly reset position without transition
+          setTimeout(() => setTransitionDuration('duration-700'), 50); // Then restore the transition for the next slide
+          return 0; // Start over
+        }
+        return newTranslate;
+      });
+    }, slideInterval);
+
+    return () => clearInterval(interval);
+  }
+  }, [features.length, cardWidthIncludingGap, isHovering]);
+
+  const handleNext = () => {
+    if (translateX > maxTranslate) {
+      setTranslateX(translateX - cardWidthIncludingGap);
+    }
+  };
+
+  const handlePrev = () => {
+    if (translateX < 0) {
+      setTranslateX(translateX + cardWidthIncludingGap);
+    }
+  };
 
   return (
     <>
@@ -872,10 +934,26 @@ const AwsomeFeatures: React.FC = () => {
           variants={slideIn}
           viewport={{ once: true, amount: 0.5 }}
         >
-          <div className='flex flex-wrap gap-8 justify-center'>
+          <div className='flex gap-8 justify-center items-center overflow-hidden relative'
+            onMouseOver={() => setIsHovering(true)}
+            onMouseLeave={() => setIsHovering(false)}
+          >
+
+            <button className="absolute left-40 xl:left-60 hidden lg:block bg-yellow-500 hover:bg-yellow-400 text-black font-semibold h-12 px-4 rounded-lg border-yellow-500 z-10" onClick={handlePrev}>
+                <LeftOutlined/>
+              </button>
+
+            <div className='m-8 py-1  scroll-smooth no-scrollbar
+              lg:w-[992px]
+              md:w-[656px]
+              w-[320px]
+            '>
+            <div className={`flex gap-4  ${transitionDuration}`}
+                style={{ gap: `${16}px`, transform: `translateX(${translateX}px)` }}
+            >
             {features.map((feature, index) => (
-              <div key={index} className='flex items-center gap-2 text-zinc-600 w-40'>
-                <div>
+              <div key={index} className='flex flex-shrink-0 items-center gap-2 w-80 border border-opacity-10 rounded p-3'>
+                <div className='text-yellow-500'>
                   {feature.icon}
                 </div>
                 <div className='font-semibold'>
@@ -883,6 +961,13 @@ const AwsomeFeatures: React.FC = () => {
                 </div>
               </div>
             ))}
+            </div>
+            </div>
+            
+            <button className="absolute right-40 xl:right-60 hidden lg:block bg-yellow-500 hover:bg-yellow-400 text-black font-semibold h-12 px-4 rounded-lg border-yellow-500 z-10" onClick={handleNext}>
+                <RightOutlined/>
+              </button>
+
           </div>
         </motion.div>
       </div>
@@ -1269,68 +1354,53 @@ const WhatWeAreOffering: React.FC = () => {
 
   const services = [
     {
-      icon: <EnvironmentOutlined className='text-5xl' />,
+      icon: <EnvironmentOutlined className='text-3xl' />,
       feature: "FEATURE - 01",
       title: "Online Easy Booking",
       description: "Book your ride with ease through our online platform, available 24/7 for your convenience.",
-      detailsUrl: '/'
+      detailsUrl: '/',
+      image: WeOffer1
     },
     {
-      icon: <ArrowRightOutlined className='text-5xl' />,
+      icon: <ArrowRightOutlined className='text-3xl' />,
       feature: "FEATURE - 02",
       title: "Onewaytrip",
       description: "Efficient and comfortable one-way trips to your desired destination, with no return trip required.",
-      detailsUrl: '/'
+      detailsUrl: '/',
+      image: WeOffer2
     },
     {
-      icon: <SyncOutlined className='text-5xl' />,
+      icon: <SyncOutlined className='text-3xl' />,
       feature: "FEATURE - 03",
       title: "Roundtrip",
       description: "Convenient roundtrip services ensuring a seamless journey to your destination and back.",
-      detailsUrl: '/'
+      detailsUrl: '/',
+      image: WeOffer3
     },
     {
-      icon: <ClockCircleOutlined className='text-5xl' />,
+      icon: <ClockCircleOutlined className='text-3xl' />,
       feature: "FEATURE - 04",
       title: "Hourly Car Rental",
       description: "Flexible hourly car rental services tailored to meet your short-term travel needs.",
-      detailsUrl: '/hourly-rental'
+      detailsUrl: '/hourly-rental',
+      image: WeOffer4
     },
     {
-      icon: <CarOutlined className='text-5xl' />,
+      icon: <CarOutlined className='text-3xl' />,
       feature: "FEATURE - 05",
       title: "Airport Transfer",
       description: "Reliable airport transfer services for a stress-free journey to and from the airport.",
-      detailsUrl: '/'
+      detailsUrl: '/',
+      image: WeOffer5
     },
     {
-      icon: <TeamOutlined className='text-5xl' />,
+      icon: <TeamOutlined className='text-3xl' />,
       feature: "FEATURE - 06",
       title: "Corporate Car Rental",
       description: "Professional corporate car rental services designed for business needs and executive travel.",
-      detailsUrl: '/'
-    },
-    {
-      icon: <EnvironmentOutlined className='text-5xl' />,
-      feature: "FEATURE - 01",
-      title: "Online Easy Booking",
-      description: "Book your ride with ease through our online platform, available 24/7 for your convenience.",
-      detailsUrl: '/'
-    },
-    {
-      icon: <ArrowRightOutlined className='text-5xl' />,
-      feature: "FEATURE - 02",
-      title: "Onewaytrip",
-      description: "Efficient and comfortable one-way trips to your desired destination, with no return trip required.",
-      detailsUrl: '/one-way-trip'
-    },
-    {
-      icon: <SyncOutlined className='text-5xl' />,
-      feature: "FEATURE - 03",
-      title: "Roundtrip",
-      description: "Convenient roundtrip services ensuring a seamless journey to your destination and back.",
-      detailsUrl: '/'
-    },
+      detailsUrl: '/',
+      image: WeOffer6
+    }
   ];
 
   const [translateX, setTranslateX] = useState(0);
@@ -1344,27 +1414,27 @@ const WhatWeAreOffering: React.FC = () => {
   const [startX, setStartX] = useState(0);
   const [currentX, setCurrentX] = useState(0);
 
-  useEffect(() => {
-    if (!isHovering) {
-      // Only run the interval if not hovering
-      const maxTranslate = -(services.length * cardWidthIncludingGap - window.innerWidth + cardWidthIncludingGap * numberOfVisibleCards);
-      const interval = setInterval(() => {
-        if (!isDragging) { // Pause sliding if dragging
-          setTranslateX(currentTranslate => {
-            const newTranslate = currentTranslate - cardWidthIncludingGap;
-            if (newTranslate < maxTranslate) {
-              setTransitionDuration('duration-0');
-              setTimeout(() => setTransitionDuration('duration-700'), 50);
-              return 0;
-            }
-            return newTranslate;
-          });
-        }
-      }, slideInterval);
+  // useEffect(() => {
+  //   if (!isHovering) {
+  //     // Only run the interval if not hovering
+  //     const maxTranslate = -(services.length * cardWidthIncludingGap - window.innerWidth + cardWidthIncludingGap * numberOfVisibleCards);
+  //     const interval = setInterval(() => {
+  //       if (!isDragging) { // Pause sliding if dragging
+  //         setTranslateX(currentTranslate => {
+  //           const newTranslate = currentTranslate - cardWidthIncludingGap;
+  //           if (newTranslate < maxTranslate) {
+  //             setTransitionDuration('duration-0');
+  //             setTimeout(() => setTransitionDuration('duration-700'), 50);
+  //             return 0;
+  //           }
+  //           return newTranslate;
+  //         });
+  //       }
+  //     }, slideInterval);
 
-      return () => clearInterval(interval);
-    }
-  }, [services.length, cardWidthIncludingGap, isHovering, isDragging]);
+  //     return () => clearInterval(interval);
+  //   }
+  // }, [services.length, cardWidthIncludingGap, isHovering, isDragging]);
 
   const handleMouseDown = (e: any) => {
     setIsDragging(true);
@@ -1391,7 +1461,7 @@ const WhatWeAreOffering: React.FC = () => {
             whileInView="visible"
             variants={fadeInDown}
             viewport={{ once: true, amount: 0.5 }} className='text-center text-3xl font-medium'>
-          What We Are Offering?
+          We Make Your Every Trip Comfortable
         </motion.div>
         <div 
           className='flex justify-center'
@@ -1401,7 +1471,7 @@ const WhatWeAreOffering: React.FC = () => {
             initial="hidden"
             whileInView="visible"
             variants={fadeInDown}
-            viewport={{ once: true, amount: 0.5 }} className='relative overflow-hidden
+            viewport={{ once: true, amount: 0.5 }} className='
             xl:w-[1240px]
             lg:w-[800px] 
             w-[360px]
@@ -1411,9 +1481,7 @@ const WhatWeAreOffering: React.FC = () => {
           onMouseUp={handleMouseUp}
           onMouseLeave={handleMouseUp}
           >
-            <div className={`flex justify-items-center gap-20 ${transitionDuration}`}
-              style={{ transform: `translateX(${translateX}px)` }}
-            >
+            <div className={`flex flex-wrap justify-center gap-20`}>
               {services.map((service, index) => (
                 <div 
                   className='service-card' 
@@ -1427,6 +1495,7 @@ const WhatWeAreOffering: React.FC = () => {
                     title={service.title}
                     description={service.description}
                     detailsUrl={service.detailsUrl}
+                    image={service.image}
                   />
                 </div>
               ))}

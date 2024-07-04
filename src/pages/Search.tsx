@@ -137,6 +137,7 @@ const Search: React.FC = () => {
 
   const navigate = useNavigate();
 
+  const [currentDate, setCurrentDate] = useState(dayjs());
   const [loading, setLoading] = useState<boolean>(true);
   const [tripRates, setTripRates] = useState<any[]>([]);
   const [route, setRoute] = useState<IRoute | null>(null);
@@ -178,6 +179,14 @@ const Search: React.FC = () => {
   const [hourlyPackageOpen, setHourlyPackageOpen] = useState<boolean>(false);
 
   const [cities, setCities] = useState<City[]>([]);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentDate(dayjs());
+    }, 60000); 
+
+    return () => clearInterval(timer); 
+  }, []);
 
   const toggleTripType = () => {
     setTripTypeOpen(!tripTypeOpen);
@@ -322,6 +331,8 @@ const Search: React.FC = () => {
       state: {
         taxi_rate: taxi_rate,
         route: route,
+        from: from,
+        to: to,
         pickupDate: pickupDate?.format("YYYY-MM-DD"),
         returnDate: returnDate?.format("YYYY-MM-DD"),
         pickupTime: pickupTime,
@@ -365,10 +376,9 @@ const Search: React.FC = () => {
           <div className="container flex justify-center bg-[#2A2A2A] rounded-lg w-[1166px]">
             <div className="flex items-center h-full py-2">
               <div
-                className="relative bg-[#404040] mx-1 py-2 rounded-lg text-sm hover:bg-gray-700 hover:cursor-pointer
-                w-36
-                xl:w-40
-              "
+                className={`relative bg-[#404040] mx-1 py-2 rounded-lg text-sm hover:bg-gray-700 hover:cursor-pointer
+                ${tripType === 'Hourly Rental' ? 'w-48' : 'w-36 xl:w-40'}
+              `}
                 onClick={toggleTripType}
               >
                 <div className="px-2">
@@ -465,10 +475,9 @@ const Search: React.FC = () => {
               {tripType === "Hourly Rental" && (
                 <>
                   <div
-                    className="relative bg-[#404040] mx-1 py-2 rounded-lg text-sm hover:bg-gray-700 hover:cursor-pointer
-                    w-36
-                    xl:w-40
-                  "
+                    className={`relative bg-[#404040] mx-1 py-2 rounded-lg text-sm hover:bg-gray-700 hover:cursor-pointer
+                    ${tripType === 'Hourly Rental' ? 'w-48' : 'w-36 xl:w-40'}
+                  `}
                     onClick={togglePickupCity}
                   >
                     <div className="px-2">
@@ -497,10 +506,9 @@ const Search: React.FC = () => {
               )}
 
               <div
-                className="relative bg-[#404040] mx-1 py-2 rounded-lg text-sm hover:bg-gray-700 hover:cursor-pointer
-                w-32
-                xl:w-36
-              "
+                className={`relative bg-[#404040] mx-1 py-2 rounded-lg text-sm hover:bg-gray-700 hover:cursor-pointer
+                ${tripType === 'Hourly Rental' ? 'w-48' : 'w-32 xl:w-36'}
+              `}
               >
                 <div className="px-2" onClick={togglePickupDatePicker}>
                   <div className="text-yellow-500">PICKUP DATE</div>
@@ -516,20 +524,19 @@ const Search: React.FC = () => {
                   open={pickupDateOpen}
                   onOpenChange={(open) => setPickupDateOpen(open)}
                   onChange={handlePickupDateChange}
-                  disabledDate={(current: Dayjs | null) =>
+                  disabledDate={(current) =>
                     current
-                      ? current.isBefore(dayjs().startOf("day")) ||
-                        current.isAfter(dayjs().add(30, "days"))
+                      ? current.isBefore(currentDate.startOf("day")) ||
+                        current.isAfter(currentDate.add(30, "days"))
                       : false
                   }
                 />
               </div>
 
               <div
-                className="relative bg-[#404040] mx-1 py-2 rounded-lg text-sm hover:bg-gray-700 hover:cursor-pointer
-                w-32
-                xl:w-36
-              "
+                className={`relative bg-[#404040] mx-1 py-2 rounded-lg text-sm hover:bg-gray-700 hover:cursor-pointer
+                ${tripType === 'Hourly Rental' ? 'w-48' : 'w-32 xl:w-36'}
+              `}
                 onClick={togglePickupTime}
               >
                 <div className="px-2">
@@ -577,10 +584,10 @@ const Search: React.FC = () => {
                         style={{
                           visibility: "hidden",
                         }}
-                        disabledDate={(current: Dayjs | null) =>
+                        disabledDate={(current) =>
                           current
                             ? current.isBefore(pickupDate, "day") ||
-                              current.isAfter(dayjs().add(30, "days"))
+                              current.isAfter(currentDate.add(30, "days"))
                             : false
                         }
                       />
@@ -596,10 +603,9 @@ const Search: React.FC = () => {
               {tripType === "Hourly Rental" && (
                 <>
                   <div
-                    className="relative bg-[#404040] mx-1 py-2 rounded-lg text-sm hover:bg-gray-700 hover:cursor-pointer
-                w-32
-                xl:w-36
-              "
+                    className={`relative bg-[#404040] mx-1 py-2 rounded-lg text-sm hover:bg-gray-700 hover:cursor-pointer
+                    ${tripType === 'Hourly Rental' ? 'w-48' : 'w-32 xl:w-36'}
+              `}
                     onClick={toggleHourlyPackage}
                   >
                     <div className="px-2">
