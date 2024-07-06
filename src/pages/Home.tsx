@@ -262,15 +262,18 @@ const Hero: React.FC = () => {
 
   const texts = [
     {
-      text: "Welcome to Bombay Taxi Co. Book Taxi For Your Ride",
+      text: "Welcome to Bombay Taxi Co. ",
+      text2: "Book Taxi For Your Ride",
       background: HeroImage1
     },
     {
       text: "24/7 Online taxi For Your Ride Enjoying a Comfortable Trip With Bombay Taxi Co.",
+      text2: "",
       background: HeroImage2
     },
     {
       text: "Lets Ride With Us Enjoy Your Luxury Taxi With Low Price",
+      text2: "",
       background: HeroImage3
     }
   ];
@@ -299,20 +302,30 @@ const Hero: React.FC = () => {
             style={{ backgroundImage: `url(${currentText.background})`, backgroundSize: 'cover' }} >
         <div className='bg-[#00000095] h-full w-full flex flex-col justify-center items-center space-y-20'>
           {/* <!-- Rotating Text Container --> */}
-          <div className='text-2xl lg:text-5xl font-bold text-white lg:w-[1036px] 
+          <div className=' lg:w-[1036px] 
             mt-24
             lg:mt-0
           '>
-            <div className='h-16 lg:h-max'>
+            <div className='h-16 lg:h-max text-center'>
             <motion.div
               key={currentTextIndex}
               initial={{ opacity: 0, x: -50, scale: 0.95 }}
               animate={{ opacity: 1, x: 0, scale: 1 }}
               exit={{ opacity: 0, x: 50, scale: 0.8 }}
               transition={{ duration: 1.5, ease: 'easeInOut' }}
-              className='text-left fade-in'
+              className='text-xl lg:text-3xl font-thin text-white fade-in'
             >
                 {currentText.text}
+              </motion.div>
+            <motion.div
+              key={currentTextIndex}
+              initial={{ opacity: 0, x: -50, scale: 0.95 }}
+              animate={{ opacity: 1, x: 0, scale: 1 }}
+              exit={{ opacity: 0, x: 50, scale: 0.8 }}
+              transition={{ duration: 1.5, ease: 'easeInOut' }}
+              className='text-2xl lg:text-5xl font-bold text-white fade-in'
+            >
+                {currentText.text2}
               </motion.div>
             </div>
           </div>
@@ -1002,7 +1015,7 @@ const AwsomeFeatures: React.FC = () => {
             onMouseLeave={() => setIsHovering(false)}
           >
 
-            <button className="absolute left-40 xl:left-60 hidden lg:block bg-transparent hover:bg-yellow-400 text-black font-semibold h-12 px-4 rounded-full border-2 border-yellow-500 z-10 shadow-xl " onClick={handlePrev}>
+            <button className="absolute left-40 xl:left-60 hidden lg:block bg-white hover:bg-yellow-400 text-black font-semibold h-12 px-4 rounded-full border-2 border-yellow-500 z-10 shadow-xl " onClick={handlePrev}>
                 <LeftOutlined/>
               </button>
 
@@ -1027,7 +1040,7 @@ const AwsomeFeatures: React.FC = () => {
             </div>
             </div>
             
-            <button className="absolute right-40 xl:right-60 hidden lg:block bg-yellow-500 hover:bg-yellow-400 text-black font-semibold h-12 px-4 rounded-lg border-yellow-500 z-10" onClick={handleNext}>
+            <button className="absolute right-40 xl:right-60 hidden lg:block bg-white hover:bg-yellow-400 text-black font-semibold h-12 px-4 rounded-full border-2 border-yellow-500 z-10" onClick={handleNext}>
                 <RightOutlined/>
               </button>
 
