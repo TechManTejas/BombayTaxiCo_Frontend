@@ -1445,7 +1445,7 @@ const WhatWeAreOffering: React.FC = () => {
     {
       icon: <ArrowRightOutlined className='text-3xl' />,
       feature: "FEATURE - 02",
-      title: "Onewaytrip",
+      title: "One Way Trip",
       description: "Efficient and comfortable one-way trips to your desired destination, with no return trip required.",
       detailsUrl: '/',
       image: WeOffer2
@@ -1453,7 +1453,7 @@ const WhatWeAreOffering: React.FC = () => {
     {
       icon: <SyncOutlined className='text-3xl' />,
       feature: "FEATURE - 03",
-      title: "Roundtrip",
+      title: "Round Trip",
       description: "Convenient roundtrip services ensuring a seamless journey to your destination and back.",
       detailsUrl: '/',
       image: WeOffer3
