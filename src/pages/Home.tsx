@@ -267,8 +267,8 @@ const Hero: React.FC = () => {
       background: HeroImage1
     },
     {
-      text: "24/7 Online taxi For Your Ride",
-      text2: "Enjoying a Comfortable Trip With Bombay Taxi Co.",
+      text: "24/7 Online taxi For Your Ride Enjoying",
+      text2: "a Comfortable Trip With Bombay Taxi Co.",
       background: HeroImage2
     },
     {
@@ -294,12 +294,12 @@ const Hero: React.FC = () => {
     <>
       <motion.div
             key={currentTextIndex}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 1 }}
+            // initial={{ opacity: 0 }}
+            // animate={{ opacity: 1 }}
+            // exit={{ opacity: 0 }}
+            // transition={{ duration: 1 }}
             className='h-[720px]'
-            style={{ backgroundImage: `url(${currentText.background})`, backgroundSize: 'cover' }} >
+            style={{ backgroundImage: `url(${texts[0].background})`, backgroundSize: 'cover' }} >
         <div className='bg-[#00000095] h-full w-full flex flex-col justify-center items-center space-y-20'>
           {/* <!-- Rotating Text Container --> */}
           <div className=' lg:w-[1036px] 
@@ -308,26 +308,25 @@ const Hero: React.FC = () => {
           '>
             <div className='h-16 lg:h-max text-center'>
             <motion.div
-  key={currentTextIndex}
-  initial={{ opacity: 0, y: -50, scale: 0.95 }}
-  animate={{ opacity: 1, y: 0, scale: 1 }}
-  exit={{ opacity: 0, y: 50, scale: 0.8 }}
-  transition={{ duration: 1.5, ease: 'easeInOut' }}
-  className='text-xl lg:text-3xl font-thin text-white fade-in'
->
-  {currentText.text}
-</motion.div>
-<motion.div
-  key={currentTextIndex}
-  initial={{ opacity: 0, y: -50, scale: 0.95 }}
-  animate={{ opacity: 1, y: 0, scale: 1 }}
-  exit={{ opacity: 0, y: 50, scale: 0.8 }}
-  transition={{ duration: 1.5, ease: 'easeInOut' }}
-  className='text-2xl lg:text-5xl font-bold text-white fade-in'
->
-  {currentText.text2}
-</motion.div>
-
+              key={currentTextIndex}
+              initial={{ opacity: 0, y: -50, scale: 0.95 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: 50, scale: 0.8 }}
+              transition={{ duration: 1.5, ease: 'easeInOut' }}
+              className='text-xl lg:text-3xl font-thin text-white fade-in'
+            >
+              {currentText.text}
+            </motion.div>
+            <motion.div
+              key={currentTextIndex}
+              initial={{ opacity: 0, y: -50, scale: 0.95 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: 50, scale: 0.8 }}
+              transition={{ duration: 1.5, ease: 'easeInOut' }}
+              className='text-2xl lg:text-5xl font-bold text-white fade-in'
+            >
+              {currentText.text2}
+            </motion.div>
             </div>
           </div>
           <div className='flex flex-col items-center justify-center w-[370px]'>
