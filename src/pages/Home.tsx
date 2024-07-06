@@ -308,25 +308,26 @@ const Hero: React.FC = () => {
           '>
             <div className='h-16 lg:h-max text-center'>
             <motion.div
-              key={currentTextIndex}
-              initial={{ opacity: 0, x: -50, scale: 0.95 }}
-              animate={{ opacity: 1, x: 0, scale: 1 }}
-              exit={{ opacity: 0, x: 50, scale: 0.8 }}
-              transition={{ duration: 1.5, ease: 'easeInOut' }}
-              className='text-xl lg:text-3xl font-thin text-white fade-in'
-            >
-                {currentText.text}
-              </motion.div>
-            <motion.div
-              key={currentTextIndex}
-              initial={{ opacity: 0, x: -50, scale: 0.95 }}
-              animate={{ opacity: 1, x: 0, scale: 1 }}
-              exit={{ opacity: 0, x: 50, scale: 0.8 }}
-              transition={{ duration: 1.5, ease: 'easeInOut' }}
-              className='text-2xl lg:text-5xl font-bold text-white fade-in'
-            >
-                {currentText.text2}
-              </motion.div>
+  key={currentTextIndex}
+  initial={{ opacity: 0, y: -50, scale: 0.95 }}
+  animate={{ opacity: 1, y: 0, scale: 1 }}
+  exit={{ opacity: 0, y: 50, scale: 0.8 }}
+  transition={{ duration: 1.5, ease: 'easeInOut' }}
+  className='text-xl lg:text-3xl font-thin text-white fade-in'
+>
+  {currentText.text}
+</motion.div>
+<motion.div
+  key={currentTextIndex}
+  initial={{ opacity: 0, y: -50, scale: 0.95 }}
+  animate={{ opacity: 1, y: 0, scale: 1 }}
+  exit={{ opacity: 0, y: 50, scale: 0.8 }}
+  transition={{ duration: 1.5, ease: 'easeInOut' }}
+  className='text-2xl lg:text-5xl font-bold text-white fade-in'
+>
+  {currentText.text2}
+</motion.div>
+
             </div>
           </div>
           <div className='flex flex-col items-center justify-center w-[370px]'>
