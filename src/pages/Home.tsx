@@ -25,9 +25,9 @@ import { generateDistanceOptions } from '../utils/GenerateDistanceOptions';
 import { ServiceCard } from '../components/ServiceCard';
 import { useIntersectionObserver } from '../components/UseIntersectionObserver.jsx';
 import { TestimonialCard } from '../components/TestimonialCard.js';
+import { Container } from '@mui/material';
 import '../css/Fade.css'
 import '../css/NoScrollbar.css'
-import { Container } from '@mui/material';
 
 const Hero: React.FC = () => {
 
