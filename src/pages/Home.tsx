@@ -364,7 +364,7 @@ const Hero: React.FC = () => {
                 lg:flex
               '>
                 {activeTab === "Hourly Rental" &&
-                  <div className='w-full lg:w-[220px] p-3 pb-4 space-y-1 border rounded-xl'>
+                  <div className='w-full lg:w-[334px] p-3 pb-4 space-y-1 border rounded-xl'>
                     <div className='text-xs'>
                       PICKUP LOCATION
                     </div>
@@ -477,7 +477,7 @@ const Hero: React.FC = () => {
                 }
                 {activeTab === 'Hourly Rental' &&
                   <div>
-                    <div className='w-[393px] lg:w-[250px] p-3 pb-4 space-y-1 border rounded-xl'>
+                    <div className='w-[393px] lg:w-[300px] p-3 pb-4 space-y-1 border rounded-xl'>
                       <div className='text-xs'>
                         SELECT PACKAGE
                       </div>
