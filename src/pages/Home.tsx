@@ -267,8 +267,8 @@ const Hero: React.FC = () => {
       background: HeroImage1
     },
     {
-      text: "24/7 Online taxi For Your Ride Enjoying",
-      text2: "a Comfortable Trip With Bombay Taxi Co.",
+      text: "24/7 Online taxi For Your Ride Enjoying a",
+      text2: "Comfortable Trip With Bombay Taxi Co.",
       background: HeroImage2
     },
     {
