@@ -28,6 +28,9 @@ import { TestimonialCard } from '../components/TestimonialCard.js';
 import { Container } from '@mui/material';
 import '../css/Fade.css'
 import '../css/NoScrollbar.css'
+import OneWayTripIcon from '../icons/One way Trip.svg';
+import RoundTripIcon from '../icons/Round trip.svg';
+import HourlyRentalIcon from '../icons/hourly rental.svg'
 
 const Hero: React.FC = () => {
 
@@ -325,7 +328,7 @@ const Hero: React.FC = () => {
                   {
                     label: (
                       <div className='lg:text-lg m-2'>
-                        <ArrowUpOutlined className='hidden lg:inline-flex' />
+                        <img src={OneWayTripIcon} className='hidden lg:inline-flex' />
                         <span className='mx-0.5 md:mx-2'>
                           One-Way Trip
                         </span>
@@ -336,7 +339,7 @@ const Hero: React.FC = () => {
                   {
                     label: (
                       <div className='lg:text-lg m-2'>
-                        <SyncOutlined className='hidden lg:inline-flex' />
+                        <img src={RoundTripIcon} className='hidden lg:inline-flex' />
                         <span className='mx-0.5 md:mx-2'>
                           Round Trip
                         </span>
@@ -347,7 +350,7 @@ const Hero: React.FC = () => {
                   {
                     label: (
                       <div className='lg:text-lg m-2'>
-                        <ClockCircleOutlined className='hidden lg:inline-flex' />
+                        <img src={HourlyRentalIcon} className='hidden lg:inline-flex' />
                         <span className='mx-0.5 md:mx-2'>
                           Hourly Rental
                         </span>

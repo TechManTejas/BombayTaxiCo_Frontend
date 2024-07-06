@@ -7,6 +7,7 @@ import { MenuOutlined, UserOutlined, LogoutOutlined } from '@ant-design/icons';
 import axios from '../api/axios';
 import TabPane from 'antd/es/tabs/TabPane';
 import { Context } from '../context/context.provider';
+import LoginIcon from "../icons/login.svg"
 
 interface LoginFormProps {
     hideLoginModal: () => void;
@@ -365,7 +366,10 @@ const UserNavbar: React.FC = () => {
                                 <UserOutlined /> PROFILE
                             </button>
                             : <button className="text-xl font-medium hidden md:block hover:text-yellow-500" onClick={showLoginModal}>
-                                <LogoutOutlined /> LOGIN
+                                <span className='flex gap-2'>
+                                <img src={LoginIcon} className='w-5'/> 
+                                LOGIN
+                                </span>
                             </button>
                         }
                     </div>
