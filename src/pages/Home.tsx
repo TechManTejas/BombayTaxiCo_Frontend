@@ -314,9 +314,7 @@ const Hero: React.FC = () => {
             </div>
           </div>
           <div className='flex flex-col items-center justify-center w-[370px]'>
-            <div className='rounded-full bg-white  shadow-lg -mb-6 z-10 border border-yellow-500
-              
-            '>
+            <div className='rounded-full bg-white  shadow-lg -mb-6 z-10 border border-yellow-500'>
               <Segmented
                 className='rounded-full'
                 onChange={(value) => {
@@ -359,7 +357,7 @@ const Hero: React.FC = () => {
                 ]}
               />
             </div>
-            <div className='bg-white rounded-lg -mb-6 flex justify-center items-center py-8 
+            <div className='bg-white rounded-3xl -mb-6 flex justify-center items-center py-8 
               lg:px-6
             '>
               <div className='w-full rounded gap-2
