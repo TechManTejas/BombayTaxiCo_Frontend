@@ -267,13 +267,13 @@ const Hero: React.FC = () => {
       background: HeroImage1
     },
     {
-      text: "24/7 Online taxi For Your Ride Enjoying a Comfortable Trip With Bombay Taxi Co.",
-      text2: "",
+      text: "24/7 Online taxi For Your Ride",
+      text2: "Enjoying a Comfortable Trip With Bombay Taxi Co.",
       background: HeroImage2
     },
     {
-      text: "Lets Ride With Us Enjoy Your Luxury Taxi With Low Price",
-      text2: "",
+      text: "Lets Ride With Us",
+      text2: "Enjoy Your Luxury Taxi With Low Price",
       background: HeroImage3
     }
   ];
