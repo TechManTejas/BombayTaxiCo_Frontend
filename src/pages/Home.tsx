@@ -1002,7 +1002,7 @@ const AwsomeFeatures: React.FC = () => {
             onMouseLeave={() => setIsHovering(false)}
           >
 
-            <button className="absolute left-40 xl:left-60 hidden lg:block bg-yellow-500 hover:bg-yellow-400 text-black font-semibold h-12 px-4 rounded-lg border-yellow-500 z-10" onClick={handlePrev}>
+            <button className="absolute left-40 xl:left-60 hidden lg:block bg-transparent hover:bg-yellow-400 text-black font-semibold h-12 px-4 rounded-full border-2 border-yellow-500 z-10 shadow-xl " onClick={handlePrev}>
                 <LeftOutlined/>
               </button>
 
@@ -1015,7 +1015,7 @@ const AwsomeFeatures: React.FC = () => {
                 style={{ gap: `${16}px`, transform: `translateX(${translateX}px)` }}
             >
             {features.map((feature, index) => (
-              <div key={index} className='flex flex-shrink-0 items-center gap-2 w-80 border border-opacity-10 rounded p-3'>
+              <div key={index} className='flex flex-shrink-0 items-center gap-2 w-80 border border-opacity-10 rounded-3xl p-3'>
                 <div className='text-yellow-500'>
                   {feature.icon}
                 </div>
