@@ -31,7 +31,10 @@ export const TestimonialCard: React.FC<{
   position?: any;
 }> = ({ avatar, testimonialText, name, position }) => {
   return (
-    <div className="flex-shrink-0 bg-white w-80 rounded-3xl flex flex-col p-8 space-y-4 shadow" style={{ userSelect: 'none' }}>
+    <div className="flex-shrink-0 bg-[#FEF0CF] w-80 rounded-3xl flex flex-col justify-between p-8 space-y-4 shadow" style={{ userSelect: 'none' }}>
+      <div>
+
+      
       <div className="relative flex gap-1 mb-3">
         <StarFilled className="text-yellow-500"/>
         <StarFilled className="text-yellow-500"/>
@@ -44,6 +47,7 @@ export const TestimonialCard: React.FC<{
       </div>
       <div className="text-sm">
         {testimonialText}
+      </div>
       </div>
       <div className="flex gap-2 items-center">
         <div className={`bg-yellow-500 h-16 w-16 rounded-full ${avatar ? "bg-cover" : ""}`}
