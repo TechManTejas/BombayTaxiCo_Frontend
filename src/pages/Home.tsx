@@ -3,6 +3,7 @@ import { AndroidFilled, AppleFilled, ArrowRightOutlined, ArrowUpOutlined, BankOu
 import { DatePicker, Dropdown, MenuProps, Segmented, message } from 'antd';
 import React, { useEffect, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
+import { Container } from '@mui/material';
 import axios from "../api/axios"
 import { City } from '../types/citys.types';
 import { useNavigate } from 'react-router-dom';
@@ -25,12 +26,11 @@ import { generateDistanceOptions } from '../utils/GenerateDistanceOptions';
 import { ServiceCard } from '../components/ServiceCard';
 import { useIntersectionObserver } from '../components/UseIntersectionObserver.jsx';
 import { TestimonialCard } from '../components/TestimonialCard.js';
-import { Container } from '@mui/material';
+import { RoundTripIcon } from '../icons/RoundTripIcon.js';
+import { OneWayTripIcon } from '../icons/OneWayTripIcon.js';
+import { HourlyRentalIcon } from '../icons/HourlyRentalIcon.js';
 import '../css/Fade.css'
 import '../css/NoScrollbar.css'
-import OneWayTripIcon from '../icons/One way Trip.svg';
-import RoundTripIcon from '../icons/Round trip.svg';
-import HourlyRentalIcon from '../icons/hourly rental.svg'
 
 const Hero: React.FC = () => {
 
@@ -341,10 +341,13 @@ const Hero: React.FC = () => {
                   {
                     label: (
                       <div className='lg:text-lg m-2'>
-                        <img src={OneWayTripIcon} className='hidden lg:inline-flex' />
+                        <div className='hidden lg:flex items-center'>
+                          <OneWayTripIcon/>
+
                         <span className='mx-0.5 md:mx-2'>
                           One-Way Trip
                         </span>
+                          </div>
                       </div>
                     ),
                     value: 'One-Way Trip'
@@ -352,10 +355,12 @@ const Hero: React.FC = () => {
                   {
                     label: (
                       <div className='lg:text-lg m-2'>
-                        <img src={RoundTripIcon} className='hidden lg:inline-flex' />
-                        <span className='mx-0.5 md:mx-2'>
-                          Round Trip
-                        </span>
+                        <div className='hidden lg:flex items-center'>
+                          <RoundTripIcon/>
+                          <span className='mx-0.5 md:mx-2'>
+                            Round Trip 
+                          </span>
+                        </div>
                       </div>
                     ),
                     value: 'Round Trip',
@@ -363,10 +368,12 @@ const Hero: React.FC = () => {
                   {
                     label: (
                       <div className='lg:text-lg m-2'>
-                        <img src={HourlyRentalIcon} className='hidden lg:inline-flex' />
+                        <div className='hidden lg:flex items-center'>
+                          <HourlyRentalIcon/>
                         <span className='mx-0.5 md:mx-2'>
                           Hourly Rental
                         </span>
+                          </div>
                       </div>
                     ),
                     value: 'Hourly Rental',
@@ -1015,7 +1022,7 @@ const AwsomeFeatures: React.FC = () => {
             onMouseLeave={() => setIsHovering(false)}
           >
 
-            <button className="absolute left-40 xl:left-60 hidden lg:block bg-white hover:bg-yellow-400 text-black font-semibold h-12 px-4 rounded-full border-2 border-yellow-500 z-10 shadow-xl " onClick={handlePrev}>
+            <button className="absolute w-14 h-14 left-40 xl:left-60 hidden lg:block bg-white hover:bg-yellow-400 text-black font-semibold px-4 rounded-full border-2 border-yellow-500 z-10 shadow-xl " onClick={handlePrev}>
                 <LeftOutlined/>
               </button>
 
@@ -1040,7 +1047,7 @@ const AwsomeFeatures: React.FC = () => {
             </div>
             </div>
             
-            <button className="absolute right-40 xl:right-60 hidden lg:block bg-white hover:bg-yellow-400 text-black font-semibold h-12 px-4 rounded-full border-2 border-yellow-500 z-10" onClick={handleNext}>
+            <button className="absolute w-14 h-14 right-40 xl:right-60 hidden lg:block bg-white hover:bg-yellow-400 text-black font-semibold px-4 rounded-full border-2 border-yellow-500 z-10" onClick={handleNext}>
                 <RightOutlined/>
               </button>
 
@@ -1557,7 +1564,7 @@ const WhatWeAreOffering: React.FC = () => {
           onMouseUp={handleMouseUp}
           onMouseLeave={handleMouseUp}
           >
-            <div className={`flex flex-wrap justify-center gap-20`}>
+            <div className={`flex flex-wrap justify-center gap-8`}>
               {services.map((service, index) => (
                 <div 
                   className='service-card' 
