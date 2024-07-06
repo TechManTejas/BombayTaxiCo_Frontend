@@ -27,6 +27,7 @@ import { useIntersectionObserver } from '../components/UseIntersectionObserver.j
 import { TestimonialCard } from '../components/TestimonialCard.js';
 import '../css/Fade.css'
 import '../css/NoScrollbar.css'
+import { Container } from '@mui/material';
 
 const Hero: React.FC = () => {
 
@@ -284,7 +285,7 @@ const Hero: React.FC = () => {
   const currentText = texts[currentTextIndex];
 
   return (
-    <AnimatePresence mode='popLayout'>
+    <>
       <motion.div
             key={currentTextIndex}
             initial={{ opacity: 0 }}
@@ -313,10 +314,11 @@ const Hero: React.FC = () => {
             </div>
           </div>
           <div className='flex flex-col items-center justify-center w-[370px]'>
-            <div className='rounded-xl bg-white  shadow-lg -mb-6 z-10
+            <div className='rounded-full bg-white  shadow-lg -mb-6 z-10 border border-yellow-500
               
             '>
               <Segmented
+                className='rounded-full'
                 onChange={(value) => {
                   handleTabChange(value.toString())
                 }}
@@ -501,7 +503,7 @@ const Hero: React.FC = () => {
           <div />
         </div>
       </motion.div>
-    </AnimatePresence>
+    </>
   );
 };
 
@@ -634,6 +636,65 @@ const WhyChooseUs: React.FC = () => {
 //     </>
 //   )
 // }
+
+const OurAchievement: React.FC = () => {
+
+    return(
+      <div className='bg-zinc-400'>
+        <div className='md:h-[440px] flex justify-center p-6 '>
+          <Container className='bg-yellow-500 w-full rounded-3xl'>
+            <div className='p-16'>
+
+            <div className='lg:flex justify-between'>
+              <div className='text-3xl lg:text-5xl text-white font-extrabold'>Our Achievement</div>
+              <div className='text-xs lg:text-sm text-white max-w-lg'>
+Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </div>
+            </div>
+            <div className='flex flex-wrap md:flex md:flex-nowrap justify-center md:justify-between'>
+
+                <div className='text-center md:text-left flex flex-col gap-3 w-60 mt-8'>
+                  <div className='flex justify-center md:justify-start items-center gap-5'>
+                    <div className='w-16 h-16 bg-white rounded-full'></div>
+                    <div className='text-3xl lg:text-5xl font-black text-white'>30</div>
+                  </div>
+                  <div className='text-white font-bold text-xl lg:text-2xl'>Experience</div>
+                  <div className='text-xs lg:text-sm text-white'>Lorem ipsum dolor sit amet, leo consectetur adipiscing elit Ut.</div>
+                </div>
+
+                <div className='text-center md:text-left flex flex-col gap-3 w-60 mt-8'>
+                  <div className='flex justify-center md:justify-start items-center gap-5'>
+                    <div className='w-16 h-16 bg-white rounded-full'></div>
+                    <div className='text-3xl lg:text-5xl font-black text-white'>30</div>
+                  </div>
+                  <div className='text-white font-bold text-xl lg:text-2xl'>Experience</div>
+                  <div className='text-xs lg:text-sm text-white'>Lorem ipsum dolor sit amet, leo consectetur adipiscing elit Ut.</div>
+                </div>
+
+                <div className='text-center md:text-left flex flex-col gap-3 w-60 mt-8'>
+                  <div className='flex justify-center md:justify-start items-center gap-5'>
+                    <div className='w-16 h-16 bg-white rounded-full'></div>
+                    <div className='text-3xl lg:text-5xl font-black text-white'>30</div>
+                  </div>
+                  <div className='text-white font-bold text-xl lg:text-2xl'>Experience</div>
+                  <div className='text-xs lg:text-sm text-white'>Lorem ipsum dolor sit amet, leo consectetur adipiscing elit Ut.</div>
+                </div>
+
+                <div className='text-center md:text-left flex flex-col gap-3 w-60 mt-8'>
+                  <div className='flex justify-center md:justify-start items-center gap-5'>
+                    <div className='w-16 h-16 bg-white rounded-full'></div>
+                    <div className='text-3xl lg:text-5xl font-black text-white'>30</div>
+                  </div>
+                  <div className='text-white font-bold text-xl lg:text-2xl'>Experience</div>
+                  <div className='text-xs lg:text-sm text-white'>Lorem ipsum dolor sit amet, leo consectetur adipiscing elit Ut.</div>
+                </div>
+
+            </div>
+            </div>
+          </Container>
+        </div>
+      </div>
+    )
+}
 
 const StatsAndTestamonials: React.FC = () => {
 
@@ -1543,6 +1604,7 @@ const Home: React.FC = () => {
       '>
         <EasyStep />
       </div>
+        <OurAchievement/>
         <StatsAndTestamonials />
         <CallUsNow />
       <Footer />
