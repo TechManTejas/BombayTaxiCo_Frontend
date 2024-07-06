@@ -555,9 +555,7 @@ const WhyChooseUs: React.FC = () => {
             initial="hidden"
             whileInView="visible"
             variants={slideIn}
-            viewport={{ once: true, amount: 0.5 }} className='grid grid-cols-1 items-center justify-items-center
-          sm:grid-cols-2
-          xl:grid-cols-4
+            viewport={{ once: true, amount: 0.5 }} className='flex flex-wrap gap-4 items-center justify-center
         '>
           <WhyChooseUsCard icon={<UserOutlined />} title="Professional Drivers" description="Experienced Staff & Professionally trained Chauffers" />
           <WhyChooseUsCard icon={<CarOutlined />} title="Quality Car" description="Luxurious and well-maintained vehicles for your comfort." />
