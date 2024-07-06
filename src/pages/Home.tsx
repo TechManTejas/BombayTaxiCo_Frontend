@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { AndroidFilled, AppleFilled, ArrowRightOutlined, ArrowUpOutlined, BankOutlined, CarOutlined, ClockCircleOutlined, CloseCircleOutlined, CreditCardOutlined, CustomerServiceOutlined, DollarCircleOutlined, DollarOutlined, EnvironmentOutlined, LeftOutlined, LikeOutlined, MobileOutlined, MoneyCollectOutlined, RightOutlined, SafetyOutlined, SmileOutlined, SolutionOutlined, StarOutlined, SwapOutlined, SyncOutlined, TagOutlined, TeamOutlined, UserOutlined } from '@ant-design/icons';
+import { AndroidFilled, AppleFilled, ArrowRightOutlined, BankOutlined, CarOutlined, ClockCircleOutlined, CloseCircleOutlined, CreditCardOutlined, CustomerServiceOutlined, DollarCircleOutlined, DollarOutlined, EnvironmentOutlined, LeftOutlined, LikeOutlined, MobileOutlined, MoneyCollectOutlined, RightOutlined, SafetyOutlined, SmileOutlined, SolutionOutlined, StarOutlined, SwapOutlined, SyncOutlined, TagOutlined, TeamOutlined, UserOutlined } from '@ant-design/icons';
 import { DatePicker, Dropdown, MenuProps, Segmented, message } from 'antd';
 import React, { useEffect, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
@@ -306,27 +306,27 @@ const Hero: React.FC = () => {
             mt-24
             lg:mt-0
           '>
-            <div className='h-16 lg:h-max text-center'>
-            <motion.div
-              key={currentTextIndex}
-              initial={{ opacity: 0, y: -50, scale: 0.95 }}
-              animate={{ opacity: 1, y: 0, scale: 1 }}
-              exit={{ opacity: 0, y: 50, scale: 0.8 }}
-              transition={{ duration: 1.5, ease: 'easeInOut' }}
-              className='text-xl lg:text-3xl font-thin text-white fade-in'
-            >
-              {currentText.text}
-            </motion.div>
-            <motion.div
-              key={currentTextIndex}
-              initial={{ opacity: 0, y: -50, scale: 0.95 }}
-              animate={{ opacity: 1, y: 0, scale: 1 }}
-              exit={{ opacity: 0, y: 50, scale: 0.8 }}
-              transition={{ duration: 1.5, ease: 'easeInOut' }}
-              className='text-2xl lg:text-5xl font-bold text-white fade-in'
-            >
-              {currentText.text2}
-            </motion.div>
+            <div className='h-16 lg:h-max text-center space-y-4'>
+              <motion.div
+                key={currentTextIndex}
+                initial={{ opacity: 0, y: -50, scale: 0.95 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                exit={{ opacity: 0, y: 50, scale: 0.8 }}
+                transition={{ duration: 1.5, ease: 'easeInOut' }}
+                className='text-xl lg:text-3xl font-thin text-white fade-in'
+              >
+                {currentText.text}
+              </motion.div>
+              <motion.div
+                key={currentTextIndex}
+                initial={{ opacity: 0, y: -50, scale: 0.95 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                exit={{ opacity: 0, y: 50, scale: 0.8 }}
+                transition={{ duration: 1.5, ease: 'easeInOut' }}
+                className='text-2xl lg:text-5xl font-bold text-white fade-in'
+              >
+                {currentText.text2}
+              </motion.div>
             </div>
           </div>
           <div className='flex flex-col items-center justify-center w-[370px]'>
@@ -885,7 +885,7 @@ const StatsAndTestamonials: React.FC = () => {
             whileInView="visible"
             variants={zoomIn}
             viewport={{ once: true, amount: 0.5 }} className='flex justify-center items-center w-full relative'>
-            <button className="bg-yellow-500 hover:bg-yellow-400 text-black font-semibold h-12 px-4 rounded-lg border-yellow-500 z-10" onClick={handlePrev}>
+            <button className="bg-white w-14 h-14 hover:bg-yellow-400 text-black font-semibold shadow-xl px-4 rounded-full border-2 border-yellow-500 z-10" onClick={handlePrev}>
                 <LeftOutlined/>
               </button>
             <div className='m-8 py-1 overflow-x-scroll scroll-smooth no-scrollbar
@@ -907,7 +907,7 @@ const StatsAndTestamonials: React.FC = () => {
                 ))}
               </div>
             </div>
-            <button className="bg-yellow-500 hover:bg-yellow-400 text-black font-semibold h-12 px-4 rounded-lg border-yellow-500 z-10" onClick={handleNext}>
+            <button className="bg-white w-14 h-14 hover:bg-yellow-400 text-black font-semibold px-4 rounded-full border-2 border-yellow-500 z-10 shadow-xl" onClick={handleNext}>
                 <RightOutlined/>
               </button>
           </motion.div>
@@ -1045,7 +1045,7 @@ const AwsomeFeatures: React.FC = () => {
             </div>
             </div>
             
-            <button className="absolute w-14 h-14 right-40 xl:right-60 hidden lg:block bg-white hover:bg-yellow-400 text-black font-semibold px-4 rounded-full border-2 border-yellow-500 z-10" onClick={handleNext}>
+            <button className="absolute w-14 h-14 right-40 xl:right-60 hidden lg:block bg-white hover:bg-yellow-400 text-black font-semibold px-4 rounded-full border-2 border-yellow-500 z-10 shadow-xl" onClick={handleNext}>
                 <RightOutlined/>
               </button>
 
