@@ -316,6 +316,7 @@ const Hero: React.FC = () => {
           <div className='flex flex-col items-center justify-center w-[370px]'>
             <div className='rounded-full bg-white  shadow-lg -mb-6 z-10 border border-yellow-500'>
               <Segmented
+                value={activeTab}
                 className='rounded-full'
                 onChange={(value) => {
                   handleTabChange(value.toString())
