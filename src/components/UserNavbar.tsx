@@ -3,11 +3,11 @@ import React, { useState } from 'react';
 import Logo from "../assets/images/logo.webp"
 import { Button, Drawer, Form, Input, Menu, Modal, Tabs, message } from 'antd';
 import { useNavigate } from 'react-router-dom';
-import { MenuOutlined, UserOutlined, LogoutOutlined } from '@ant-design/icons';
+import { MenuOutlined, UserOutlined } from '@ant-design/icons';
 import axios from '../api/axios';
 import TabPane from 'antd/es/tabs/TabPane';
 import { Context } from '../context/context.provider';
-import LoginIcon from "../icons/login.svg"
+import { LoginIcon } from '../icons/LoginIcon';
 
 interface LoginFormProps {
     hideLoginModal: () => void;
@@ -367,7 +367,7 @@ const UserNavbar: React.FC = () => {
                             </button>
                             : <button className="text-xl font-medium hidden md:block hover:text-yellow-500" onClick={showLoginModal}>
                                 <span className='flex gap-2'>
-                                <img src={LoginIcon} className='w-5'/> 
+                                <LoginIcon/>
                                 LOGIN
                                 </span>
                             </button>

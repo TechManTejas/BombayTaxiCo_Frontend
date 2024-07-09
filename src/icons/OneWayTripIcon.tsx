@@ -1,15 +1,13 @@
 export const OneWayTripIcon = () => {
   return (
     <svg
-        id="onewaytrip"
-      xmlns="http://www.w3.org/2000/svg"
-      xmlns:xlink="http://www.w3.org/1999/xlink"
+      id="onewaytrip"
       width="28"
       height="28"
       viewBox="0 0 16 16"
     >
       <defs>
-        <clipPath id="clip-path">
+        <clipPath id="clip-path-oneway">
           <rect
             id="Rectangle_405"
             data-name="Rectangle 405"
@@ -27,7 +25,7 @@ export const OneWayTripIcon = () => {
         id="one_way"
         data-name="one way"
         transform="translate(-3458 1905)"
-        clip-path="url(#clip-path)"
+        clip-path="url(#clip-path-oneway)"
       >
         <g
           id="One_way_Trip"

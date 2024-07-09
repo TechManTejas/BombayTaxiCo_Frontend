@@ -1,15 +1,13 @@
 export const RoundTripIcon = () => {
   return (
     <svg
-    id="roundtrip"
-      xmlns="http://www.w3.org/2000/svg"
-      xmlns:xlink="http://www.w3.org/1999/xlink"
+      id="roundtrip"
       width="28"
       height="28"
       viewBox="0 0 16 16"
     >
       <defs>
-        <clipPath id="clip-path">
+        <clipPath id="clip-path-roundtrip">
           <rect
             id="Rectangle_403"
             data-name="Rectangle 403"
@@ -27,7 +25,7 @@ export const RoundTripIcon = () => {
         id="round_trip"
         data-name="round trip"
         transform="translate(-3506 1905)"
-        clip-path="url(#clip-path)"
+        clip-path="url(#clip-path-roundtrip)"
       >
         <g id="Group_71" data-name="Group 71" transform="translate(-17 -4.865)">
           <g
