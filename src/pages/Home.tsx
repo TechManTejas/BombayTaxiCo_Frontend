@@ -746,11 +746,56 @@ const WhyChooseUs: React.FC = () => {
 // }
 
 const OurAchievement: React.FC = () => {
+
+  const [isVisible, elementRef] = useIntersectionObserver({});
+  const [stats, setStats] = useState({
+    fleet: 0,
+    trips: 0,
+    dropped: 0,
+    satisfied: 0,
+  });
+  const finalStats = {
+    fleet: 32002,
+    trips: 16008,
+    dropped: 17068,
+    satisfied: 19508,
+  };
+
+  useEffect(() => {
+    if (isVisible) {
+      const intervalId = setInterval(() => {
+        setStats((prevStats) => ({
+          fleet:
+            prevStats.fleet < finalStats.fleet
+              ? prevStats.fleet + Math.ceil(finalStats.fleet / 300)
+              : finalStats.fleet,
+          trips:
+            prevStats.trips < finalStats.trips
+              ? prevStats.trips + Math.ceil(finalStats.trips / 300)
+              : finalStats.trips,
+          dropped:
+            prevStats.dropped < finalStats.dropped
+              ? prevStats.dropped + Math.ceil(finalStats.dropped / 300)
+              : finalStats.dropped,
+          satisfied:
+            prevStats.satisfied < finalStats.satisfied
+              ? prevStats.satisfied + Math.ceil(finalStats.satisfied / 300)
+              : finalStats.satisfied,
+        }));
+      }, 5);
+
+      return () => clearInterval(intervalId);
+    }
+  }, [isVisible]);
+
   return (
-    <div className="bg-zinc-400">
-      <div className="md:h-[440px] flex justify-center p-6 ">
-        <Container className="bg-yellow-500 w-full rounded-3xl">
-          <div className="p-16">
+    <div ref={elementRef}>
+      <Container className="md:h-[440px] flex justify-center p-8">
+        <div className="w-full rounded-3xl container"  style={{
+          backgroundImage: `url(${Experience})`,
+          backgroundSize: "cover",
+        }}>
+          <div className="p-16 bg-blue-950 bg-opacity-70 rounded-3xl">
             <div className="lg:flex justify-between">
               <div className="text-3xl lg:text-5xl text-white font-extrabold">
                 Our Achievement
@@ -765,13 +810,15 @@ const OurAchievement: React.FC = () => {
             <div className="flex flex-wrap md:flex md:flex-nowrap justify-center md:justify-between">
               <div className="text-center md:text-left flex flex-col gap-3 w-60 mt-8">
                 <div className="flex justify-center md:justify-start items-center gap-5">
-                  <div className="w-16 h-16 bg-white rounded-full"></div>
+                  <div className="flex justify-center w-16 h-16 bg-white rounded-full">
+                    <CarOutlined className="text-yellow-500 text-3xl"/>
+                  </div>
                   <div className="text-3xl lg:text-5xl font-black text-white">
-                    30
+                  {stats.fleet}
                   </div>
                 </div>
                 <div className="text-white font-bold text-xl lg:text-2xl">
-                  Experience
+                Best Vehicles Fleet
                 </div>
                 <div className="text-xs lg:text-sm text-white">
                   Lorem ipsum dolor sit amet, leo consectetur adipiscing elit
@@ -781,13 +828,15 @@ const OurAchievement: React.FC = () => {
 
               <div className="text-center md:text-left flex flex-col gap-3 w-60 mt-8">
                 <div className="flex justify-center md:justify-start items-center gap-5">
-                  <div className="w-16 h-16 bg-white rounded-full"></div>
+                <div className="flex justify-center w-16 h-16 bg-white rounded-full">
+                    <EnvironmentOutlined className="text-yellow-500 text-3xl"/>
+                  </div>
                   <div className="text-3xl lg:text-5xl font-black text-white">
-                    30
+                  {stats.trips}
                   </div>
                 </div>
                 <div className="text-white font-bold text-xl lg:text-2xl">
-                  Experience
+                Road Trips Done
                 </div>
                 <div className="text-xs lg:text-sm text-white">
                   Lorem ipsum dolor sit amet, leo consectetur adipiscing elit
@@ -797,13 +846,15 @@ const OurAchievement: React.FC = () => {
 
               <div className="text-center md:text-left flex flex-col gap-3 w-60 mt-8">
                 <div className="flex justify-center md:justify-start items-center gap-5">
-                  <div className="w-16 h-16 bg-white rounded-full"></div>
+                <div className="flex justify-center w-16 h-16 bg-white rounded-full">
+                    <UserOutlined className="text-yellow-500 text-3xl"/>
+                  </div>
                   <div className="text-3xl lg:text-5xl font-black text-white">
-                    30
+                  {stats.dropped}
                   </div>
                 </div>
                 <div className="text-white font-bold text-xl lg:text-2xl">
-                  Experience
+                People Dropped
                 </div>
                 <div className="text-xs lg:text-sm text-white">
                   Lorem ipsum dolor sit amet, leo consectetur adipiscing elit
@@ -813,13 +864,15 @@ const OurAchievement: React.FC = () => {
 
               <div className="text-center md:text-left flex flex-col gap-3 w-60 mt-8">
                 <div className="flex justify-center md:justify-start items-center gap-5">
-                  <div className="w-16 h-16 bg-white rounded-full"></div>
+                <div className="flex justify-center w-16 h-16 bg-white rounded-full">
+                    <SmileOutlined className="text-yellow-500 text-3xl"/>
+                  </div>
                   <div className="text-3xl lg:text-5xl font-black text-white">
-                    30
+                    {stats.satisfied}
                   </div>
                 </div>
                 <div className="text-white font-bold text-xl lg:text-2xl">
-                  Experience
+                Satisfied Client
                 </div>
                 <div className="text-xs lg:text-sm text-white">
                   Lorem ipsum dolor sit amet, leo consectetur adipiscing elit
@@ -828,8 +881,8 @@ const OurAchievement: React.FC = () => {
               </div>
             </div>
           </div>
-        </Container>
-      </div>
+        </div>
+      </Container>
     </div>
   );
 };
@@ -988,7 +1041,7 @@ const StatsAndTestamonials: React.FC = () => {
 
   return (
     <>
-      <div
+      {/* <div
         initial="hidden"
         whileInView="visible"
         variants={fadeInDown}
@@ -1014,7 +1067,7 @@ const StatsAndTestamonials: React.FC = () => {
               lg:grid-cols-4
             "
             >
-              {/* Best Vehicles Fleet */}
+
               <div className="flex flex-col items-center">
                 <div className="mb-2 text-5xl md:text-8xl">
                   <CarOutlined />
@@ -1028,7 +1081,7 @@ const StatsAndTestamonials: React.FC = () => {
                 </div>
                 <div>Best Vehicles Fleet</div>
               </div>
-              {/* Road Trips Done */}
+
               <div className="flex flex-col items-center">
                 <div className="mb-2 text-5xl md:text-8xl">
                   <EnvironmentOutlined />
@@ -1042,7 +1095,7 @@ const StatsAndTestamonials: React.FC = () => {
                 </div>
                 <div>Road Trips Done</div>
               </div>
-              {/* People Dropped */}
+
               <div className="flex flex-col items-center">
                 <div className="mb-2 text-5xl md:text-8xl">
                   <UserOutlined />
@@ -1056,7 +1109,7 @@ const StatsAndTestamonials: React.FC = () => {
                 </div>
                 <div>People Dropped</div>
               </div>
-              {/* Satisfied Clients */}
+
               <div className="flex flex-col items-center">
                 <div className="mb-2 text-5xl md:text-8xl">
                   <SmileOutlined />
@@ -1073,7 +1126,7 @@ const StatsAndTestamonials: React.FC = () => {
             </div>
           </motion.div>
         </div>
-      </div>
+      </div> */}
 
       <div
         className="flex flex-col items-center"
