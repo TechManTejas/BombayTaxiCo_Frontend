@@ -183,9 +183,9 @@ const Search: React.FC = () => {
   useEffect(() => {
     const timer = setInterval(() => {
       setCurrentDate(dayjs());
-    }, 60000); 
+    }, 60000);
 
-    return () => clearInterval(timer); 
+    return () => clearInterval(timer);
   }, []);
 
   const toggleTripType = () => {
@@ -377,13 +377,28 @@ const Search: React.FC = () => {
             <div className="flex items-center h-full py-2">
               <div
                 className={`relative bg-[#404040] mx-1 py-2 rounded-lg text-sm hover:bg-gray-700 hover:cursor-pointer
-                ${tripType === 'Hourly Rental' ? 'w-48' : 'w-36 xl:w-40'}
+                ${tripType === "Hourly Rental" ? "w-48" : "w-36 xl:w-40"}
               `}
                 onClick={toggleTripType}
               >
-                <div className="px-2">
-                  <div className="text-yellow-500">TRIP TYPE</div>
-                  <div className="text-white">{tripType}</div>
+                <div className="px-2 flex justify-between items-center">
+                  <div>
+                    <div className="text-yellow-500">TRIP TYPE</div>
+                    <div className="text-white">{tripType}</div>
+                  </div>
+                  <svg
+                    className="ml-2"
+                    width="16"
+                    height="16"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="#eab308"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  >
+                    <polyline points="6 9 12 15 18 9" />
+                  </svg>
                 </div>
                 <Select
                   open={tripTypeOpen}
@@ -476,7 +491,7 @@ const Search: React.FC = () => {
                 <>
                   <div
                     className={`relative bg-[#404040] mx-1 py-2 rounded-lg text-sm hover:bg-gray-700 hover:cursor-pointer
-                    ${tripType === 'Hourly Rental' ? 'w-48' : 'w-36 xl:w-40'}
+                    ${tripType === "Hourly Rental" ? "w-48" : "w-36 xl:w-40"}
                   `}
                     onClick={togglePickupCity}
                   >
@@ -507,7 +522,7 @@ const Search: React.FC = () => {
 
               <div
                 className={`relative bg-[#404040] mx-1 py-2 rounded-lg text-sm hover:bg-gray-700 hover:cursor-pointer
-                ${tripType === 'Hourly Rental' ? 'w-48' : 'w-32 xl:w-36'}
+                ${tripType === "Hourly Rental" ? "w-48" : "w-32 xl:w-36"}
               `}
               >
                 <div className="px-2" onClick={togglePickupDatePicker}>
@@ -535,7 +550,7 @@ const Search: React.FC = () => {
 
               <div
                 className={`relative bg-[#404040] mx-1 py-2 rounded-lg text-sm hover:bg-gray-700 hover:cursor-pointer
-                ${tripType === 'Hourly Rental' ? 'w-48' : 'w-32 xl:w-36'}
+                ${tripType === "Hourly Rental" ? "w-48" : "w-32 xl:w-36"}
               `}
                 onClick={togglePickupTime}
               >
@@ -594,8 +609,10 @@ const Search: React.FC = () => {
                     </>
                   ) : (
                     <>
-                      <div className="text-yellow-500">RETURN DATE</div>
-                      <div className="text-white text-center">--- --- ---</div>
+                      <div className="" onClick={toggleReturnDatePicker}>
+                        <div className="text-yellow-500">RETURN DATE</div>
+                        <div className="text-white text-center">--- --- ---</div>
+                      </div>
                     </>
                   )}
                 </div>
@@ -604,7 +621,7 @@ const Search: React.FC = () => {
                 <>
                   <div
                     className={`relative bg-[#404040] mx-1 py-2 rounded-lg text-sm hover:bg-gray-700 hover:cursor-pointer
-                    ${tripType === 'Hourly Rental' ? 'w-48' : 'w-32 xl:w-36'}
+                    ${tripType === "Hourly Rental" ? "w-48" : "w-32 xl:w-36"}
               `}
                     onClick={toggleHourlyPackage}
                   >
@@ -672,6 +689,7 @@ const Search: React.FC = () => {
                 // Map and display car cards here
                 <>
                   {tripRates.map((rate: any, index: number) => (
+                    <div className="my-1">
                     <CarCard
                       key={index}
                       category={rate.taxiType?.name || ""}
@@ -685,6 +703,7 @@ const Search: React.FC = () => {
                       carImage={rate.taxiType.image || ""}
                       onBook={() => onBook(rate)}
                     />
+                    </div>
                   ))}
                 </>
               ) : (
@@ -742,10 +761,7 @@ const Search: React.FC = () => {
         <div className="container text-center space-x-1">
           <span className="text-zinc-800 font-semibold">Disclaimer:</span>
           <span className="text-zinc-600">
-            Fare listed above are estimated based on gathered information. Final
-            fare shall depend on actual traveled distance. Mileage & Timings
-            will be calculated from our garage to garage whereas vehicles will
-            be dispatched from the nearest garage.
+          Fare listed above are estimated based on gathered information. Final fare shall depend on actual traveled distance. Mileage & Timings will be calculated from our garage to garage whereas vehicles will be dispatched from the nearest garage.
           </span>
         </div>
       </div>

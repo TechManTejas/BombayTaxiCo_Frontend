@@ -51,7 +51,7 @@ const CarCard: React.FC<CarCardProps> = ({
 }) => {
 
     return (
-        <div className='my-1 bg-white' onClick={() => {
+        <div className='bg-white' onClick={() => {
             if (window.innerWidth < 1024) {
                 if (onBook) {
                     onBook()
@@ -110,14 +110,14 @@ const CarCard: React.FC<CarCardProps> = ({
                                 <div className='text-sm font-medium
                                 hidden
                                 lg:block
-                            '>FEATURES</div>
+                            '>AMENITIES</div>
                                 <div className='flex-wrap
                                 
                                 lg:flex
                                 lg:w-80
                             '>
                                     {features.map((feature, index) => (
-                                        <Tag key={index}>
+                                        <div className='text-xs rounded-full p-1.5 px-3 m-1 bg-zinc-100 text-zinc-700' key={index}>
                                             {feature.icon && featureIconMap[feature.icon] ? (
                                                 <FontAwesomeIcon icon={featureIconMap[feature.icon]} />
                                             ) : null}
@@ -126,7 +126,7 @@ const CarCard: React.FC<CarCardProps> = ({
                                                     {feature.feature}
                                                 </span>
                                             }
-                                        </Tag>
+                                        </div>
                                     ))}
                                 </div>
                                 {/* <div className='flex-wrap

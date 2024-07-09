@@ -4,12 +4,14 @@ import CarCard from "../components/CarCard";
 import {
   Button,
   Checkbox,
+  Collapse,
   Divider,
   Form,
   Input,
   Modal,
   Radio,
   RadioChangeEvent,
+  Segmented,
   Select,
   Space,
   message,
@@ -21,10 +23,18 @@ import { useLocation, useNavigate } from "react-router-dom";
 
 import { ISettings } from "../types/settings.types";
 import { IRoute } from "../types/routes.types";
-import { DownOutlined, UpOutlined } from "@ant-design/icons";
+import {
+  ArrowRightOutlined,
+  CalendarFilled,
+  CalendarOutlined,
+  DownOutlined,
+  UpOutlined,
+} from "@ant-design/icons";
 import dayjs, { Dayjs } from "dayjs";
 import { Context } from "../context/context.provider";
 import { BookingConfirmed } from "../components/BookingConfirmed";
+
+const { Panel } = Collapse;
 
 interface RazorpayResponse {
   amount: number;
@@ -63,85 +73,92 @@ interface RazorpayOptions {
 const ReadBeforeYouBook = () => {
   return (
     <>
-      <div className="bg-white border m-3 p-4 rounded-lg">
-        <div>
-          <div className="font-medium text-2xl mb-4">Read before you book!</div>
-          <div
-            className="lg:flex gap-8
-                   lg:w-[730px]
-                  "
-          >
-            <div className="lg:w-1/2 space-y-4">
-              <div className="space-y-2">
-                <div className="font-bold">Cab Category</div>
-                <div className="w-full text-zinc-500 text-sm">
-                  The booking will be for cab type HATCHBACK and we do not
-                  commit on providing the preferred cab model (Indica, Swift or
-                  similar)
+      <>
+        <>
+          <div className="bg-white border m-3  rounded-lg">
+            <Collapse accordion className="bg-white rounded-2xl border-none">
+              <Panel header="Read before you book!" key="1">
+                {/* <div className="font-medium text-2xl mb-4">Read before you book!</div> */}
+                <div
+                  className="lg:flex gap-8
+                    lg:w-[730px]
+                    "
+                >
+                  <div className="lg:w-1/2 space-y-4">
+                    <div className="space-y-2">
+                      <div className="font-bold">Cab Category</div>
+                      <div className="w-full text-zinc-500 text-sm">
+                        The booking will be for cab type HATCHBACK and we do not
+                        commit on providing the preferred cab model (Indica,
+                        Swift or similar)
+                      </div>
+                    </div>
+                    <div className="space-y-2">
+                      <div className="font-bold">Hilly Regions</div>
+                      <div className="w-full text-zinc-500 text-sm">
+                        AC will be switched off in hilly areas
+                      </div>
+                    </div>
+                    <div className="space-y-2">
+                      <div className="font-bold">Luggage Policy</div>
+                      <div className="w-full text-zinc-500 text-sm">
+                        HATCHBACK has space for 1 Luggage Bag. In case the car
+                        happens to be CNG, the luggage space will be lesser.
+                        However depending on the number of passengers, luggage
+                        can be adjusted in seating area with driver consent.
+                      </div>
+                    </div>
+                    <div className="space-y-2">
+                      <div className="font-bold">Driver Details</div>
+                      <div className="w-full text-zinc-500 text-sm">
+                        Driver details will be shared up to 30 mins prior to
+                        departure. Incase the driver/cab that reaches you for
+                        pick up is different from what we have communicated,
+                        please don't board the cab and call us for assistance.
+                      </div>
+                    </div>
+                  </div>
+                  <div className="lg:w-1/2 space-y-4">
+                    <div className="space-y-2">
+                      <div className="font-bold">Stops</div>
+                      <div className="w-full text-zinc-500 text-sm">
+                        This is a point to point booking and only one stop for
+                        meals is included.
+                      </div>
+                    </div>
+                    <div className="space-y-2">
+                      <div className="font-bold">Waiting Charges</div>
+                      <div className="w-full text-zinc-500 text-sm">
+                        Driver would wait maximum 45 minutes from your scheduled
+                        pickup time at your pickup location. Post this, your
+                        trip may get cancelled without any refund. If there is a
+                        mutual agreement between customer and driver, waiting
+                        charges would be Rs 2.0/min.
+                      </div>
+                    </div>
+                    <div className="space-y-2">
+                      <div className="font-bold">Delays</div>
+                      <div className="w-full text-zinc-500 text-sm">
+                        Due to traffic or any other unavoidable reason, pickup
+                        may be delayed by 30 mins.
+                      </div>
+                    </div>
+                    <div className="space-y-2">
+                      <div className="font-bold">Receipts</div>
+                      <div className="w-full text-zinc-500 text-sm">
+                        You need to collect receipts from the driver for any
+                        extra charges paid directly to the driver during the
+                        trip. MMT is not liable to provide invoices for such
+                        amounts.
+                      </div>
+                    </div>
+                  </div>
                 </div>
-              </div>
-              <div className="space-y-2">
-                <div className="font-bold">Hilly Regions</div>
-                <div className="w-full text-zinc-500 text-sm">
-                  AC will be switched off in hilly areas
-                </div>
-              </div>
-              <div className="space-y-2">
-                <div className="font-bold">Luggage Policy</div>
-                <div className="w-full text-zinc-500 text-sm">
-                  HATCHBACK has space for 1 Luggage Bag. In case the car happens
-                  to be CNG, the luggage space will be lesser. However depending
-                  on the number of passengers, luggage can be adjusted in
-                  seating area with driver consent.
-                </div>
-              </div>
-              <div className="space-y-2">
-                <div className="font-bold">Driver Details</div>
-                <div className="w-full text-zinc-500 text-sm">
-                  Driver details will be shared up to 30 mins prior to
-                  departure. Incase the driver/cab that reaches you for pick up
-                  is different from what we have communicated, please don't
-                  board the cab and call us for assistance.
-                </div>
-              </div>
-            </div>
-            <div className="lg:w-1/2 space-y-4">
-              <div className="space-y-2">
-                <div className="font-bold">Stops</div>
-                <div className="w-full text-zinc-500 text-sm">
-                  This is a point to point booking and only one stop for meals
-                  is included.
-                </div>
-              </div>
-              <div className="space-y-2">
-                <div className="font-bold">Waiting Charges</div>
-                <div className="w-full text-zinc-500 text-sm">
-                  Driver would wait maximum 45 minutes from your scheduled
-                  pickup time at your pickup location. Post this, your trip may
-                  get cancelled without any refund. If there is a mutual
-                  agreement between customer and driver, waiting charges would
-                  be Rs 2.0/min.
-                </div>
-              </div>
-              <div className="space-y-2">
-                <div className="font-bold">Delays</div>
-                <div className="w-full text-zinc-500 text-sm">
-                  Due to traffic or any other unavoidable reason, pickup may be
-                  delayed by 30 mins.
-                </div>
-              </div>
-              <div className="space-y-2">
-                <div className="font-bold">Receipts</div>
-                <div className="w-full text-zinc-500 text-sm">
-                  You need to collect receipts from the driver for any extra
-                  charges paid directly to the driver during the trip. MMT is
-                  not liable to provide invoices for such amounts.
-                </div>
-              </div>
-            </div>
+              </Panel>
+            </Collapse>
           </div>
-        </div>
-      </div>
+        </>
+      </>
     </>
   );
 };
@@ -149,67 +166,72 @@ const ReadBeforeYouBook = () => {
 const OnTripDosAndDonts = () => {
   return (
     <>
-      <div className="bg-white border m-3 p-4 rounded-lg">
-        <div>
-          <div className="font-medium text-2xl mb-4">On Trip Do's & Don'ts</div>
-          <div
-            className="lg:flex gap-8
+      <div className="bg-white border m-3  rounded-lg">
+        <Collapse accordion className="bg-white rounded-2xl border-none">
+          <Panel header="On Trip Do's & Don'ts" key="2">
+            {/* <div className="font-medium text-2xl mb-4">On Trip Do's & Don'ts</div> */}
+            <div
+              className="lg:flex gap-8
             lg:w-[730px]
           "
-          >
-            <div className="space-y-1 text-sm">
-              <div className="w-full">
-                ● You have booked our eco-friendly / cng service tier. Your trip
-                will be served with a *vehicle fueled by cng*
-              </div>
-              <div className="w-full">
-                ● When you book our value or cng service tiers, we only promise
-                to provide a vehicle of a certain category (compact, sedan, suv
-                etc). We do not guarantee a specific model of car. To choose a
-                specific vehicle model you must book in premium service tier.
-              </div>
-              <div className="w-full">
-                ● On-journey stops or waypoints are not allowed unless part of
-                itinerary and written in this confirmation email.
-              </div>
-              <div className="w-full">
-                ● A single 15-minute complimentary on journey break is included
-                for point-to-point trips longer than 4 hours.
-              </div>
-              <div className="w-full">
-                ● 30 min rest for driver and/or change of vehicle for more than
-                4 hours continuous drive is customary. This is to ensure safe
-                driving.
-              </div>
-              <div className="w-full">
-                ● Drivable kms in your quote are estimates. You will be billed
-                for the actual distance travelled. If you have not provided the
-                exact address before your pickup the booking amount is estimate
-                for travel from city center to city center. Actual distance
-                travelled may differ based on exact addresses and/or itinerary.
-              </div>
-              <div className="w-full">
-                ● Driver may not agree to any changes to route or itinerary. Any
-                changes, additions of waypoints, pick-up points, drop points,
-                halts, destination cities or sightseeing spots are absolutely
-                not authorized unless they are added to your itinerary and
-                confirmed in writing through a booking confirmation email.
-                Changes to itinerary may lead to price changes.
-              </div>
-              <div className="w-full">
-                ● Ac may be switched off only in hilly regions (high altitude)
-                to prevent engine overload.
-              </div>
-              <div className="w-full">
-                ● "You agree to make payments for your trip as per the following
-                payment schedule. (1) advance payment to Bombay taxi company at
-                time of booking. (2) 50% of remaining payable amount to driver
-                upon boarding (3) daily part payments of remaining amount to
-                driver in equal parts "
+            >
+              <div className="space-y-1 text-sm">
+                <div className="w-full">
+                  ● You have booked our eco-friendly / cng service tier. Your
+                  trip will be served with a *vehicle fueled by cng*
+                </div>
+                <div className="w-full">
+                  ● When you book our value or cng service tiers, we only
+                  promise to provide a vehicle of a certain category (compact,
+                  sedan, suv etc). We do not guarantee a specific model of car.
+                  To choose a specific vehicle model you must book in premium
+                  service tier.
+                </div>
+                <div className="w-full">
+                  ● On-journey stops or waypoints are not allowed unless part of
+                  itinerary and written in this confirmation email.
+                </div>
+                <div className="w-full">
+                  ● A single 15-minute complimentary on journey break is
+                  included for point-to-point trips longer than 4 hours.
+                </div>
+                <div className="w-full">
+                  ● 30 min rest for driver and/or change of vehicle for more
+                  than 4 hours continuous drive is customary. This is to ensure
+                  safe driving.
+                </div>
+                <div className="w-full">
+                  ● Drivable kms in your quote are estimates. You will be billed
+                  for the actual distance travelled. If you have not provided
+                  the exact address before your pickup the booking amount is
+                  estimate for travel from city center to city center. Actual
+                  distance travelled may differ based on exact addresses and/or
+                  itinerary.
+                </div>
+                <div className="w-full">
+                  ● Driver may not agree to any changes to route or itinerary.
+                  Any changes, additions of waypoints, pick-up points, drop
+                  points, halts, destination cities or sightseeing spots are
+                  absolutely not authorized unless they are added to your
+                  itinerary and confirmed in writing through a booking
+                  confirmation email. Changes to itinerary may lead to price
+                  changes.
+                </div>
+                <div className="w-full">
+                  ● Ac may be switched off only in hilly regions (high altitude)
+                  to prevent engine overload.
+                </div>
+                <div className="w-full">
+                  ● "You agree to make payments for your trip as per the
+                  following payment schedule. (1) advance payment to Bombay taxi
+                  company at time of booking. (2) 50% of remaining payable
+                  amount to driver upon boarding (3) daily part payments of
+                  remaining amount to driver in equal parts "
+                </div>
               </div>
             </div>
-          </div>
-        </div>
+          </Panel>
+        </Collapse>
       </div>
     </>
   );
@@ -218,71 +240,73 @@ const OnTripDosAndDonts = () => {
 const OtherTerms = () => {
   return (
     <>
-      <div className="bg-white border m-3 p-4 rounded-lg">
-        <div>
-          <div className="font-medium text-2xl mb-4">Other Terms</div>
-          <div
-            className="lg:flex gap-8
+      <div className="bg-white border m-3  rounded-lg">
+        <Collapse accordion className="bg-white rounded-2xl border-none">
+          <Panel header="Other Terms" key="3">
+            {/* <div className="font-medium text-2xl mb-4">Other Terms</div> */}
+            <div
+              className="lg:flex gap-8
             lg:w-[730px]
           "
-          >
-            <div className="space-y-1 text-sm">
-              <div className="w-full">
-                ● Should you have any questions we recommend you read our
-                frequently asked questions at https://Bombay taxi
-                company.com/FAQ or you may request a callback from our team. Be
-                sure to be logged in and give your booking id when requesting a
-                call back. This helps us find your reservation and prioritizes
-                your call in the call queue.
-              </div>
-              <div className="w-full">
-                ● One day means one calendar day (12 am midnight to 11.59 pm
-                next day).
-              </div>
-              <div className="w-full">
-                ● Vehicle fuel type shall be subject to availability. We do not
-                commit to serve you with vehicle of a specific fuel type (petrol
-                / diesel / ev etc)
-              </div>
-              <div className="w-full">
-                ● Pickup may be delayed by 30 minutes at most due to traffic
-                conditions or other unavoidable circumstances.
-              </div>
-              <div className="w-full">
-                ● You are solely responsible for managing your own travel
-                schedule. Please budget for traffic delays and unforeseen delays
-                as those are beyond our control. Bombay taxi company shall not
-                be liable for any compensation if you happen to miss your
-                flight, train or bus due to delayed pickup, traffic jam, road
-                blockage / diversion or any other reason during the trip.
-              </div>
-              <div className="w-full">
-                ● Please do not share your personal banking or payment card
-                details like passwords, cvv etc. With any third party claiming
-                to be Bombay taxi company representatives. For any query, please
-                reach out to our official customer care number and/or raise a
-                call back request.
-              </div>
-              <div className="w-full">
-                ● Your reservation is subject to Bombay taxi company terms and
-                conditions. (http://www.Bombay taxi company.com/terms). We will
-                contact you via email for feedback after this trip. Please
-                promptly write a review so we can address any concerns you raise
-                in conformance with the terms & conditions of this reservation.
-                Our ability to address grievances is severely limited if your
-                feedback is received after 7 calendar days of completion of your
-                trip.
-              </div>
-              <div className="w-full">
-                ● It is required that the entire itinerary be documented in your
-                reservation. The quoted price will change based on multiple
-                factors including but not limited to the itinerary, waypoints,
-                driving terrain, local union fees, local restrictions and
-                estimated distances to be driven.
+            >
+              <div className="space-y-1 text-sm">
+                <div className="w-full">
+                  ● Should you have any questions we recommend you read our
+                  frequently asked questions at https://Bombay taxi
+                  company.com/FAQ or you may request a callback from our team.
+                  Be sure to be logged in and give your booking id when
+                  requesting a call back. This helps us find your reservation
+                  and prioritizes your call in the call queue.
+                </div>
+                <div className="w-full">
+                  ● One day means one calendar day (12 am midnight to 11.59 pm
+                  next day).
+                </div>
+                <div className="w-full">
+                  ● Vehicle fuel type shall be subject to availability. We do
+                  not commit to serve you with vehicle of a specific fuel type
+                  (petrol / diesel / ev etc)
+                </div>
+                <div className="w-full">
+                  ● Pickup may be delayed by 30 minutes at most due to traffic
+                  conditions or other unavoidable circumstances.
+                </div>
+                <div className="w-full">
+                  ● You are solely responsible for managing your own travel
+                  schedule. Please budget for traffic delays and unforeseen
+                  delays as those are beyond our control. Bombay taxi company
+                  shall not be liable for any compensation if you happen to miss
+                  your flight, train or bus due to delayed pickup, traffic jam,
+                  road blockage / diversion or any other reason during the trip.
+                </div>
+                <div className="w-full">
+                  ● Please do not share your personal banking or payment card
+                  details like passwords, cvv etc. With any third party claiming
+                  to be Bombay taxi company representatives. For any query,
+                  please reach out to our official customer care number and/or
+                  raise a call back request.
+                </div>
+                <div className="w-full">
+                  ● Your reservation is subject to Bombay taxi company terms and
+                  conditions. (http://www.Bombay taxi company.com/terms). We
+                  will contact you via email for feedback after this trip.
+                  Please promptly write a review so we can address any concerns
+                  you raise in conformance with the terms & conditions of this
+                  reservation. Our ability to address grievances is severely
+                  limited if your feedback is received after 7 calendar days of
+                  completion of your trip.
+                </div>
+                <div className="w-full">
+                  ● It is required that the entire itinerary be documented in
+                  your reservation. The quoted price will change based on
+                  multiple factors including but not limited to the itinerary,
+                  waypoints, driving terrain, local union fees, local
+                  restrictions and estimated distances to be driven.
+                </div>
               </div>
             </div>
-          </div>
-        </div>
+          </Panel>
+        </Collapse>
       </div>
     </>
   );
@@ -291,51 +315,55 @@ const OtherTerms = () => {
 const PreBoardingGuidelines = () => {
   return (
     <>
-      <div className="bg-white border m-3 p-4 rounded-lg">
-        <div>
-          <div className="font-medium text-2xl mb-4">
+      <div className="bg-white border m-3  rounded-lg">
+        <Collapse accordion className="bg-white rounded-2xl border-none">
+          <Panel header="Pre-boarding guidelines" key="4">
+            {/* <div className="font-medium text-2xl mb-4">
             Pre-boarding guidelines
-          </div>
-          <div
-            className="lg:flex gap-8
+          </div> */}
+            <div
+              className="lg:flex gap-8
             lg:w-[730px]
           "
-          >
-            <div className="space-y-1 text-sm">
-              <div className="w-full">● Check identification of the driver</div>
-              <div className="w-full">
-                ● Are there changes in your trip start address ? -- first update
-                the pickup address with Bombay taxi company. For safety and
-                security reasons, driver is unable start the trip from a
-                location other than the one provided in the booking.
-              </div>
-              <div className="w-full">
-                ● Do not ride if the vehicle is not commercially licensed.
-                (yellow license plate)
-              </div>
-              <div className="w-full">
-                ● Do not ride if the vehicle and/or driver information do not
-                match the information provided by Bombay taxi company.
-              </div>
-              <div className="w-full">
-                ● Bombay taxi company shall not be responsible or liable in any
-                manner if you choose to ride in a vehicle that is not
-                commercially licensed or ride with a driver or vehicle other
-                than the one that we have assigned to you.
-              </div>
-              <div className="w-full">
-                ● You may ask the driver for identification to ensure that you
-                are riding with the correct driver. Drivers may ask for your
-                identification too. Failure to provide identification will make
-                your booking subject to cancellation at your cost.
-              </div>
-              <div className="w-full">
-                ● Provide the one-time password (otp) to the driver to start the
-                trip.
+            >
+              <div className="space-y-1 text-sm">
+                <div className="w-full">
+                  ● Check identification of the driver
+                </div>
+                <div className="w-full">
+                  ● Are there changes in your trip start address ? -- first
+                  update the pickup address with Bombay taxi company. For safety
+                  and security reasons, driver is unable start the trip from a
+                  location other than the one provided in the booking.
+                </div>
+                <div className="w-full">
+                  ● Do not ride if the vehicle is not commercially licensed.
+                  (yellow license plate)
+                </div>
+                <div className="w-full">
+                  ● Do not ride if the vehicle and/or driver information do not
+                  match the information provided by Bombay taxi company.
+                </div>
+                <div className="w-full">
+                  ● Bombay taxi company shall not be responsible or liable in
+                  any manner if you choose to ride in a vehicle that is not
+                  commercially licensed or ride with a driver or vehicle other
+                  than the one that we have assigned to you.
+                </div>
+                <div className="w-full">
+                  ● You may ask the driver for identification to ensure that you
+                  are riding with the correct driver. Drivers may ask for your
+                  identification too. Failure to provide identification will
+                  make your booking subject to cancellation at your cost.
+                </div>
+                <div className="w-full">
+                  ● Provide the one-time password (otp) to the driver to start
+                  the trip.
+                </div>
               </div>
             </div>
-          </div>
-        </div>
+          </Panel>
+        </Collapse>
       </div>
     </>
   );
@@ -376,7 +404,7 @@ const Details: React.FC = () => {
     setIsOtherChecked(e.target.checked);
   };
 
-  console.log(state)
+  console.log(state);
 
   const calcAdvancePay = () => {
     return Math.round(
@@ -711,7 +739,7 @@ const Details: React.FC = () => {
                 preview
               />
               <>
-                <div className="bg-white border m-3 p-4 rounded-lg">
+                <div className="bg-white border p-4 rounded-lg">
                   <div
                     className="flex h-full
                       flex-col
@@ -719,36 +747,37 @@ const Details: React.FC = () => {
                     "
                   >
                     <div>
-                      <div className="font-light space-y-2">
-                        <div className="font-medium text-2xl mb-4">
-                          {tripType}
+                      <div className="font-light">
+                        <div className="font-medium text-2xl flex items-center gap-2">
+                          <div>{state?.from}</div>
+                          {state?.to && (
+                            <div>
+                              <ArrowRightOutlined
+                                size={8}
+                                className="text-white bg-yellow-500 rounded-full p-1"
+                              />
+                            </div>
+                          )}
+                          {state?.to && <div>{state?.to}</div>}
                         </div>
-                        <div>
-                          <strong>Pickup Date:</strong>{" "}
+                        <div className="flex gap-2">
+                          <CalendarOutlined />
                           {pickupDate.format("D MMM YYYY")}
                         </div>
-                        <div>
-                          <strong>Pickup Time:</strong> {pickupTime}
+                        <div className="flex gap-2 text-sm">
+                          <div className="font-medium">Pickup Time:</div>
+                          <div>{pickupTime}</div>
                         </div>
-                        {tripType !== "Hourly Rental" && (
-                          <>
-                            <div>
-                              <strong>From:</strong> {state?.from}
-                            </div>
-                            <div>
-                              <strong>To:</strong> {state?.to}
-                            </div>
-                          </>
-                        )}
                         {tripType === "Round Trip" && returnDate && (
-                          <div>
-                            <strong>Return Date:</strong>{" "}
-                            {returnDate.format("D MMM YYYY")}
+                          <div className="flex gap-2 text-sm">
+                            <div className="font-medium">Return Date:</div>
+                            <div>{returnDate.format("D MMM YYYY")}</div>
                           </div>
                         )}
                         {tripType === "Hourly Rental" && (
-                          <div>
-                            <strong>Selected Package:</strong> {hourlyPackage}
+                          <div className="flex gap-2 text-sm">
+                            <div className="font-medium">Selected Package:</div>{" "}
+                            {hourlyPackage}
                           </div>
                         )}
                       </div>
@@ -757,14 +786,14 @@ const Details: React.FC = () => {
                 </div>
               </>
               <>
-                <div className="bg-white border m-3 p-4 rounded-lg">
+                <div className=" ">
                   <div
                     className="flex h-full
                   flex-col
                   lg:flex-row
                 "
                   >
-                    <div className="lg:w-1/2">
+                    <div className="lg:w-1/2 bg-white border m-3 p-4 rounded-lg shadow-lg">
                       <div className="font-medium text-2xl mb-4">
                         Inclusions
                       </div>
@@ -791,7 +820,7 @@ const Details: React.FC = () => {
                         </ul>
                       </div>
                     </div>
-                    <div className="lg:w-1/2">
+                    <div className="lg:w-1/2 bg-white border m-3 p-4 rounded-lg shadow-lg">
                       <div className="font-medium text-2xl mb-4">
                         Exclusions
                       </div>
@@ -831,398 +860,436 @@ const Details: React.FC = () => {
                 </div>
               </>
               <>
-                <div className="bg-white border m-3 p-4 rounded-lg">
-                  <div className="">
-                    <div className="font-medium text-2xl mb-4">
-                      Trip Details
-                    </div>
-                    <div>
-                      <Form
-                        form={form}
-                        layout="vertical"
-                        name="tripDetailsForm"
-                        onFinish={() => {}}
-                        className="mt-4"
-                      >
+                <div className="">
+                  <Form
+                    form={form}
+                    layout="vertical"
+                    name="tripDetailsForm"
+                    onFinish={() => {}}
+                    className="mt-4"
+                  >
+                      <div className="bg-white border m-3 my-4 p-4 rounded-lg shadow-lg">
+                      <div className="font-medium text-2xl mb-4">
+                        Primary Passenger
+                      <div className="text-xs text-zinc-400">ADULT</div>
+                      </div>
+
+                      <div className="lg:flex w-full gap-10">
                         <Form.Item
+                          className="w-full"
                           label={
-                            <div className="lg:flex items-center gap-1">
-                              <div className="font-semibold">
-                                Pick-up Address
-                              </div>
-                              <div className="text-xs text-zinc-400">
-                                (This will help our driver reach you on time)
-                              </div>
+                            <div className="flex items-center space-x-1">
+                              <div className="font-semibold">Name</div>
                             </div>
                           }
-                          name="pickupAddress"
+                          name="name"
                           rules={[
                             {
                               required: true,
-                              message: "Please enter the pick-up address!",
+                              message: "Please enter you Name!",
                             },
                           ]}
                         >
-                          <Input placeholder="Enter exact pick-up address/nearby location/ building name" />
+                          <Input placeholder="Enter your full name" />
                         </Form.Item>
+
                         <Form.Item
+                          className="w-full"
                           label={
-                            <div className="lg:flex items-center gap-1">
-                              <div className="font-semibold">
-                                Drop-off Address
-                              </div>
+                            <div className="flex items-center space-x-1">
+                              <div className="font-semibold">Gender</div>
+                            </div>
+                          }
+                          name="gender"
+                          rules={[
+                            {
+                              required: true,
+                              message: "Please select your gender!",
+                            },
+                          ]}
+                        >
+                          <Segmented
+                            className="rounded-full"
+                            options={[
+                              { label: "Male", value: "male" },
+                              { label: "Female", value: "female" },
+                            ]}
+                          />
+                        </Form.Item>
+                      </div>
+                    </div>
+
+                    <div className="bg-white border m-3 my-4 p-4 rounded-lg shadow-lg">
+                      <div className="font-medium text-2xl mb-4">
+                        Your Contact Details
+                      </div>
+
+                      <div className="lg:flex w-full gap-10">
+                        <Form.Item
+                          className="w-full"
+                          label={
+                            <div className="flex items-center space-x-1">
+                              <div className="font-semibold">Email Id</div>
                               <div className="text-xs text-zinc-400">
                                 {" "}
-                                (Optional - This will help you avoid any extra
-                                charges after the trip)
+                                (Your booking confirmation will be sent here)
                               </div>
                             </div>
                           }
-                          name="dropoffAddress"
+                          rules={[
+                            {
+                              required: true,
+                              type: "email",
+                              message: "Please enter your email address!",
+                            },
+                          ]}
+                          name="emailId"
                         >
-                          <Input placeholder="Enter drop address to know the exact fare & avoid extra changes after the trip" />
+                          <Input placeholder="Enter your full name" />
+                        </Form.Item>
+                      </div>
+
+                      <div className="lg:flex w-full gap-10">
+
+                        <Form.Item
+                          className="w-full"
+                          label={
+                            <div className="flex items-center space-x-1">
+                              <div className="font-semibold">
+                                Contact Number
+                              </div>
+                            </div>
+                          }
+                          name="contactNumber"
+                          rules={[
+                            {
+                              required: true,
+                              message: "Please enter your contact number!",
+                            },
+                            {
+                              pattern: new RegExp(/^\d+$/),
+                              message: "Please enter a valid contact number!",
+                            },
+                            {
+                              len: 10,
+                              message:
+                                "Contact number must be exactly 10 digits long.",
+                            },
+                          ]}
+                        >
+                          <Input
+                            type="tel"
+                            placeholder="Enter your contact number"
+                            maxLength={10}
+                          />
                         </Form.Item>
 
-                        <Divider className="w-full border-zinc-300" />
-
-                        <div className="font-semibold text-lg my-4">
-                          Confirm Traveller Information
-                        </div>
-
-                        <div className="lg:flex w-full gap-10">
-                          <Form.Item
-                            className="w-full"
-                            label={
-                              <div className="flex items-center space-x-1">
-                                <div className="font-semibold">Name</div>
+                        <Form.Item
+                          className="w-full"
+                          label={
+                            <div className="flex items-center space-x-1">
+                              <div className="font-semibold">
+                                Alternate Contact Number
                               </div>
-                            }
-                            name="name"
-                            rules={[
-                              {
-                                required: true,
-                                message: "Please enter you Name!",
-                              },
-                            ]}
-                          >
-                            <Input placeholder="Enter your full name" />
-                          </Form.Item>
+                            </div>
+                          }
+                          name="alternateContactNumber"
+                          rules={[
+                            {
+                              pattern: new RegExp(/^\d+$/),
+                              message: "Please enter a valid contact number!",
+                            },
+                            {
+                              len: 10,
+                              message:
+                                "Contact number must be exactly 10 digits long.",
+                            },
+                          ]}
+                        >
+                          <Input
+                            type="tel"
+                            placeholder="Enter your alternate contact number (Optional)"
+                            maxLength={10}
+                          />
+                        </Form.Item>
+                      </div>
 
-                          <Form.Item
-                            className="w-full"
-                            label={
-                              <div className="flex items-center space-x-1">
-                                <div className="font-semibold">Gender</div>
-                              </div>
-                            }
-                            name="gender"
-                            rules={[
-                              {
-                                required: true,
-                                message: "Please select your gender!",
-                              },
-                            ]}
-                          >
-                            <Radio.Group>
-                              <Radio value="male">Male</Radio>
-                              <Radio value="female">Female</Radio>
-                              <Radio value="other">Other</Radio>
-                            </Radio.Group>
-                          </Form.Item>
-                        </div>
-
-                        <div className="lg:flex w-full gap-10">
-                          <Form.Item
-                            className="w-full"
-                            label={
-                              <div className="flex items-center space-x-1">
-                                <div className="font-semibold">Email Id</div>
-                                <div className="text-xs text-zinc-400">
-                                  {" "}
-                                  (Your booking confirmation will be sent here)
-                                </div>
-                              </div>
-                            }
-                            rules={[
-                              {
-                                required: true,
-                                type: "email",
-                                message: "Please enter your email address!",
-                              },
-                            ]}
-                            name="emailId"
-                          >
-                            <Input placeholder="Enter your full name" />
-                          </Form.Item>
-
-                          <Form.Item
-                            className="w-full"
-                            label={
-                              <div className="flex items-center space-x-1">
-                                <div className="font-semibold">
-                                  Contact Number
-                                </div>
-                              </div>
-                            }
-                            name="contactNumber"
-                            rules={[
-                              {
-                                required: true,
-                                message: "Please enter your contact number!",
-                              },
-                              {
-                                pattern: new RegExp(/^\d+$/),
-                                message: "Please enter a valid contact number!",
-                              },
-                              {
-                                len: 10,
-                                message:
-                                  "Contact number must be exactly 10 digits long.",
-                              },
-                            ]}
-                          >
-                            <Input
-                              type="tel"
-                              placeholder="Enter your contact number"
-                              maxLength={10}
-                            />
-                          </Form.Item>
-                        </div>
-
-                        <div>
-                          By proceeding to book, I Agree to Bombay Taxi's{" "}
-                          <a
-                            href="/privacy-policy"
-                            className="text-yellow-500 hover:underline"
-                          >
-                            Privacy Policy{" "}
-                          </a>
-                          {/* <a className='text-yellow-500 hover:underline'>
+                      <div>
+                        By proceeding to book, I Agree to Bombay Taxi's{" "}
+                        <a
+                          href="/privacy-policy"
+                          className="text-yellow-500 hover:underline"
+                        >
+                          Privacy Policy{" "}
+                        </a>
+                        {/* <a className='text-yellow-500 hover:underline'>
                             User Agreement{' '}
                           </a> */}
-                          and
-                          <a
-                            href="/terms-conditions"
-                            className="text-yellow-500 hover:underline"
-                          >
-                            Terms of Service{" "}
-                          </a>
+                        and
+                        <a
+                          href="/terms-conditions"
+                          className="text-yellow-500 hover:underline"
+                        >
+                          Terms of Service{" "}
+                        </a>
+                      </div>
+
+                      <div className="lg:flex items-center my-4 space-x-1">
+                        <div className="font-semibold text-lg">
+                          Your pincode and state
                         </div>
-
-                        <div className="lg:flex items-center my-4 space-x-1">
-                          <div className="font-semibold text-lg">
-                            Your pincode and state
-                          </div>
-                          <div className="text-xs text-zinc-400">
-                            (Required for GST purpose on your tax invoice. You
-                            can edit this anytime later in your profile
-                            section.)
-                          </div>
+                        <div className="text-xs text-zinc-400">
+                          (Required for GST purpose on your tax invoice. You can
+                          edit this anytime later in your profile section.)
                         </div>
+                      </div>
 
-                        <div className="lg:flex w-full gap-5">
-                          <Form.Item
-                            className="w-full"
-                            label={
-                              <div className="flex items-center space-x-1">
-                                <div className="font-semibold">Pincode</div>
-                              </div>
-                            }
-                            name="pincode"
-                            rules={[
-                              {
-                                required: true,
-                                message: "Please enter your pincode!",
-                              },
-                            ]}
-                          >
-                            <Input placeholder="Your Pincode" />
-                          </Form.Item>
-
-                          <Form.Item
-                            className="w-full"
-                            label={
-                              <div className="flex items-center space-x-1">
-                                <div className="font-semibold">State</div>
-                              </div>
-                            }
-                            name="state"
-                          >
-                            <div
-                              placeholder="Select State"
-                              defaultValue={"Maharashtra"}
-                            >
-                              {/* Add Option for each state */}
-                              <div>Maharashtra</div>
-                              {/* Add more states as needed */}
+                      <div className="lg:flex w-full gap-5">
+                        <Form.Item
+                          className="w-full"
+                          label={
+                            <div className="flex items-center space-x-1">
+                              <div className="font-semibold">Pincode</div>
                             </div>
-                          </Form.Item>
+                          }
+                          name="pincode"
+                          rules={[
+                            {
+                              required: true,
+                              message: "Please enter your pincode!",
+                            },
+                          ]}
+                        >
+                          <Input placeholder="Your Pincode" />
+                        </Form.Item>
 
-                          <Form.Item
-                            className="w-full"
-                            label={
-                              <div className="flex items-center space-x-1">
-                                <div className="font-semibold">Address</div>
-                              </div>
-                            }
-                            name="address"
+                        <Form.Item
+                          className="w-full"
+                          label={
+                            <div className="flex items-center space-x-1">
+                              <div className="font-semibold">State</div>
+                            </div>
+                          }
+                          name="state"
+                        >
+                          <div
+                            placeholder="Select State"
+                            defaultValue={"Maharashtra"}
                           >
-                            <Input placeholder="Your Address (Optional)" />
-                          </Form.Item>
-                        </div>
+                            {/* Add Option for each state */}
+                            <div>Maharashtra</div>
+                            {/* Add more states as needed */}
+                          </div>
+                        </Form.Item>
 
-                        {/* <Form.Item
+                        <Form.Item
+                          className="w-full"
+                          label={
+                            <div className="flex items-center space-x-1">
+                              <div className="font-semibold">Address</div>
+                            </div>
+                          }
+                          name="address"
+                        >
+                          <Input placeholder="Your Address (Optional)" />
+                        </Form.Item>
+                      </div>
+                    </div>
+
+                    {/* <Form.Item
                           name="termsAndConditions"
                           valuePropName="checked"
-                        >
+                          >
                           <div className='flex items-center my-4 space-x-2'>
-                            <input type="checkbox" />
-                            <div>
+                          <input type="checkbox" />
+                          <div>
                               Confirm and save billing details to your profile
                             </div>
                           </div>
                         </Form.Item> */}
 
-                        {/* <Form.Item name="termsAndConditions" valuePropName="checked">
+                    {/* <Form.Item name="termsAndConditions" valuePropName="checked">
                           <Checkbox value="seniorCitizen">Confirm and save billing details to your profile</Checkbox>
                         </Form.Item> */}
 
-                        <div className="font-semibold text-lg my-4">
-                          Additional details
-                        </div>
-
-                        <div className="lg:flex w-full gap-10">
-                          <Form.Item
-                            className="w-1/2"
-                            label="No. of passengers"
-                            name="numberOfPassengers"
-                          >
-                            <Select placeholder="Select number of passengers">
-                              {[...Array(10)].map((_, index) => (
-                                <Option
-                                  key={(index + 1).toString()}
-                                  value={(index + 1).toString()}
-                                >
-                                  {index + 1}
-                                </Option>
-                              ))}
-                            </Select>
-                          </Form.Item>
-                        </div>
-
-                        <div className="lg:flex w-full gap-10">
-                          <Form.Item
-                            className="w-1/2"
-                            label="No. of large bags"
-                            name="numberOfLargeBags"
-                          >
-                            <Select placeholder="Select number of large bags">
-                              {[...Array(5)].map((_, index) => (
-                                <Option
-                                  key={index.toString()}
-                                  value={index.toString()}
-                                >
-                                  {index}
-                                </Option>
-                              ))}
-                            </Select>
-                          </Form.Item>
-
-                          <Form.Item
-                            className="w-1/2"
-                            label="No. of small bags"
-                            name="numberOfSmallBags"
-                          >
-                            <Select placeholder="Select number of small bags">
-                              {[...Array(5)].map((_, index) => (
-                                <Option
-                                  key={index.toString()}
-                                  value={index.toString()}
-                                >
-                                  {index}
-                                </Option>
-                              ))}
-                            </Select>
-                          </Form.Item>
-                        </div>
-
-                        <div className="pb-4">
-                          Please provide additional information to help us to
-                          serve you better.
-                        </div>
-
-                        <Form.Item name="seniorCitizen" valuePropName="checked">
-                          <Checkbox value="seniorCitizen">
-                            Senior citizen traveling
-                          </Checkbox>
-                        </Form.Item>
-                        <Form.Item
-                          name="womenTraveling"
-                          valuePropName="checked"
-                        >
-                          <Checkbox value="womenTraveling">
-                            Women traveling
-                          </Checkbox>
-                        </Form.Item>
-                        <Form.Item name="kidsOnBoard" valuePropName="checked">
-                          <Checkbox value="kidsOnBoard">Kids on board</Checkbox>
-                        </Form.Item>
-                        <Form.Item
-                          name="englishSpeakingDriver"
-                          valuePropName="checked"
-                        >
-                          <Checkbox value="englishSpeakingDriver">
-                            English-speaking driver preferred
-                          </Checkbox>
-                        </Form.Item>
-                        <Form.Item name="carryingPet" valuePropName="checked">
-                          <Checkbox value="carryingPet">Carrying Pet</Checkbox>
-                        </Form.Item>
-                        <Form.Item
-                          name="need7Plus1Seater"
-                          valuePropName="checked"
-                        >
-                          <Checkbox value="need7Plus1Seater">
-                            Need 7+1 seater
-                          </Checkbox>
-                        </Form.Item>
-                        <Form.Item
-                          name="carrierOverTop"
-                          valuePropName="checked"
-                        >
-                          <Checkbox value="carrierOverTop">
-                            Carrier over the top of vehicle
-                          </Checkbox>
-                        </Form.Item>
-                        <Form.Item
-                          name="bookingForSomeoneElse"
-                          valuePropName="checked"
-                        >
-                          <Checkbox value="bookingForSomeoneElse">
-                            Booking for someone else
-                          </Checkbox>
-                        </Form.Item>
-                        <Form.Item name="other" valuePropName="checked">
-                          <Checkbox
-                            onChange={onOtherCheckboxChange}
-                            value="other"
-                          >
-                            Other
-                          </Checkbox>
-                        </Form.Item>
-
-                        {isOtherChecked && (
-                          <Form.Item name="otherDetails">
-                            <Input.TextArea
-                              placeholder="Please specify"
-                              autoSize={{ minRows: 3, maxRows: 3 }}
-                              style={{ resize: "none" }}
-                            />
-                          </Form.Item>
-                        )}
-                      </Form>
+                    <div className="bg-white border m-3 my-4 p-4 rounded-lg shadow-lg">
+                      <div className="font-medium text-2xl mb-4">
+                        Itenary Details
+                      </div>
+                      <Form.Item
+                        label={
+                          <div className="lg:flex items-center gap-1">
+                            <div className="font-semibold">Pick-up Address</div>
+                            <div className="text-xs text-zinc-400">
+                              (This will help our driver reach you on time)
+                            </div>
+                          </div>
+                        }
+                        name="pickupAddress"
+                        rules={[
+                          {
+                            required: true,
+                            message: "Please enter the pick-up address!",
+                          },
+                        ]}
+                      >
+                        <Input placeholder="Enter exact pick-up address/nearby location/ building name" />
+                      </Form.Item>
+                      <Form.Item
+                        label={
+                          <div className="lg:flex items-center gap-1">
+                            <div className="font-semibold">
+                              Drop-off Address
+                            </div>
+                            <div className="text-xs text-zinc-400">
+                              {" "}
+                              (Optional - This will help you avoid any extra
+                              charges after the trip)
+                            </div>
+                          </div>
+                        }
+                        name="dropoffAddress"
+                        rules={[
+                          {
+                            required: true,
+                            message: "Please enter the drop-off address!",
+                          },
+                        ]}
+                      >
+                        <Input placeholder="Enter drop address to know the exact fare & avoid extra changes after the trip" />
+                      </Form.Item>
                     </div>
-                  </div>
+
+                    <div className="bg-white border m-3 my-4 p-4 rounded-lg shadow-lg">
+                      <div className="font-medium text-2xl mb-4">
+                        Additional details
+                      </div>
+
+                      <div className="lg:flex w-full gap-10">
+                        <Form.Item
+                          className="w-1/2"
+                          label="No. of passengers"
+                          name="numberOfPassengers"
+                        >
+                          <Select placeholder="Select number of passengers">
+                            {[...Array(10)].map((_, index) => (
+                              <Option
+                                key={(index + 1).toString()}
+                                value={(index + 1).toString()}
+                              >
+                                {index + 1}
+                              </Option>
+                            ))}
+                          </Select>
+                        </Form.Item>
+                      </div>
+
+                      <div className="lg:flex w-full gap-10">
+                        <Form.Item
+                          className="w-1/2"
+                          label="No. of large bags"
+                          name="numberOfLargeBags"
+                        >
+                          <Select placeholder="Select number of large bags">
+                            {[...Array(5)].map((_, index) => (
+                              <Option
+                                key={index.toString()}
+                                value={index.toString()}
+                              >
+                                {index}
+                              </Option>
+                            ))}
+                          </Select>
+                        </Form.Item>
+
+                        <Form.Item
+                          className="w-1/2"
+                          label="No. of small bags"
+                          name="numberOfSmallBags"
+                        >
+                          <Select placeholder="Select number of small bags">
+                            {[...Array(5)].map((_, index) => (
+                              <Option
+                                key={index.toString()}
+                                value={index.toString()}
+                              >
+                                {index}
+                              </Option>
+                            ))}
+                          </Select>
+                        </Form.Item>
+                      </div>
+
+                      <div className="pb-4">
+                        Please provide additional information to help us to
+                        serve you better.
+                      </div>
+
+                      <Form.Item name="seniorCitizen" valuePropName="checked">
+                        <Checkbox value="seniorCitizen">
+                          Senior citizen traveling
+                        </Checkbox>
+                      </Form.Item>
+                      <Form.Item name="womenTraveling" valuePropName="checked">
+                        <Checkbox value="womenTraveling">
+                          Women traveling
+                        </Checkbox>
+                      </Form.Item>
+                      <Form.Item name="kidsOnBoard" valuePropName="checked">
+                        <Checkbox value="kidsOnBoard">Kids on board</Checkbox>
+                      </Form.Item>
+                      <Form.Item
+                        name="englishSpeakingDriver"
+                        valuePropName="checked"
+                      >
+                        <Checkbox value="englishSpeakingDriver">
+                          English-speaking driver preferred
+                        </Checkbox>
+                      </Form.Item>
+                      <Form.Item name="carryingPet" valuePropName="checked">
+                        <Checkbox value="carryingPet">Carrying Pet</Checkbox>
+                      </Form.Item>
+                      <Form.Item
+                        name="need7Plus1Seater"
+                        valuePropName="checked"
+                      >
+                        <Checkbox value="need7Plus1Seater">
+                          Need 7+1 seater
+                        </Checkbox>
+                      </Form.Item>
+                      <Form.Item name="carrierOverTop" valuePropName="checked">
+                        <Checkbox value="carrierOverTop">
+                          Carrier over the top of vehicle
+                        </Checkbox>
+                      </Form.Item>
+                      <Form.Item
+                        name="bookingForSomeoneElse"
+                        valuePropName="checked"
+                      >
+                        <Checkbox value="bookingForSomeoneElse">
+                          Booking for someone else
+                        </Checkbox>
+                      </Form.Item>
+                      <Form.Item name="other" valuePropName="checked">
+                        <Checkbox
+                          onChange={onOtherCheckboxChange}
+                          value="other"
+                        >
+                          Other
+                        </Checkbox>
+                      </Form.Item>
+
+                      {isOtherChecked && (
+                        <Form.Item name="otherDetails">
+                          <Input.TextArea
+                            placeholder="Please specify"
+                            autoSize={{ minRows: 3, maxRows: 3 }}
+                            style={{ resize: "none" }}
+                          />
+                        </Form.Item>
+                      )}
+                    </div>
+                  </Form>
                 </div>
               </>
               <ReadBeforeYouBook />

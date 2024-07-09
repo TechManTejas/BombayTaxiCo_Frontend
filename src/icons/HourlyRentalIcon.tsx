@@ -1,16 +1,12 @@
-import React from "react";
-
 export const HourlyRentalIcon = () => {
   return (
     <svg
-      xmlns="http://www.w3.org/2000/svg"
-      xmlns:xlink="http://www.w3.org/1999/xlink"
       width="28"
       height="28"
       viewBox="0 0 16 16"
     >
       <defs>
-        <clipPath id="clip-path">
+        <clipPath id="clip-path-hourly">
           <rect
             id="Rectangle_404"
             data-name="Rectangle 404"
@@ -27,7 +23,7 @@ export const HourlyRentalIcon = () => {
       <g
         id="hourly"
         transform="translate(-3486 1905)"
-        clip-path="url(#clip-path)"
+        clip-path="url(#clip-path-hourly)"
       >
         <g
           id="hourly_rental"
