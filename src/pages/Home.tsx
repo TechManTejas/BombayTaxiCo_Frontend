@@ -37,7 +37,7 @@ import dayjs, { Dayjs } from "dayjs";
 import { Footer } from "../components/Footer";
 import { CallUsNow } from "../components/CallUsNow";
 import { WhyChooseUsCard } from "../components/WhyChooseUsCard";
-import HeroImage1 from "../assets/images/hero1.jpg";
+import HeroImage1 from "../assets/images/cab.jpeg";
 import HeroImage2 from "../assets/images/hero2.jpg";
 import HeroImage3 from "../assets/images/hero3.jpg";
 import WeOffer1 from "../assets/images/weoffer1.jpg";
