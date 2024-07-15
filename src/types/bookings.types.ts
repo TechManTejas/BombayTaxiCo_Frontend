@@ -1,10 +1,10 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { City } from "./citys.types";
-import { Coupon } from "./coupons.types";
-import { Driver } from "./drivers.types";
+import { ICity } from "./citys.types";
+import { ICoupon } from "./coupons.types";
+import { IDriver } from "./drivers.types";
 import { IRoute } from "./routes.types";
-import { Taxi } from "./taxi.types";
-import { TaxiType } from "./taxiTypes.types";
+import { ITaxi } from "./taxi.types";
+import { ITaxiType } from "./taxiTypes.types";
 import { IUser } from "./user.types";
 
 export enum BookingStatus {
@@ -26,13 +26,13 @@ export enum TripType {
 // Define the Booking schema
 export interface IBooking extends Document {
     _id: string;
-    pickup_city?: City;
+    pickup_city?: ICity;
     route_id?: IRoute;
     user_id: IUser;
-    coupon_id?: Coupon;
-    taxi_id?: Taxi;
-    requested_taxi_type?: TaxiType;
-    driver_id?: Driver;
+    coupon_id?: ICoupon;
+    taxi_id?: ITaxi;
+    requested_taxi_type?: ITaxiType;
+    driver_id?: IDriver;
     pick_up_date: Date;
     pick_up_time: string;
     return_date?: Date;

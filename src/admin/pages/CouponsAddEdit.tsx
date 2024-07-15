@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { Button, DatePicker, Form, Input, Space, Switch, message } from 'antd';
 import axios from "../../api/axios"
 import dayjs from "dayjs"
-import { Coupon, CouponFormValues } from '../../types/coupons.types';
+import { ICoupon, ICouponFormValues } from '../../types/coupons.types';
 import { useLocation } from 'react-router-dom';
 
 const CouponsAddEdit: React.FC = () => {
@@ -13,12 +13,12 @@ const CouponsAddEdit: React.FC = () => {
     };
 
     const [form] = Form.useForm();
-    const couponToEdit: Coupon = state?.coupon;
+    const couponToEdit: ICoupon = state?.coupon;
 
     // Extract id from editedCoupon or set it to undefined
     const id = couponToEdit?._id || undefined;
     // Set initial values for the form
-    const initialValues: CouponFormValues = {
+    const initialValues: ICouponFormValues = {
         name: '',
         discount_perc: 0,
         from_date: dayjs(),
@@ -47,7 +47,7 @@ const CouponsAddEdit: React.FC = () => {
         }
     }, [couponToEdit, form]);
 
-    const onFinish = async (values: CouponFormValues) => {
+    const onFinish = async (values: ICouponFormValues) => {
         try {
             // Map the status value to true (Active) or false (Inactive)
             values.status = values.status ? 'Active' : 'Inactive';

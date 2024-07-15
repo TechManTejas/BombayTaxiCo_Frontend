@@ -1,6 +1,6 @@
 import { IBooking } from "./bookings.types";
 
-export interface Driver {
+export interface IDriver {
     _id: string;
     name: string;
     mobile_no: string;
@@ -13,7 +13,7 @@ export interface Driver {
     completed_trips?: IBooking[];
 }
 
-export interface DriverFormValues {
+export interface IDriverFormValues {
     name: string;
     mobile_no: string;
     email_id: string;

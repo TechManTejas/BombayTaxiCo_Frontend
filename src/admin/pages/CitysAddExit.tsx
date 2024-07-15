@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { Button, Form, Input, Space, Switch, message } from 'antd';
 import axios from "../../api/axios"
 import { useLocation } from 'react-router-dom';
-import { City, CityFormValues } from '../../types/citys.types';
+import { ICity, ICityFormValues } from '../../types/citys.types';
 
 const CitysAddEdit: React.FC = () => {
     const { state } = useLocation()
@@ -12,13 +12,13 @@ const CitysAddEdit: React.FC = () => {
     };
 
     const [form] = Form.useForm();
-    const cityToEdit: City = state?.city;
+    const cityToEdit: ICity = state?.city;
 
     // Extract id from editedCoupon or set it to undefined
     const id = cityToEdit?._id || undefined;
 
     // Set initial values for the form
-    const initialValues: CityFormValues = {
+    const initialValues: ICityFormValues = {
         name: '',
         status: 'Active',
     };
@@ -38,7 +38,7 @@ const CitysAddEdit: React.FC = () => {
         }
     }, [cityToEdit, form]);
 
-    const onFinish = async (values: CityFormValues) => {
+    const onFinish = async (values: ICityFormValues) => {
         try {
             // Map the status value to true (Active) or false (Inactive)
             values.status = values.status ? 'Active' : 'Inactive';

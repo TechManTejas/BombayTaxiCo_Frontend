@@ -4,7 +4,6 @@ import {
   AppleFilled,
   BankOutlined,
   CarOutlined,
-  ClockCircleOutlined,
   CloseCircleOutlined,
   CreditCardOutlined,
   CustomerServiceOutlined,
@@ -21,17 +20,16 @@ import {
   SolutionOutlined,
   StarOutlined,
   SwapOutlined,
-  SyncOutlined,
   TagOutlined,
   TeamOutlined,
   UserOutlined,
 } from "@ant-design/icons";
 import { DatePicker, Dropdown, MenuProps, Segmented, message } from "antd";
 import React, { useEffect, useState } from "react";
-import { AnimatePresence, motion } from "framer-motion";
+import { motion } from "framer-motion";
 import { Container } from "@mui/material";
 import axios from "../api/axios";
-import { City } from "../types/citys.types";
+import { ICity } from "../types/citys.types";
 import { useNavigate } from "react-router-dom";
 import dayjs, { Dayjs } from "dayjs";
 import { Footer } from "../components/Footer";
@@ -80,7 +78,7 @@ const Hero: React.FC = () => {
   const [hourlyPackage, setHourlyPackage] = useState<string>("8 hr 80 kms");
 
   const [activeTab, setActiveTab] = useState("One-Way Trip");
-  const [cities, setCities] = useState<City[]>([]);
+  const [cities, setCities] = useState<ICity[]>([]);
 
   useEffect(() => {
     console.log(generateTimeOptions());
@@ -100,21 +98,21 @@ const Hero: React.FC = () => {
 
   const handleMenuClickPickupCity = (e: any) => {
     setPickupCity(
-      cities.find((c: City) => c._id === e.key)?.name ?? "Select an Option"
+      cities.find((c: ICity) => c._id === e.key)?.name ?? "Select an Option"
     );
     setPickupCityId(e.key);
   };
 
   const handleMenuClickFrom = (e: any) => {
     setFrom(
-      cities.find((c: City) => c._id === e.key)?.name ?? "Select an Option"
+      cities.find((c: ICity) => c._id === e.key)?.name ?? "Select an Option"
     );
     setFromId(e.key);
   };
 
   const handleMenuClickTo = (e: any) => {
     setTo(
-      cities.find((c: City) => c._id === e.key)?.name ?? "Select an Option"
+      cities.find((c: ICity) => c._id === e.key)?.name ?? "Select an Option"
     );
     setToId(e.key);
   };
@@ -155,7 +153,7 @@ const Hero: React.FC = () => {
     }
   };
 
-  const menuCities: MenuProps["items"] = cities.map((city: City) => ({
+  const menuCities: MenuProps["items"] = cities.map((city: ICity) => ({
     label: city.name,
     key: city._id,
   }));
@@ -171,8 +169,8 @@ const Hero: React.FC = () => {
 
   const menuPropsFrom = {
     items: cities
-      .filter((city: City) => city._id !== toId)
-      .map((city: City) => ({
+      .filter((city: ICity) => city._id !== toId)
+      .map((city: ICity) => ({
         label: (
           <span>
             {<EnvironmentOutlined />} {city.name}
@@ -185,8 +183,8 @@ const Hero: React.FC = () => {
 
   const menuPropsTo = {
     items: cities
-      .filter((city: City) => city._id !== fromId)
-      .map((city: City) => ({
+      .filter((city: ICity) => city._id !== fromId)
+      .map((city: ICity) => ({
         label: (
           <span>
             {<EnvironmentOutlined />} {city.name}

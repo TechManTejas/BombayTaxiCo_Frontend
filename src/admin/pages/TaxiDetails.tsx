@@ -1,14 +1,14 @@
 import { LeftOutlined, CheckCircleOutlined, CloseCircleOutlined, CarryOutOutlined, CarOutlined } from "@ant-design/icons";
 import { Button, Tag } from "antd";
 import { useLocation } from "react-router-dom";
-import { Taxi } from "../../types/taxi.types";
+import { ITaxi } from "../../types/taxi.types";
 
 
 export default function TaxiDetails() {
 
     const { state } = useLocation()
 
-    const taxi: Taxi = state?.taxi
+    const taxi: ITaxi = state?.taxi
     console.log(taxi)
 
     const goBack = () => {

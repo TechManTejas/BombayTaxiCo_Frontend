@@ -1,12 +1,12 @@
 import { Tag } from "antd";
-import { Taxi } from "../../types/taxi.types";
-import { TaxiType } from "../../types/taxiTypes.types";
+import { ITaxi } from "../../types/taxi.types";
+import { ITaxiType } from "../../types/taxiTypes.types";
 import { IBooking } from "../../types/bookings.types";
 import dayjs from "dayjs";
 
 interface TaxiDetailsProps {
-    taxi: Taxi;
-    taxiType: TaxiType;
+    taxi: ITaxi;
+    taxiType: ITaxiType;
 }
 
 export const TaxiDetailsBookingForm: React.FC<TaxiDetailsProps> = ({ taxi, taxiType }) => {

@@ -1,9 +1,9 @@
 import { IBooking } from "./bookings.types";
-import { TaxiType } from "./taxiTypes.types";
+import { ITaxiType } from "./taxiTypes.types";
 
-export interface Taxi {
+export interface ITaxi {
     _id: string;
-    taxi_type_id: TaxiType;
+    taxi_type_id: ITaxiType;
     taxi_no: string;
     driving_license: string;
     taxi_status: string;
@@ -12,8 +12,8 @@ export interface Taxi {
     completed_trips?: IBooking[];
 }
 
-export interface TaxiFormValues {
-    taxi_type_id: TaxiType['_id'];
+export interface ITaxiFormValues {
+    taxi_type_id: ITaxiType['_id'];
     taxi_no: string;
     driving_license: string;
     taxi_status: 'Available' | 'Unavailable' | 'Assigned' | 'On a Trip';

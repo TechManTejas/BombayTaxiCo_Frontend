@@ -5,7 +5,7 @@ import { ColumnsType } from 'antd/es/table';
 import axios from "../../api/axios"
 import Search from 'antd/es/input/Search';
 import { confirmation } from '../components/Confirmation';
-import { Taxi } from '../../types/taxi.types';
+import { ITaxi } from '../../types/taxi.types';
 import { useNavigate } from 'react-router-dom';
 
 const Taxis: React.FC = () => {
@@ -13,7 +13,7 @@ const Taxis: React.FC = () => {
   const navigate = useNavigate()
 
   const [loading, setLoading] = useState<boolean>(false);
-  const [taxis, setTaxis] = useState<Taxi[]>([]);
+  const [taxis, setTaxis] = useState<ITaxi[]>([]);
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [totalTaxis, setTotalTaxis] = useState<number>(0);
   const [currentPage, setCurrentPage] = useState<number>(1);
@@ -157,7 +157,7 @@ const Taxis: React.FC = () => {
     }
   };
 
-  const mapDataToTableFormat = (data: Taxi[]): Array<{
+  const mapDataToTableFormat = (data: ITaxi[]): Array<{
     _id: string;
     taxi_type_name: string;
     taxi_no: string;

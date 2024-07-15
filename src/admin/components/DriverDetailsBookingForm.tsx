@@ -1,11 +1,11 @@
 import React from 'react';
 import { Tag } from 'antd';
-import { Driver } from '../../types/drivers.types';
+import { IDriver } from '../../types/drivers.types';
 import dayjs from 'dayjs';
 import { IBooking, TripType } from '../../types/bookings.types';
 
 interface DriverDetailsProps {
-  driver: Driver;
+  driver: IDriver;
 }
 
 export const DriverDetailsBookingForm: React.FC<DriverDetailsProps> = ({ driver }) => {

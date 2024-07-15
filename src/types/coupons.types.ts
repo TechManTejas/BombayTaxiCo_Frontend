@@ -1,5 +1,5 @@
 import { Dayjs } from "dayjs"
-export interface Coupon {
+export interface ICoupon {
   _id: string;
   name: string;
   discount_perc: number;
@@ -9,7 +9,7 @@ export interface Coupon {
   status: string;
 }
 
-export interface CouponFormValues {
+export interface ICouponFormValues {
   name: string;
   discount_perc: number;
   from_date: Dayjs;

@@ -14,8 +14,8 @@ import { BookingStatus, IBooking, TripType } from "../../types/bookings.types";
 import axios from "../../api/axios";
 import dayjs from "dayjs";
 import { useEffect, useState } from "react";
-import { Driver } from "../../types/drivers.types";
-import { Taxi } from "../../types/taxi.types";
+import { IDriver } from "../../types/drivers.types";
+import { ITaxi } from "../../types/taxi.types";
 import { TaxiDetailsBookingForm } from "../components/TaxiDetailsBookingForm";
 import { DriverDetailsBookingForm } from "../components/DriverDetailsBookingForm";
 import { confirmation } from "../components/Confirmation";
@@ -43,14 +43,14 @@ export default function BookingDetails() {
   const [drivers, setDrivers] = useState([]);
   const [taxis, setTaxis] = useState([]);
 
-  const [hoveredTaxi, setHoveredTaxi] = useState<Taxi | null>(null);
-  const [hoveredDriver, setHoveredDriver] = useState<Driver | null>(null);
+  const [hoveredTaxi, setHoveredTaxi] = useState<ITaxi | null>(null);
+  const [hoveredDriver, setHoveredDriver] = useState<IDriver | null>(null);
 
-  const handleHoverTaxi = (taxi: Taxi) => {
+  const handleHoverTaxi = (taxi: ITaxi) => {
     setHoveredTaxi(taxi);
   };
 
-  const handleHoverDriver = (driver: Driver) => {
+  const handleHoverDriver = (driver: IDriver) => {
     setHoveredDriver(driver);
   };
 
@@ -301,7 +301,7 @@ export default function BookingDetails() {
       })
       .then((response) => {
         setDrivers(response.data.drivers)
-        const driver = response.data.drivers.find((driver: Driver) => driver._id === booking?.driver_id?._id);
+        const driver = response.data.drivers.find((driver: IDriver) => driver._id === booking?.driver_id?._id);
         handleHoverDriver(driver);
       })
       .catch((error) => console.error("Error fetching drivers:", error));
@@ -319,7 +319,7 @@ export default function BookingDetails() {
       })
       .then((response) => {
         setTaxis(response.data.taxis);
-        const taxi = response.data.taxis.find((taxi: Taxi) => taxi._id === booking?.taxi_id?._id);
+        const taxi = response.data.taxis.find((taxi: ITaxi) => taxi._id === booking?.taxi_id?._id);
         handleHoverTaxi(taxi);
       })
       .catch((error) => console.error("Error fetching taxis:", error));
@@ -856,7 +856,7 @@ export default function BookingDetails() {
                     {/* Use Select component to choose from cities */}
                     <Select>
                       {/* Map through the cities to populate the options */}
-                      {taxis.map((taxi: Taxi) => (
+                      {taxis.map((taxi: ITaxi) => (
                         <Select.Option
                           key={taxi._id}
                           value={taxi._id}
@@ -895,7 +895,7 @@ export default function BookingDetails() {
                     {/* Use Select component to choose to cities */}
                     <Select>
                       {/* Map through the cities to populate the options */}
-                      {drivers.map((driver: Driver) => (
+                      {drivers.map((driver: IDriver) => (
                         <Select.Option
                           key={driver._id}
                           value={driver._id}
