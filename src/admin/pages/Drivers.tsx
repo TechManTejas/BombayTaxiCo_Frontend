@@ -4,7 +4,7 @@ import { CarOutlined, CarryOutOutlined, CheckCircleOutlined, CloseCircleOutlined
 import { ColumnsType } from 'antd/es/table';
 import axios from "../../api/axios"
 import Search from 'antd/es/input/Search';
-import { Driver } from '../../types/drivers.types';
+import { IDriver } from '../../types/drivers.types';
 import { useNavigate } from 'react-router-dom';
 import { confirmation } from '../components/Confirmation';
 
@@ -13,7 +13,7 @@ const Drivers: React.FC = () => {
   const navigate = useNavigate()
 
   const [loading, setLoading] = useState<boolean>(false);
-  const [drivers, setDrivers] = useState<Driver[]>([]);
+  const [drivers, setDrivers] = useState<IDriver[]>([]);
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [totalDrivers, setTotalDrivers] = useState<number>(0);
   const [currentPage, setCurrentPage] = useState<number>(1);
@@ -156,7 +156,7 @@ const Drivers: React.FC = () => {
     }
   };
 
-  const mapDataToTableFormat = (data: Driver[]): Array<{
+  const mapDataToTableFormat = (data: IDriver[]): Array<{
     _id: string;
     name: string;
     mobile_no: string;

@@ -1,14 +1,14 @@
 import { LeftOutlined, CheckCircleOutlined, CloseCircleOutlined, CarryOutOutlined, CarOutlined } from "@ant-design/icons";
 import { Button, Space, Tag } from "antd";
 import { useLocation } from "react-router-dom";
-import { Driver } from "../../types/drivers.types";
+import { IDriver } from "../../types/drivers.types";
 
 
 export default function DriverDetails() {
 
     const { state } = useLocation()
 
-    const driver: Driver = state?.driver
+    const driver: IDriver = state?.driver
     console.log(driver)
 
     const goBack = () => {

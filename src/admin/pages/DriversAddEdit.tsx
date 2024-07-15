@@ -2,8 +2,8 @@ import React, { useEffect } from "react";
 import { Button, Form, Input, Select, Space, message } from "antd";
 import axios from "../../api/axios";
 import { useLocation } from "react-router-dom";
-import { City, CityFormValues } from "../../types/citys.types";
-import { DriverFormValues } from "../../types/drivers.types";
+import { ICity, ICityFormValues } from "../../types/citys.types";
+import { IDriverFormValues } from "../../types/drivers.types";
 
 const DriversAddEdit: React.FC = () => {
   const { state } = useLocation();
@@ -13,13 +13,13 @@ const DriversAddEdit: React.FC = () => {
   };
 
   const [form] = Form.useForm();
-  const driverToEdit: City = state?.driver;
+  const driverToEdit: ICity = state?.driver;
 
   // Extract id from editedCoupon or set it to undefined
   const id = driverToEdit?._id || undefined;
 
   // Set initial values for the form
-  const initialValues: DriverFormValues = {
+  const initialValues: IDriverFormValues = {
     name: "",
     mobile_no: "",
     email_id: "",
@@ -42,7 +42,7 @@ const DriversAddEdit: React.FC = () => {
     }
   }, [driverToEdit, form]);
 
-  const onFinish = async (values: CityFormValues) => {
+  const onFinish = async (values: ICityFormValues) => {
     try {
       if (id) {
         // Edit existing coupon

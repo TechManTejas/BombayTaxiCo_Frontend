@@ -11,10 +11,10 @@ import axios from "../api/axios";
 
 import { generateTimeOptions } from "../utils/GenerateTimeOptions";
 
-import { City } from "../types/citys.types";
+import { ICity } from "../types/citys.types";
 import { ISettings } from "../types/settings.types";
 import { IRoute } from "../types/routes.types";
-import { TaxiType } from "../types/taxiTypes.types";
+import { ITaxiType } from "../types/taxiTypes.types";
 import { generateDistanceOptions } from "../utils/GenerateDistanceOptions";
 
 interface BillCardProps {
@@ -24,9 +24,10 @@ interface BillCardProps {
 }
 
 interface TripRate {
-  taxiType: TaxiType;
+  taxiType: ITaxiType;
   originalPrice: number;
   discountedPrice: number;
+  extraKmCharges: number;
 }
 
 const BillCard: React.FC<BillCardProps> = ({
@@ -116,7 +117,7 @@ const BillCard: React.FC<BillCardProps> = ({
               <div key={tripRate.taxiType._id} className="flex justify-between">
                 <div>{tripRate.taxiType.name}</div>
                 {tripType !== "Hourly Rental" ? (
-                  <div>₹ {tripRate.taxiType.extra_km_charges}/KM</div>
+                  <div>₹ {tripRate.extraKmCharges}/KM</div>
                 ) : (
                   <div>₹ {tripRate.taxiType.price_hour}/hr</div>
                 )}
@@ -178,7 +179,7 @@ const Search: React.FC = () => {
   const [pickupTimeOpen, setPickupTimeOpen] = useState<boolean>(false);
   const [hourlyPackageOpen, setHourlyPackageOpen] = useState<boolean>(false);
 
-  const [cities, setCities] = useState<City[]>([]);
+  const [cities, setCities] = useState<ICity[]>([]);
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -243,17 +244,17 @@ const Search: React.FC = () => {
 
   const handlePickupCityChange = (value: string) => {
     setPickupCity(value);
-    setPickupCityId(cities.find((c: City) => c.name === value)?._id ?? null);
+    setPickupCityId(cities.find((c: ICity) => c.name === value)?._id ?? null);
   };
 
   const handleFromChange = (value: string) => {
     setFrom(value);
-    setFromId(cities.find((c: City) => c.name === value)?._id ?? null);
+    setFromId(cities.find((c: ICity) => c.name === value)?._id ?? null);
   };
 
   const handleToChange = (value: string) => {
     setTo(value);
-    setToId(cities.find((c: City) => c.name === value)?._id ?? null);
+    setToId(cities.find((c: ICity) => c.name === value)?._id ?? null);
   };
 
   const handlePickupDateChange = (date: Dayjs | null, dateString: string) => {
@@ -436,7 +437,7 @@ const Search: React.FC = () => {
                       onDropdownVisibleChange={(open) => setFromOpen(open)}
                     >
                       {cities
-                        .filter((c: City) => c._id != toId)
+                        .filter((c: ICity) => c._id != toId)
                         .map((city) => (
                           <Option key={city._id} value={city.name}>
                             {city.name}
@@ -476,7 +477,7 @@ const Search: React.FC = () => {
                       onDropdownVisibleChange={(open) => setToOpen(open)}
                     >
                       {cities
-                        .filter((c: City) => c._id != fromId)
+                        .filter((c: ICity) => c._id != fromId)
                         .map((city) => (
                           <Option key={city._id} value={city.name}>
                             {city.name}

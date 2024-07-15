@@ -6,7 +6,7 @@ import axios from "../../api/axios"
 import Search from 'antd/es/input/Search';
 import { confirmation } from '../components/Confirmation';
 import { useNavigate } from 'react-router-dom';
-import { CarFeature, TaxiType } from '../../types/taxiTypes.types';
+import { ICarFeature, ITaxiType } from '../../types/taxiTypes.types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { IconDefinition } from '@fortawesome/fontawesome-svg-core';
 import { faGasPump, faSnowflake, faUsers, faTachometerAlt, faCar, faLeaf, faWrench, faSuitcase, faBoxes } from '@fortawesome/free-solid-svg-icons';
@@ -34,7 +34,7 @@ const TaxiTypes: React.FC = () => {
     const navigate = useNavigate()
 
     const [loading, setLoading] = useState<boolean>(false);
-    const [taxiTypes, setTaxiTypes] = useState<TaxiType[]>([]);
+    const [taxiTypes, setTaxiTypes] = useState<ITaxiType[]>([]);
     const [searchQuery, setSearchQuery] = useState<string>('');
     const [totalTaxiTypes, setTotalTaxiTypes] = useState<number>(0);
     const [currentPage, setCurrentPage] = useState<number>(1);
@@ -86,7 +86,7 @@ const TaxiTypes: React.FC = () => {
             title: 'CAR FEATURES',
             dataIndex: 'car_features',
             key: 'car_features',
-            render: (carFeatures: CarFeature[]) => (
+            render: (carFeatures: ICarFeature[]) => (
                 <>
                     {carFeatures.map((feature, index) => (
                         <Tag key={index}>
@@ -185,13 +185,13 @@ const TaxiTypes: React.FC = () => {
         }
     };
 
-    const mapDataToTableFormat = (data: TaxiType[]): Array<{
+    const mapDataToTableFormat = (data: ITaxiType[]): Array<{
         _id: string;
         name: string;
         description: string;
         price_km: number;
         price_hour: number;
-        car_features: CarFeature[];
+        car_features: ICarFeature[];
         discount_percentage: number;
     }> => {
         return data.map(taxiType => ({

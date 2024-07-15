@@ -6,14 +6,14 @@ import axios from "../../api/axios"
 import Search from 'antd/es/input/Search';
 import { confirmation } from '../components/Confirmation';
 import { useNavigate } from 'react-router-dom';
-import { City } from '../../types/citys.types';
+import { ICity } from '../../types/citys.types';
 
 const Citys: React.FC = () => {
 
   const navigate = useNavigate()
 
   const [loading, setLoading] = useState<boolean>(false);
-  const [citys, setCitys] = useState<City[]>([]);
+  const [citys, setCitys] = useState<ICity[]>([]);
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [totalCitys, setTotalCitys] = useState<number>(0);
   const [currentPage, setCurrentPage] = useState<number>(1);
@@ -116,7 +116,7 @@ const Citys: React.FC = () => {
     }
   };
 
-  const mapDataToTableFormat = (data: City[]): Array<{
+  const mapDataToTableFormat = (data: ICity[]): Array<{
     _id: string;
     city: string;
     status: string;

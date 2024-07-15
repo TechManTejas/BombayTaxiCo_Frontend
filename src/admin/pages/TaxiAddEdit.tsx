@@ -2,26 +2,26 @@ import React, { useEffect, useState } from 'react';
 import { Button, Form, Input, Select, Space, message } from 'antd';
 import axios from "../../api/axios"
 import { useLocation } from 'react-router-dom';
-import { Taxi, TaxiFormValues } from '../../types/taxi.types';
-import { TaxiType } from '../../types/taxiTypes.types';
+import { ITaxi, ITaxiFormValues } from '../../types/taxi.types';
+import { ITaxiType } from '../../types/taxiTypes.types';
 
 const TaxiAddEdit: React.FC = () => {
     const { state } = useLocation()
 
-    const [taxiTypes, setTaxiTypes] = useState<TaxiType[]>([]);
+    const [taxiTypes, setTaxiTypes] = useState<ITaxiType[]>([]);
 
     const goBack = () => {
         window.history.back();
     };
 
     const [form] = Form.useForm();
-    const taxiToEdit: Taxi = state?.taxi;
+    const taxiToEdit: ITaxi = state?.taxi;
 
     // Extract id from editedCoupon or set it to undefined
     const id = taxiToEdit?._id || undefined;
 
     // Set initial values for the form
-    const initialValues: TaxiFormValues = {
+    const initialValues: ITaxiFormValues = {
         taxi_type_id: '',
         taxi_no: '',
         driving_license: '',
@@ -56,7 +56,7 @@ const TaxiAddEdit: React.FC = () => {
 
     }, [taxiToEdit, form]);
 
-    const onFinish = async (values: TaxiFormValues) => {
+    const onFinish = async (values: ITaxiFormValues) => {
         try {
             if (id) {
                 // Edit existing coupon
@@ -87,7 +87,7 @@ const TaxiAddEdit: React.FC = () => {
 
                 <Form.Item name="taxi_type_id" label="Taxi Type" rules={[{ required: true, message: 'Please select the taxi type' }]}>
                     <Select className="w-full">
-                        {taxiTypes.map((taxiType: TaxiType) => (
+                        {taxiTypes.map((taxiType: ITaxiType) => (
                             <Select.Option key={taxiType._id} value={taxiType._id}>
                                 {taxiType.name}
                             </Select.Option>

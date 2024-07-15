@@ -4,7 +4,7 @@ import { PlusOutlined } from '@ant-design/icons';
 import { ColumnsType } from 'antd/es/table';
 import axios from "../../api/axios"
 import Search from 'antd/es/input/Search';
-import { Coupon } from '../../types/coupons.types';
+import { ICoupon } from '../../types/coupons.types';
 import { confirmation } from '../components/Confirmation';
 import { useNavigate } from 'react-router-dom';
 import moment from 'moment';
@@ -14,7 +14,7 @@ const Coupons: React.FC = () => {
   const navigate = useNavigate()
 
   const [loading, setLoading] = useState<boolean>(false);
-  const [coupons, setCoupons] = useState<Coupon[]>([]);
+  const [coupons, setCoupons] = useState<ICoupon[]>([]);
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [totalCoupons, setTotalCoupons] = useState<number>(0);
   const [currentPage, setCurrentPage] = useState<number>(1);
@@ -130,7 +130,7 @@ const Coupons: React.FC = () => {
     }
   };
 
-  const mapDataToTableFormat = (data: Coupon[]): Array<{
+  const mapDataToTableFormat = (data: ICoupon[]): Array<{
     _id: string;
     coupon: string;
     discount: string;

@@ -4,7 +4,7 @@ import { Button, Form, Input, Select, Space, Upload, UploadFile, message } from 
 import { UploadOutlined } from '@ant-design/icons';
 import axios from "../../api/axios"
 import { useLocation } from 'react-router-dom';
-import { TaxiType, TaxiTypeFormValues } from '../../types/taxiTypes.types';
+import { ITaxiType, ITaxiTypeFormValues } from '../../types/taxiTypes.types';
 import { MinusOutlined, PlusOutlined } from '@ant-design/icons';
 import { UploadChangeParam } from 'antd/es/upload';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -49,18 +49,16 @@ const TaxiTypesAddEdit: React.FC = () => {
     };
 
     const [form] = Form.useForm();
-    const taxiTypeToEdit: TaxiType = state?.taxiType;
+    const taxiTypeToEdit: ITaxiType = state?.taxiType;
 
     // Extract id from editedCoupon or set it to undefined
     const id = taxiTypeToEdit?._id || undefined;
 
     // Set initial values for the form
-    const initialValues: TaxiTypeFormValues = {
+    const initialValues: ITaxiTypeFormValues = {
         name: '',
         description: '',
-        price_km: 0,
         price_hour: 0,
-        extra_km_charges: 0,
         car_features: [],
         discount_percentage: 0
     };
@@ -80,7 +78,7 @@ const TaxiTypesAddEdit: React.FC = () => {
         }
     }, [taxiTypeToEdit, form]);
 
-    const onFinish = async (values: TaxiTypeFormValues) => {
+    const onFinish = async (values: ITaxiTypeFormValues) => {
 
         const formData = new FormData();
         Object.keys(values).forEach(key => {
@@ -153,15 +151,7 @@ const TaxiTypesAddEdit: React.FC = () => {
                 </Form.Item>
 
                 <Space className='w-full'>
-                    <Form.Item name="price_km" label="Price Per Km" rules={[{ required: true, message: 'Please enter the price per km' }]}>
-                        <Input className="w-full" />
-                    </Form.Item>
-
                     <Form.Item name="price_hour" label="Price Per Hr" rules={[{ required: true, message: 'Please enter the price per hour' }]}>
-                        <Input className="w-full" />
-                    </Form.Item>
-
-                    <Form.Item name="extra_km_charges" label="Extra Km Charges" rules={[{ required: true, message: 'Please enter the extra km charges' }]}>
                         <Input className="w-full" />
                     </Form.Item>
 

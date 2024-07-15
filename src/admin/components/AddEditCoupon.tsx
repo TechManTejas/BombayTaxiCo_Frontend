@@ -2,12 +2,12 @@ import React, { useEffect } from 'react';
 import { Form, Input, DatePicker, Switch, Button, message } from 'antd';
 import axios from '../../api/axios';
 import moment from 'moment';
-import { Coupon } from '../../types/coupons.types';
+import { ICoupon } from '../../types/coupons.types';
 
 interface CouponFormProps {
   id?: string;
-  editedCoupon?: Coupon | null; // Include the editedCoupon prop
-  onCouponEdited: (editedCoupon: Coupon) => void;
+  editedCoupon?: ICoupon | null; // Include the editedCoupon prop
+  onCouponEdited: (editedCoupon: ICoupon) => void;
 }
 
 interface CouponFormValues {
