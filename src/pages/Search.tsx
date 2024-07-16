@@ -163,9 +163,7 @@ const Search: React.FC = () => {
   const [returnDate, setReturnDate] = useState<Dayjs | null>(
     dayjs(state.returnDate) || dayjs()
   );
-  const [pickupTime, setPickupTime] = useState<string>(
-    state.pickupTime || "10:00 AM"
-  );
+  const [pickupTime, setPickupTime] = useState<string>("");
   const [hourlyPackage, setHourlyPackage] = useState<string>(
     state.hourlyPackage || "1 hr 10 kms"
   );
@@ -180,6 +178,11 @@ const Search: React.FC = () => {
   const [hourlyPackageOpen, setHourlyPackageOpen] = useState<boolean>(false);
 
   const [cities, setCities] = useState<ICity[]>([]);
+
+  useEffect(() => {
+    const timeOptions = generateTimeOptions(pickupDate ?? dayjs());
+    setPickupTime(timeOptions[0]?.label ?? "");
+  }, [pickupDate]);
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -291,7 +294,10 @@ const Search: React.FC = () => {
     setHourlyPackage(value);
   };
 
-  const menuTimeOptions = generateTimeOptions();
+  const menuTimeOptions = generateTimeOptions(pickupDate ?? dayjs()).map(option => ({
+    label: option.label,
+    key: option.key,
+  }));
 
   const menuDistanceOptions = generateDistanceOptions();
 
