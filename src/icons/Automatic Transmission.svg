@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="64" height="64" viewBox="0 0 64 64">
+  <defs>
+    <clipPath id="clip-Automatic_Transmission">
+      <rect width="64" height="64"/>
+    </clipPath>
+  </defs>
+  <g id="Automatic_Transmission" data-name="Automatic Transmission" clip-path="url(#clip-Automatic_Transmission)">
+    <rect width="64" height="64" fill="#fff"/>
+    <g id="Group_79" data-name="Group 79" transform="translate(-7 -8)">
+      <path id="Path_60" data-name="Path 60" d="M23.5,11.357V5H20.4v6.357a13.872,13.872,0,0,0,0,27.587V45.3h3.1V38.943a13.872,13.872,0,0,0,0-27.587ZM21.95,36A10.85,10.85,0,1,1,32.8,25.15,10.85,10.85,0,0,1,21.95,36Z" transform="translate(18.6 15.3)" stroke="#f4f4f5" stroke-width="0.5"/>
+      <path id="Path_61" data-name="Path 61" d="M15.65,9A4.655,4.655,0,0,0,11,13.65V21.4h3.1V18.3h3.1v3.1h3.1V13.65A4.655,4.655,0,0,0,15.65,9ZM14.1,15.2V13.65a1.55,1.55,0,1,1,3.1,0V15.2Z" transform="translate(24.9 23.7)" stroke="#f4f4f5" stroke-width="0.5"/>
+      <path id="Path_62" data-name="Path 62" d="M64,53.15V9.75A7.758,7.758,0,0,0,56.25,2H9.75A7.758,7.758,0,0,0,2,9.75v43.4A7.758,7.758,0,0,0,9.75,60.9h46.5A7.758,7.758,0,0,0,64,53.15Zm-58.9,0V9.75A4.655,4.655,0,0,1,9.75,5.1h46.5A4.655,4.655,0,0,1,60.9,9.75v43.4a4.655,4.655,0,0,1-4.65,4.65H9.75A4.655,4.655,0,0,1,5.1,53.15Z" transform="translate(6 9)" stroke="#f4f4f5" stroke-width="0.5"/>
+      <rect id="Rectangle_404" data-name="Rectangle 404" width="9.27" height="3.1" transform="translate(14.23 20.3)" stroke="#f4f4f5" stroke-width="0.5"/>
+      <rect id="Rectangle_405" data-name="Rectangle 405" width="9.27" height="3.1" transform="translate(14.23 32.7)" stroke="#f4f4f5" stroke-width="0.5"/>
+      <rect id="Rectangle_406" data-name="Rectangle 406" width="9.27" height="3.1" transform="translate(14.23 45.1)" stroke="#f4f4f5" stroke-width="0.5"/>
+      <rect id="Rectangle_407" data-name="Rectangle 407" width="9.27" height="3.1" transform="translate(14.23 57.5)" stroke="#f4f4f5" stroke-width="0.5"/>
+    </g>
+  </g>
+</svg>

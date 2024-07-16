@@ -6,6 +6,9 @@ export default {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        figtree: ['Figtree', 'sans-serif'],
+      },
       animations: {
         fadeIn: {
           '0%': { opacity: '0' },

@@ -81,7 +81,7 @@ const UserRoutes: React.FC = () => {
           Segmented: {
             itemSelectedBg: "#FDB813",
             borderRadiusSM: 20
-          },
+          }
         },
       }}
     >
@@ -203,7 +203,7 @@ const AdminRoutes: React.FC = () => {
 
 const App: React.FC = () => {
   return (
-    <>
+    <div className="font-figtree">
       <Router>
         <Routes>
           {/* User Route  */}
@@ -213,7 +213,7 @@ const App: React.FC = () => {
           <Route path="/admin/*" element={<AdminRoutes />} />
         </Routes>
       </Router>
-    </>
+    </div>
   );
 };
 

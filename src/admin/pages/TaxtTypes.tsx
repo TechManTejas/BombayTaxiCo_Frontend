@@ -7,25 +7,29 @@ import Search from 'antd/es/input/Search';
 import { confirmation } from '../components/Confirmation';
 import { useNavigate } from 'react-router-dom';
 import { ICarFeature, ITaxiType } from '../../types/taxiTypes.types';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { IconDefinition } from '@fortawesome/fontawesome-svg-core';
-import { faGasPump, faSnowflake, faUsers, faTachometerAlt, faCar, faLeaf, faWrench, faSuitcase, faBoxes } from '@fortawesome/free-solid-svg-icons';
 
-type FeatureIconMap = {
-    [key: string]: IconDefinition;
-};
+import AirConditioning from '../../icons/Air Conditioning.svg'
+import AutomaticTransmission from "../../icons/Automatic Transmission.svg"
+import Bags from "../../icons/Bags.svg"
+import CabBootSpace from "../../icons/Cab Boot space.svg"
+import CNG from "../../icons/CNG.svg"
+import ComfortSeat from "../../icons/Comfort Seat.svg"
+import Disel from "../../icons/Disel.svg"
+import Passanger from "../../icons/Passanger.svg"
+import RoofTopCarrier from "../../icons/Roof Top Carrier.svg"
+import StandardSeat from "../../icons/Standard Seat.svg"
 
-const featureIconMap: FeatureIconMap = {
-    'CNG': faGasPump,
-    'MANUAL': faWrench,
-    'AC': faSnowflake,
-    'PASSENGERS': faUsers,
-    'BAGS': faSuitcase,
-    'CARRIER': faBoxes,
-    'DIESEL': faTachometerAlt,
-    'BOOT SPACE': faCar,
-    'PETROL & HYBRID': faLeaf,
-    'AUTOMATIC': faTachometerAlt,
+const featureIconMap = {
+    'Air Conditioning': AirConditioning,
+    'Automatic Transmission': AutomaticTransmission,
+    'Bags': Bags,
+    'Cab Boot Space': CabBootSpace,
+    'CNG': CNG,
+    'Comfort Seat': ComfortSeat,
+    'Diesel': Disel,
+    'Passenger': Passanger,
+    'Roof Top Carrier': RoofTopCarrier,
+    'Standard Seat': StandardSeat,
 };
 
 
@@ -43,7 +47,6 @@ const TaxiTypes: React.FC = () => {
         _id: string;
         name?: string;
         description?: string;
-        price_km?: number;
         price_hour?: number;
         discount_percentage?: number;
     }
@@ -60,12 +63,6 @@ const TaxiTypes: React.FC = () => {
             dataIndex: 'description',
             key: 'description',
             width: 150
-        },
-        {
-            title: 'PRICE PER KM',
-            dataIndex: 'price_km',
-            key: 'price_km',
-            width: 50
         },
         {
             title: 'PRICE PER HOUR',
@@ -89,15 +86,17 @@ const TaxiTypes: React.FC = () => {
             render: (carFeatures: ICarFeature[]) => (
                 <>
                     {carFeatures.map((feature, index) => (
-                        <Tag key={index}>
+                        <Tag key={index} className=''>
+                            <div className='flex items-center gap-1'>
                             {feature.icon && featureIconMap[feature.icon] ? (
-                                <FontAwesomeIcon icon={featureIconMap[feature.icon]} />
-                            ) : null}
+                                <img src={featureIconMap[feature.icon]} className='w-4 h-4'/>
+                                ) : null}
                             {feature.feature && 
                                 <span className='pl-1'>
                                     {feature.feature}
                                 </span>
                             }
+                            </div>
                         </Tag>
                     ))}
                 </>
@@ -159,21 +158,41 @@ const TaxiTypes: React.FC = () => {
     };
 
     const handleDeleteCity = async (taxiTypeId: string) => {
+
         try {
-            // Make axios call to delete the coupon
+            setLoading(true);
+
+            // Fetch all related taxitypeprices for the taxiType
+            const taxitypepricesResponse = await axios.get(`/prices`, {
+                params: {
+                    filter: JSON.stringify({ taxi_type_id: taxiTypeId })
+                },
+            });
+
+            console.log(taxitypepricesResponse.data.taxitypeprices);
+
+            // Extract all taxitypeprices IDs to delete
+            const taxitypepricesIds = taxitypepricesResponse.data.taxitypeprices.map((price: any) => price._id);
+
+            // Delete each taxitypeprice
+            for (const id of taxitypepricesIds) {
+                await axios.delete(`/prices/${id}`);
+            }
+
+            // Now delete the taxiType
             await axios.delete(`/taxitypes/${taxiTypeId}`);
+            
             // Update the list after successful deletion
             setTaxiTypes((prevTaxiTypes) => prevTaxiTypes.filter((taxiType) => taxiType._id !== taxiTypeId));
-            // Fetch data for the current page to reflect the deletion
-            // fetchData(currentPage); 
-            console.log(currentPage)
-
+            
             // Show a success message to the user
-            message.success('Taxi Type deleted successfully!');
+            message.success('Taxi Type and associated prices deleted successfully!');
         } catch (error) {
             console.error('Error deleting taxi types:', error);
             // Handle error (e.g., show an error message to the user)
             message.error('Error deleting taxi type. Please try again.');
+        } finally {
+            setLoading(false);
         }
     };
 
@@ -189,7 +208,6 @@ const TaxiTypes: React.FC = () => {
         _id: string;
         name: string;
         description: string;
-        price_km: number;
         price_hour: number;
         car_features: ICarFeature[];
         discount_percentage: number;
@@ -198,7 +216,6 @@ const TaxiTypes: React.FC = () => {
             _id: taxiType?._id,
             name: taxiType?.name,
             description: taxiType?.description,
-            price_km: taxiType?.price_km,
             price_hour: taxiType?.price_hour,
             car_features: taxiType?.car_features || [],
             discount_percentage: taxiType?.discount_percentage
