@@ -7,36 +7,29 @@ import { useLocation } from 'react-router-dom';
 import { ITaxiType, ITaxiTypeFormValues } from '../../types/taxiTypes.types';
 import { MinusOutlined, PlusOutlined } from '@ant-design/icons';
 import { UploadChangeParam } from 'antd/es/upload';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-import {
-    faGasPump,
-    faWrench,
-    faSnowflake,
-    faUsers,
-    faTachometerAlt,
-    faCar,
-    faLeaf,
-    IconDefinition,
-    faSuitcase,
-    faBoxes
-} from '@fortawesome/free-solid-svg-icons';
+import AirConditioning from '../../icons/Air Conditioning.svg'
+import AutomaticTransmission from "../../icons/Automatic Transmission.svg"
+import Bags from "../../icons/Bags.svg"
+import CabBootSpace from "../../icons/Cab Boot space.svg"
+import CNG from "../../icons/CNG.svg"
+import ComfortSeat from "../../icons/Comfort Seat.svg"
+import Disel from "../../icons/Disel.svg"
+import Passanger from "../../icons/Passanger.svg"
+import RoofTopCarrier from "../../icons/Roof Top Carrier.svg"
+import StandardSeat from "../../icons/Standard Seat.svg"
 
-type FeatureIconMap = {
-    [key: string]: IconDefinition;
-};
-
-const featureIconMap: FeatureIconMap = {
-    'CNG': faGasPump,
-    'MANUAL': faWrench,
-    'AC': faSnowflake,
-    'PASSENGERS': faUsers,
-    'BAGS': faSuitcase,
-    'CARRIER': faBoxes,
-    'DIESEL': faTachometerAlt,
-    'BOOT SPACE': faCar,
-    'PETROL & HYBRID': faLeaf,
-    'AUTOMATIC': faTachometerAlt,
+const featureIconMap = {
+    'Air Conditioning': AirConditioning,
+    'Automatic Transmission': AutomaticTransmission,
+    'Bags': Bags,
+    'Cab Boot Space': CabBootSpace,
+    'CNG': CNG,
+    'Comfort Seat': ComfortSeat,
+    'Diesel': Disel,
+    'Passenger': Passanger,
+    'Roof Top Carrier': RoofTopCarrier,
+    'Standard Seat': StandardSeat,
 };
 
 const TaxiTypesAddEdit: React.FC = () => {
@@ -186,7 +179,7 @@ const TaxiTypesAddEdit: React.FC = () => {
                                             {Object.entries(featureIconMap).map(([feature, icon]) => (
                                                 <Select.Option key={feature} value={feature}>
                                                     <Space>
-                                                        <FontAwesomeIcon icon={icon} /> {feature}
+                                                        <img src={icon} className='w-4 h-4'/> {feature}
                                                     </Space>
                                                 </Select.Option>
                                             ))}

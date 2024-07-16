@@ -4,9 +4,7 @@ import {
   AppleFilled,
   BankOutlined,
   CarOutlined,
-  CloseCircleOutlined,
   CreditCardOutlined,
-  CustomerServiceOutlined,
   DollarCircleOutlined,
   DollarOutlined,
   EnvironmentOutlined,
@@ -16,12 +14,7 @@ import {
   MoneyCollectOutlined,
   RightOutlined,
   SafetyOutlined,
-  SmileOutlined,
-  SolutionOutlined,
-  StarOutlined,
   SwapOutlined,
-  TagOutlined,
-  TeamOutlined,
   UserOutlined,
 } from "@ant-design/icons";
 import { DatePicker, Dropdown, MenuProps, Segmented, message } from "antd";
@@ -35,15 +28,15 @@ import dayjs, { Dayjs } from "dayjs";
 import { Footer } from "../components/Footer";
 import { CallUsNow } from "../components/CallUsNow";
 import { WhyChooseUsCard } from "../components/WhyChooseUsCard";
-import HeroImage1 from "../assets/images/cab.jpeg";
+import HeroImage1 from "../assets/images/hero1.jpg";
 import HeroImage2 from "../assets/images/hero2.jpg";
 import HeroImage3 from "../assets/images/hero3.jpg";
-import WeOffer1 from "../assets/images/weoffer1.jpg";
-import WeOffer2 from "../assets/images/weoffer2.jpg";
-import WeOffer3 from "../assets/images/weoffer3.jpg";
-import WeOffer4 from "../assets/images/weoffer4.jpg";
-import WeOffer5 from "../assets/images/weoffer5.jpg";
-import WeOffer6 from "../assets/images/weoffer6.jpg";
+import WeOffer1 from "../assets/images/Online easy booking.png";
+import WeOffer2 from "../assets/images/One way trip.png";
+import WeOffer3 from "../assets/images/Round trip.png";
+import WeOffer4 from "../assets/images/Hourly Rental.png";
+import WeOffer5 from "../assets/images/Airport.png";
+import WeOffer6 from "../assets/images/corporate trip.png";
 import Experience from "../assets/images/experience.jpg";
 import { generateTimeOptions } from "../utils/GenerateTimeOptions";
 import { generateDistanceOptions } from "../utils/GenerateDistanceOptions";
@@ -55,6 +48,28 @@ import { OneWayTripIcon } from "../icons/OneWayTripIcon.js";
 import { HourlyRentalIcon } from "../icons/HourlyRentalIcon.js";
 import "../css/Fade.css";
 import "../css/NoScrollbar.css";
+import { BestVehiclesFleetIcon } from "../icons/BestVehiclesFleet.js";
+import { RoadTripsDoneIcon } from "../icons/RoadTripsDone.js";
+import { PeopleDroppedIcon } from "../icons/PeopleDropped.js";
+import { SatisfiedClientIcon } from "../icons/SatisfiedClient.js";
+
+import QuickSupport from "../assets/images/24-7 Quick Support.png"
+import SafetyGaurantee from "../assets/images/100 Safety Guarantee.png"
+import AffordablePricing from "../assets/images/Affordable Pricing.png"
+import BestDealsDiscounts from "../assets/images/Best Deals & Discounts.png"
+import BestQualityFleet from "../assets/images/Best Quality Fleet.png"
+import PremiumServices from "../assets/images/Premium Services.png"
+import ProfessionalExpertDrivers from "../assets/images/Professional Expert Drivers.png"
+import { OnlineEasyBookingIcon } from "../icons/OnlineEasyBooking.js";
+import { AirportTransferIcon } from "../icons/AirportTransfer.js";
+import { CorporateCarRentalIcon } from "../icons/CorporateCarRental.js";
+
+message.config({
+  top: "25%",
+  duration: 2,
+  maxCount: 3,
+  prefixCls: 'my-message',
+});
 
 const Hero: React.FC = () => {
   const navigate = useNavigate();
@@ -72,17 +87,16 @@ const Hero: React.FC = () => {
     dayjs().add(1, "day")
   );
 
-  const [pickupTime, setPickupTime] = useState<string>(
-    generateTimeOptions()[0]?.label ?? ""
-  );
+  const [pickupTime, setPickupTime] = useState<string>("");
   const [hourlyPackage, setHourlyPackage] = useState<string>("8 hr 80 kms");
 
   const [activeTab, setActiveTab] = useState("One-Way Trip");
   const [cities, setCities] = useState<ICity[]>([]);
 
   useEffect(() => {
-    console.log(generateTimeOptions());
-  }, []);
+    const timeOptions = generateTimeOptions(pickupDate ?? dayjs());
+    setPickupTime(timeOptions[0]?.label ?? "");
+  }, [pickupDate]);
 
   const togglePickupDatePicker = () => {
     setPickupDateOpen(!pickupDateOpen);
@@ -158,7 +172,10 @@ const Hero: React.FC = () => {
     key: city._id,
   }));
 
-  const menuTime: MenuProps["items"] = generateTimeOptions();
+  const menuTime: MenuProps["items"] = generateTimeOptions(pickupDate ?? dayjs()).map(option => ({
+    label: option.label,
+    key: option.key,
+  }));
 
   const menuDistance: MenuProps["items"] = generateDistanceOptions();
 
@@ -226,7 +243,7 @@ const Hero: React.FC = () => {
       if (!from || !to) {
         // Prompt the user to select FROM and TO cities
         message.warning(
-          "Please select both FROM and TO cities before proceeding."
+          "Please select both FROM and TO cities before proceeding.",
         );
         return;
       }
@@ -381,9 +398,10 @@ const Hero: React.FC = () => {
                   {
                     label: (
                       <div className="lg:text-lg m-2">
-                        <div className="hidden lg:flex items-center">
-                          <OneWayTripIcon />
-
+                        <div className="flex items-center">
+                          <div className="hidden lg:flex">
+                            <OneWayTripIcon/>
+                          </div>
                           <span className="mx-0.5 md:mx-2">One-Way Trip</span>
                         </div>
                       </div>
@@ -393,8 +411,10 @@ const Hero: React.FC = () => {
                   {
                     label: (
                       <div className="lg:text-lg m-2">
-                        <div className="hidden lg:flex items-center">
+                        <div className="flex items-center">
+                        <div className="hidden lg:flex">
                           <RoundTripIcon />
+                          </div>
                           <span className="mx-0.5 md:mx-2">Round Trip</span>
                         </div>
                       </div>
@@ -404,8 +424,10 @@ const Hero: React.FC = () => {
                   {
                     label: (
                       <div className="lg:text-lg m-2">
-                        <div className="hidden lg:flex items-center">
+                        <div className="flex items-center">
+                        <div className="hidden lg:flex">
                           <HourlyRentalIcon />
+                        </div>
                           <span className="mx-0.5 md:mx-2">Hourly Rental</span>
                         </div>
                       </div>
@@ -809,7 +831,7 @@ const OurAchievement: React.FC = () => {
               <div className="text-center md:text-left flex flex-col gap-3 w-60 mt-8">
                 <div className="flex justify-center md:justify-start items-center gap-5">
                   <div className="flex justify-center w-16 h-16 bg-white rounded-full">
-                    <CarOutlined className="text-yellow-500 text-3xl"/>
+                      <BestVehiclesFleetIcon/>
                   </div>
                   <div className="text-3xl lg:text-5xl font-black text-white">
                   {stats.fleet}
@@ -827,7 +849,7 @@ const OurAchievement: React.FC = () => {
               <div className="text-center md:text-left flex flex-col gap-3 w-60 mt-8">
                 <div className="flex justify-center md:justify-start items-center gap-5">
                 <div className="flex justify-center w-16 h-16 bg-white rounded-full">
-                    <EnvironmentOutlined className="text-yellow-500 text-3xl"/>
+                    <RoadTripsDoneIcon/>
                   </div>
                   <div className="text-3xl lg:text-5xl font-black text-white">
                   {stats.trips}
@@ -845,7 +867,7 @@ const OurAchievement: React.FC = () => {
               <div className="text-center md:text-left flex flex-col gap-3 w-60 mt-8">
                 <div className="flex justify-center md:justify-start items-center gap-5">
                 <div className="flex justify-center w-16 h-16 bg-white rounded-full">
-                    <UserOutlined className="text-yellow-500 text-3xl"/>
+                    <PeopleDroppedIcon/>
                   </div>
                   <div className="text-3xl lg:text-5xl font-black text-white">
                   {stats.dropped}
@@ -863,7 +885,7 @@ const OurAchievement: React.FC = () => {
               <div className="text-center md:text-left flex flex-col gap-3 w-60 mt-8">
                 <div className="flex justify-center md:justify-start items-center gap-5">
                 <div className="flex justify-center w-16 h-16 bg-white rounded-full">
-                    <SmileOutlined className="text-yellow-500 text-3xl"/>
+                    <SatisfiedClientIcon/>
                   </div>
                   <div className="text-3xl lg:text-5xl font-black text-white">
                     {stats.satisfied}
@@ -1216,23 +1238,23 @@ const AwsomeFeatures: React.FC = () => {
   const [isHovering, setIsHovering] = useState(false);
 
   const features = [
-    { icon: <StarOutlined className="text-5xl" />, text: "Premium Services" },
+    { icon: <img src={PremiumServices} className="w-12 h-12"/>, text: "Premium Services" },
     {
-      icon: <SafetyOutlined className="text-5xl" />,
+      icon: <img src={SafetyGaurantee} className="w-12 h-12"/>,
       text: "100% Safety Guarantee",
     },
-    { icon: <TagOutlined className="text-5xl" />, text: "Affordable Pricing" },
-    { icon: <CarOutlined className="text-5xl" />, text: "Best Quality Fleet" },
+    { icon: <img src={AffordablePricing} className="w-12 h-12"/>, text: "Affordable Pricing" },
+    { icon: <img src={BestQualityFleet} className="w-12 h-12"/>, text: "Best Quality Fleet" },
     {
-      icon: <SolutionOutlined className="text-5xl" />,
+      icon: <img src={ProfessionalExpertDrivers} className="w-12 h-12"/>,
       text: "Professional Expert Drivers",
     },
     {
-      icon: <CustomerServiceOutlined className="text-5xl" />,
+      icon: <img src={QuickSupport} className="w-12 h-12"/>,
       text: "24/7 Quick Support",
     },
     {
-      icon: <CloseCircleOutlined className="text-5xl" />,
+      icon: <img src={BestDealsDiscounts} className="w-12 h-12"/>,
       text: "Best Deals & Discounts",
     },
   ];
@@ -1769,7 +1791,7 @@ const WhatWeAreOffering: React.FC = () => {
 
   const services = [
     {
-      icon: <EnvironmentOutlined className="text-3xl" />,
+      icon: <OnlineEasyBookingIcon/>,
       feature: "FEATURE - 01",
       title: "Online Easy Booking",
       description:
@@ -1805,7 +1827,7 @@ const WhatWeAreOffering: React.FC = () => {
       image: WeOffer4,
     },
     {
-      icon: <CarOutlined className="text-3xl" />,
+      icon: <AirportTransferIcon/>,
       feature: "FEATURE - 05",
       title: "Airport Transfer",
       description:
@@ -1814,7 +1836,7 @@ const WhatWeAreOffering: React.FC = () => {
       image: WeOffer5,
     },
     {
-      icon: <TeamOutlined className="text-3xl" />,
+      icon: <CorporateCarRentalIcon/>,
       feature: "FEATURE - 06",
       title: "Corporate Car Rental",
       description:
@@ -1934,7 +1956,7 @@ const WhatWeAreOffering: React.FC = () => {
 
 const Home: React.FC = () => {
   return (
-    <>
+    <div>
       <Hero />
       <div
         className="
@@ -1982,7 +2004,7 @@ const Home: React.FC = () => {
       <StatsAndTestamonials />
       <CallUsNow />
       <Footer />
-    </>
+    </div>
   );
 };
 

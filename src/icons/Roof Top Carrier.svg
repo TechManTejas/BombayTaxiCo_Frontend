@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="64" height="64" viewBox="0 0 64 64">
+  <defs>
+    <clipPath id="clip-Roof_Top_Carrier">
+      <rect width="64" height="64"/>
+    </clipPath>
+  </defs>
+  <g id="Roof_Top_Carrier" data-name="Roof Top Carrier" clip-path="url(#clip-Roof_Top_Carrier)">
+    <rect width="64" height="64" fill="#fff"/>
+    <g id="Group_83" data-name="Group 83" transform="translate(-1.5 1.24)">
+      <g id="Group_82" data-name="Group 82" transform="translate(3.5 24.76)">
+        <path id="Path_64" data-name="Path 64" d="M15827.885,3091.564h51.491s8.589-2.083,8.508-10.424" transform="translate(-15827.885 -3079.006)" fill="none" stroke="#000" stroke-linecap="round" stroke-width="3"/>
+        <path id="Path_65" data-name="Path 65" d="M15833.886,3091.718h46.851s9.4.989,9.314-7.641" transform="translate(-15833.885 -3083.205)" fill="none" stroke="#000" stroke-linecap="round" stroke-width="3"/>
+      </g>
+    </g>
+  </g>
+</svg>

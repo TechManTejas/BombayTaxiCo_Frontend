@@ -111,16 +111,28 @@ const RoutesPage: React.FC = () => {
 
   const handleDeleteCoupon = async (routeId: string) => {
     try {
-      // Make axios call to delete the coupon
+      // First, fetch all taxi type prices associated with the route
+      const pricesResponse = await axios.get(`/prices`, { 
+        params: { 
+          filter: JSON.stringify({ route_id: routeId })
+        } 
+      });
+
+      const taxiTypePrices = pricesResponse.data.taxitypeprices;
+
+      // Delete each taxi type price
+      for (const price of taxiTypePrices) {
+        await axios.delete(`/prices/${price._id}`);
+      }
+
+      // Then, delete the route
       await axios.delete(`/routes/${routeId}`);
+
       // Update the list after successful deletion
       setRoutes((prevRoutes) => prevRoutes.filter((route) => route._id !== routeId));
-      // Fetch data for the current page to reflect the deletion
-      // fetchData(currentPage); 
-      console.log(currentPage)
-
+      
       // Show a success message to the user
-      message.success('Route deleted successfully!');
+      message.success('Route and associated TaxiTypePrices deleted successfully!');
     } catch (error) {
       console.error('Error deleting route:', error);
       // Handle error (e.g., show an error message to the user)
