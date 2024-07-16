@@ -1,28 +1,34 @@
 import React from 'react';
-import { Tag } from 'antd';
 import Car from "../assets/images/car.png"
 import { faGasPump, faSnowflake, faUsers, faTachometerAlt, faCar, faLeaf, IconDefinition, faWrench, faSuitcase, faBoxes } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-type FeatureIconMap = {
-    [key: string]: IconDefinition;
-};
+import AirConditioning from '../icons/Air Conditioning.svg'
+import AutomaticTransmission from "../icons/Automatic Transmission.svg"
+import Bags from "../icons/Bags.svg"
+import CabBootSpace from "../icons/Cab Boot space.svg"
+import CNG from "../icons/CNG.svg"
+import ComfortSeat from "../icons/Comfort Seat.svg"
+import Disel from "../icons/Disel.svg"
+import Passanger from "../icons/Passanger.svg"
+import RoofTopCarrier from "../icons/Roof Top Carrier.svg"
+import StandardSeat from "../icons/Standard Seat.svg"
 
-const featureIconMap: FeatureIconMap = {
-    'CNG': faGasPump,
-    'MANUAL': faWrench,
-    'AC': faSnowflake,
-    'PASSENGERS': faUsers,
-    'BAGS': faSuitcase,
-    'CARRIER': faBoxes,
-    'DIESEL': faTachometerAlt,
-    'BOOT SPACE': faCar,
-    'PETROL & HYBRID': faLeaf,
-    'AUTOMATIC': faTachometerAlt,
+const featureIconMap = {
+    'Air Conditioning': AirConditioning,
+    'Automatic Transmission': AutomaticTransmission,
+    'Bags': Bags,
+    'Cab Boot Space': CabBootSpace,
+    'CNG': CNG,
+    'Comfort Seat': ComfortSeat,
+    'Diesel': Disel,
+    'Passenger': Passanger,
+    'Roof Top Carrier': RoofTopCarrier,
+    'Standard Seat': StandardSeat,
 };
 
 export interface Feature {
-    icon?: keyof FeatureIconMap;
+    icon?: string;
     feature: string;
 }
 
@@ -118,14 +124,16 @@ const CarCard: React.FC<CarCardProps> = ({
                             '>
                                     {features.map((feature, index) => (
                                         <div className='text-xs rounded-full p-1.5 px-3 m-1 bg-zinc-100 text-zinc-700' key={index}>
+                                           <div className='flex items-center gap-1'>
                                             {feature.icon && featureIconMap[feature.icon] ? (
-                                                <FontAwesomeIcon icon={featureIconMap[feature.icon]} />
-                                            ) : null}
-                                            {feature.feature &&
+                                                <img src={featureIconMap[feature.icon]} className='w-4 h-4'/>
+                                                ) : null}
+                                            {feature.feature && 
                                                 <span className='pl-1'>
                                                     {feature.feature}
                                                 </span>
                                             }
+                                            </div>
                                         </div>
                                     ))}
                                 </div>
