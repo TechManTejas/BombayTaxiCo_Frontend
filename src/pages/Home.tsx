@@ -343,8 +343,7 @@ const Hero: React.FC = () => {
 
   return (
     <>
-      <motion.div
-        key={currentTextIndex}
+      <div
         // initial={{ opacity: 0 }}
         // animate={{ opacity: 1 }}
         // exit={{ opacity: 0 }}
@@ -613,7 +612,7 @@ const Hero: React.FC = () => {
           {/* extra div  */}
           <div />
         </div>
-      </motion.div>
+      </div>
     </>
   );
 };
