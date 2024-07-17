@@ -362,7 +362,7 @@ const Hero: React.FC = () => {
             lg:mt-0
           "
           >
-            <div className="h-16 lg:h-max text-center space-y-4">
+            <div key={currentTextIndex} className="h-16 lg:h-max text-center space-y-4">
               <motion.div
                 key={currentTextIndex}
                 initial={{ opacity: 0, y: -50, scale: 0.95 }}
