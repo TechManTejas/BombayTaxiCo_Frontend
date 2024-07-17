@@ -18,7 +18,6 @@ export const PeopleDroppedIcon = () => {
           data-name="People Dropped"
           clip-path="url(#clip-People_Dropped)"
         >
-          <rect width="64" height="64" fill="#fff" />
           <path
             id="Path_41"
             data-name="Path 41"
