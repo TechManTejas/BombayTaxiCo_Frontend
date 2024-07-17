@@ -18,7 +18,6 @@ export const RoadTripsDoneIcon = () => {
           data-name="Road Trips Done"
           clip-path="url(#clip-Road_Trips_Done)"
         >
-          <rect width="64" height="64" fill="#fff" />
           <g
             id="Layer_13"
             data-name="Layer 13"

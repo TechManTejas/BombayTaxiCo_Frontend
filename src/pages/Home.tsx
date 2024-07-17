@@ -830,7 +830,7 @@ const OurAchievement: React.FC = () => {
             <div className="flex flex-wrap md:flex md:flex-nowrap justify-center md:justify-between">
               <div className="text-center md:text-left flex flex-col gap-3 w-60 mt-8">
                 <div className="flex justify-center md:justify-start items-center gap-5">
-                  <div className="flex justify-center w-16 h-16 bg-white rounded-full">
+                  <div className="flex justify-center w-16 h-16 bg-yellow-500 rounded-full">
                       <BestVehiclesFleetIcon/>
                   </div>
                   <div className="text-3xl lg:text-5xl font-black text-white">
@@ -848,7 +848,7 @@ const OurAchievement: React.FC = () => {
 
               <div className="text-center md:text-left flex flex-col gap-3 w-60 mt-8">
                 <div className="flex justify-center md:justify-start items-center gap-5">
-                <div className="flex justify-center w-16 h-16 bg-white rounded-full">
+                <div className="flex justify-center w-16 h-16 bg-yellow-500 rounded-full">
                     <RoadTripsDoneIcon/>
                   </div>
                   <div className="text-3xl lg:text-5xl font-black text-white">
@@ -866,7 +866,7 @@ const OurAchievement: React.FC = () => {
 
               <div className="text-center md:text-left flex flex-col gap-3 w-60 mt-8">
                 <div className="flex justify-center md:justify-start items-center gap-5">
-                <div className="flex justify-center w-16 h-16 bg-white rounded-full">
+                <div className="flex justify-center w-16 h-16 bg-yellow-500 rounded-full">
                     <PeopleDroppedIcon/>
                   </div>
                   <div className="text-3xl lg:text-5xl font-black text-white">
@@ -884,7 +884,7 @@ const OurAchievement: React.FC = () => {
 
               <div className="text-center md:text-left flex flex-col gap-3 w-60 mt-8">
                 <div className="flex justify-center md:justify-start items-center gap-5">
-                <div className="flex justify-center w-16 h-16 bg-white rounded-full">
+                <div className="flex justify-center w-16 h-16 bg-yellow-500 rounded-full">
                     <SatisfiedClientIcon/>
                   </div>
                   <div className="text-3xl lg:text-5xl font-black text-white">

@@ -1053,12 +1053,6 @@ const Details: React.FC = () => {
                             </div>
                           }
                           name="pincode"
-                          rules={[
-                            {
-                              required: true,
-                              message: "Please enter your pincode!",
-                            },
-                          ]}
                         >
                           <Input placeholder="Your Pincode" />
                         </Form.Item>

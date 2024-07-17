@@ -4,7 +4,8 @@ export const BestVehiclesFleetIcon = () => {
   return (
     <>
       <svg
-        width="44"
+        xmlns="http://www.w3.org/2000/svg"
+        width="48"
         height="64"
         viewBox="0 0 64 64"
       >
@@ -18,7 +19,6 @@ export const BestVehiclesFleetIcon = () => {
           data-name="Best Vehicles Fleet"
           clip-path="url(#clip-Best_Vehicles_Fleet)"
         >
-          <rect width="64" height="64" fill="#fff" />
           <g id="Group_74" data-name="Group 74" transform="translate(7.51 28)">
             <path
               id="Path_44"
