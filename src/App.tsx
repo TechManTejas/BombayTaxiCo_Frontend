@@ -203,7 +203,7 @@ const AdminRoutes: React.FC = () => {
 
 const App: React.FC = () => {
   return (
-    <div className="font-figtree">
+    <div className="font-lora">
       <Router>
         <Routes>
           {/* User Route  */}

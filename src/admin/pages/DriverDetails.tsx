@@ -83,7 +83,7 @@ export default function DriverDetails() {
                                 </tr>
                                 <tr>
                                     <td className="py-4 whitespace-nowrap">
-                                        <div className="text-sm font-medium text-gray-900">DRIVING LICENSE</div>
+                                        <div className="text-sm font-medium text-gray-900">RC Registration Number</div>
                                     </td>
                                     <td className="px-6 py-4 whitespace-nowrap">
                                         <div className="text-sm text-gray-500">{driver.driving_license}</div>

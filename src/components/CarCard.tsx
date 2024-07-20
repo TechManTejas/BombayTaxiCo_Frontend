@@ -129,7 +129,7 @@ const CarCard: React.FC<CarCardProps> = ({
                                                 <img src={featureIconMap[feature.icon]} className='w-4 h-4'/>
                                                 ) : null}
                                             {feature.feature && 
-                                                <span className='pl-1'>
+                                                <span className='pl-1 font-bold'>
                                                     {feature.feature}
                                                 </span>
                                             }

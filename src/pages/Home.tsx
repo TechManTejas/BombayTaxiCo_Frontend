@@ -460,8 +460,8 @@ const Hero: React.FC = () => {
                   </div>
                 )}
                 {activeTab !== "Hourly Rental" && (
-                  <div className="flex">
-                    <div className="w-[170px] md:w-[220px]  p-3 pb-4 space-y-1 border rounded-xl">
+                  <div className="flex gap-2 relative">
+                    <div className="w-[170px] md:w-[220px]  p-3 pb-4 space-y-1 border rounded-xl z-40">
                       <div className="text-xs ">FROM</div>
                       <Dropdown menu={menuPropsFrom} placement="bottomLeft">
                         <button
@@ -472,15 +472,15 @@ const Hero: React.FC = () => {
                         </button>
                       </Dropdown>
                     </div>
-                    <div className="relative flex items-center">
-                      <button className="bg-white" onClick={switchValues}>
+                    <div className="absolute w-full h-full flex justify-center items-center">
+                      <button className="bg-white z-50 border rounded-full border-yellow-500" onClick={switchValues}>
                         <SwapOutlined
                           size={50}
                           className="border rounded-full p-1 text-xl hover:bg-gray-200 shadow-lg"
                         />
                       </button>
                     </div>
-                    <div className="w-[170px] md:w-[220px] p-3 pb-4 space-y-1 border rounded-xl">
+                    <div className="w-[170px] md:w-[220px] p-3 pb-4 space-y-1 border rounded-xl z-40">
                       <div className="text-xs">TO</div>
                       <Dropdown menu={menuPropsTo} placement="bottomLeft">
                         <button

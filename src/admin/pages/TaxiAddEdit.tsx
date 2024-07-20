@@ -99,7 +99,7 @@ const TaxiAddEdit: React.FC = () => {
                     <Input className="w-full" />
                 </Form.Item>
 
-                <Form.Item name="driving_license" label="Driving License" rules={[{ required: true, message: 'Please enter the driving license' }]}>
+                <Form.Item name="driving_license" label="RC Registration Number" rules={[{ required: true, message: 'Please enter the RC registration number' }]}>
                     <Input className="w-full" />
                 </Form.Item>
 

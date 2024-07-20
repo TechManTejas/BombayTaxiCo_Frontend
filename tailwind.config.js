@@ -7,7 +7,7 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        figtree: ['Figtree', 'sans-serif'],
+        lora: ['Lora', 'sans-serif'],
       },
       animations: {
         fadeIn: {

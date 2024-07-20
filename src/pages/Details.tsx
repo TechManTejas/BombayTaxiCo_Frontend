@@ -1,11 +1,10 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useEffect, useState } from "react";
-import CarCard from "../components/CarCard";
+import DetailsCarCard from "../components/DetailsCarCard";
 import {
   Button,
   Checkbox,
   Collapse,
-  Divider,
   Form,
   Input,
   Modal,
@@ -75,7 +74,7 @@ const ReadBeforeYouBook = () => {
     <>
       <>
         <>
-          <div className="bg-white border m-3  rounded-lg">
+          <div className="bg-white border my-3 rounded-lg">
             <Collapse accordion className="bg-white rounded-2xl border-none">
               <Panel header="Read before you book!" key="1">
                 {/* <div className="font-medium text-2xl mb-4">Read before you book!</div> */}
@@ -166,7 +165,7 @@ const ReadBeforeYouBook = () => {
 const OnTripDosAndDonts = () => {
   return (
     <>
-      <div className="bg-white border m-3  rounded-lg">
+      <div className="bg-white border my-3  rounded-lg">
         <Collapse accordion className="bg-white rounded-2xl border-none">
           <Panel header="On Trip Do's & Don'ts" key="2">
             {/* <div className="font-medium text-2xl mb-4">On Trip Do's & Don'ts</div> */}
@@ -240,7 +239,7 @@ const OnTripDosAndDonts = () => {
 const OtherTerms = () => {
   return (
     <>
-      <div className="bg-white border m-3  rounded-lg">
+      <div className="bg-white border my-3  rounded-lg">
         <Collapse accordion className="bg-white rounded-2xl border-none">
           <Panel header="Other Terms" key="3">
             {/* <div className="font-medium text-2xl mb-4">Other Terms</div> */}
@@ -315,7 +314,7 @@ const OtherTerms = () => {
 const PreBoardingGuidelines = () => {
   return (
     <>
-      <div className="bg-white border m-3  rounded-lg">
+      <div className="bg-white border my-3  rounded-lg">
         <Collapse accordion className="bg-white rounded-2xl border-none">
           <Panel header="Pre-boarding guidelines" key="4">
             {/* <div className="font-medium text-2xl mb-4">
@@ -726,7 +725,7 @@ const Details: React.FC = () => {
           "
           >
             <div className="px-1">
-              <CarCard
+              <DetailsCarCard
                 carImage={taxiRate.taxiType?.image}
                 category={taxiRate.taxiType?.name || ""}
                 description={taxiRate.taxiType?.description || ""}
@@ -784,16 +783,15 @@ const Details: React.FC = () => {
                     </div>
                   </div>
                 </div>
-              </>
+              </> 
               <>
-                <div className=" ">
                   <div
                     className="flex h-full
                   flex-col
                   lg:flex-row
                 "
                   >
-                    <div className="lg:w-1/2 bg-white border m-3 p-4 rounded-lg shadow-lg">
+                    <div className="lg:w-1/2 bg-white border my-3 mr-3 p-4 rounded-lg shadow-lg">
                       <div className="font-medium text-2xl mb-4">
                         Inclusions
                       </div>
@@ -820,7 +818,7 @@ const Details: React.FC = () => {
                         </ul>
                       </div>
                     </div>
-                    <div className="lg:w-1/2 bg-white border m-3 p-4 rounded-lg shadow-lg">
+                    <div className="lg:w-1/2 bg-white border my-3 ml-3  p-4 rounded-lg shadow-lg">
                       <div className="font-medium text-2xl mb-4">
                         Exclusions
                       </div>
@@ -857,7 +855,6 @@ const Details: React.FC = () => {
                       </div>
                     </div>
                   </div>
-                </div>
               </>
               <>
                 <div className="">
@@ -868,10 +865,10 @@ const Details: React.FC = () => {
                     onFinish={() => {}}
                     className="mt-4"
                   >
-                      <div className="bg-white border m-3 my-4 p-4 rounded-lg shadow-lg">
+                    <div className="bg-white border my-4 p-4 rounded-lg shadow-lg">
                       <div className="font-medium text-2xl mb-4">
-                        Primary Passenger
-                      <div className="text-xs text-zinc-400">ADULT</div>
+                        Contact Details
+                        <div className="text-xs text-zinc-400">ADULT</div>
                       </div>
 
                       <div className="lg:flex w-full gap-10">
@@ -907,8 +904,10 @@ const Details: React.FC = () => {
                               message: "Please select your gender!",
                             },
                           ]}
+                          initialValue="male"
                         >
                           <Segmented
+                            defaultValue={"male"}
                             className="rounded-full"
                             options={[
                               { label: "Male", value: "male" },
@@ -916,12 +915,6 @@ const Details: React.FC = () => {
                             ]}
                           />
                         </Form.Item>
-                      </div>
-                    </div>
-
-                    <div className="bg-white border m-3 my-4 p-4 rounded-lg shadow-lg">
-                      <div className="font-medium text-2xl mb-4">
-                        Your Contact Details
                       </div>
 
                       <div className="lg:flex w-full gap-10">
@@ -950,7 +943,6 @@ const Details: React.FC = () => {
                       </div>
 
                       <div className="lg:flex w-full gap-10">
-
                         <Form.Item
                           className="w-full"
                           label={
@@ -1014,7 +1006,7 @@ const Details: React.FC = () => {
                         </Form.Item>
                       </div>
 
-                      <div>
+                      <div className="mb-4">
                         By proceeding to book, I Agree to Bombay Taxi's{" "}
                         <a
                           href="/privacy-policy"
@@ -1034,7 +1026,7 @@ const Details: React.FC = () => {
                         </a>
                       </div>
 
-                      <div className="lg:flex items-center my-4 space-x-1">
+                      {/* <div className="lg:flex items-center my-4 space-x-1">
                         <div className="font-semibold text-lg">
                           Your pincode and state
                         </div>
@@ -1042,7 +1034,7 @@ const Details: React.FC = () => {
                           (Required for GST purpose on your tax invoice. You can
                           edit this anytime later in your profile section.)
                         </div>
-                      </div>
+                      </div> */}
 
                       <div className="lg:flex w-full gap-5">
                         <Form.Item
@@ -1106,7 +1098,7 @@ const Details: React.FC = () => {
                           <Checkbox value="seniorCitizen">Confirm and save billing details to your profile</Checkbox>
                         </Form.Item> */}
 
-                    <div className="bg-white border m-3 my-4 p-4 rounded-lg shadow-lg">
+                    <div className="bg-white border my-4 p-4 rounded-lg shadow-lg">
                       <div className="font-medium text-2xl mb-4">
                         Itenary Details
                       </div>
@@ -1137,8 +1129,8 @@ const Details: React.FC = () => {
                             </div>
                             <div className="text-xs text-zinc-400">
                               {" "}
-                              (Optional - This will help you avoid any extra
-                              charges after the trip)
+                              (This will help you avoid any extra charges after
+                              the trip)
                             </div>
                           </div>
                         }
@@ -1154,7 +1146,7 @@ const Details: React.FC = () => {
                       </Form.Item>
                     </div>
 
-                    <div className="bg-white border m-3 my-4 p-4 rounded-lg shadow-lg">
+                    <div className="bg-white border my-4 p-4 rounded-lg shadow-lg">
                       <div className="font-medium text-2xl mb-4">
                         Additional details
                       </div>
@@ -1219,60 +1211,79 @@ const Details: React.FC = () => {
                         serve you better.
                       </div>
 
-                      <Form.Item name="seniorCitizen" valuePropName="checked">
-                        <Checkbox value="seniorCitizen">
-                          Senior citizen traveling
-                        </Checkbox>
-                      </Form.Item>
-                      <Form.Item name="womenTraveling" valuePropName="checked">
-                        <Checkbox value="womenTraveling">
-                          Women traveling
-                        </Checkbox>
-                      </Form.Item>
-                      <Form.Item name="kidsOnBoard" valuePropName="checked">
-                        <Checkbox value="kidsOnBoard">Kids on board</Checkbox>
-                      </Form.Item>
-                      <Form.Item
-                        name="englishSpeakingDriver"
-                        valuePropName="checked"
-                      >
-                        <Checkbox value="englishSpeakingDriver">
-                          English-speaking driver preferred
-                        </Checkbox>
-                      </Form.Item>
-                      <Form.Item name="carryingPet" valuePropName="checked">
-                        <Checkbox value="carryingPet">Carrying Pet</Checkbox>
-                      </Form.Item>
-                      <Form.Item
-                        name="need7Plus1Seater"
-                        valuePropName="checked"
-                      >
-                        <Checkbox value="need7Plus1Seater">
-                          Need 7+1 seater
-                        </Checkbox>
-                      </Form.Item>
-                      <Form.Item name="carrierOverTop" valuePropName="checked">
-                        <Checkbox value="carrierOverTop">
-                          Carrier over the top of vehicle
-                        </Checkbox>
-                      </Form.Item>
-                      <Form.Item
-                        name="bookingForSomeoneElse"
-                        valuePropName="checked"
-                      >
-                        <Checkbox value="bookingForSomeoneElse">
-                          Booking for someone else
-                        </Checkbox>
-                      </Form.Item>
-                      <Form.Item name="other" valuePropName="checked">
-                        <Checkbox
-                          onChange={onOtherCheckboxChange}
-                          value="other"
-                        >
-                          Other
-                        </Checkbox>
-                      </Form.Item>
+                      <div className="lg:flex">
+                        <div className="lg:w-1/2">
+                          <Form.Item
+                            name="seniorCitizen"
+                            valuePropName="checked"
+                          >
+                            <Checkbox value="seniorCitizen">
+                              Senior citizen traveling
+                            </Checkbox>
+                          </Form.Item>
 
+                          <Form.Item
+                            name="womenTraveling"
+                            valuePropName="checked"
+                          >
+                            <Checkbox value="womenTraveling">
+                              Women traveling
+                            </Checkbox>
+                          </Form.Item>
+
+                          <Form.Item name="kidsOnBoard" valuePropName="checked">
+                            <Checkbox value="kidsOnBoard">
+                              Kids on board
+                            </Checkbox>
+                          </Form.Item>
+
+                          <Form.Item
+                            name="englishSpeakingDriver"
+                            valuePropName="checked"
+                          >
+                            <Checkbox value="englishSpeakingDriver">
+                              English-speaking driver preferred
+                            </Checkbox>
+                          </Form.Item>
+                          <Form.Item name="carryingPet" valuePropName="checked">
+                            <Checkbox value="carryingPet">
+                              Carrying Pet
+                            </Checkbox>
+                          </Form.Item>
+                        </div>
+                        <div className="lg:w-1/2">
+                          <Form.Item
+                            name="need7Plus1Seater"
+                            valuePropName="checked"
+                          >
+                            <Checkbox value="need7Plus1Seater">
+                              Need 7+1 seater
+                            </Checkbox>
+                          </Form.Item>
+                          <Form.Item
+                            name="carrierOverTop"
+                            valuePropName="checked"
+                          >
+                            <Checkbox value="carrierOverTop">
+                              Carrier over the top of vehicle
+                            </Checkbox>
+                          </Form.Item>
+                          <Form.Item
+                            name="bookingForSomeoneElse"
+                            valuePropName="checked"
+                          >
+                            <Checkbox value="bookingForSomeoneElse">
+                              Booking for someone else
+                            </Checkbox>
+                          </Form.Item>
+                          <Form.Item name="other" valuePropName="checked">
+                            <Checkbox
+                              onChange={onOtherCheckboxChange}
+                              value="other"
+                            >
+                              Other
+                            </Checkbox>
+                          </Form.Item>
                       {isOtherChecked && (
                         <Form.Item name="otherDetails">
                           <Input.TextArea
@@ -1282,6 +1293,9 @@ const Details: React.FC = () => {
                           />
                         </Form.Item>
                       )}
+                        </div>
+                      </div>
+
                     </div>
                   </Form>
                 </div>
