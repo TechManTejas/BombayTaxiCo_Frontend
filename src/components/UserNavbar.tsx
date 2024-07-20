@@ -57,7 +57,10 @@ const LoginForm: React.FC<LoginFormProps> = ({ hideLoginModal }) => {
         <Form form={form} name="login" onFinish={onFinish}>
             <Form.Item
                 name="number"
-                rules={[{ required: true, message: 'Please enter your mobile number' }]}
+                rules={[
+                    { required: true, message: 'Please enter your mobile number' },
+                    { pattern: /^[0-9]{10}$/, message: 'Please enter a valid 10-digit mobile number' }
+                ]}
             >
                 <Input placeholder="Mobile Number" />
             </Form.Item>
@@ -65,7 +68,10 @@ const LoginForm: React.FC<LoginFormProps> = ({ hideLoginModal }) => {
             {otpRequired && (
                 <Form.Item
                     name="otp"
-                    rules={[{ required: true, message: 'Please enter the OTP' }]}
+                    rules={[
+                        { required: true, message: 'Please enter the OTP' },
+                        { pattern: /^[0-9]{6}$/, message: 'Please enter a valid 6-digit OTP' }
+                    ]}
                 >
                     <Input placeholder="OTP" />
                 </Form.Item>
@@ -79,7 +85,6 @@ const LoginForm: React.FC<LoginFormProps> = ({ hideLoginModal }) => {
         </Form>
     );
 };
-
 
 interface RegisterFormProps {
     hideLoginModal: () => void;
@@ -142,7 +147,10 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ hideLoginModal }) => {
                     </Form.Item>
                     <Form.Item
                         name="number"
-                        rules={[{ required: true, message: 'Please enter your mobile number' }]}
+                        rules={[
+                            { required: true, message: 'Please enter your mobile number' },
+                            { pattern: /^[0-9]{10}$/, message: 'Please enter a valid 10-digit mobile number' }
+                        ]}
                     >
                         <Input placeholder="Mobile Number" />
                     </Form.Item>
@@ -159,7 +167,10 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ hideLoginModal }) => {
             ) : (
                 <Form.Item
                     name="otp"
-                    rules={[{ required: true, message: 'Please enter the OTP sent to your email/mobile' }]}
+                    rules={[
+                        { required: true, message: 'Please enter the OTP sent to your email/mobile' },
+                        { pattern: /^[0-9]{6}$/, message: 'Please enter a valid 6-digit OTP' }
+                    ]}
                 >
                     <Input placeholder="Enter OTP" />
                 </Form.Item>
@@ -207,7 +218,7 @@ const UserNavbar: React.FC = () => {
     };
 
     return (
-        <>
+        <div className='z-50'>
             <Modal
                 open={isLoginModalVisible || openAuthModal}
                 onCancel={hideLoginModal}
@@ -418,7 +429,7 @@ const UserNavbar: React.FC = () => {
             }}>
                 Admin
             </Button> */}
-        </>
+        </div>
     );
 };
 

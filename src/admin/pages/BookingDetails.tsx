@@ -338,7 +338,7 @@ export default function BookingDetails() {
         <div className="flex justify-between items-center">
           <div className="space-y-2">
             <div className="text-sm text-gray-400">
-              Booking ID: {booking?._id}
+              Booking ID: {booking?.booking_number}
               <br />
               Booking Date & Time:{" "}
               {dayjs(booking?.createdAt).format("DD-MM-YYYY hh:mm A")}

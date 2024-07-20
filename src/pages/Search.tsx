@@ -294,10 +294,12 @@ const Search: React.FC = () => {
     setHourlyPackage(value);
   };
 
-  const menuTimeOptions = generateTimeOptions(pickupDate ?? dayjs()).map(option => ({
-    label: option.label,
-    key: option.key,
-  }));
+  const menuTimeOptions = generateTimeOptions(pickupDate ?? dayjs()).map(
+    (option) => ({
+      label: option.label,
+      key: option.key,
+    })
+  );
 
   const menuDistanceOptions = generateDistanceOptions();
 
@@ -344,6 +346,7 @@ const Search: React.FC = () => {
         returnDate: returnDate?.format("YYYY-MM-DD"),
         pickupTime: pickupTime,
         tripType: tripType,
+        pickupCity: pickupCity,
         pickupCityId: pickupCityId,
         hourlyPackage: hourlyPackage,
       },
@@ -380,7 +383,7 @@ const Search: React.FC = () => {
           lg:flex
         "
         >
-          <div className="container flex justify-center bg-[#2A2A2A] rounded-lg w-[1166px]">
+          <div className="container flex justify-center bg-[#2A2A2A] rounded-lg w-[1160px]">
             <div className="flex items-center h-full py-2">
               <div
                 className={`relative bg-[#404040] mx-1 py-2 rounded-lg text-sm hover:bg-gray-700 hover:cursor-pointer
@@ -424,9 +427,9 @@ const Search: React.FC = () => {
               {tripType !== "Hourly Rental" && (
                 <div className="flex relative">
                   <div
-                    className="relative bg-[#404040] mx-1 py-2 rounded-lg text-sm hover:bg-gray-700 hover:cursor-pointer z-40
+                    className="relative bg-[#404040] mx-1 py-2 rounded-lg text-sm hover:bg-gray-700 hover:cursor-pointer z-20
                 w-36
-                xl:w-40
+                xl:w-44
               "
                     onClick={toggleFrom}
                   >
@@ -453,19 +456,19 @@ const Search: React.FC = () => {
                     </Select>
                   </div>
 
-                    <div className="absolute w-full h-full flex justify-center items-center">
-                      <button
-                        className="hover:shadow-xl border-yellow-500 border rounded-full xl:w-7 z-50 hover:bg-yellow-500 bg-zinc-500"
-                        onClick={switchValues}
-                        >
-                        <SwapOutlined className="text-white" />
-                      </button>
-                    </div>
+                  <div className="absolute w-full h-full flex justify-center items-center">
+                    <button
+                      className="hover:shadow-xl border-yellow-500 border rounded-full xl:w-7 z-30 hover:bg-yellow-500 bg-zinc-500"
+                      onClick={switchValues}
+                    >
+                      <SwapOutlined className="text-white" />
+                    </button>
+                  </div>
 
                   <div
-                    className="relative bg-[#404040] mx-1 py-2 rounded-lg text-sm hover:bg-gray-700 hover:cursor-pointer z-40
+                    className="relative bg-[#404040] mx-1 py-2 rounded-lg text-sm hover:bg-gray-700 hover:cursor-pointer z-20
                 w-36
-                xl:w-40
+                xl:w-44
               "
                     onClick={toggleTo}
                   >
@@ -617,7 +620,9 @@ const Search: React.FC = () => {
                     <>
                       <div className="" onClick={toggleReturnDatePicker}>
                         <div className="text-yellow-500">RETURN DATE</div>
-                        <div className="text-white text-center">--- --- ---</div>
+                        <div className="text-white text-center">
+                          --- --- ---
+                        </div>
                       </div>
                     </>
                   )}
@@ -664,7 +669,7 @@ const Search: React.FC = () => {
               <button
                 className="bg-yellow-500 hover:bg-yellow-400 mx-1 h-full rounded-lg flex justify-center items-center font-medium
                 w-32
-                xl:w-36
+                xl:w-[150px]
               "
                 onClick={onSearch}
               >
@@ -696,19 +701,19 @@ const Search: React.FC = () => {
                 <>
                   {tripRates.map((rate: any, index: number) => (
                     <div className="my-1">
-                    <CarCard
-                      key={index}
-                      category={rate.taxiType?.name || ""}
-                      description={rate.taxiType?.description || ""}
-                      features={rate.taxiType?.car_features || []}
-                      originalPrice={rate.originalPrice || ""}
-                      discountedPrice={rate.discountedPrice || ""}
-                      discount={
-                        rate.taxiType.discount_percentage.toString() || ""
-                      }
-                      carImage={rate.taxiType.image || ""}
-                      onBook={() => onBook(rate)}
-                    />
+                      <CarCard
+                        key={index}
+                        category={rate.taxiType?.name || ""}
+                        description={rate.taxiType?.description || ""}
+                        features={rate.taxiType?.car_features || []}
+                        originalPrice={rate.originalPrice || ""}
+                        discountedPrice={rate.discountedPrice || ""}
+                        discount={
+                          rate.taxiType.discount_percentage.toString() || ""
+                        }
+                        carImage={rate.taxiType.image || ""}
+                        onBook={() => onBook(rate)}
+                      />
                     </div>
                   ))}
                 </>
@@ -767,7 +772,10 @@ const Search: React.FC = () => {
         <div className="container text-center space-x-1">
           <span className="text-zinc-800 font-semibold">Disclaimer:</span>
           <span className="text-zinc-600">
-          Fare listed above are estimated based on gathered information. Final fare shall depend on actual traveled distance. Mileage & Timings will be calculated from our garage to garage whereas vehicles will be dispatched from the nearest garage.
+            Fare listed above are estimated based on gathered information. Final
+            fare shall depend on actual traveled distance. Mileage & Timings
+            will be calculated from our garage to garage whereas vehicles will
+            be dispatched from the nearest garage.
           </span>
         </div>
       </div>

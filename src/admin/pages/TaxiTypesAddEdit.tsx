@@ -1,23 +1,22 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useEffect, useState } from 'react';
 import { Button, Form, Input, Select, Space, Upload, UploadFile, message } from 'antd';
-import { UploadOutlined } from '@ant-design/icons';
-import axios from "../../api/axios"
+import { UploadOutlined, MinusOutlined, PlusOutlined } from '@ant-design/icons';
+import axios from "../../api/axios";
 import { useLocation } from 'react-router-dom';
 import { ITaxiType, ITaxiTypeFormValues } from '../../types/taxiTypes.types';
-import { MinusOutlined, PlusOutlined } from '@ant-design/icons';
 import { UploadChangeParam } from 'antd/es/upload';
 
-import AirConditioning from '../../icons/Air Conditioning.svg'
-import AutomaticTransmission from "../../icons/Automatic Transmission.svg"
-import Bags from "../../icons/Bags.svg"
-import CabBootSpace from "../../icons/Cab Boot space.svg"
-import CNG from "../../icons/CNG.svg"
-import ComfortSeat from "../../icons/Comfort Seat.svg"
-import Disel from "../../icons/Disel.svg"
-import Passanger from "../../icons/Passanger.svg"
-import RoofTopCarrier from "../../icons/Roof Top Carrier.svg"
-import StandardSeat from "../../icons/Standard Seat.svg"
+import AirConditioning from '../../icons/Air Conditioning.svg';
+import AutomaticTransmission from "../../icons/Automatic Transmission.svg";
+import Bags from "../../icons/Bags.svg";
+import CabBootSpace from "../../icons/Cab Boot space.svg";
+import CNG from "../../icons/CNG.svg";
+import ComfortSeat from "../../icons/Comfort Seat.svg";
+import Disel from "../../icons/Disel.svg";
+import Passanger from "../../icons/Passanger.svg";
+import RoofTopCarrier from "../../icons/Roof Top Carrier.svg";
+import StandardSeat from "../../icons/Standard Seat.svg";
 
 const featureIconMap = {
     'Air Conditioning': AirConditioning,
@@ -33,7 +32,7 @@ const featureIconMap = {
 };
 
 const TaxiTypesAddEdit: React.FC = () => {
-    const { state } = useLocation()
+    const { state } = useLocation();
 
     const [fileList, setFileList] = useState<UploadFile[]>([]);
 
@@ -59,7 +58,7 @@ const TaxiTypesAddEdit: React.FC = () => {
     useEffect(() => {
         // If editedCoupon prop exists, set form fields with its details
         if (taxiTypeToEdit) {
-            console.log(taxiTypeToEdit)
+            console.log(taxiTypeToEdit);
             // Set form fields
             form.setFieldsValue({
                 ...taxiTypeToEdit
@@ -77,8 +76,7 @@ const TaxiTypesAddEdit: React.FC = () => {
         Object.keys(values).forEach(key => {
             if (key === 'car_features') {
                 formData.append(key, JSON.stringify(values[key]));
-            }
-            else {
+            } else {
                 formData.append(key, values[key]);
             }
         });
@@ -102,10 +100,10 @@ const TaxiTypesAddEdit: React.FC = () => {
                 // Add new coupon
                 await axios.post('/taxitypes', formData, config);
                 message.success('Taxi Type Added successfully!');
-                form.resetFields()
+                form.resetFields();
             }
 
-            goBack()
+            goBack();
 
         } catch (error) {
             console.error('Error:', error);
@@ -175,11 +173,29 @@ const TaxiTypesAddEdit: React.FC = () => {
                                             optionFilterProp="children"
                                             className="w-full"
                                             popupMatchSelectWidth={false}
+                                            onSelect={(value) => {
+                                                const fieldsValue = form.getFieldValue('car_features');
+                                                fieldsValue[field.name].feature = value;
+                                                form.setFieldsValue({ car_features: fieldsValue });
+                                            }}
+                                            dropdownRender={(menu) => (
+                                                <div>
+                                                    {React.Children.map(menu, (child: any) => {
+                                                        return React.cloneElement(child, {
+                                                            children: (
+                                                                <div className="flex items-center">
+                                                                    <img src={featureIconMap[child.props.value]} className='w-4 h-4' alt={child.props.value} />
+                                                                </div>
+                                                            )
+                                                        });
+                                                    })}
+                                                </div>
+                                            )}
                                         >
-                                            {Object.entries(featureIconMap).map(([feature, icon]) => (
+                                            {Object.keys(featureIconMap).map((feature) => (
                                                 <Select.Option key={feature} value={feature}>
                                                     <Space>
-                                                        <img src={icon} className='w-4 h-4'/> {feature}
+                                                        <img src={featureIconMap[feature]} className='w-4 h-4' alt={feature} /> {feature}
                                                     </Space>
                                                 </Select.Option>
                                             ))}
@@ -210,7 +226,7 @@ const TaxiTypesAddEdit: React.FC = () => {
                 </Form.Item>
             </Form>
         </div>
-    )
+    );
 };
 
 export default TaxiTypesAddEdit;

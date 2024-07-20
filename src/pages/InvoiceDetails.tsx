@@ -166,7 +166,7 @@ const UserInvoiceDetails: React.FC = () => {
                                                     </div>
                                                 </div>
                                                 <div className='px-1'>
-                                                    {invoice.booking._id.slice(-8).toLocaleUpperCase()}
+                                                    BTC{invoice.booking.booking_number}
                                                 </div>
                                             </div>
                                         </div>

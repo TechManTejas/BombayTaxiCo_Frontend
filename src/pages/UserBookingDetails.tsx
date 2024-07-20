@@ -38,12 +38,17 @@ export default function UserBookingDetails() {
   const [returnDate, setReturnDate] = useState<Dayjs | null>(
     booking.return_date ? dayjs(booking.return_date) : null
   );
-  const [timeOptions, setTimeOptions] = useState(generateTimeOptions());
+  const [timeOptions] = useState(generateTimeOptions(pickupDate ?? dayjs()));
   const [originalDuration, setOriginalDuration] = useState<number>();
 
   const onTimeChange = (e: any) => {
     setPickupTime(e.key);
   };
+
+  useEffect(() => {
+    const timeOptions = generateTimeOptions(pickupDate ?? dayjs());
+    setPickupTime(timeOptions[0]?.label ?? "");
+  }, [pickupDate]);
 
   const isEditable =
     booking?.booking_status === BookingStatus.New ||
@@ -245,7 +250,7 @@ export default function UserBookingDetails() {
         <div className="flex justify-between items-center">
           <div className="space-y-2">
             <div className="text-sm text-gray-400">
-              Booking ID: {booking?._id}
+              Booking ID: BTC{booking?.booking_number}
               <br />
               Booking Date & Time:{" "}
               {dayjs(booking?.createdAt).format("DD-MM-YYYY hh:mm A")}
