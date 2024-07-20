@@ -55,7 +55,7 @@ const Taxis: React.FC = () => {
       width: 100
     },
     {
-      title: 'DRIVING LICENSE',
+      title: 'RC REGISTRATION NUMBER',
       dataIndex: 'driving_license',
       key: 'driving_license',
       width: 100

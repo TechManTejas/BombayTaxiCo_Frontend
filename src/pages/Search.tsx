@@ -422,9 +422,9 @@ const Search: React.FC = () => {
               </div>
 
               {tripType !== "Hourly Rental" && (
-                <>
+                <div className="flex relative">
                   <div
-                    className="relative bg-[#404040] mx-1 py-2 rounded-lg text-sm hover:bg-gray-700 hover:cursor-pointer
+                    className="relative bg-[#404040] mx-1 py-2 rounded-lg text-sm hover:bg-gray-700 hover:cursor-pointer z-40
                 w-36
                 xl:w-40
               "
@@ -453,18 +453,17 @@ const Search: React.FC = () => {
                     </Select>
                   </div>
 
-                  <button
-                    className="hover:shadow-xl hover:border-yellow-500 hover:border rounded-full
-                w-4
-                xl:w-10
-              "
-                    onClick={switchValues}
-                  >
-                    <SwapOutlined className="text-white" />
-                  </button>
+                    <div className="absolute w-full h-full flex justify-center items-center">
+                      <button
+                        className="hover:shadow-xl border-yellow-500 border rounded-full xl:w-7 z-50 hover:bg-yellow-500 bg-zinc-500"
+                        onClick={switchValues}
+                        >
+                        <SwapOutlined className="text-white" />
+                      </button>
+                    </div>
 
                   <div
-                    className="relative bg-[#404040] mx-1 py-2 rounded-lg text-sm hover:bg-gray-700 hover:cursor-pointer
+                    className="relative bg-[#404040] mx-1 py-2 rounded-lg text-sm hover:bg-gray-700 hover:cursor-pointer z-40
                 w-36
                 xl:w-40
               "
@@ -492,7 +491,7 @@ const Search: React.FC = () => {
                       {/* Add more options as needed */}
                     </Select>
                   </div>
-                </>
+                </div>
               )}
               {tripType === "Hourly Rental" && (
                 <>

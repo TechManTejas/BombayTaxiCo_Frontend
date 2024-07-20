@@ -69,11 +69,11 @@ export const ServiceCard: React.FC<ServiceCardProps> = ({
 
   return (
     <div className="relative w-[320px] h-[340px] select-none">
-      <div className="absolute top-0 right-0 w-16 h-16 bg-yellow-500 rounded-full flex items-center justify-center z-30">
+      <div className="absolute top-0 right-8 w-16 h-16 bg-yellow-500 rounded-full flex items-center justify-center z-30">
         {icon}
       </div>
-      <div className="relative w-[320px] h-[200px] justify-center border-2 border-yellow-500 rounded-3xl"> 
-        <img src={image} className="absolute left-0 bg-zinc-200 h-[200px] rounded-3xl z-20"/>
+      <div className="relative w-[320px] h-[200px] justify-center rounded-3xl"> 
+        <img src={image} className="absolute top-8 left-0 bg-zinc-200 h-[200px] rounded-3xl z-20"/>
       </div>
       <div className="absolute bottom-0 left-0 right-0 bg-yellow-500 h-[160px] rounded-3xl mx-8 p-4 flex flex-col items-center justify-between z-30">
         <div className="font-semibold text-xl">{title}</div>

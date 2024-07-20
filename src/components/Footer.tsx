@@ -143,7 +143,7 @@ export const Footer: React.FC = () => {
                     <EnvironmentFilled />
                   </div>
                   <div className='text-zinc-500 max-w-sm'>
-                    Shop no. 1 Sai Society, Mhada Colony, Laxmi Nagar, Ghatkopar East, Mumbai 400075
+                    Company no. 1 Sai Society, Mhada Colony, Laxmi Nagar, Ghatkopar East, Mumbai 400075
                   </div>
                 </div>
               </div>
