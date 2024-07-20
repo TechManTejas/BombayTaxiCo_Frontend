@@ -118,9 +118,9 @@ const DriversAddEdit: React.FC = () => {
           <Form.Item
             className="w-full"
             name="driving_license"
-            label="RC Registration Number"
+            label="Driving License"
             rules={[
-              { required: true, message: "Please enter the RC registration number" },
+              { required: true, message: "Please enter the driving license" },
             ]}
           >
             <Input className="w-full"/>

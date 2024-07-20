@@ -103,7 +103,7 @@ const TaxiAddEdit: React.FC = () => {
                     <Input className="w-full" />
                 </Form.Item>
 
-                <Form.Item name="taxi_status" label="Driver Status" rules={[{ required: true, message: 'Please select the driver status' }]} style={{ width: '100%' }}>
+                <Form.Item name="taxi_status" label="Taxi Status" rules={[{ required: true, message: 'Please select the driver status' }]} style={{ width: '100%' }}>
                     <Select className="w-full">
                         <Select.Option value="Available">Available</Select.Option>
                         <Select.Option value="Unavailable">Unavailable</Select.Option>

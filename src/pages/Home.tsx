@@ -1337,28 +1337,29 @@ const AwsomeFeatures: React.FC = () => {
           whileInView="visible"
           variants={slideIn}
           viewport={{ once: true, amount: 0.5 }}
+          className="px-16 relative"
         >
           <div
-            className="flex gap-8 justify-center items-center overflow-hidden relative"
+            className="flex justify-center items-center overflow-hidden"
             onMouseOver={() => setIsHovering(true)}
             onMouseLeave={() => setIsHovering(false)}
           >
             <button
-              className="absolute w-14 h-14 left-40 xl:left-60 hidden lg:block bg-white hover:bg-yellow-400 text-black font-semibold px-4 rounded-full border-2 border-yellow-500 z-10 shadow-xl "
+              className="absolute left-0 w-14 h-14 hidden lg:block bg-white hover:bg-yellow-400 text-black font-semibold px-4 rounded-full border-2 border-yellow-500 z-10 shadow-xl"
               onClick={handlePrev}
             >
               <LeftOutlined />
             </button>
 
             <div
-              className="m-8 py-1  scroll-smooth no-scrollbar
+              className="m-8 py-1 scroll-smooth no-scrollbar
               lg:w-[992px]
               md:w-[656px]
               w-[320px]
             "
             >
               <div
-                className={`flex gap-4  ${transitionDuration}`}
+                className={`flex gap-4 ${transitionDuration}`}
                 style={{
                   gap: `${16}px`,
                   transform: `translateX(${translateX}px)`,
@@ -1380,7 +1381,7 @@ const AwsomeFeatures: React.FC = () => {
             </div>
 
             <button
-              className="absolute w-14 h-14 right-40 xl:right-60 hidden lg:block bg-white hover:bg-yellow-400 text-black font-semibold px-4 rounded-full border-2 border-yellow-500 z-10 shadow-xl"
+              className="absolute right-0 w-14 h-14 hidden lg:block bg-white hover:bg-yellow-400 text-black font-semibold px-4 rounded-full border-2 border-yellow-500 z-10 shadow-xl"
               onClick={handleNext}
             >
               <RightOutlined />

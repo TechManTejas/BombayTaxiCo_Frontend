@@ -1,149 +1,205 @@
-import React from 'react'
-import { FacebookFilled, TwitterOutlined, InstagramOutlined, FacebookOutlined, ArrowRightOutlined, PhoneFilled, MailFilled, EnvironmentFilled } from '@ant-design/icons';
-import { useNavigate } from 'react-router-dom';
+import React from "react";
+import {
+  FacebookFilled,
+  TwitterOutlined,
+  InstagramOutlined,
+  FacebookOutlined,
+  ArrowRightOutlined,
+  PhoneFilled,
+  MailFilled,
+  EnvironmentFilled,
+} from "@ant-design/icons";
+import { useNavigate } from "react-router-dom";
 
 export const Footer: React.FC = () => {
-
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   return (
-    <div className='bg-[#2A2A2A] flex justify-center w-ful py-12'>
-      <div className='container px-6'>
-        <div className='flex justify-between
+    <div className="bg-[#2A2A2A] flex justify-center w-ful py-12">
+      <div className="container px-6">
+        <div
+          className="flex justify-between
           flex-col space-y-6
           lg:flex-row lg:space-y-0
-        '>
+        "
+        >
           {/* ABOUT COMPANY  */}
-          <div className='space-y-6 md:w-96'>
-            <div className='space-y-2'>
-              <div className='text-white font-medium text-2xl'>
+          <div className="space-y-6 md:w-96">
+            <div className="space-y-2">
+              <div className="text-white font-medium text-2xl">
                 ABOUT COMPANY
               </div>
-              <div className='w-20 border border-yellow-500'></div>
+              <div className="w-20 border border-yellow-500"></div>
             </div>
-            <div className='text-zinc-500'>
-              Traveling one way, but worried about the return journey fare that cab operators make your shell out needlessly? Now stop worrying about return fares as we at Bombay Taxi Company have exclusive one-way taxi fares for you. Our one-way taxi booking service lets you enjoy all the conveniences of our signature car rental services.
+            <div className="text-zinc-500">
+              Traveling one way, but worried about the return journey fare that
+              cab operators make your shell out needlessly? Now stop worrying
+              about return fares as we at Bombay Taxi Company have exclusive
+              one-way taxi fares for you. Our one-way taxi booking service lets
+              you enjoy all the conveniences of our signature car rental
+              services.
             </div>
-            <div className='flex space-x-2'>
-              <button className='h-10 w-10 border rounded-full border-zinc-500 text-zinc-500 hover:border-yellow-500 hover:text-yellow-500 flex justify-center items-center'>
+            <div className="flex space-x-2">
+              <button className="h-10 w-10 border rounded-full border-zinc-500 text-zinc-500 hover:border-yellow-500 hover:text-yellow-500 flex justify-center items-center">
                 <FacebookFilled />
               </button>
-              <button className='h-10 w-10 border rounded-full border-zinc-500 text-zinc-500 hover:border-yellow-500 hover:text-yellow-500 flex justify-center items-center'>
+              <button className="h-10 w-10 border rounded-full border-zinc-500 text-zinc-500 hover:border-yellow-500 hover:text-yellow-500 flex justify-center items-center">
                 <TwitterOutlined />
               </button>
-              <button className='h-10 w-10 border rounded-full border-zinc-500 text-zinc-500 hover:border-yellow-500 hover:text-yellow-500 flex justify-center items-center'>
+              <button className="h-10 w-10 border rounded-full border-zinc-500 text-zinc-500 hover:border-yellow-500 hover:text-yellow-500 flex justify-center items-center">
                 <InstagramOutlined />
               </button>
-              <button className='h-10 w-10 border rounded-full border-zinc-500 text-zinc-500 hover:border-yellow-500 hover:text-yellow-500 flex justify-center items-center'>
+              <button className="h-10 w-10 border rounded-full border-zinc-500 text-zinc-500 hover:border-yellow-500 hover:text-yellow-500 flex justify-center items-center">
                 <FacebookOutlined />
               </button>
             </div>
           </div>
           {/* QUICK LINK */}
-          <div className='space-y-6'>
-            <div className='space-y-2'>
-              <div className='text-white font-medium text-2xl'>
-                QUICK LINK
-              </div>
-              <div className='w-20 border border-yellow-500'></div>
+          <div className="space-y-6">
+            <div className="space-y-2">
+              <div className="text-white font-medium text-2xl">QUICK LINK</div>
+              <div className="w-20 border border-yellow-500"></div>
             </div>
-            <div className='text-zinc-500 space-y-3'>
-              <button className='flex items-center space-x-3 hover:text-yellow-500 transition-all' onClick={() => {
-                navigate("/attach-taxi")
-                window.scrollTo(0, 0);
-              }}>
+            <div className="text-zinc-500 space-y-3">
+              <button
+                className="flex items-center space-x-3 hover:text-yellow-500 transition-all"
+                onClick={() => {
+                  navigate("/attach-taxi");
+                  window.scrollTo(0, 0);
+                }}
+              >
                 <ArrowRightOutlined />
                 <div>Attach Your Taxi</div>
               </button>
-              <button className='flex items-center space-x-3 hover:text-yellow-500 transition-all' onClick={() => {
-                navigate("/about")
-                window.scrollTo(0, 0);
-              }}>
+              <button
+                className="flex items-center space-x-3 hover:text-yellow-500 transition-all"
+                onClick={() => {
+                  navigate("/about");
+                  window.scrollTo(0, 0);
+                }}
+              >
                 <ArrowRightOutlined />
                 <div>About Us</div>
               </button>
-              <button className='flex items-center space-x-3 hover:text-yellow-500 transition-all' onClick={() => {
-                navigate("/contact")
-                window.scrollTo(0, 0);
-              }}>
+              <button
+                className="flex items-center space-x-3 hover:text-yellow-500 transition-all"
+                onClick={() => {
+                  navigate("/contact");
+                  window.scrollTo(0, 0);
+                }}
+              >
                 <ArrowRightOutlined />
                 <div>Contact Us</div>
               </button>
-              <button className='flex items-center space-x-3 hover:text-yellow-500 transition-all' onClick={() => {
-                navigate("/faqs")
-                window.scrollTo(0, 0);
-              }}>
+              <button
+                className="flex items-center space-x-3 hover:text-yellow-500 transition-all"
+                onClick={() => {
+                  navigate("/faqs");
+                  window.scrollTo(0, 0);
+                }}
+              >
                 <ArrowRightOutlined />
                 <div>FAQs</div>
               </button>
-              <button className='flex items-center space-x-3 hover:text-yellow-500 transition-all' onClick={() => {
-                navigate("/cancellation-policy")
-                window.scrollTo(0, 0);
-              }}>
+              <button
+                className="flex items-center space-x-3 hover:text-yellow-500 transition-all"
+                onClick={() => {
+                  navigate("/cancellation-policy");
+                  window.scrollTo(0, 0);
+                }}
+              >
                 <ArrowRightOutlined />
                 <div>Cancellation Policy</div>
               </button>
-              <button className='flex items-center space-x-3 hover:text-yellow-500 transition-all' onClick={() => {
-                navigate("/terms-conditions")
-                window.scrollTo(0, 0);
-              }}>
+              <button
+                className="flex items-center space-x-3 hover:text-yellow-500 transition-all"
+                onClick={() => {
+                  navigate("/terms-conditions");
+                  window.scrollTo(0, 0);
+                }}
+              >
                 <ArrowRightOutlined />
                 <div>Terms & Conditions</div>
               </button>
-              <button className='flex items-center space-x-3 hover:text-yellow-500 transition-all' onClick={() => {
-                navigate("/privacy-policy")
-                window.scrollTo(0, 0);
-              }}>
+              <button
+                className="flex items-center space-x-3 hover:text-yellow-500 transition-all"
+                onClick={() => {
+                  navigate("/privacy-policy");
+                  window.scrollTo(0, 0);
+                }}
+              >
                 <ArrowRightOutlined />
                 <div>Privacy Policy</div>
               </button>
             </div>
           </div>
           {/* CONTACT DETAILS */}
-          <div className='space-y-6'>
-            <div className='space-y-2'>
-              <div className='text-white font-medium text-2xl'>
+          <div className="space-y-6">
+            <div className="space-y-2">
+              <div className="text-white font-medium text-2xl">
                 CONTACT DETAILS
               </div>
-              <div className='w-20 border border-yellow-500'></div>
+              <div className="w-20 border border-yellow-500"></div>
             </div>
-            <div className='text-zinc-500 space-y-5'>
-              <div className='space-y-1'>
-                <div className='text-sm text-white font-medium'>
+            <div className="text-zinc-500 space-y-5">
+              <div className="space-y-1">
+                <div className="text-sm text-white font-medium">
                   PHONE NUMBER
                 </div>
-                <div className='flex space-x-2'>
-                  <div className='h-6 w-6 bg-yellow-500 text-[#2A2A2A] text-xs flex justify-center items-center rounded'>
-                    <PhoneFilled />
+                <div className="flex space-x-2">
+                  <div className="h-6 w-6 bg-yellow-500 text-[#2A2A2A] text-xs flex justify-center items-center rounded">
+                    <span className="inline-block align-middle">
+                      <svg
+                        stroke="currentColor"
+                        fill="currentColor"
+                        strokeWidth={0}
+                        viewBox="0 0 24 24"
+                        color="#FDB813"
+                        style={{ color: "#000" }}
+                        height="1.2rem"
+                        width="1.2rem"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path fill="none" d="M0 0h24v24H0z" />
+                        <path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z" />
+                      </svg>
+                    </span>
                   </div>
-                  <a href="tel:+916262744744" className='text-zinc-500 hover:text-yellow-500 hover:underline'>
+                  <a
+                    href="tel:+916262744744"
+                    className="text-zinc-500 hover:text-yellow-500 hover:underline"
+                  >
                     +91-6262-744-744
                   </a>
                 </div>
               </div>
-              <div className='space-y-1'>
-                <div className='text-sm text-white font-medium'>
+              <div className="space-y-1">
+                <div className="text-sm text-white font-medium">
                   EMAIL ADDRESS
                 </div>
-                <div className='flex space-x-2'>
-                  <div className='h-6 w-6 bg-yellow-500 text-[#2A2A2A] text-xs flex justify-center items-center rounded'>
+                <div className="flex space-x-2">
+                  <div className="h-6 w-6 bg-yellow-500 text-[#2A2A2A] text-xs flex justify-center items-center rounded">
                     <MailFilled />
                   </div>
-                  <a href="mailto:bombaytaxicompany@gmail.com" className='text-zinc-500'>
+                  <a
+                    href="mailto:bombaytaxicompany@gmail.com"
+                    className="text-zinc-500"
+                  >
                     bombaytaxicompany@gmail.com
                   </a>
                 </div>
               </div>
-              <div className='space-y-1'>
-                <div className='text-sm text-white font-medium'>
+              <div className="space-y-1">
+                <div className="text-sm text-white font-medium">
                   OFFICE LOCATION
                 </div>
-                <div className='flex space-x-2'>
-                  <div className='h-6 w-6 bg-yellow-500 text-[#2A2A2A] text-xs flex justify-center items-center rounded'>
+                <div className="flex space-x-2">
+                  <div className="h-6 w-6 bg-yellow-500 text-[#2A2A2A] text-xs flex justify-center items-center rounded">
                     <EnvironmentFilled />
                   </div>
-                  <div className='text-zinc-500 max-w-sm'>
-                    Company no. 1 Sai Society, Mhada Colony, Laxmi Nagar, Ghatkopar East, Mumbai 400075
+                  <div className="text-zinc-500 max-w-sm">
+                    Company no. 1 Sai Society, Mhada Colony, Laxmi Nagar,
+                    Ghatkopar East, Mumbai 400075
                   </div>
                 </div>
               </div>
@@ -152,5 +208,5 @@ export const Footer: React.FC = () => {
         </div>
       </div>
     </div>
-  )
-}
+  );
+};

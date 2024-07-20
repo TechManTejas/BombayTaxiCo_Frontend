@@ -29,18 +29,21 @@ export const TaxiDetailsBookingForm: React.FC<TaxiDetailsProps> = ({ taxi, taxiT
                     ASSIGNED TRIPS
                 </div>
                 <div>
-                    {taxi.assigned_trips?.map((booking: IBooking, index: number) => (
-                        <>
+                {taxi.assigned_trips
+                        ?.filter((booking: IBooking) => 
+                            dayjs(booking.pick_up_date).isSame(dayjs(), 'day') || 
+                            dayjs(booking.pick_up_date).isAfter(dayjs(), 'day'))
+                        .map((booking: IBooking, index: number) => (
                             <div key={booking._id} className="flex space-x-2 my-0.5">
                                 <div>{index + 1}.</div>
+                                <Tag>{booking.booking_status}</Tag>
                                 <div>
                                     {booking.route_id?.from_id.name}-{booking.route_id?.to_id.name}
                                 </div>
                                 <Tag>{booking.trip_type}</Tag>
                                 <div className="font-bold">{dayjs(booking.pick_up_date).format('DD MMM YYYY')}</div>
                             </div>
-                        </>
-                    ))}
+                        ))}
                 </div>
             </div>
         </div>

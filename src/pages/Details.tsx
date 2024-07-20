@@ -24,7 +24,6 @@ import { ISettings } from "../types/settings.types";
 import { IRoute } from "../types/routes.types";
 import {
   ArrowRightOutlined,
-  CalendarFilled,
   CalendarOutlined,
   DownOutlined,
   UpOutlined,
@@ -72,92 +71,87 @@ interface RazorpayOptions {
 const ReadBeforeYouBook = () => {
   return (
     <>
-      <>
-        <>
-          <div className="bg-white border my-3 rounded-lg">
-            <Collapse accordion className="bg-white rounded-2xl border-none">
-              <Panel header="Read before you book!" key="1">
-                {/* <div className="font-medium text-2xl mb-4">Read before you book!</div> */}
-                <div
-                  className="lg:flex gap-8
+      <div className="bg-white border my-3 rounded-lg">
+        <Collapse accordion className="bg-white rounded-2xl border-none">
+          <Panel header="Read before you book!" key="1">
+            {/* <div className="font-medium text-2xl mb-4">Read before you book!</div> */}
+            <div
+              className="lg:flex gap-8
                     lg:w-[730px]
                     "
-                >
-                  <div className="lg:w-1/2 space-y-4">
-                    <div className="space-y-2">
-                      <div className="font-bold">Cab Category</div>
-                      <div className="w-full text-zinc-500 text-sm">
-                        The booking will be for cab type HATCHBACK and we do not
-                        commit on providing the preferred cab model (Indica,
-                        Swift or similar)
-                      </div>
-                    </div>
-                    <div className="space-y-2">
-                      <div className="font-bold">Hilly Regions</div>
-                      <div className="w-full text-zinc-500 text-sm">
-                        AC will be switched off in hilly areas
-                      </div>
-                    </div>
-                    <div className="space-y-2">
-                      <div className="font-bold">Luggage Policy</div>
-                      <div className="w-full text-zinc-500 text-sm">
-                        HATCHBACK has space for 1 Luggage Bag. In case the car
-                        happens to be CNG, the luggage space will be lesser.
-                        However depending on the number of passengers, luggage
-                        can be adjusted in seating area with driver consent.
-                      </div>
-                    </div>
-                    <div className="space-y-2">
-                      <div className="font-bold">Driver Details</div>
-                      <div className="w-full text-zinc-500 text-sm">
-                        Driver details will be shared up to 30 mins prior to
-                        departure. Incase the driver/cab that reaches you for
-                        pick up is different from what we have communicated,
-                        please don't board the cab and call us for assistance.
-                      </div>
-                    </div>
-                  </div>
-                  <div className="lg:w-1/2 space-y-4">
-                    <div className="space-y-2">
-                      <div className="font-bold">Stops</div>
-                      <div className="w-full text-zinc-500 text-sm">
-                        This is a point to point booking and only one stop for
-                        meals is included.
-                      </div>
-                    </div>
-                    <div className="space-y-2">
-                      <div className="font-bold">Waiting Charges</div>
-                      <div className="w-full text-zinc-500 text-sm">
-                        Driver would wait maximum 45 minutes from your scheduled
-                        pickup time at your pickup location. Post this, your
-                        trip may get cancelled without any refund. If there is a
-                        mutual agreement between customer and driver, waiting
-                        charges would be Rs 2.0/min.
-                      </div>
-                    </div>
-                    <div className="space-y-2">
-                      <div className="font-bold">Delays</div>
-                      <div className="w-full text-zinc-500 text-sm">
-                        Due to traffic or any other unavoidable reason, pickup
-                        may be delayed by 30 mins.
-                      </div>
-                    </div>
-                    <div className="space-y-2">
-                      <div className="font-bold">Receipts</div>
-                      <div className="w-full text-zinc-500 text-sm">
-                        You need to collect receipts from the driver for any
-                        extra charges paid directly to the driver during the
-                        trip. MMT is not liable to provide invoices for such
-                        amounts.
-                      </div>
-                    </div>
+            >
+              <div className="lg:w-1/2 space-y-4">
+                <div className="space-y-2">
+                  <div className="font-bold">Cab Category</div>
+                  <div className="w-full text-zinc-500 text-sm">
+                    The booking will be for cab type HATCHBACK and we do not
+                    commit on providing the preferred cab model (Indica, Swift
+                    or similar)
                   </div>
                 </div>
-              </Panel>
-            </Collapse>
-          </div>
-        </>
-      </>
+                <div className="space-y-2">
+                  <div className="font-bold">Hilly Regions</div>
+                  <div className="w-full text-zinc-500 text-sm">
+                    AC will be switched off in hilly areas
+                  </div>
+                </div>
+                <div className="space-y-2">
+                  <div className="font-bold">Luggage Policy</div>
+                  <div className="w-full text-zinc-500 text-sm">
+                    HATCHBACK has space for 1 Luggage Bag. In case the car
+                    happens to be CNG, the luggage space will be lesser. However
+                    depending on the number of passengers, luggage can be
+                    adjusted in seating area with driver consent.
+                  </div>
+                </div>
+                <div className="space-y-2">
+                  <div className="font-bold">Driver Details</div>
+                  <div className="w-full text-zinc-500 text-sm">
+                    Driver details will be shared up to 30 mins prior to
+                    departure. Incase the driver/cab that reaches you for pick
+                    up is different from what we have communicated, please don't
+                    board the cab and call us for assistance.
+                  </div>
+                </div>
+              </div>
+              <div className="lg:w-1/2 space-y-4">
+                <div className="space-y-2">
+                  <div className="font-bold">Stops</div>
+                  <div className="w-full text-zinc-500 text-sm">
+                    This is a point to point booking and only one stop for meals
+                    is included.
+                  </div>
+                </div>
+                <div className="space-y-2">
+                  <div className="font-bold">Waiting Charges</div>
+                  <div className="w-full text-zinc-500 text-sm">
+                    Driver would wait maximum 45 minutes from your scheduled
+                    pickup time at your pickup location. Post this, your trip
+                    may get cancelled without any refund. If there is a mutual
+                    agreement between customer and driver, waiting charges would
+                    be Rs 2.0/min.
+                  </div>
+                </div>
+                <div className="space-y-2">
+                  <div className="font-bold">Delays</div>
+                  <div className="w-full text-zinc-500 text-sm">
+                    Due to traffic or any other unavoidable reason, pickup may
+                    be delayed by 30 mins.
+                  </div>
+                </div>
+                <div className="space-y-2">
+                  <div className="font-bold">Receipts</div>
+                  <div className="w-full text-zinc-500 text-sm">
+                    You need to collect receipts from the driver for any extra
+                    charges paid directly to the driver during the trip. MMT is
+                    not liable to provide invoices for such amounts.
+                  </div>
+                </div>
+              </div>
+            </div>
+          </Panel>
+        </Collapse>
+      </div>
     </>
   );
 };
@@ -402,8 +396,6 @@ const Details: React.FC = () => {
   const onOtherCheckboxChange = (e: any) => {
     setIsOtherChecked(e.target.checked);
   };
-
-  console.log(state);
 
   const calcAdvancePay = () => {
     return Math.round(
@@ -725,20 +717,8 @@ const Details: React.FC = () => {
           "
           >
             <div className="px-1">
-              <DetailsCarCard
-                carImage={taxiRate.taxiType?.image}
-                category={taxiRate.taxiType?.name || ""}
-                description={taxiRate.taxiType?.description || ""}
-                features={taxiRate.taxiType?.car_features || []}
-                originalPrice={taxiRate.originalPrice || ""}
-                discountedPrice={taxiRate.discountedPrice || ""}
-                discount={
-                  taxiRate.taxiType.discount_percentage.toString() || ""
-                }
-                preview
-              />
               <>
-                <div className="bg-white border p-4 rounded-lg">
+                <div className="bg-yellow-500 border pt-2 px-4 rounded-b-lg -mx-4 -mb-6 pb-8">
                   <div
                     className="flex h-full
                       flex-col
@@ -746,26 +726,34 @@ const Details: React.FC = () => {
                     "
                   >
                     <div>
-                      <div className="font-light">
-                        <div className="font-medium text-2xl flex items-center gap-2">
-                          <div>{state?.from}</div>
-                          {state?.to && (
-                            <div>
-                              <ArrowRightOutlined
-                                size={8}
-                                className="text-white bg-yellow-500 rounded-full p-1"
-                              />
+                      <div className="">
+                        <div className="font-bold text-xl flex items-center gap-2 pb-2">
+                          Review Booking
+                        </div>
+                        {tripType === "Hourly Rental" ? (
+                          <>
+                             <div className="font-bold flex items-center gap-0.5">
+                              <div>{state?.pickupCity}</div>
                             </div>
-                          )}
-                          {state?.to && <div>{state?.to}</div>}
-                        </div>
-                        <div className="flex gap-2">
-                          <CalendarOutlined />
-                          {pickupDate.format("D MMM YYYY")}
-                        </div>
+                          </>
+                        ) : (
+                          <>
+                            <div className="font-bold flex items-center gap-0.5">
+                              <div>{state?.from}</div>
+                              {state?.to && (
+                                <div>
+                                  <ArrowRightOutlined className="rounded-full p-1" />
+                                </div>
+                              )}
+                              {state?.to && <div>{state?.to}</div>}
+                            </div>
+                          </>
+                        )}
                         <div className="flex gap-2 text-sm">
-                          <div className="font-medium">Pickup Time:</div>
-                          <div>{pickupTime}</div>
+                          <div className="font-medium">
+                            {tripType} | Pickup:{" "}
+                            {pickupDate.format("ddd, D MMM YYYY")}, {pickupTime}
+                          </div>
                         </div>
                         {tripType === "Round Trip" && returnDate && (
                           <div className="flex gap-2 text-sm">
@@ -783,78 +771,86 @@ const Details: React.FC = () => {
                     </div>
                   </div>
                 </div>
-              </> 
+              </>
+              <DetailsCarCard
+                carImage={taxiRate.taxiType?.image}
+                category={taxiRate.taxiType?.name || ""}
+                description={taxiRate.taxiType?.description || ""}
+                features={taxiRate.taxiType?.car_features || []}
+                originalPrice={taxiRate.originalPrice || ""}
+                discountedPrice={taxiRate.discountedPrice || ""}
+                discount={
+                  taxiRate.taxiType.discount_percentage.toString() || ""
+                }
+                preview
+              />
               <>
-                  <div
-                    className="flex h-full
+                <div
+                  className="flex h-full
                   flex-col
                   lg:flex-row
                 "
-                  >
-                    <div className="lg:w-1/2 bg-white border my-3 mr-3 p-4 rounded-lg shadow-lg">
-                      <div className="font-medium text-2xl mb-4">
-                        Inclusions
-                      </div>
-                      <div className="mx-4 mb-4">
-                        <ul className="list-disc space-y-2 text-sm">
-                          <li>State Tax</li>
-                          <li>Toll Charges</li>
-                          <li>
-                            {tripType === "Round Trip"
-                              ? route?.round_trip_km || 0
-                              : tripType === "Hourly Rental"
-                              ? 0
-                              : route?.one_way_trip_km || 0}{" "}
-                            Kms
-                          </li>
-                          <li>Driver Allowance</li>
-                          <li>
-                            Only One Pickup and Drop
-                            <span className="text-xs text-zinc-500">
-                              {" "}
-                              ( Only one included ){" "}
-                            </span>
-                          </li>
-                        </ul>
-                      </div>
-                    </div>
-                    <div className="lg:w-1/2 bg-white border my-3 ml-3  p-4 rounded-lg shadow-lg">
-                      <div className="font-medium text-2xl mb-4">
-                        Exclusions
-                      </div>
-                      <div className="mx-4 mb-4">
-                        <ul className="list-disc space-y-2 text-sm">
-                          <li>
-                            <div className="flex">
-                              <div className="flex-grow">Waiting Charges</div>
-                              <div className="text-right w-24 font-semibold">
-                                After 45 mins, ₹{" "}
-                                {settings?.waitingChargesPerMinute?.toLocaleString()}
-                              </div>
-                            </div>
-                          </li>
-                          <li>
-                            <div className="flex">
-                              <div className="flex-grow">
-                                Fare beyond{" "}
-                                {tripType === "Round Trip"
-                                  ? route?.round_trip_km || 0
-                                  : tripType === "Hourly Rental"
-                                  ? 0
-                                  : route?.one_way_trip_km || 0}{" "}
-                                Kms
-                              </div>
-                              <div className="text-right w-24 font-semibold">
-                                ₹{" "}
-                                {taxiRate.taxiType.extra_km_charges?.toLocaleString()}
-                                /Km
-                              </div>
-                            </div>
-                          </li>
-                        </ul>
-                      </div>
+                >
+                  <div className="lg:w-1/2 bg-white border my-3 mr-3 p-4 rounded-lg shadow-lg">
+                    <div className="font-medium text-2xl mb-4">Inclusions</div>
+                    <div className="mx-4 mb-4">
+                      <ul className="list-disc space-y-2 text-sm">
+                        <li>State Tax</li>
+                        <li>Toll Charges</li>
+                        <li>
+                          {tripType === "Round Trip"
+                            ? route?.round_trip_km || 0
+                            : tripType === "Hourly Rental"
+                            ? 0
+                            : route?.one_way_trip_km || 0}{" "}
+                          Kms
+                        </li>
+                        <li>Driver Allowance</li>
+                        <li>
+                          Only One Pickup and Drop
+                          <span className="text-xs text-zinc-500">
+                            {" "}
+                            ( Only one included ){" "}
+                          </span>
+                        </li>
+                      </ul>
                     </div>
                   </div>
+                  <div className="lg:w-1/2 bg-white border my-3 ml-3  p-4 rounded-lg shadow-lg">
+                    <div className="font-medium text-2xl mb-4">Exclusions</div>
+                    <div className="mx-4 mb-4">
+                      <ul className="list-disc space-y-2 text-sm">
+                        <li>
+                          <div className="flex">
+                            <div className="flex-grow">Waiting Charges</div>
+                            <div className="text-right w-24 font-semibold">
+                              After 45 mins, ₹{" "}
+                              {settings?.waitingChargesPerMinute?.toLocaleString()}
+                            </div>
+                          </div>
+                        </li>
+                        <li>
+                          <div className="flex">
+                            <div className="flex-grow">
+                              Fare beyond{" "}
+                              {tripType === "Round Trip"
+                                ? route?.round_trip_km || 0
+                                : tripType === "Hourly Rental"
+                                ? 0
+                                : route?.one_way_trip_km || 0}{" "}
+                              Kms
+                            </div>
+                            <div className="text-right w-24 font-semibold">
+                              ₹{" "}
+                              {taxiRate.taxiType.extra_km_charges?.toLocaleString()}
+                              /Km
+                            </div>
+                          </div>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
               </>
               <>
                 <div className="">
@@ -1284,18 +1280,17 @@ const Details: React.FC = () => {
                               Other
                             </Checkbox>
                           </Form.Item>
-                      {isOtherChecked && (
-                        <Form.Item name="otherDetails">
-                          <Input.TextArea
-                            placeholder="Please specify"
-                            autoSize={{ minRows: 3, maxRows: 3 }}
-                            style={{ resize: "none" }}
-                          />
-                        </Form.Item>
-                      )}
+                          {isOtherChecked && (
+                            <Form.Item name="otherDetails">
+                              <Input.TextArea
+                                placeholder="Please specify"
+                                autoSize={{ minRows: 3, maxRows: 3 }}
+                                style={{ resize: "none" }}
+                              />
+                            </Form.Item>
+                          )}
                         </div>
                       </div>
-
                     </div>
                   </Form>
                 </div>
@@ -1306,7 +1301,7 @@ const Details: React.FC = () => {
               <PreBoardingGuidelines />
             </div>
             <>
-              <div className="min-w-full lg:min-w-[320px] max-w-xs lg:w-full m-3 sticky top-36 ">
+              <div className="min-w-full lg:min-w-[320px] max-w-xs lg:w-full m-3 sticky top-36">
                 <div className="bg-[#FEF0CF] p-4 text-xs rounded-t-lg">
                   Free Cancellation Before{" "}
                   {cancellationDeadline.format("D MMM YYYY, hh:mm A")} Ist

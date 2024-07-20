@@ -26,6 +26,7 @@ export enum TripType {
 // Define the Booking schema
 export interface IBooking extends Document {
     _id: string;
+    booking_number: number;
     pickup_city?: ICity;
     route_id?: IRoute;
     user_id: IUser;

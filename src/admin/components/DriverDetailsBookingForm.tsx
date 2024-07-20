@@ -24,14 +24,19 @@ export const DriverDetailsBookingForm: React.FC<DriverDetailsProps> = ({ driver 
       <div>
         ASSIGNED TRIPS:
         <ul>
-          {driver.assigned_trips?.map((booking: IBooking) => (
-            <li key={booking._id} className='border p-1'>
-              <div className='font-bold'>{dayjs(booking.pick_up_date).toString()}</div>
-              <div>
-                From: {booking.route_id?.from_id.name} - To: {booking.route_id?.to_id.name}
-              </div>
-              <div>Trip Type: {getTripTypeLabel(booking.trip_type)}</div>
-            </li>
+        {driver.assigned_trips
+            ?.filter((booking: IBooking) => 
+              dayjs(booking.pick_up_date).isSame(dayjs(), 'day') || 
+              dayjs(booking.pick_up_date).isAfter(dayjs(), 'day'))
+            .map((booking: IBooking) => (
+              <li key={booking._id} className='border p-1'>
+                <Tag>{booking.booking_status}</Tag>
+                <div className='font-bold'>{dayjs(booking.pick_up_date).format('DD MMM YYYY')}</div>
+                <div>
+                  From: {booking.route_id?.from_id.name} - To: {booking.route_id?.to_id.name}
+                </div>
+                <div>Trip Type: {getTripTypeLabel(booking.trip_type)}</div>
+              </li>
           ))}
         </ul>
       </div>
