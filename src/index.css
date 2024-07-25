@@ -1,3 +1,11 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.sticky-component {
+  transition: width 0.3s ease-in-out;
+  width: 96px; /* Initial width */
+}
+.sticky-component:hover {
+  width: 400px; /* Width when hovered */
+}
