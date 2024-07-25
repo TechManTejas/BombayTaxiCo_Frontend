@@ -38,7 +38,7 @@ export default function UserBookingDetails() {
   const [returnDate, setReturnDate] = useState<Dayjs | null>(
     booking.return_date ? dayjs(booking.return_date) : null
   );
-  const [timeOptions] = useState(generateTimeOptions(pickupDate ?? dayjs()));
+  const [timeOptions, setTimeOptions] = useState(generateTimeOptions(pickupDate ?? dayjs()));
   const [originalDuration, setOriginalDuration] = useState<number>();
 
   const onTimeChange = (e: any) => {
@@ -47,6 +47,7 @@ export default function UserBookingDetails() {
 
   useEffect(() => {
     const timeOptions = generateTimeOptions(pickupDate ?? dayjs());
+    setTimeOptions(timeOptions);
     setPickupTime(timeOptions[0]?.label ?? "");
   }, [pickupDate]);
 

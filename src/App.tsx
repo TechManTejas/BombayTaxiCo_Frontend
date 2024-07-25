@@ -51,6 +51,7 @@ import { FAQs } from "./pages/FAQs";
 import { HourlyRental } from "./pages/HourlyRental";
 import { OneWayTrip } from "./pages/OneWayTrip";
 import UserInvoiceDetails from "./pages/InvoiceDetails";
+import StickyCallUs from "./components/CallUsSticky";
 
 const isAuthenticated = () => {
   return !!localStorage.getItem("token");
@@ -86,6 +87,7 @@ const UserRoutes: React.FC = () => {
       }}
     >
       <>
+        <StickyCallUs />
         <div className="sticky top-0 z-40 shadow-md">
           <UserNavbar />
         </div>

@@ -53,13 +53,15 @@ import { RoadTripsDoneIcon } from "../icons/RoadTripsDone.js";
 import { PeopleDroppedIcon } from "../icons/PeopleDropped.js";
 import { SatisfiedClientIcon } from "../icons/SatisfiedClient.js";
 
-import QuickSupport from "../assets/images/24-7 Quick Support.png"
-import SafetyGaurantee from "../assets/images/100 Safety Guarantee.png"
-import AffordablePricing from "../assets/images/Affordable Pricing.png"
-import BestDealsDiscounts from "../assets/images/Best Deals & Discounts.png"
-import BestQualityFleet from "../assets/images/Best Quality Fleet.png"
-import PremiumServices from "../assets/images/Premium Services.png"
-import ProfessionalExpertDrivers from "../assets/images/Professional Expert Drivers.png"
+import QuickSupport from "../assets/images/24-7 Quick Support.png";
+import SafetyGaurantee from "../assets/images/100 Safety Guarantee.png";
+import AffordablePricing from "../assets/images/Affordable Pricing.png";
+import BestDealsDiscounts from "../assets/images/Best Deals & Discounts.png";
+import BestQualityFleet from "../assets/images/Best Quality Fleet.png";
+import PremiumServices from "../assets/images/Premium Services.png";
+import ProfessionalExpertDrivers from "../assets/images/Professional Expert Drivers.png";
+import Man from "../assets/images/man.png";
+import Woman from "../assets/images/woman.png";
 import { OnlineEasyBookingIcon } from "../icons/OnlineEasyBooking.js";
 import { AirportTransferIcon } from "../icons/AirportTransfer.js";
 import { CorporateCarRentalIcon } from "../icons/CorporateCarRental.js";
@@ -68,7 +70,7 @@ message.config({
   top: "25%",
   duration: 2,
   maxCount: 3,
-  prefixCls: 'my-message',
+  prefixCls: "my-message",
 });
 
 const Hero: React.FC = () => {
@@ -95,7 +97,14 @@ const Hero: React.FC = () => {
 
   useEffect(() => {
     const timeOptions = generateTimeOptions(pickupDate ?? dayjs());
-    setPickupTime(timeOptions[0]?.label ?? "");
+    if (timeOptions.length === 0) {
+      // No time options available, shift to the next day
+      const nextDay = (pickupDate ?? dayjs()).add(1, "day");
+      setPickupDate(nextDay);
+      setPickupTime(generateTimeOptions(nextDay)[0]?.label ?? "");
+    } else {
+      setPickupTime(timeOptions[0]?.label ?? "");
+    }
   }, [pickupDate]);
 
   const togglePickupDatePicker = () => {
@@ -172,7 +181,9 @@ const Hero: React.FC = () => {
     key: city._id,
   }));
 
-  const menuTime: MenuProps["items"] = generateTimeOptions(pickupDate ?? dayjs()).map(option => ({
+  const menuTime: MenuProps["items"] = generateTimeOptions(
+    pickupDate ?? dayjs()
+  ).map((option) => ({
     label: option.label,
     key: option.key,
   }));
@@ -243,7 +254,7 @@ const Hero: React.FC = () => {
       if (!from || !to) {
         // Prompt the user to select FROM and TO cities
         message.warning(
-          "Please select both FROM and TO cities before proceeding.",
+          "Please select both FROM and TO cities before proceeding."
         );
         return;
       }
@@ -362,7 +373,10 @@ const Hero: React.FC = () => {
             lg:mt-0
           "
           >
-            <div key={currentTextIndex} className="h-16 lg:h-max text-center space-y-4">
+            <div
+              key={currentTextIndex}
+              className="h-16 lg:h-max text-center space-y-4"
+            >
               <motion.div
                 key={currentTextIndex}
                 initial={{ opacity: 0, y: -50, scale: 0.95 }}
@@ -386,7 +400,7 @@ const Hero: React.FC = () => {
             </div>
           </div>
           <div className="flex flex-col items-center justify-center w-[370px]">
-            <div className="rounded-full bg-white  shadow-lg -mb-6 z-10 border border-yellow-500">
+            <div className="rounded-full bg-white shadow-lg -mb-16 lg:-mb-6 z-10 border border-yellow-500">
               <Segmented
                 value={activeTab}
                 className="rounded-full"
@@ -399,9 +413,9 @@ const Hero: React.FC = () => {
                       <div className="lg:text-lg m-2">
                         <div className="flex items-center">
                           <div className="hidden lg:flex">
-                            <OneWayTripIcon/>
+                            <OneWayTripIcon />
                           </div>
-                          <span className="mx-0.5 md:mx-2">One-Way Trip</span>
+                          <span className="-mx-1.5 lg:mx-2">One-Way Trip</span>
                         </div>
                       </div>
                     ),
@@ -411,10 +425,10 @@ const Hero: React.FC = () => {
                     label: (
                       <div className="lg:text-lg m-2">
                         <div className="flex items-center">
-                        <div className="hidden lg:flex">
-                          <RoundTripIcon />
+                          <div className="hidden lg:flex">
+                            <RoundTripIcon />
                           </div>
-                          <span className="mx-0.5 md:mx-2">Round Trip</span>
+                          <span className="-mx-1.5 lg:mx-2">Round Trip</span>
                         </div>
                       </div>
                     ),
@@ -424,10 +438,10 @@ const Hero: React.FC = () => {
                     label: (
                       <div className="lg:text-lg m-2">
                         <div className="flex items-center">
-                        <div className="hidden lg:flex">
-                          <HourlyRentalIcon />
-                        </div>
-                          <span className="mx-0.5 md:mx-2">Hourly Rental</span>
+                          <div className="hidden lg:flex">
+                            <HourlyRentalIcon />
+                          </div>
+                          <span className="-mx-1.5 lg:mx-2">Hourly Rental</span>
                         </div>
                       </div>
                     ),
@@ -437,7 +451,7 @@ const Hero: React.FC = () => {
               />
             </div>
             <div
-              className="bg-white rounded-3xl -mb-6 flex justify-center items-center py-8 
+              className="bg-white rounded-3xl -mb-6 flex justify-center items-center py-8 px-6 pt-20 lg:pt-8
               lg:px-6
             "
             >
@@ -447,11 +461,11 @@ const Hero: React.FC = () => {
               "
               >
                 {activeTab === "Hourly Rental" && (
-                  <div className="w-full lg:w-[334px] p-3 pb-4 space-y-1 border rounded-xl">
+                  <div className="w-full lg:w-[312px] p-3 pb-4 space-y-1 border rounded-xl">
                     <div className="text-xs">PICKUP LOCATION</div>
                     <Dropdown menu={menuPropsPickupCity} placement="bottomLeft">
                       <button
-                        className="text-3xl hover:text-yellow-500"
+                        className="text-xl lg:text-3xl hover:text-yellow-500"
                         style={{ border: "none" }}
                       >
                         {pickupCity || "Select City"}
@@ -460,31 +474,51 @@ const Hero: React.FC = () => {
                   </div>
                 )}
                 {activeTab !== "Hourly Rental" && (
-                  <div className="flex gap-2 relative">
-                    <div className="w-[170px] md:w-[220px]  p-3 pb-4 space-y-1 border rounded-xl z-40">
-                      <div className="text-xs ">FROM</div>
+                  <div className="lg:flex gap-2 relative">
+                    {
+                      <>
+                        <div className="hidden absolute w-full h-full lg:flex justify-center items-center">
+                          <button
+                            className="bg-white z-30 border rounded-full border-yellow-500"
+                            onClick={switchValues}
+                          >
+                            <SwapOutlined
+                              size={50}
+                              className="border rounded-full p-1 text-xl hover:bg-gray-200 shadow-lg"
+                            />
+                          </button>
+                        </div>
+                        <div className="flex absolute lg:hidden h-full items-center right-14">
+                          <button
+                            className="bg-white  border rounded-full border-yellow-500 right-10 h-8"
+                            onClick={switchValues}
+                          >
+                            <SwapOutlined
+                              size={50} 
+                              className="border rounded-full p-1 text-xl hover:bg-gray-200 shadow-lg"
+                              style={{ transform: 'rotate(90deg)' }}
+                            />
+                          </button>
+                        </div>
+                      </>
+                    }
+                    <div className="w-[328px] lg:w-[220px]  p-3 pb-4 space-y-1 border rounded-xl z-20">
+                      <div className="text-xs">FROM</div>
                       <Dropdown menu={menuPropsFrom} placement="bottomLeft">
                         <button
-                          className="text-3xl hover:text-yellow-500"
+                          className="text-xl lg:text-3xl hover:text-yellow-500"
                           style={{ border: "none" }}
                         >
                           {from || "Select City"}
                         </button>
                       </Dropdown>
                     </div>
-                    <div className="absolute w-full h-full flex justify-center items-center">
-                      <button className="bg-white z-50 border rounded-full border-yellow-500" onClick={switchValues}>
-                        <SwapOutlined
-                          size={50}
-                          className="border rounded-full p-1 text-xl hover:bg-gray-200 shadow-lg"
-                        />
-                      </button>
-                    </div>
-                    <div className="w-[170px] md:w-[220px] p-3 pb-4 space-y-1 border rounded-xl z-40">
+                    
+                    <div className="w-full lg:w-[220px] p-3 pb-4 space-y-1 border rounded-xl z-20">
                       <div className="text-xs">TO</div>
                       <Dropdown menu={menuPropsTo} placement="bottomLeft">
                         <button
-                          className="text-3xl hover:text-yellow-500"
+                          className="text-xl lg:text-3xl hover:text-yellow-500"
                           style={{ border: "none" }}
                         >
                           {to || "Select City"}
@@ -496,7 +530,7 @@ const Hero: React.FC = () => {
                 <div className="relative w-full lg:w-[164px] p-3 pb-4 space-y-1 border rounded-xl">
                   <div className="text-xs">PICKUP DATE</div>
                   <button
-                    className="text-3xl hover:text-yellow-500"
+                    className="text-xl lg:text-3xl hover:text-yellow-500"
                     onClick={togglePickupDatePicker}
                   >
                     {pickupDate?.format("D MMM") ?? (
@@ -528,7 +562,7 @@ const Hero: React.FC = () => {
                   <div className="text-xs">PICKUP TIME</div>
                   <Dropdown menu={menuPropsTime} placement="bottomLeft">
                     <button
-                      className="text-3xl hover:text-yellow-500"
+                      className="text-xl lg:text-3xl hover:text-yellow-500"
                       style={{ border: "none" }}
                     >
                       {pickupTime || "Select a Time"}
@@ -542,7 +576,7 @@ const Hero: React.FC = () => {
                       {activeTab === "Round Trip" ? (
                         <>
                           <button
-                            className="text-3xl hover:text-yellow-500"
+                            className="text lg:text-3xl hover:text-yellow-500"
                             onClick={toggleReturnDatePicker}
                           >
                             {returnDate?.format("D MMM") ?? (
@@ -585,11 +619,11 @@ const Hero: React.FC = () => {
                 )}
                 {activeTab === "Hourly Rental" && (
                   <div>
-                    <div className="w-[393px] lg:w-[300px] p-3 pb-4 space-y-1 border rounded-xl">
+                    <div className="w-[328px] lg:w-[300px] p-3 pb-4 space-y-1 border rounded-xl">
                       <div className="text-xs">SELECT PACKAGE</div>
                       <Dropdown menu={menuPropsDistance} placement="bottomLeft">
                         <button
-                          className="text-3xl hover:text-yellow-500"
+                          className="text lg:text-3xl hover:text-yellow-500"
                           style={{ border: "none" }}
                         >
                           {hourlyPackage || "Select a Time"}
@@ -602,7 +636,7 @@ const Hero: React.FC = () => {
             </div>
             <div className="w-full flex justify-center">
               <button
-                className="bg-yellow-500 hover:bg-yellow-400 text-black font-semibold w-full lg:w-36 h-12 rounded-lg border-yellow-500 z-10"
+                className="text-sm lg:text-base bg-yellow-500 hover:bg-yellow-400 text-black font-semibold w-28 lg:w-36 h-12 rounded-lg border-yellow-500 z-10"
                 onClick={handleLetsRideClick}
               >
                 SEE PRICES
@@ -765,7 +799,6 @@ const WhyChooseUs: React.FC = () => {
 // }
 
 const OurAchievement: React.FC = () => {
-
   const [isVisible, elementRef] = useIntersectionObserver({});
   const [stats, setStats] = useState({
     fleet: 0,
@@ -810,93 +843,96 @@ const OurAchievement: React.FC = () => {
   return (
     <div ref={elementRef}>
       <Container className="md:h-[440px] flex justify-center p-8">
-        <div className="w-full rounded-3xl container"  style={{
-          backgroundImage: `url(${Experience})`,
-          backgroundSize: "cover",
-        }}>
+        <div
+          className="w-full rounded-3xl container"
+          style={{
+            backgroundImage: `url(${Experience})`,
+            backgroundSize: "cover",
+          }}
+        >
           <div className="p-16 bg-blue-950 bg-opacity-70 rounded-3xl">
             <div className="lg:flex justify-between">
-              <div className="text-3xl lg:text-5xl text-white font-extrabold">
+              <div className="text-3xl lg:text-5xl text-white font-extrabold text-center">
                 Our Achievement
               </div>
-              <div className="text-xs lg:text-sm text-white max-w-lg">
+              {/* <div className="text-xs lg:text-sm text-white max-w-lg">
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
                 eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
                 enim ad minim veniam, quis nostrud exercitation ullamco laboris
                 nisi ut aliquip ex ea commodo consequat.{" "}
-              </div>
+              </div> */}
             </div>
             <div className="flex flex-wrap md:flex md:flex-nowrap justify-center md:justify-between">
               <div className="text-center md:text-left flex flex-col gap-3 w-60 mt-8">
                 <div className="flex justify-center md:justify-start items-center gap-5">
                   <div className="flex justify-center w-16 h-16 bg-yellow-500 rounded-full">
-                      <BestVehiclesFleetIcon/>
+                    <BestVehiclesFleetIcon />
                   </div>
                   <div className="text-3xl lg:text-5xl font-black text-white">
-                  {stats.fleet}
+                    {stats.fleet}
                   </div>
                 </div>
-                <div className="text-white font-bold text-xl lg:text-2xl">
-                Best Vehicles Fleet
+                <div className="text-white font-bold text-xl lg:text-2xl text-center">
+                  Best Vehicles Fleet
                 </div>
-                <div className="text-xs lg:text-sm text-white">
+                {/* <div className="text-xs lg:text-sm text-white">
                   Lorem ipsum dolor sit amet, leo consectetur adipiscing elit
                   Ut.
-                </div>
+                </div> */}
               </div>
 
               <div className="text-center md:text-left flex flex-col gap-3 w-60 mt-8">
                 <div className="flex justify-center md:justify-start items-center gap-5">
-                <div className="flex justify-center w-16 h-16 bg-yellow-500 rounded-full">
-                    <RoadTripsDoneIcon/>
+                  <div className="flex justify-center w-16 h-16 bg-yellow-500 rounded-full">
+                    <RoadTripsDoneIcon />
                   </div>
                   <div className="text-3xl lg:text-5xl font-black text-white">
-                  {stats.trips}
+                    {stats.trips}
                   </div>
                 </div>
-                <div className="text-white font-bold text-xl lg:text-2xl">
-                Road Trips Done
+                <div className="text-white font-bold text-xl lg:text-2xl text-center">
+                  Road Trips Done
                 </div>
-                <div className="text-xs lg:text-sm text-white">
+                {/* <div className="text-xs lg:text-sm text-white">
                   Lorem ipsum dolor sit amet, leo consectetur adipiscing elit
                   Ut.
-                </div>
+                </div> */}
               </div>
 
               <div className="text-center md:text-left flex flex-col gap-3 w-60 mt-8">
                 <div className="flex justify-center md:justify-start items-center gap-5">
-                <div className="flex justify-center w-16 h-16 bg-yellow-500 rounded-full">
-                    <PeopleDroppedIcon/>
+                  <div className="flex justify-center w-16 h-16 bg-yellow-500 rounded-full">
+                    <PeopleDroppedIcon />
                   </div>
                   <div className="text-3xl lg:text-5xl font-black text-white">
-                  {stats.dropped}
+                    {stats.dropped}
                   </div>
                 </div>
-                <div className="text-white font-bold text-xl lg:text-2xl">
-                People Dropped
+                <div className="text-white font-bold text-xl lg:text-2xl text-center">
+                  People Dropped
                 </div>
-                <div className="text-xs lg:text-sm text-white">
+                {/* <div className="text-xs lg:text-sm text-white">
                   Lorem ipsum dolor sit amet, leo consectetur adipiscing elit
                   Ut.
-                </div>
+                </div> */}
               </div>
 
               <div className="text-center md:text-left flex flex-col gap-3 w-60 mt-8">
                 <div className="flex justify-center md:justify-start items-center gap-5">
-                <div className="flex justify-center w-16 h-16 bg-yellow-500 rounded-full">
-                    <SatisfiedClientIcon/>
+                  <div className="flex justify-center w-16 h-16 bg-yellow-500 rounded-full">
+                    <SatisfiedClientIcon />
                   </div>
                   <div className="text-3xl lg:text-5xl font-black text-white">
                     {stats.satisfied}
                   </div>
                 </div>
-                <div className="text-white font-bold text-xl lg:text-2xl">
-                Satisfied Client
+                <div className="text-white font-bold text-xl lg:text-2xl text-center">
+                  Satisfied Client
                 </div>
-                <div className="text-xs lg:text-sm text-white">
+                {/* <div className="text-xs lg:text-sm text-white">
                   Lorem ipsum dolor sit amet, leo consectetur adipiscing elit
                   Ut.
-                </div>
+                </div> */}
               </div>
             </div>
           </div>
@@ -940,54 +976,53 @@ const StatsAndTestamonials: React.FC = () => {
 
   const testimonials = [
     {
-      avatar: "",
+      avatar: Man,
       testimonialText:
         "Using Bombay taxi company was an absolute breeze! From booking to drop-off, everything was seamless. The driver was punctual, courteous, and the vehicle was clean and comfortable. I highly recommend them for anyone looking for a reliable and stress-free transportation option.",
       name: "Jane Doe",
       position: "Managing Director",
     },
     {
-      avatar: "",
+      avatar: Man,
       testimonialText:
         "I've been using Bombay Taxi company for my business travel needs for years now, and they never disappoint. Their customer service is top-notch, their vehicles are well-maintained, and their drivers are professional and knowledgeable. I wouldn't trust anyone else with my transportation needs.",
       name: "John Smith",
     },
     {
-      avatar: "",
+      avatar: Woman,
       testimonialText:
         "I recently used Bombay Taxi Company for a family trip, and I couldn't be happier with the service. The booking process was quick and easy, the vehicle was spacious enough for my family, and the driver went above and beyond to make sure we had a comfortable journey. I will definitely be using them again for future trips.",
       name: "Alice Johnson",
       position: "CEO",
     },
     {
-      avatar: "",
+      avatar: Man,
       testimonialText:
         "As a frequent traveller, I've tried many cab rental services, but none compare to Bombay Taxi Company. Their prices are competitive, their fleet is diverse, and their drivers are always professional and courteous. Whether it's a short trip around town or a long-distance journey, I trust Bombay Taxi Company to get me to my destination safely and on time.",
       name: "Mark Brown",
     },
     {
-      avatar: "",
+      avatar: Woman,
       testimonialText:
         "I recently used Bombay Taxi Company for airport transfer, and I was thoroughly impressed. The driver was waiting for me at the arrivals area, holding a sign with my name, making it easy for me to locate them. I will definitely be using Bombay Taxi Company for all my future transportation needs.",
       name: "Emily Clark",
       position: "Chairmen",
     },
-    // repeat
     {
-      avatar: "",
+      avatar: Man,
       testimonialText:
         "Using Bombay taxi company was an absolute breeze! From booking to drop-off, everything was seamless. The driver was punctual, courteous, and the vehicle was clean and comfortable. I highly recommend them for anyone looking for a reliable and stress-free transportation option.",
       name: "Jane Doe",
       position: "Managing Director",
     },
     {
-      avatar: "",
+      avatar: Man,
       testimonialText:
         "I've been using Bombay Taxi company for my business travel needs for years now, and they never disappoint. Their customer service is top-notch, their vehicles are well-maintained, and their drivers are professional and knowledgeable. I wouldn't trust anyone else with my transportation needs.",
       name: "John Smith",
     },
     {
-      avatar: "",
+      avatar: Woman,
       testimonialText:
         "I recently used Bombay Taxi Company for a family trip, and I couldn't be happier with the service. The booking process was quick and easy, the vehicle was spacious enough for my family, and the driver went above and beyond to make sure we had a comfortable journey. I will definitely be using them again for future trips.",
       name: "Alice Johnson",
@@ -1237,24 +1272,40 @@ const AwsomeFeatures: React.FC = () => {
   const [isHovering, setIsHovering] = useState(false);
 
   const features = [
-    { icon: <img src={PremiumServices} className="w-12 h-12"/>, text: "Premium Services" },
     {
-      icon: <img src={SafetyGaurantee} className="w-12 h-12"/>,
+      icon: <img src={PremiumServices} className="w-12 h-12" />,
+      text: "Premium Services",
+      description: "Experience unmatched luxury and comfort",
+    },
+    {
+      icon: <img src={SafetyGaurantee} className="w-12 h-12" />,
       text: "100% Safety Guarantee",
+      description: "Ensuring your safety is our top priority",
     },
-    { icon: <img src={AffordablePricing} className="w-12 h-12"/>, text: "Affordable Pricing" },
-    { icon: <img src={BestQualityFleet} className="w-12 h-12"/>, text: "Best Quality Fleet" },
     {
-      icon: <img src={ProfessionalExpertDrivers} className="w-12 h-12"/>,
+      icon: <img src={AffordablePricing} className="w-12 h-12" />,
+      text: "Affordable Pricing",
+      description: "Enjoy great services at unbeatable prices",
+    },
+    {
+      icon: <img src={BestQualityFleet} className="w-12 h-12" />,
+      text: "Best Quality Fleet",
+      description: "Offering unparalleled choices for your travel needs",
+    },
+    {
+      icon: <img src={ProfessionalExpertDrivers} className="w-12 h-12" />,
       text: "Professional Expert Drivers",
+      description: "Driven by highly skilled and courteous drivers",
     },
     {
-      icon: <img src={QuickSupport} className="w-12 h-12"/>,
+      icon: <img src={QuickSupport} className="w-12 h-12" />,
       text: "24/7 Quick Support",
+      description: "Available for all your bus booking needs",
     },
     {
-      icon: <img src={BestDealsDiscounts} className="w-12 h-12"/>,
+      icon: <img src={BestDealsDiscounts} className="w-12 h-12" />,
       text: "Best Deals & Discounts",
+      description: "Unlock best value with premium deals & exclusive discounts",
     },
   ];
 
@@ -1371,9 +1422,14 @@ const AwsomeFeatures: React.FC = () => {
                     className="flex flex-shrink-0 items-center gap-2 w-80 border border-opacity-10 rounded-3xl p-3"
                   >
                     <div className="text-yellow-500">{feature.icon}</div>
-                    <div className="font-semibold">
-                      {feature.text}
-                      <span className="text-yellow-500">.</span>
+                    <div>
+                      <div className="font-semibold">
+                        {feature.text}
+                        <span className="text-yellow-500">.</span>
+                      </div>
+                      <div className="text-sm text-zinc-500">
+                        {feature?.description}
+                      </div>
                     </div>
                   </div>
                 ))}
@@ -1773,7 +1829,6 @@ const EasyStep: React.FC = () => {
 };
 
 const WhatWeAreOffering: React.FC = () => {
-
   const fadeInDown = {
     hidden: { opacity: 0, y: -50 },
     visible: { opacity: 1, y: 0, transition: { duration: 1 } },
@@ -1784,14 +1839,14 @@ const WhatWeAreOffering: React.FC = () => {
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.3, 
+        staggerChildren: 0.3,
       },
     },
   };
 
   const services = [
     {
-      icon: <OnlineEasyBookingIcon/>,
+      icon: <OnlineEasyBookingIcon />,
       feature: "FEATURE - 01",
       title: "Online Easy Booking",
       description:
@@ -1827,7 +1882,7 @@ const WhatWeAreOffering: React.FC = () => {
       image: WeOffer4,
     },
     {
-      icon: <AirportTransferIcon/>,
+      icon: <AirportTransferIcon />,
       feature: "FEATURE - 05",
       title: "Airport Transfer",
       description:
@@ -1836,7 +1891,7 @@ const WhatWeAreOffering: React.FC = () => {
       image: WeOffer5,
     },
     {
-      icon: <CorporateCarRentalIcon/>,
+      icon: <CorporateCarRentalIcon />,
       feature: "FEATURE - 06",
       title: "Corporate Car Rental",
       description:
@@ -1903,7 +1958,7 @@ const WhatWeAreOffering: React.FC = () => {
           initial="hidden"
           whileInView="visible"
           variants={fadeInDown}
-          viewport={{ once: true, amount: 0.3 }}
+          viewport={{ once: true, amount: 0.01 }}
           className="text-center text-3xl font-medium"
         >
           We Make Your Every Trip Comfortable
@@ -1924,10 +1979,10 @@ const WhatWeAreOffering: React.FC = () => {
             onMouseLeave={handleMouseUp}
           >
             <motion.div
-            initial="hidden"
-            whileInView="visible"
-            variants={staggerContainer}
-            viewport={{ once: true, amount: 0.5 }} 
+              initial="hidden"
+              whileInView="visible"
+              variants={staggerContainer}
+              viewport={{ once: true, amount: 0.3 }}
               className={`flex flex-wrap justify-center gap-8`}
             >
               {services.map((service, index) => (

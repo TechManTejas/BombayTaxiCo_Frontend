@@ -181,7 +181,14 @@ const Search: React.FC = () => {
 
   useEffect(() => {
     const timeOptions = generateTimeOptions(pickupDate ?? dayjs());
-    setPickupTime(timeOptions[0]?.label ?? "");
+    if (timeOptions.length === 0) {
+      // No time options available, shift to the next day
+      const nextDay = (pickupDate ?? dayjs()).add(1, "day");
+      setPickupDate(nextDay);
+      setPickupTime(generateTimeOptions(nextDay)[0]?.label ?? "");
+    } else {
+      setPickupTime(timeOptions[0]?.label ?? "");
+    }
   }, [pickupDate]);
 
   useEffect(() => {
