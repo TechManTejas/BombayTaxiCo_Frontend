@@ -9,7 +9,7 @@ export const BookingConfirmed = () => {
         title={<span>
           {/* ✅  */}
           YOUR BOOKING IS{" "}
-          <span className="text-yellow-[#FDB813]">CONFIRMED!</span>
+          <span className="text-[#FDB813]">CONFIRMED!</span>
         </span>}
         subTitle="Thank You For Booking With Us"
       />
@@ -17,7 +17,7 @@ export const BookingConfirmed = () => {
         {/* <div className="text-xl font-semibold text-gray-900">
           <span>
             YOUR BOOKING IS{" "}
-            <span className="text-yellow-[#FDB813]">CONFIRMED!</span>
+            <span className="text-[#FDB813]">CONFIRMED!</span>
           </span>
         </div> */}
         {/* <p className="text-gray-700 pt-2"></p> */}
@@ -32,7 +32,7 @@ export const BookingConfirmed = () => {
           <p className="text-gray-900 font-semibold">+91 6262 744 744</p>
           <p className="font-semibold">
             Bombay Taxi Company
-            <span className="text-yellow-[#FDB813]">.</span>
+            <span className="text-[#FDB813]">.</span>
           </p>
         </div>
       </div>

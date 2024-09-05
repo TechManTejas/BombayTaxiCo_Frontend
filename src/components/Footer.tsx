@@ -5,17 +5,18 @@ import {
   InstagramOutlined,
   FacebookOutlined,
   ArrowRightOutlined,
-  PhoneFilled,
   MailFilled,
   EnvironmentFilled,
 } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
+import { Container } from "@mui/material";
 
 export const Footer: React.FC = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="bg-[#2A2A2A] flex justify-center w-ful py-12">
+    <div className="w-full flex justify-center lg:py-8">
+    <Container className="bg-[#2A2A2A] flex justify-center py-12 lg:rounded-3xl">
       <div className="container px-6">
         <div
           className="flex justify-between
@@ -40,16 +41,16 @@ export const Footer: React.FC = () => {
               services.
             </div>
             <div className="flex space-x-2">
-              <button className="h-10 w-10 border rounded-full border-zinc-500 text-zinc-500 hover:border-yellow-500 hover:text-yellow-[#FDB813] flex justify-center items-center">
+              <button className="h-10 w-10 border rounded-full border-zinc-500 text-zinc-500 hover:border-yellow-500 hover:text-[#FDB813] flex justify-center items-center">
                 <FacebookFilled />
               </button>
-              <button className="h-10 w-10 border rounded-full border-zinc-500 text-zinc-500 hover:border-yellow-500 hover:text-yellow-[#FDB813] flex justify-center items-center">
+              <button className="h-10 w-10 border rounded-full border-zinc-500 text-zinc-500 hover:border-yellow-500 hover:text-[#FDB813] flex justify-center items-center">
                 <TwitterOutlined />
               </button>
-              <button className="h-10 w-10 border rounded-full border-zinc-500 text-zinc-500 hover:border-yellow-500 hover:text-yellow-[#FDB813] flex justify-center items-center">
+              <button className="h-10 w-10 border rounded-full border-zinc-500 text-zinc-500 hover:border-yellow-500 hover:text-[#FDB813] flex justify-center items-center">
                 <InstagramOutlined />
               </button>
-              <button className="h-10 w-10 border rounded-full border-zinc-500 text-zinc-500 hover:border-yellow-500 hover:text-yellow-[#FDB813] flex justify-center items-center">
+              <button className="h-10 w-10 border rounded-full border-zinc-500 text-zinc-500 hover:border-yellow-500 hover:text-[#FDB813] flex justify-center items-center">
                 <FacebookOutlined />
               </button>
             </div>
@@ -61,8 +62,8 @@ export const Footer: React.FC = () => {
               <div className="w-20 border border-yellow-500"></div>
             </div>
             <div className="text-zinc-500 space-y-3">
-              <button
-                className="flex items-center space-x-3 hover:text-yellow-[#FDB813] transition-all"
+              {/* <button
+                className="flex items-center space-x-3 hover:text-[#FDB813] transition-all"
                 onClick={() => {
                   navigate("/attach-taxi");
                   window.scrollTo(0, 0);
@@ -70,9 +71,9 @@ export const Footer: React.FC = () => {
               >
                 <ArrowRightOutlined />
                 <div>Attach Your Taxi</div>
-              </button>
+              </button> */}
               <button
-                className="flex items-center space-x-3 hover:text-yellow-[#FDB813] transition-all"
+                className="flex items-center space-x-3 hover:text-[#FDB813] transition-all"
                 onClick={() => {
                   navigate("/about");
                   window.scrollTo(0, 0);
@@ -82,7 +83,7 @@ export const Footer: React.FC = () => {
                 <div>About Us</div>
               </button>
               <button
-                className="flex items-center space-x-3 hover:text-yellow-[#FDB813] transition-all"
+                className="flex items-center space-x-3 hover:text-[#FDB813] transition-all"
                 onClick={() => {
                   navigate("/contact");
                   window.scrollTo(0, 0);
@@ -92,7 +93,7 @@ export const Footer: React.FC = () => {
                 <div>Contact Us</div>
               </button>
               <button
-                className="flex items-center space-x-3 hover:text-yellow-[#FDB813] transition-all"
+                className="flex items-center space-x-3 hover:text-[#FDB813] transition-all"
                 onClick={() => {
                   navigate("/faqs");
                   window.scrollTo(0, 0);
@@ -102,7 +103,7 @@ export const Footer: React.FC = () => {
                 <div>FAQs</div>
               </button>
               <button
-                className="flex items-center space-x-3 hover:text-yellow-[#FDB813] transition-all"
+                className="flex items-center space-x-3 hover:text-[#FDB813] transition-all"
                 onClick={() => {
                   navigate("/cancellation-policy");
                   window.scrollTo(0, 0);
@@ -112,7 +113,7 @@ export const Footer: React.FC = () => {
                 <div>Cancellation Policy</div>
               </button>
               <button
-                className="flex items-center space-x-3 hover:text-yellow-[#FDB813] transition-all"
+                className="flex items-center space-x-3 hover:text-[#FDB813] transition-all"
                 onClick={() => {
                   navigate("/terms-conditions");
                   window.scrollTo(0, 0);
@@ -122,7 +123,7 @@ export const Footer: React.FC = () => {
                 <div>Terms & Conditions</div>
               </button>
               <button
-                className="flex items-center space-x-3 hover:text-yellow-[#FDB813] transition-all"
+                className="flex items-center space-x-3 hover:text-[#FDB813] transition-all"
                 onClick={() => {
                   navigate("/privacy-policy");
                   window.scrollTo(0, 0);
@@ -147,7 +148,7 @@ export const Footer: React.FC = () => {
                   PHONE NUMBER
                 </div>
                 <div className="flex space-x-2">
-                  <div className="h-6 w-6 bg-yellow-500 text-[#2A2A2A] text-xs flex justify-center items-center rounded">
+                  <div className="h-6 w-6 bg-[#FDB813] text-[#2A2A2A] text-xs flex justify-center items-center rounded">
                     <span className="inline-block align-middle">
                       <svg
                         stroke="currentColor"
@@ -167,7 +168,7 @@ export const Footer: React.FC = () => {
                   </div>
                   <a
                     href="tel:+916262744744"
-                    className="text-zinc-500 hover:text-yellow-[#FDB813] hover:underline"
+                    className="text-zinc-500 hover:text-[#FDB813] hover:underline"
                   >
                     +91-6262-744-744
                   </a>
@@ -178,7 +179,7 @@ export const Footer: React.FC = () => {
                   EMAIL ADDRESS
                 </div>
                 <div className="flex space-x-2">
-                  <div className="h-6 w-6 bg-yellow-500 text-[#2A2A2A] text-xs flex justify-center items-center rounded">
+                  <div className="h-6 w-6 bg-[#FDB813] text-[#2A2A2A] text-xs flex justify-center items-center rounded">
                     <MailFilled />
                   </div>
                   <a
@@ -194,11 +195,11 @@ export const Footer: React.FC = () => {
                   OFFICE LOCATION
                 </div>
                 <div className="flex space-x-2">
-                  <div className="h-6 w-6 bg-yellow-500 text-[#2A2A2A] text-xs flex justify-center items-center rounded">
+                  <div className="h-6 w-6 bg-[#FDB813] text-[#2A2A2A] text-xs flex justify-center items-center rounded">
                     <EnvironmentFilled />
                   </div>
                   <div className="text-zinc-500 max-w-sm">
-                    Company no. 1 Sai Society, Mhada Colony, Laxmi Nagar,
+                    Office no. 1 Sai Society, Mhada Colony, Laxmi Nagar,
                     Ghatkopar East, Mumbai 400075
                   </div>
                 </div>
@@ -207,6 +208,7 @@ export const Footer: React.FC = () => {
           </div>
         </div>
       </div>
+    </Container>
     </div>
   );
 };

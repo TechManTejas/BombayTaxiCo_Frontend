@@ -147,7 +147,7 @@ const DriversAddEdit: React.FC = () => {
           <Space className="space-x-4">
             <Button
               htmlType="submit"
-              className="bg-yellow-500 hover:bg-yellow-600 text-black font-semibold w-28 h-10"
+              className="bg-[#FDB813] hover:bg-[#FDB813] text-black font-semibold w-28 h-10"
             >
               {id ? "SAVE" : "ADD"}
             </Button>

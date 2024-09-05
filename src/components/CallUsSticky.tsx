@@ -9,10 +9,10 @@ const StickyCallUs = () => {
   };
 
   return (
-    <div className="fixed top-1/3 right-0 transform translate-x-1/2 z-50">
+    <div className="lg:hidden fixed top-1/3 right-0 transform translate-x-1/2 z-50">
       <div className="sticky-component flex items-center bg-white shadow-lg rounded-l-lg p-2 overflow-hidden">
         <div className="flex flex-col items-center justify-center h-40">
-          <span className="flex items-center justify-center h-4 w-4 text-yellow-[#FDB813] rounded-full bounce-left-right">
+          <span className="flex items-center justify-center h-4 w-4 text-[#FDB813] rounded-full bounce-left-right">
             <ArrowRightOutlined />
           </span>
           <div className="flex flex-col items-center font-extrabold">
@@ -25,7 +25,7 @@ const StickyCallUs = () => {
               </span>
             ))}
           </div>
-          <span className="flex items-center justify-center h-8 w-8 bg-yellow-500 text-white rounded-full mt-3">
+          <span className="flex items-center justify-center h-8 w-8 bg-[#FDB813] text-white rounded-full mt-3">
             <svg
               stroke="currentColor"
               fill="currentColor"

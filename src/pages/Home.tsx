@@ -3,16 +3,16 @@ import {
   AndroidFilled,
   AppleFilled,
   BankOutlined,
+  BoxPlotOutlined,
   CarOutlined,
+  CompassOutlined,
   CreditCardOutlined,
   DollarCircleOutlined,
   DollarOutlined,
   EnvironmentOutlined,
-  LeftOutlined,
   LikeOutlined,
   MobileOutlined,
   MoneyCollectOutlined,
-  RightOutlined,
   SafetyOutlined,
   SwapOutlined,
   UserOutlined,
@@ -48,7 +48,7 @@ import { OneWayTripIcon } from "../icons/OneWayTripIcon.js";
 import { HourlyRentalIcon } from "../icons/HourlyRentalIcon.js";
 import "../css/Fade.css";
 import "../css/NoScrollbar.css";
-import { BestVehiclesFleetIcon } from "../icons/BestVehiclesFleet.js";
+// import { BestVehiclesFleetIcon } from "../icons/BestVehiclesFleet.js";
 import { RoadTripsDoneIcon } from "../icons/RoadTripsDone.js";
 import { PeopleDroppedIcon } from "../icons/PeopleDropped.js";
 import { SatisfiedClientIcon } from "../icons/SatisfiedClient.js";
@@ -65,6 +65,8 @@ import Woman from "../assets/images/woman.png";
 import { OnlineEasyBookingIcon } from "../icons/OnlineEasyBooking.js";
 import { AirportTransferIcon } from "../icons/AirportTransfer.js";
 import { CorporateCarRentalIcon } from "../icons/CorporateCarRental.js";
+import { FaCalendarAlt, FaClock } from "react-icons/fa";
+import { MdNavigation } from "react-icons/md";
 
 message.config({
   top: "25%",
@@ -359,13 +361,13 @@ const Hero: React.FC = () => {
         // animate={{ opacity: 1 }}
         // exit={{ opacity: 0 }}
         // transition={{ duration: 1 }}
-        className="h-[720px]"
+        className=""
         style={{
           backgroundImage: `url(${texts[0].background})`,
           backgroundSize: "cover",
         }}
       >
-        <div className="bg-[#00000095] h-full w-full flex flex-col justify-center items-center space-y-20">
+        <div className="bg-[#00000095] h-full w-full flex flex-col justify-center items-center space-y-8 pt-8">
           {/* <!-- Rotating Text Container --> */}
           <div
             className=" lg:w-[1036px] 
@@ -451,7 +453,7 @@ const Hero: React.FC = () => {
               />
             </div>
             <div
-              className="bg-white rounded-3xl -mb-6 flex justify-center items-center py-8 px-6 pt-20 lg:pt-8
+              className="bg-white rounded-3xl -mb-6 flex justify-center items-center shadow-lg py-8 px-6 pt-20 lg:pt-8
               lg:px-6
             "
             >
@@ -461,11 +463,15 @@ const Hero: React.FC = () => {
               "
               >
                 {activeTab === "Hourly Rental" && (
-                  <div className="w-full lg:w-[312px] p-3 pb-4 space-y-1 border rounded-xl">
-                    <div className="text-xs">PICKUP LOCATION</div>
+                  <div className="group w-full lg:w-[312px] p-3 pb-4 space-y-1 border rounded-xl hover:border-[#FDB813] transition-all duration-300">
+                    <div className="text-xs flex items-center gap-1">
+                      {" "}
+                      <EnvironmentOutlined />
+                      PICKUP LOCATION
+                    </div>
                     <Dropdown menu={menuPropsPickupCity} placement="bottomLeft">
                       <button
-                        className="text-xl lg:text-3xl hover:text-yellow-[#FDB813]"
+                        className="text-xl lg:text-3xl group-hover:text-[#FDB813] transition-all duration-300"
                         style={{ border: "none" }}
                       >
                         {pickupCity || "Select City"}
@@ -494,31 +500,37 @@ const Hero: React.FC = () => {
                             onClick={switchValues}
                           >
                             <SwapOutlined
-                              size={50} 
+                              size={50}
                               className="border rounded-full p-1 text-xl hover:bg-gray-200 shadow-lg"
-                              style={{ transform: 'rotate(90deg)' }}
+                              style={{ transform: "rotate(90deg)" }}
                             />
                           </button>
                         </div>
                       </>
                     }
-                    <div className="w-[328px] lg:w-[220px]  p-3 pb-4 space-y-1 border rounded-xl z-20">
-                      <div className="text-xs">FROM</div>
+                    <div className="group w-[328px] lg:w-[220px]  p-3 pb-4 space-y-1 border rounded-xl z-20 hover:border-[#FDB813] transition-all duration-300">
+                      <div className="text-xs flex items-center gap-1">
+                        <MdNavigation />
+                        FROM
+                      </div>
                       <Dropdown menu={menuPropsFrom} placement="bottomLeft">
                         <button
-                          className="text-xl lg:text-3xl hover:text-yellow-[#FDB813]"
+                          className="text-xl lg:text-3xl group-hover:text-[#FDB813] transition-all duration-300"
                           style={{ border: "none" }}
                         >
                           {from || "Select City"}
                         </button>
                       </Dropdown>
                     </div>
-                    
-                    <div className="w-full lg:w-[220px] p-3 pb-4 space-y-1 border rounded-xl z-20">
-                      <div className="text-xs">TO</div>
+
+                    <div className="group w-full lg:w-[220px] p-3 pb-4 space-y-1 border rounded-xl z-20 hover:border-[#FDB813] transition-all duration-300">
+                      <div className="text-xs flex items-center gap-1">
+                        <MdNavigation />
+                        TO
+                      </div>
                       <Dropdown menu={menuPropsTo} placement="bottomLeft">
                         <button
-                          className="text-xl lg:text-3xl hover:text-yellow-[#FDB813]"
+                          className="text-xl lg:text-3xl group-hover:text-[#FDB813] transition-all duration-300"
                           style={{ border: "none" }}
                         >
                           {to || "Select City"}
@@ -527,10 +539,13 @@ const Hero: React.FC = () => {
                     </div>
                   </div>
                 )}
-                <div className="relative w-full lg:w-[164px] p-3 pb-4 space-y-1 border rounded-xl">
-                  <div className="text-xs">PICKUP DATE</div>
+                <div className="group relative w-full lg:w-[164px] p-3 pb-4 space-y-1 border rounded-xl hover:border-[#FDB813] transition-all duration-300">
+                  <div className="text-xs flex items-center gap-1">
+                    <FaCalendarAlt />
+                    PICKUP DATE
+                  </div>
                   <button
-                    className="text-xl lg:text-3xl hover:text-yellow-[#FDB813]"
+                    className="text-xl lg:text-3xl group-hover:text-[#FDB813] transition-all duration-300"
                     onClick={togglePickupDatePicker}
                   >
                     {pickupDate?.format("D MMM") ?? (
@@ -553,16 +568,33 @@ const Hero: React.FC = () => {
                     disabledDate={(current: Dayjs | null) =>
                       current
                         ? current.isBefore(dayjs().startOf("day")) ||
-                          current.isAfter(dayjs().add(30, "days"))
+                          current.isAfter(dayjs().add(90, "days"))
                         : false
                     }
+                    // Highlight Sundays using dateRender
+                    dateRender={(currentDate) => {
+                      const isSunday = currentDate.day() === 0; // 0 represents Sunday in dayjs
+                      return (
+                        <div
+                          className={`ant-picker-cell-inner ${
+                            isSunday ? "bg-[#FDB813]" : ""
+                          }`}
+                        >
+                          {currentDate.date()}
+                        </div>
+                      );
+                    }}
                   />
                 </div>
-                <div className="w-full lg:w-[164px] p-3 pb-4 space-y-1 border rounded-xl">
-                  <div className="text-xs">PICKUP TIME</div>
+                <div className="group w-full lg:w-[164px] p-3 pb-4 space-y-1 border rounded-xl hover:border-[rgb(253,184,19)] transition-all duration-300">
+                  <div className="text-xs flex items-center gap-1">
+                    {" "}
+                    <FaClock />
+                    PICKUP TIME
+                  </div>
                   <Dropdown menu={menuPropsTime} placement="bottomLeft">
                     <button
-                      className="text-xl lg:text-3xl hover:text-yellow-[#FDB813]"
+                      className="text-xl lg:text-3xl group-hover:text-[#FDB813] transition-all duration-300"
                       style={{ border: "none" }}
                     >
                       {pickupTime || "Select a Time"}
@@ -570,13 +602,17 @@ const Hero: React.FC = () => {
                   </Dropdown>
                 </div>
                 {activeTab !== "Hourly Rental" && (
-                  <div className="relative w-full lg:w-[164px] p-3 pb-4 space-y-1 border rounded-xl">
-                    <div className="text-xs">RETURN DATE</div>
+                  <div className="group relative w-full lg:w-[164px] p-3 pb-4 space-y-1 border rounded-xl hover:border-[rgb(253,184,19)] transition-all duration-300">
+                    <div className="text-xs flex items-center gap-1">
+                      {" "}
+                      <FaClock />
+                      RETURN DATE
+                    </div>
                     <div>
                       {activeTab === "Round Trip" ? (
                         <>
                           <button
-                            className="text lg:text-3xl hover:text-yellow-[#FDB813]"
+                            className="text lg:text-3xl group-hover:text-[#FDB813] transition-all duration-300"
                             onClick={toggleReturnDatePicker}
                           >
                             {returnDate?.format("D MMM") ?? (
@@ -599,15 +635,27 @@ const Hero: React.FC = () => {
                             disabledDate={(current: Dayjs | null) =>
                               current
                                 ? current.isBefore(pickupDate, "day") ||
-                                  current.isAfter(dayjs().add(30, "days"))
+                                  current.isAfter(dayjs().add(90, "days"))
                                 : false
                             }
+                            dateRender={(currentDate) => {
+                              const isSunday = currentDate.day() === 0; // 0 represents Sunday in dayjs
+                              return (
+                                <div
+                                  className={`ant-picker-cell-inner ${
+                                    isSunday ? "bg-[#FDB813]" : ""
+                                  }`}
+                                >
+                                  {currentDate.date()}
+                                </div>
+                              );
+                            }}
                           />
                         </>
                       ) : (
                         <>
                           <button
-                            className="text-xs text-left hover:text-yellow-[#FDB813]"
+                            className="text-xs text-left group-hover:text-[#FDB813] transition-all duration-300"
                             onClick={() => setActiveTab("Round Trip")}
                           >
                             Add return date for bigger discount
@@ -619,11 +667,15 @@ const Hero: React.FC = () => {
                 )}
                 {activeTab === "Hourly Rental" && (
                   <div>
-                    <div className="w-[328px] lg:w-[300px] p-3 pb-4 space-y-1 border rounded-xl">
-                      <div className="text-xs">SELECT PACKAGE</div>
+                    <div className="group w-[328px] lg:w-[300px] p-3 pb-4 space-y-1 border rounded-xl hover:border-[rgb(253,184,19)] transition-all duration-300">
+                      <div className="text-xs flex items-center gap-1">
+                        {" "}
+                        <CompassOutlined />
+                        SELECT PACKAGE
+                      </div>
                       <Dropdown menu={menuPropsDistance} placement="bottomLeft">
                         <button
-                          className="text lg:text-3xl hover:text-yellow-[#FDB813]"
+                          className="text lg:text-3xl group-hover:text-[#FDB813] transition-all duration-300"
                           style={{ border: "none" }}
                         >
                           {hourlyPackage || "Select a Time"}
@@ -636,15 +688,13 @@ const Hero: React.FC = () => {
             </div>
             <div className="w-full flex justify-center">
               <button
-                className="text-sm lg:text-base bg-yellow-500 hover:bg-yellow-400 text-black font-semibold w-28 lg:w-36 h-12 rounded-lg border-yellow-500 z-10"
+                className="text-sm lg:text-base bg-[#FDB813] hover:bg-yellow-400 text-black font-semibold w-28 lg:w-36 h-12 rounded-lg border-yellow-500 z-10"
                 onClick={handleLetsRideClick}
               >
                 SEE PRICES
               </button>
             </div>
           </div>
-          {/* extra div  */}
-          <div />
         </div>
       </div>
     </>
@@ -663,7 +713,7 @@ const WhyChooseUs: React.FC = () => {
   };
 
   return (
-    <div className="flex w-full justify-center bg-[#f5f5f5]">
+    <div className="flex w-full justify-center bg-[#ececf4]">
       <div className="space-y-12 py-20 w-full container">
         <motion.div
           initial="hidden"
@@ -679,7 +729,7 @@ const WhyChooseUs: React.FC = () => {
           whileInView="visible"
           variants={slideIn}
           viewport={{ once: true, amount: 0.5 }}
-          className="flex flex-wrap gap-4 items-center justify-center
+          className="flex flex-wrap gap-5 items-center justify-center
         "
         >
           <WhyChooseUsCard
@@ -841,31 +891,25 @@ const OurAchievement: React.FC = () => {
   }, [isVisible]);
 
   return (
-    <div ref={elementRef}>
-      <Container className="md:h-[440px] flex justify-center p-8">
+    <div ref={elementRef} className="">
+      <div className="flex justify-center">
         <div
-          className="w-full rounded-3xl container"
+          className="rounded-3xl"
           style={{
             backgroundImage: `url(${Experience})`,
             backgroundSize: "cover",
           }}
         >
-          <div className="p-16 bg-blue-950 bg-opacity-70 rounded-3xl">
+          <div className="px-14 p-12 bg-blue-950 bg-opacity-70 rounded-3xl">
             <div className="lg:flex justify-between">
               <div className="text-3xl lg:text-5xl text-white font-extrabold text-center">
                 Our Achievement
               </div>
-              {/* <div className="text-xs lg:text-sm text-white max-w-lg">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-                enim ad minim veniam, quis nostrud exercitation ullamco laboris
-                nisi ut aliquip ex ea commodo consequat.{" "}
-              </div> */}
             </div>
-            <div className="flex flex-wrap md:flex md:flex-nowrap justify-center md:justify-between">
-              <div className="text-center md:text-left flex flex-col gap-3 w-60 mt-8">
+            <div className="flex flex-wrap md:flex md:flex-nowrap justify-center md:justify-between gap-24">
+              {/* <div className="text-center md:text-left flex flex-col gap-3 w-60 mt-8">
                 <div className="flex justify-center md:justify-start items-center gap-5">
-                  <div className="flex justify-center w-16 h-16 bg-yellow-500 rounded-full">
+                  <div className="flex justify-center w-16 h-16 bg-[#FDB813] rounded-full">
                     <BestVehiclesFleetIcon />
                   </div>
                   <div className="text-3xl lg:text-5xl font-black text-white">
@@ -875,15 +919,11 @@ const OurAchievement: React.FC = () => {
                 <div className="text-white font-bold text-xl lg:text-2xl text-center">
                   Best Vehicles Fleet
                 </div>
-                {/* <div className="text-xs lg:text-sm text-white">
-                  Lorem ipsum dolor sit amet, leo consectetur adipiscing elit
-                  Ut.
-                </div> */}
-              </div>
+              </div> */}
 
               <div className="text-center md:text-left flex flex-col gap-3 w-60 mt-8">
                 <div className="flex justify-center md:justify-start items-center gap-5">
-                  <div className="flex justify-center w-16 h-16 bg-yellow-500 rounded-full">
+                  <div className="flex justify-center w-16 h-16 bg-[#FDB813] rounded-full">
                     <RoadTripsDoneIcon />
                   </div>
                   <div className="text-3xl lg:text-5xl font-black text-white">
@@ -901,7 +941,7 @@ const OurAchievement: React.FC = () => {
 
               <div className="text-center md:text-left flex flex-col gap-3 w-60 mt-8">
                 <div className="flex justify-center md:justify-start items-center gap-5">
-                  <div className="flex justify-center w-16 h-16 bg-yellow-500 rounded-full">
+                  <div className="flex justify-center w-16 h-16 bg-[#FDB813] rounded-full">
                     <PeopleDroppedIcon />
                   </div>
                   <div className="text-3xl lg:text-5xl font-black text-white">
@@ -919,7 +959,7 @@ const OurAchievement: React.FC = () => {
 
               <div className="text-center md:text-left flex flex-col gap-3 w-60 mt-8">
                 <div className="flex justify-center md:justify-start items-center gap-5">
-                  <div className="flex justify-center w-16 h-16 bg-yellow-500 rounded-full">
+                  <div className="flex justify-center w-16 h-16 bg-[#FDB813] rounded-full">
                     <SatisfiedClientIcon />
                   </div>
                   <div className="text-3xl lg:text-5xl font-black text-white">
@@ -937,7 +977,7 @@ const OurAchievement: React.FC = () => {
             </div>
           </div>
         </div>
-      </Container>
+      </div>
     </div>
   );
 };
@@ -969,7 +1009,7 @@ const StatsAndTestamonials: React.FC = () => {
 
   const [translateX, setTranslateX] = useState(0);
   const [transitionDuration, setTransitionDuration] = useState("duration-700");
-  const cardWidthIncludingGap = 320 + 16;
+  const cardWidthIncludingGap = 320 + 30;
   const numberOfVisibleCards = 1;
   const slideInterval = 2000;
   const [isHovering, setIsHovering] = useState(false);
@@ -1209,23 +1249,23 @@ const StatsAndTestamonials: React.FC = () => {
             viewport={{ once: true, amount: 0.5 }}
             className="flex justify-center items-center w-full relative"
           >
-            <button
+            {/* <button
               className="bg-white w-14 h-14 hover:bg-yellow-400 text-black font-semibold shadow-xl px-4 rounded-full border-2 border-yellow-500 z-10"
               onClick={handlePrev}
             >
               <LeftOutlined />
-            </button>
+            </button> */}
             <div
               className="m-8 py-1 overflow-x-scroll scroll-smooth no-scrollbar
-              lg:w-[992px]
-              md:w-[656px]
+              lg:w-[1020px]
+              md:w-[670px]
               w-[320px]
             "
             >
               <div
                 className={`flex gap-4  ${transitionDuration}`}
                 style={{
-                  gap: `${16}px`,
+                  gap: `${30}px`,
                   transform: `translateX(${translateX}px)`,
                 }}
               >
@@ -1240,12 +1280,12 @@ const StatsAndTestamonials: React.FC = () => {
                 ))}
               </div>
             </div>
-            <button
+            {/* <button
               className="bg-white w-14 h-14 hover:bg-yellow-400 text-black font-semibold px-4 rounded-full border-2 border-yellow-500 z-10 shadow-xl"
               onClick={handleNext}
             >
               <RightOutlined />
-            </button>
+            </button> */}
           </motion.div>
         </div>
       </div>
@@ -1333,21 +1373,21 @@ const AwsomeFeatures: React.FC = () => {
     }
   }, [features.length, cardWidthIncludingGap, isHovering]);
 
-  const handleNext = () => {
-    if (translateX > maxTranslate) {
-      setTranslateX(translateX - cardWidthIncludingGap);
-    }
-  };
+  // const handleNext = () => {
+  //   if (translateX > maxTranslate) {
+  //     setTranslateX(translateX - cardWidthIncludingGap);
+  //   }
+  // };
 
-  const handlePrev = () => {
-    if (translateX < 0) {
-      setTranslateX(translateX + cardWidthIncludingGap);
-    }
-  };
+  // const handlePrev = () => {
+  //   if (translateX < 0) {
+  //     setTranslateX(translateX + cardWidthIncludingGap);
+  //   }
+  // };
 
   return (
     <>
-      <div className="space-y-10 py-20">
+      <div className="space-y-10 py-20 pt-40">
         <div
           className="flex flex-col justify-center items-center space-y-3 text-center
         px-4
@@ -1366,7 +1406,7 @@ const AwsomeFeatures: React.FC = () => {
             className="text-3xl font-medium "
           >
             Our Awesome Features
-            <span className="text-yellow-[#FDB813]">.</span>
+            <span className="text-[#FDB813]">.</span>
           </motion.div>
           <motion.div
             initial="hidden"
@@ -1395,12 +1435,12 @@ const AwsomeFeatures: React.FC = () => {
             onMouseOver={() => setIsHovering(true)}
             onMouseLeave={() => setIsHovering(false)}
           >
-            <button
+            {/* <button
               className="absolute left-0 w-14 h-14 hidden lg:block bg-white hover:bg-yellow-400 text-black font-semibold px-4 rounded-full border-2 border-yellow-500 z-10 shadow-xl"
               onClick={handlePrev}
             >
               <LeftOutlined />
-            </button>
+            </button> */}
 
             <div
               className="m-8 py-1 scroll-smooth no-scrollbar
@@ -1421,11 +1461,13 @@ const AwsomeFeatures: React.FC = () => {
                     key={index}
                     className="flex flex-shrink-0 items-center gap-2 w-80 border border-opacity-10 rounded-3xl p-3"
                   >
-                    <div className="text-yellow-[#FDB813]">{feature.icon}</div>
+                    <div className="text-[#FDB813] flex-shrink-0">
+                      {feature.icon}
+                    </div>
                     <div>
                       <div className="font-semibold">
                         {feature.text}
-                        <span className="text-yellow-[#FDB813]">.</span>
+                        <span className="text-[#FDB813]">.</span>
                       </div>
                       <div className="text-sm text-zinc-500">
                         {feature?.description}
@@ -1436,12 +1478,12 @@ const AwsomeFeatures: React.FC = () => {
               </div>
             </div>
 
-            <button
+            {/* <button
               className="absolute right-0 w-14 h-14 hidden lg:block bg-white hover:bg-yellow-400 text-black font-semibold px-4 rounded-full border-2 border-yellow-500 z-10 shadow-xl"
               onClick={handleNext}
             >
               <RightOutlined />
-            </button>
+            </button> */}
           </div>
         </motion.div>
       </div>
@@ -1462,32 +1504,32 @@ const OurBenefitsList: React.FC = () => {
 
   // const benefits = [
   //   {
-  //     icon: <CreditCardOutlined className='text-5xl text-yellow-[#FDB813]' />,
+  //     icon: <CreditCardOutlined className='text-5xl text-[#FDB813]' />,
   //     title: "Online Payment",
   //     description: "Convenient and secure online payment options with support for multiple gateways.",
   //   },
   //   {
-  //     icon: <SafetyOutlined className='text-5xl text-yellow-[#FDB813]' />,
+  //     icon: <SafetyOutlined className='text-5xl text-[#FDB813]' />,
   //     title: "Safety Guarantee",
   //     description: "Top-notch safety measures for every ride ensuring a worry-free travel experience.",
   //   },
   //   {
-  //     icon: <CarOutlined className='text-5xl text-yellow-[#FDB813]' />,
+  //     icon: <CarOutlined className='text-5xl text-[#FDB813]' />,
   //     title: "Quick Ride",
   //     description: "Efficient booking and dispatch system to minimize wait times and get you on your way faster.",
   //   },
   //   {
-  //     icon: <DollarOutlined className='text-5xl text-yellow-[#FDB813]' />,
+  //     icon: <DollarOutlined className='text-5xl text-[#FDB813]' />,
   //     title: "Free Quotation",
   //     description: "Get a free and instant quote for your ride with no hidden charges.",
   //   },
   //   {
-  //     icon: <UserOutlined className='text-5xl text-yellow-[#FDB813]' />,
+  //     icon: <UserOutlined className='text-5xl text-[#FDB813]' />,
   //     title: "Cleared Drivers",
   //     description: "Professionally trained drivers with thorough background checks for your peace of mind.",
   //   },
   //   {
-  //     icon: <TagOutlined className='text-5xl text-yellow-[#FDB813]' />,
+  //     icon: <TagOutlined className='text-5xl text-[#FDB813]' />,
   //     title: "Discount & Promo",
   //     description: "Enjoy exclusive discounts and promotions to save on your rides.",
   //   },
@@ -1513,7 +1555,7 @@ const OurBenefitsList: React.FC = () => {
             viewport={{ once: true, amount: 0.5 }}
             className="text-3xl font-medium "
           >
-            We Offer The Best For You<span className="text-yellow-[#FDB813]">.</span>
+            We Offer The Best For You<span className="text-[#FDB813]">.</span>
           </motion.div>
           <motion.div
             initial="hidden"
@@ -1539,7 +1581,7 @@ const OurBenefitsList: React.FC = () => {
           <div className="max-w-xs min-w-[320px]">
             <div className="bg-[#2A2A2A] rounded-2xl p-5 py-8 flex flex-col gap-5 w-full">
               <div className="flex gap-x-3">
-                <div className="bg-yellow-500 rounded-lg p-3 flex justify-center items-center">
+                <div className="bg-[#FDB813] rounded-lg p-3 flex justify-center items-center">
                   <DollarOutlined className="text-3xl" />
                 </div>
                 <div className="text-white text-xl flex flex-col justify-between">
@@ -1568,10 +1610,10 @@ const OurBenefitsList: React.FC = () => {
           </div>
 
           <div className="max-w-xs min-w-[320px]">
-            <div className="bg-yellow-500 rounded-2xl p-5 py-8 flex flex-col gap-5 w-full">
+            <div className="bg-[#FDB813] rounded-2xl p-5 py-8 flex flex-col gap-5 w-full">
               <div className="flex gap-x-3">
                 <div className="bg-[#2A2A2A] rounded-lg p-3 flex justify-center items-center">
-                  <SafetyOutlined className="text-3xl text-yellow-[#FDB813]" />
+                  <SafetyOutlined className="text-3xl text-[#FDB813]" />
                 </div>
                 <div className="text-xl flex flex-col justify-between">
                   <div className="tracking-wide">Safety First</div>
@@ -1601,7 +1643,7 @@ const OurBenefitsList: React.FC = () => {
           <div className="max-w-xs min-w-[320px]">
             <div className="border rounded-2xl p-5 py-8 flex flex-col gap-5 w-full">
               <div className="flex gap-x-3">
-                <div className="bg-yellow-500 rounded-lg p-3 flex justify-center items-center">
+                <div className="bg-[#FDB813] rounded-lg p-3 flex justify-center items-center">
                   <MobileOutlined className="text-3xl" />
                 </div>
                 <div className="text-xl flex flex-col justify-between">
@@ -1615,13 +1657,13 @@ const OurBenefitsList: React.FC = () => {
               <div className="flex justify-around gap-5">
                 <div className="flex gap-x-2">
                   <div className="text-xl flex justify-center w-8 h-5 rounded">
-                    <AppleFilled className="text-yellow-[#FDB813]" />
+                    <AppleFilled className="text-[#FDB813]" />
                   </div>
                   <div className="font-light text-sm">Apple</div>
                 </div>
                 <div className="flex gap-x-2">
                   <div className="text-xl flex justify-center w-8 h-5 rounded">
-                    <AndroidFilled className="text-yellow-[#FDB813]" />
+                    <AndroidFilled className="text-[#FDB813]" />
                   </div>
                   <div className="font-light text-sm">Android</div>
                 </div>
@@ -1660,7 +1702,7 @@ const OurBenefitsList: React.FC = () => {
               sm:m-0
             '>
               <div className='h-20 w-20 bg-[#2A2A2A] rounded-2xl flex justify-center items-center shadow-2xl'>
-                <CarOutlined className='text-3xl text-yellow-[#FDB813]' />
+                <CarOutlined className='text-3xl text-[#FDB813]' />
               </div>
               <div className='text-xl'>
                 Booking A Taxi
@@ -1673,7 +1715,7 @@ const OurBenefitsList: React.FC = () => {
               sm:m-0
             '>
               <div className='h-20 w-20 bg-[#ffffff] rounded-2xl flex justify-center items-center shadow-2xl'>
-                <UserOutlined className='text-3xl text-yellow-[#FDB813]' />
+                <UserOutlined className='text-3xl text-[#FDB813]' />
               </div>
               <div className='text-xl'>
                 Get a Driver
@@ -1686,7 +1728,7 @@ const OurBenefitsList: React.FC = () => {
               sm:m-0
             '>
               <div className='h-20 w-20 bg-[#2A2A2A] rounded-2xl flex justify-center items-center shadow-2xl'>
-                <LikeOutlined className='text-3xl text-yellow-[#FDB813]' />
+                <LikeOutlined className='text-3xl text-[#FDB813]' />
               </div>
               <div className='text-xl'>
                 Enjoy Your Ride
@@ -1734,7 +1776,7 @@ const EasyStep: React.FC = () => {
             className="text-3xl font-medium "
           >
             Easy Step For Book Your Taxi
-            <span className="text-yellow-[#FDB813]">.</span>
+            <span className="text-[#FDB813]">.</span>
           </motion.div>
           <motion.div
             initial="hidden"
@@ -1775,7 +1817,7 @@ const EasyStep: React.FC = () => {
             "
             >
               <div className="h-20 w-20 bg-[#2A2A2A] rounded-2xl flex justify-center items-center shadow-2xl">
-                <CarOutlined className="text-3xl text-yellow-[#FDB813]" />
+                <CarOutlined className="text-3xl text-[#FDB813]" />
               </div>
               <div className="text-xl">Booking A Taxi</div>
               <div className="text-gray-500 text-sm text-center">
@@ -1788,7 +1830,7 @@ const EasyStep: React.FC = () => {
             "
             >
               <div className="h-20 w-20 bg-[#ffffff] rounded-2xl flex justify-center items-center shadow-2xl">
-                <DollarCircleOutlined className="text-3xl text-yellow-[#FDB813]" />
+                <DollarCircleOutlined className="text-3xl text-[#FDB813]" />
               </div>
               <div className="text-xl">Pay Your Taxi</div>
               <div className="text-gray-500 text-sm text-center">
@@ -1801,7 +1843,7 @@ const EasyStep: React.FC = () => {
             "
             >
               <div className="h-20 w-20 bg-[#ffffff] rounded-2xl flex justify-center items-center shadow-2xl">
-                <UserOutlined className="text-3xl text-yellow-[#FDB813]" />
+                <UserOutlined className="text-3xl text-[#FDB813]" />
               </div>
               <div className="text-xl">Get a Driver</div>
               <div className="text-gray-500 text-sm text-center">
@@ -1814,7 +1856,7 @@ const EasyStep: React.FC = () => {
             "
             >
               <div className="h-20 w-20 bg-[#2A2A2A] rounded-2xl flex justify-center items-center shadow-2xl">
-                <LikeOutlined className="text-3xl text-yellow-[#FDB813]" />
+                <LikeOutlined className="text-3xl text-[#FDB813]" />
               </div>
               <div className="text-xl">Enjoy Your Ride</div>
               <div className="text-gray-500 text-sm text-center">
@@ -1953,7 +1995,7 @@ const WhatWeAreOffering: React.FC = () => {
 
   return (
     <>
-      <div className="space-y-12 py-20 bg-[#f5f5f5]">
+      <div className="space-y-12 py-20 bg-[#ececf4]">
         <motion.div
           initial="hidden"
           whileInView="visible"
@@ -2015,6 +2057,8 @@ const Home: React.FC = () => {
       <Hero />
       <div
         className="
+        bg-white
+        -mt-24
         px-4
         sm:px-8
         md:px-16
@@ -2023,11 +2067,9 @@ const Home: React.FC = () => {
         2xl:px-32
       "
       >
-        <AwsomeFeatures />{" "}
-        {/* our awesome features for you - https://www.bombaytaxicompany.com/ */}
+        <AwsomeFeatures />
       </div>
-      <WhatWeAreOffering />{" "}
-      {/* // What Were Offering - about us sliding component section should be here */}
+      <WhatWeAreOffering />
       <div
         className="
         px-4
@@ -2038,24 +2080,13 @@ const Home: React.FC = () => {
         2xl:px-32
       "
       >
-        <OurBenefitsList />{" "}
-        {/* Our Benifits List - https://preview.themeforest.net/item/taxico-taxi-company-online-cab-service-elementor-template-kit/full_screen_preview/34438955?_ga=2.197559599.1404235229.1707414958-1271169116.1697727807&_gac=1.124503416.1707415664.CjwKCAiAlJKuBhAdEiwAnZb7lTgzQ4xXO12_mageyJHHEzeZLKuUlDic0mk6CIbaxFw9S68pWfiWVhoCyl4QAvD_BwE */}
+        <OurBenefitsList />
       </div>
-      <WhyChooseUs />{" "}
-      {/* Title:Our Experience SubTitle:We Are Experienced Since 1992 Until Now. https://themeholy.com/wordpress/taxiar/home-03/ */}
-      <div
-        className="
-        px-4
-        sm:px-8
-        md:px-16
-        lg:px-20
-        xl:px-28
-        2xl:px-32
-      "
-      >
+      <WhyChooseUs />
+      <Container>
         <EasyStep />
-      </div>
-      <OurAchievement />
+      </Container>
+        <OurAchievement />
       <StatsAndTestamonials />
       <CallUsNow />
       <Footer />

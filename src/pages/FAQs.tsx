@@ -1,6 +1,8 @@
 import { useNavigate } from "react-router-dom";
 import { Footer } from "../components/Footer";
 import { Collapse } from "antd";
+import HeroImage1 from "../assets/images/hero1.jpg";
+import { Container } from "@mui/material";
 
 const { Panel } = Collapse;
 
@@ -11,7 +13,7 @@ const BreadCrumb: React.FC = () => {
     <>
       <div className="text-gray-700 container py-6 flex space-x-1">
         <button
-          className="hover:text-yellow-[#FDB813] hover:underline"
+          className="hover:text-[#FDB813] hover:underline"
           onClick={() => {
             navigate("/");
           }}
@@ -21,6 +23,27 @@ const BreadCrumb: React.FC = () => {
         <div>{">"} FAQs</div>
       </div>
     </>
+  );
+};
+
+const Badge: React.FC = () => {
+  return (
+    <div
+      className="rounded-3xl  my-4"
+      style={{
+        backgroundImage: `url(${HeroImage1})`,
+        backgroundSize: "cover",
+      }}
+    >
+      <div className="bg-[#00000099] text-white space-y-1 rounded-3xl p-16">
+        <div className="text-center text-6xl font-bold">
+          <span className="text-[#FDB813]">FAQ</span>s
+        </div>
+        <div className="text-center text-sm">
+          Reliable, affordable taxi services for safe and comfortable journeys.
+        </div>
+      </div>
+    </div>
   );
 };
 
@@ -464,19 +487,11 @@ const Content: React.FC = () => {
 export const FAQs = () => {
   return (
     <div>
-      <div
-        className="
-                px-4
-                sm:px-8
-                md:px-16
-                lg:px-20
-                xl:px-28
-                2xl:px-32
-            "
-      >
+      <Container>
         <BreadCrumb />
+        <Badge/>
+      </Container>
         <Content />
-      </div>
       <Footer />
     </div>
   );

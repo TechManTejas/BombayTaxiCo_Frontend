@@ -1,4 +1,3 @@
-import { PhoneFilled } from "@ant-design/icons";
 import { motion } from "framer-motion";
 import React from "react";
 
@@ -9,7 +8,7 @@ export const CallUsNow: React.FC = () => {
   };
 
   return (
-    <div className="bg-yellow-500 h-60">
+    <div className="hidden bg-[#FDB813] h-60">
       <motion.div
         initial="hidden"
         whileInView="visible"

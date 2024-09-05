@@ -329,9 +329,21 @@ export default function UserBookingDetails() {
                       disabledDate={(current: Dayjs | null) =>
                         current
                           ? current.isBefore(dayjs().startOf("day")) ||
-                            current.isAfter(dayjs().add(30, "days"))
+                            current.isAfter(dayjs().add(90, "days"))
                           : false
                       }
+                      dateRender={(currentDate) => {
+                        const isSunday = currentDate.day() === 0; // 0 represents Sunday in dayjs
+                        return (
+                          <div
+                            className={`ant-picker-cell-inner ${
+                              isSunday ? 'bg-[#FDB813]' : ''
+                            }`}
+                          >
+                            {currentDate.date()}
+                          </div>
+                        );
+                      }}
                     />
                   </Form.Item>
                   <Form.Item

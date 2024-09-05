@@ -18,10 +18,10 @@ export const confirmation = (message: string): Promise<boolean> => {
       onOk: handleConfirm,
       onCancel: handleCancel,
       okButtonProps: {
-        className: 'bg-yellow-500',
+        className: 'bg-[#FDB813]',
       },
       cancelButtonProps: {
-        className: 'bg-yellow-500',
+        className: 'bg-[#FDB813]',
       },
       okText: 'Yes',
       cancelText: 'Cancel',

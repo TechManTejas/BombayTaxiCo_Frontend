@@ -122,7 +122,7 @@ const InvoiceDetails: React.FC = () => {
             <div className="flex gap-4">
               <Button
                 id="btn-invoice"
-                className="text-gray-100 bg-yellow-500 border border-yellow-500 hover:text-white hover:bg-yellow-600 hover:ring-0 focus:bg-yellow-600 focus:border-yellow-600 space-x-2"
+                className="text-gray-100 bg-[#FDB813] border border-yellow-500 hover:text-white hover:bg-[#FDB813] hover:ring-0 focus:bg-[#FDB813] focus:border-yellow-600 space-x-2"
                 onClick={handlePrint}
               >
                 <svg
@@ -140,7 +140,7 @@ const InvoiceDetails: React.FC = () => {
               </Button>
               <Button
                 id="btn-invoice"
-                className="text-gray-100 bg-yellow-500 border border-yellow-500 hover:text-white hover:bg-yellow-600 hover:ring-0 focus:bg-yellow-600 focus:border-yellow-600 space-x-2"
+                className="text-gray-100 bg-[#FDB813] border border-yellow-500 hover:text-white hover:bg-[#FDB813] hover:ring-0 focus:bg-[#FDB813] focus:border-yellow-600 space-x-2"
                 onClick={handleSend}
               >
                 <FontAwesomeIcon icon={faPaperPlane} />
@@ -158,7 +158,7 @@ const InvoiceDetails: React.FC = () => {
                   <div className="text-4xl font-bold flex items-center">
                     <img className="inline-block w-12 h-auto mr-2" src={Logo} />
                     <span>Bombay Taxi Co</span>
-                    <span className="text-yellow-[#FDB813]">.</span>
+                    <span className="text-[#FDB813]">.</span>
                   </div>
                 </div>
                 <div className="text-4xl uppercase font-bold">Invoice</div>

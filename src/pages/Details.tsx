@@ -24,8 +24,6 @@ import { ISettings } from "../types/settings.types";
 import { IRoute } from "../types/routes.types";
 import {
   ArrowRightOutlined,
-  CalendarOutlined,
-  DownOutlined,
   UpOutlined,
 } from "@ant-design/icons";
 import dayjs, { Dayjs } from "dayjs";
@@ -650,7 +648,7 @@ const Details: React.FC = () => {
   //                   onChange={(e) => setCouponCode(e.target.value)}
   //                 />
   //                 <Button
-  //                   className='font-semibold text-yellow-[#FDB813] border-l-0'
+  //                   className='font-semibold text-[#FDB813] border-l-0'
   //                   onClick={handleApplyCoupon}
   //                 >
   //                   APPLY
@@ -679,11 +677,11 @@ const Details: React.FC = () => {
   //                 Inclusive of GST
   //               </div>
   //               <div className='space-x-3'>
-  //                 <span className='font-bold text-yellow-[#FDB813]'>{(taxiRate.taxiType.discount_percentage).toString() || ''}% OFF</span>
+  //                 <span className='font-bold text-[#FDB813]'>{(taxiRate.taxiType.discount_percentage).toString() || ''}% OFF</span>
   //               </div>
   //             </div>
   //           </div>
-  //           <button onClick={handlePayNow} className='hidden lg:flex bg-yellow-500 hover:bg-yellow-400 rounded-lg  justify-center items-center text-xl font-medium w-full py-4'>
+  //           <button onClick={handlePayNow} className='hidden lg:flex bg-[#FDB813] hover:bg-yellow-400 rounded-lg  justify-center items-center text-xl font-medium w-full py-4'>
   //             PAY NOW
   //           </button>
   //         </div>
@@ -708,7 +706,7 @@ const Details: React.FC = () => {
         } fixed top-0 left-0 w-screen h-screen bg-black opacity-70 z-30`}
         onClick={() => setPaymentSelectionOpen(!paymentSelectionOpen)}
       />
-      <div className="bg-[#F5F5F5]">
+      <div className="bg-[#ececf4]">
         <div className="flex justify-center">
           <div
             className="flex container justify-center
@@ -718,7 +716,7 @@ const Details: React.FC = () => {
           >
             <div className="px-1">
               <>
-                <div className="bg-yellow-500 border pt-2 px-4 rounded-b-lg -mx-4 -mb-6 pb-8">
+                <div className="bg-[#FDB813] border pt-2 px-4 rounded-b-lg -mx-4 -mb-6 pb-8">
                   <div
                     className="flex h-full
                       flex-col
@@ -881,6 +879,10 @@ const Details: React.FC = () => {
                               required: true,
                               message: "Please enter you Name!",
                             },
+                            {
+                              pattern: /^[A-Za-z\s]+$/,
+                              message: "Name can only contain letters and spaces!",
+                            },
                           ]}
                         >
                           <Input placeholder="Enter your full name" />
@@ -969,6 +971,7 @@ const Details: React.FC = () => {
                             type="tel"
                             placeholder="Enter your contact number"
                             maxLength={10}
+                            addonBefore="+91"
                           />
                         </Form.Item>
 
@@ -977,7 +980,7 @@ const Details: React.FC = () => {
                           label={
                             <div className="flex items-center space-x-1">
                               <div className="font-semibold">
-                                Alternate Contact Number
+                                WhatsApp Number
                               </div>
                             </div>
                           }
@@ -987,11 +990,11 @@ const Details: React.FC = () => {
                               pattern: new RegExp(/^\d+$/),
                               message: "Please enter a valid contact number!",
                             },
-                            {
-                              len: 10,
-                              message:
-                                "Contact number must be exactly 10 digits long.",
-                            },
+                            // {
+                            //   len: 10,
+                            //   message:
+                            //     "Contact number must be exactly 10 digits long.",
+                            // },
                           ]}
                         >
                           <Input
@@ -1006,17 +1009,17 @@ const Details: React.FC = () => {
                         By proceeding to book, I Agree to Bombay Taxi's{" "}
                         <a
                           href="/privacy-policy"
-                          className="text-yellow-[#FDB813] hover:underline"
+                          className="text-[#FDB813] hover:underline"
                         >
                           Privacy Policy{" "}
                         </a>
-                        {/* <a className='text-yellow-[#FDB813] hover:underline'>
+                        {/* <a className='text-[#FDB813] hover:underline'>
                             User Agreement{' '}
                           </a> */}
                         and
                         <a
                           href="/terms-conditions"
-                          className="text-yellow-[#FDB813] hover:underline"
+                          className="text-[#FDB813] hover:underline"
                         >
                           Terms of Service{" "}
                         </a>
@@ -1149,7 +1152,7 @@ const Details: React.FC = () => {
 
                       <div className="lg:flex w-full gap-10">
                         <Form.Item
-                          className="w-1/2"
+                          className="w-full lg:w-1/3"
                           label="No. of passengers"
                           name="numberOfPassengers"
                         >
@@ -1164,11 +1167,9 @@ const Details: React.FC = () => {
                             ))}
                           </Select>
                         </Form.Item>
-                      </div>
 
-                      <div className="lg:flex w-full gap-10">
                         <Form.Item
-                          className="w-1/2"
+                          className="w-full lg:w-1/3"
                           label="No. of large bags"
                           name="numberOfLargeBags"
                         >
@@ -1185,7 +1186,7 @@ const Details: React.FC = () => {
                         </Form.Item>
 
                         <Form.Item
-                          className="w-1/2"
+                          className="w-full lg:w-1/3"
                           label="No. of small bags"
                           name="numberOfSmallBags"
                         >
@@ -1207,8 +1208,8 @@ const Details: React.FC = () => {
                         serve you better.
                       </div>
 
-                      <div className="lg:flex">
-                        <div className="lg:w-1/2">
+                      <div className="lg:flex w-full">
+                        <div className="lg:w-1/3">
                           <Form.Item
                             name="seniorCitizen"
                             valuePropName="checked"
@@ -1232,22 +1233,8 @@ const Details: React.FC = () => {
                               Kids on board
                             </Checkbox>
                           </Form.Item>
-
-                          <Form.Item
-                            name="englishSpeakingDriver"
-                            valuePropName="checked"
-                          >
-                            <Checkbox value="englishSpeakingDriver">
-                              English-speaking driver preferred
-                            </Checkbox>
-                          </Form.Item>
-                          <Form.Item name="carryingPet" valuePropName="checked">
-                            <Checkbox value="carryingPet">
-                              Carrying Pet
-                            </Checkbox>
-                          </Form.Item>
                         </div>
-                        <div className="lg:w-1/2">
+                        <div className="lg:w-1/3">
                           <Form.Item
                             name="need7Plus1Seater"
                             valuePropName="checked"
@@ -1270,6 +1257,30 @@ const Details: React.FC = () => {
                           >
                             <Checkbox value="bookingForSomeoneElse">
                               Booking for someone else
+                            </Checkbox>
+                          </Form.Item>
+                          {isOtherChecked && (
+                            <Form.Item name="otherDetails">
+                              <Input.TextArea
+                                placeholder="Please specify"
+                                autoSize={{ minRows: 3, maxRows: 3 }}
+                                style={{ resize: "none" }}
+                              />
+                            </Form.Item>
+                          )}
+                        </div>
+                        <div className="lg:w-1/3">
+                        <Form.Item
+                            name="englishSpeakingDriver"
+                            valuePropName="checked"
+                          >
+                            <Checkbox value="englishSpeakingDriver">
+                              English-speaking driver preferred
+                            </Checkbox>
+                          </Form.Item>
+                          <Form.Item name="carryingPet" valuePropName="checked">
+                            <Checkbox value="carryingPet">
+                              Carrying Pet
                             </Checkbox>
                           </Form.Item>
                           <Form.Item name="other" valuePropName="checked">
@@ -1343,14 +1354,14 @@ const Details: React.FC = () => {
                         />
                         {couponDiscountedAmount ? (
                           <Button
-                            className="font-semibold text-yellow-[#FDB813] border-l-0"
+                            className="font-semibold text-[#FDB813] border-l-0"
                             onClick={handleClearCoupon}
                           >
                             CLEAR
                           </Button>
                         ) : (
                           <Button
-                            className="font-semibold text-yellow-[#FDB813] border-l-0"
+                            className="font-semibold text-[#FDB813] border-l-0"
                             onClick={handleApplyCoupon}
                           >
                             APPLY
@@ -1398,7 +1409,7 @@ const Details: React.FC = () => {
                     <div className="w-full flex justify-between items-end">
                       <div className="font-semibold">Inclusive of GST</div>
                       <div className="space-x-3">
-                        <span className="font-bold text-yellow-[#FDB813]">
+                        <span className="font-bold text-[#FDB813]">
                           {taxiRate.taxiType.discount_percentage.toString() ||
                             ""}
                           % OFF
@@ -1408,7 +1419,7 @@ const Details: React.FC = () => {
                   </div>
                   <button
                     onClick={handlePayNow}
-                    className="hidden lg:flex bg-yellow-500 hover:bg-yellow-400 rounded-lg  justify-center items-center text-xl font-medium w-full py-4"
+                    className="hidden lg:flex bg-[#FDB813] hover:bg-yellow-400 rounded-lg  justify-center items-center text-xl font-medium w-full py-4"
                   >
                     PAY NOW
                   </button>
@@ -1476,7 +1487,7 @@ const Details: React.FC = () => {
                 <div>
                   <button
                     onClick={handlePayNow}
-                    className="bg-yellow-500 hover:bg-yellow-400 flex justify-center items-center rounded-full w-28 h-10 font-medium py-4"
+                    className="bg-[#FDB813] hover:bg-yellow-400 flex justify-center items-center rounded-full w-28 h-10 font-medium py-4"
                   >
                     PAY
                   </button>

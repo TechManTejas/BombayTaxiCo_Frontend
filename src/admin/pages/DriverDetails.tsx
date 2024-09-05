@@ -94,7 +94,7 @@ export default function DriverDetails() {
                     </div>
 
                     <Space className='space-x-4 my-4'>
-                        <Button htmlType="submit" className="bg-yellow-500 hover:bg-yellow-600 text-black font-semibold w-28 h-10">
+                        <Button htmlType="submit" className="bg-[#FDB813] hover:bg-[#FDB813] text-black font-semibold w-28 h-10">
                             ASSIGN
                         </Button>
                         {/* <Button className="font-semibold w-28 h-10" onClick={goBack}>

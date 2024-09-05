@@ -10,10 +10,11 @@ import {
   MailOutlined,
   ClockCircleOutlined,
 } from "@ant-design/icons";
-
+import HeroImage1 from "../assets/images/hero1.jpg";
 import Driver from "../assets/images/driver.jpg";
 import { useNavigate } from "react-router-dom";
 import axios from "../api/axios";
+import { Container } from "@mui/material";
 
 const BreadCrumb: React.FC = () => {
   const navigate = useNavigate();
@@ -22,7 +23,7 @@ const BreadCrumb: React.FC = () => {
     <>
       <div className="text-gray-700 container py-6 flex space-x-1">
         <button
-          className="hover:text-yellow-[#FDB813] hover:underline"
+          className="hover:text-[#FDB813] hover:underline"
           onClick={() => {
             navigate("/");
           }}
@@ -38,7 +39,7 @@ const BreadCrumb: React.FC = () => {
 const Cards: React.FC = () => {
   return (
     <div
-      className="grid justify-items-center py-16
+      className="grid justify-items-center py-8
       md:grid-cols-2
       xl:grid-cols-4
     "
@@ -46,7 +47,7 @@ const Cards: React.FC = () => {
       <div className="p-4 rounded-3xl bg-white m-8 w-[282px] h-[280px] shadow-xl">
         <div className="p-3">
           <div className="flex flex-col justify-center items-center space-y-3">
-            <div className="h-20 w-20 bg-yellow-500 rounded-full flex justify-center items-center">
+            <div className="h-20 w-20 bg-[#FDB813] rounded-full flex justify-center items-center">
               <EnvironmentOutlined className="text-3xl text-white" />
             </div>
             <div className="font-black text-2xl">Office Address</div>
@@ -60,7 +61,7 @@ const Cards: React.FC = () => {
       <div className="p-4 rounded-3xl bg-white m-8 w-[282px] h-[280px] shadow-xl">
         <div className="p-3">
           <div className="flex flex-col justify-center items-center space-y-3">
-            <div className="h-20 w-20 bg-yellow-500 rounded-full flex justify-center items-center">
+            <div className="h-20 w-20 bg-[#FDB813] rounded-full flex justify-center items-center">
               <PhoneOutlined className="text-3xl text-white" />
             </div>
             <div className="font-black text-2xl">For Reservations</div>
@@ -76,7 +77,7 @@ const Cards: React.FC = () => {
       <div className="p-4 rounded-3xl bg-white m-8 w-[282px] h-[280px] shadow-xl">
         <div className="p-3">
           <div className="flex flex-col justify-center items-center space-y-3">
-            <div className="h-20 w-20 bg-yellow-500 rounded-full flex justify-center items-center">
+            <div className="h-20 w-20 bg-[#FDB813] rounded-full flex justify-center items-center">
               <MailOutlined className="text-3xl text-white" />
             </div>
             <div className="font-black text-2xl">Email Us</div>
@@ -92,7 +93,7 @@ const Cards: React.FC = () => {
       <div className="p-4 rounded-3xl bg-white m-8 w-[282px] h-[280px] shadow-xl">
         <div className="p-3">
           <div className="flex flex-col justify-center items-center space-y-3">
-            <div className="h-20 w-20 bg-yellow-500 rounded-full flex justify-center items-center">
+            <div className="h-20 w-20 bg-[#FDB813] rounded-full flex justify-center items-center">
               <ClockCircleOutlined className="text-3xl text-white" />
             </div>
             <div className="font-black text-2xl">Open Timing</div>
@@ -158,7 +159,7 @@ const GetInTouch: React.FC = () => {
         space-y-6 lg:space-y-0
       "
       >
-        <div className="p-2 bg-yellow-500 rounded-r-full rounded-b-full rounded-tl-[800px] flex justify-center items-center">
+        <div className="p-2 bg-[#FDB813] rounded-r-full rounded-b-full rounded-tl-[800px] flex justify-center items-center">
           <div className="p-2 bg-white rounded-r-full rounded-b-full rounded-tl-[600px] flex justify-center items-center">
             <img
               src={Driver}
@@ -265,7 +266,7 @@ const GetInTouch: React.FC = () => {
                 loading={loading}
                 type="link"
                 htmlType="submit"
-                className="font-semibold rounded-3xl h-12 w-40 bg-yellow-500 border-yellow-500 hover:bg-yellow-400 text-black"
+                className="font-semibold rounded-3xl h-12 w-40 bg-[#FDB813] border-yellow-500 hover:bg-yellow-400 text-black"
               >
                 SEND MESSAGE
               </Button>
@@ -277,9 +278,30 @@ const GetInTouch: React.FC = () => {
   );
 };
 
+const Badge: React.FC = () => {
+  return (
+    <div
+      className="rounded-3xl  my-4"
+      style={{
+        backgroundImage: `url(${HeroImage1})`,
+        backgroundSize: "cover",
+      }}
+    >
+      <div className="bg-[#00000099] text-white space-y-1 rounded-3xl p-16">
+        <div className="text-center text-6xl font-bold">
+          <span className="text-[#FDB813]">Contact</span> Us
+        </div>
+        <div className="text-center text-sm">
+          Reliable, affordable taxi services for safe and comfortable journeys.
+        </div>
+      </div>
+    </div>
+  );
+};
+
 const Map: React.FC = () => {
   return (
-    <>
+    <div className="hidden">
       <div style={{ width: "100%", height: "360px" }}>
         <iframe
           title="Google Map"
@@ -291,30 +313,22 @@ const Map: React.FC = () => {
           allowFullScreen
         ></iframe>
       </div>
-    </>
+    </div>
   );
 };
 
 const Contact: React.FC = () => {
   return (
     <div>
-      <div
-        className="
-        px-4
-        sm:px-8
-        md:px-16
-        lg:px-20
-        xl:px-28
-        2xl:px-32
-      bg-[#F5F5F5]"
-      >
+      <Container >
         <BreadCrumb />
+        <Badge/>
         <div className="text-center text-3xl font-medium">
           Any questions? Get in touch with us!
         </div>
         <Cards />
         <GetInTouch />
-      </div>
+      </Container>
       <Map />
       <CallUsNow />
       <Footer />

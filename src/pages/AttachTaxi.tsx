@@ -14,7 +14,7 @@ const BreadCrumb: React.FC = () => {
     return (
         <>
             <div className='text-gray-700 container py-6 flex space-x-1'>
-                <button className='hover:text-yellow-[#FDB813] hover:underline' onClick={() => {
+                <button className='hover:text-[#FDB813] hover:underline' onClick={() => {
                     navigate("/")
                 }}>
                     Home
@@ -78,7 +78,7 @@ const Content: React.FC = () => {
         lg:flex-row lg:space-x-6
         space-y-6 lg:space-y-0
       '>
-                <div className='p-2 bg-yellow-500 rounded-r-full rounded-b-full rounded-tl-[800px] flex justify-center items-center'>
+                <div className='p-2 bg-[#FDB813] rounded-r-full rounded-b-full rounded-tl-[800px] flex justify-center items-center'>
                     <div className='p-2 bg-white rounded-r-full rounded-b-full rounded-tl-[600px] flex justify-center items-center'>
                         <img src={Driver} className='object-cover  bg-gray-200 rounded-r-full rounded-b-full rounded-tl-[800px]
               w-[360px] h-[360px]
@@ -140,7 +140,7 @@ const Content: React.FC = () => {
                         </Form.Item>
                         <div className='my-8'>
                             <Form.Item>
-                                <Button loading={loading} type='link' htmlType='submit' className='font-semibold rounded-3xl h-12 w-40 bg-yellow-500 border-yellow-500 hover:bg-yellow-400 text-black'>
+                                <Button loading={loading} type='link' htmlType='submit' className='font-semibold rounded-3xl h-12 w-40 bg-[#FDB813] border-yellow-500 hover:bg-yellow-400 text-black'>
                                     SEND MESSAGE
                                 </Button>
                             </Form.Item>
@@ -163,7 +163,7 @@ const AttachTaxi: React.FC = () => {
                 lg:px-20
                 xl:px-28
                 2xl:px-32
-            bg-[#F5F5F5]
+            bg-[#ececf4]
             '>
                 <BreadCrumb />
                 <Content />
