@@ -1,7 +1,5 @@
 import React from 'react';
 import Car from "../assets/images/car.png"
-import { faGasPump, faSnowflake, faUsers, faTachometerAlt, faCar, faLeaf, IconDefinition, faWrench, faSuitcase, faBoxes } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import AirConditioning from '../icons/Air Conditioning.svg'
 import AutomaticTransmission from "../icons/Automatic Transmission.svg"
@@ -74,7 +72,6 @@ const CarCard: React.FC<CarCardProps> = ({
                     className='flex-shrink-0 bg-white rounded-lg flex justify-center items-center
                     h-16 lg:h-40
                     w-20 lg:w-40
-                    border-[#e5e7eb] border
                 '>
                     {
                         carImage !== 'undefined' ?
@@ -90,7 +87,7 @@ const CarCard: React.FC<CarCardProps> = ({
                     }
                 </div>
                 <div
-                    className='flex justify-between
+                    className='flex justify-between w-full
                     flex-row
                 '>
                     <div className='space-y-3'>
@@ -123,7 +120,7 @@ const CarCard: React.FC<CarCardProps> = ({
                                 lg:w-80
                             '>
                                     {features.map((feature, index) => (
-                                        <div className='text-xs rounded-full p-1.5 px-3 m-1 bg-zinc-100 text-zinc-700' key={index}>
+                                        <div className='text-xs rounded p-1.5 px-3 m-1 bg-zinc-100 text-zinc-700' key={index}>
                                            <div className='flex items-center gap-1'>
                                             {feature.icon && featureIconMap[feature.icon] ? (
                                                 <img src={featureIconMap[feature.icon]} className='w-4 h-4'/>
@@ -155,7 +152,7 @@ const CarCard: React.FC<CarCardProps> = ({
                     <div className='flex-shrink-0 flex flex-col items-end space-y-3'>
                         <div className='text-end my-1'>
                             {parseInt(discount) > 0 &&
-                                <div className='font-bold text-yellow-[#FDB813]
+                                <div className='font-bold text-[#FDB813]
                                 text-sm
                                 lg:text-base
                                 '>
@@ -185,7 +182,6 @@ const CarCard: React.FC<CarCardProps> = ({
                                 !preview ?
                                     <div className='font-light text-zinc-500
                                         text-xs
-                                        lg:text-xl
                                     '>
                                         Inclusive Of Toll & Sate Tax
                                     </div>
@@ -198,7 +194,7 @@ const CarCard: React.FC<CarCardProps> = ({
                                 hidden
                                 lg:block
                             '>
-                                <button className='bg-yellow-500 hover:bg-yellow-400 p-3 rounded-lg w-[180px] h-full flex justify-center items-center text-lg font-medium' onClick={onBook}>
+                                <button className='bg-[#FDB813] hover:bg-yellow-400 p-3 rounded-lg w-[180px] h-full flex justify-center items-center text-lg font-medium' onClick={onBook}>
                                     BOOK NOW
                                 </button>
                             </div>

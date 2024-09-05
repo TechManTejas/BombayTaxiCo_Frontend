@@ -131,7 +131,7 @@ const AddEditCoupon: React.FC<CouponFormProps> = ({ editedCoupon, onCouponEdited
       </Form.Item>
 
       <Form.Item>
-        <Button htmlType="submit" className="w-full bg-yellow-500 hover:bg-yellow-600 text-black font-bold">
+        <Button htmlType="submit" className="w-full bg-[#FDB813] hover:bg-[#FDB813] text-black font-bold">
           {id ? 'Save' : 'Add'}
         </Button>
       </Form.Item>

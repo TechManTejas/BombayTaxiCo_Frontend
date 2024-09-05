@@ -384,7 +384,7 @@ export default function BookingDetails() {
                   <div className="w-28" />
                   <Button
                     onClick={onEndTrip}
-                    className="bg-yellow-500 hover:bg-yellow-600 text-black font-semibold w-28 h-10"
+                    className="bg-[#FDB813] hover:bg-[#FDB813] text-black font-semibold w-28 h-10"
                   >
                     END TRIP
                   </Button>
@@ -399,7 +399,7 @@ export default function BookingDetails() {
                   <>
                     <Button
                       htmlType="submit"
-                      className="bg-yellow-500 hover:bg-yellow-600 text-black font-semibold w-28 h-10"
+                      className="bg-[#FDB813] hover:bg-[#FDB813] text-black font-semibold w-28 h-10"
                     >
                       CONFIRM
                     </Button>
@@ -416,7 +416,7 @@ export default function BookingDetails() {
                   <div className="w-28" />
                   <Button
                     onClick={onStartTrip}
-                    className="bg-yellow-500 hover:bg-yellow-600 text-black font-semibold w-28 h-10"
+                    className="bg-[#FDB813] hover:bg-[#FDB813] text-black font-semibold w-28 h-10"
                   >
                     START TRIP
                   </Button>

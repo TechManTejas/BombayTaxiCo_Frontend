@@ -27,7 +27,7 @@ interface ServiceCardProps {
 
 //   return (
 //     <div className='bg-white w-[360px] h-[340px] p-8 space-y-6 rounded shadow select-none'>
-//       <div className='w-20 h-20 bg-yellow-500 text-white rounded flex justify-center items-center text-3xl'>
+//       <div className='w-20 h-20 bg-[#FDB813] text-white rounded flex justify-center items-center text-3xl'>
 //         {icon}
 //       </div>
 //       <div className='space-y-1'>
@@ -69,13 +69,13 @@ export const ServiceCard: React.FC<ServiceCardProps> = ({
 
   return (
     <div className="relative w-[320px] h-[340px] select-none">
-      <div className="absolute top-0 right-8 w-16 h-16 bg-yellow-500 rounded-full flex items-center justify-center z-30">
+      <div className="absolute top-0 right-8 w-16 h-16 bg-[#FDB813] rounded-full flex items-center justify-center z-30">
         {icon}
       </div>
       <div className="relative w-[320px] h-[200px] justify-center rounded-3xl"> 
         <img src={image} className="absolute top-8 left-0 bg-zinc-200 h-[200px] rounded-3xl z-20"/>
       </div>
-      <div className="absolute bottom-0 left-0 right-0 bg-yellow-500 h-[160px] rounded-3xl mx-8 p-4 flex flex-col items-center justify-between z-30">
+      <div className="absolute bottom-0 left-0 right-0 bg-[#FDB813] h-[160px] rounded-3xl mx-8 p-4 flex flex-col items-center justify-between z-30">
         <div className="font-semibold text-xl">{title}</div>
         <div className="text-center text-sm">{description}</div>
         <div className="text-xs hover:text-base transition-all cursor-pointer" onClick={handleReadDetails}>

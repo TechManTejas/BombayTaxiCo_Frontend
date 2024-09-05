@@ -40,7 +40,7 @@ const UserInvoiceDetails: React.FC = () => {
                         <p className="text-xl font-bold mt-3 mb-5"></p>
                         <Button
                             id="btn-invoice"
-                            className="text-gray-100 bg-yellow-500 border border-yellow-500 hover:text-white hover:bg-yellow-600 hover:ring-0 focus:bg-yellow-600 focus:border-yellow-600 space-x-2"
+                            className="text-gray-100 bg-[#FDB813] border border-yellow-500 hover:text-white hover:bg-[#FDB813] hover:ring-0 focus:bg-[#FDB813] focus:border-yellow-600 space-x-2"
                             onClick={handlePrint}
                         >
                             <svg
@@ -70,7 +70,7 @@ const UserInvoiceDetails: React.FC = () => {
                                             <span>
                                                 Bombay Taxi Co
                                             </span>
-                                            <span className='text-yellow-[#FDB813]'>.</span>
+                                            <span className='text-[#FDB813]'>.</span>
                                         </div>
                                     </div>
                                     <div className="text-4xl uppercase font-bold">

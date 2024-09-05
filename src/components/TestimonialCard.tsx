@@ -7,7 +7,7 @@ import Quote from "../assets/images/quote.png";
 //     <div className="flex-shrink-0 bg-white w-72 rounded-3xl flex flex-col p-8 space-y-4 shadow">
 //       <div className="relative justify-center items-center">
 //         {/* Conditionally render avatar if provided */}
-//         <div className={`bg-yellow-500 h-16 w-16 rounded-full ${avatar ? 'bg-cover' : ''}`} style={{ backgroundImage: `url(${avatar})` }}>
+//         <div className={`bg-[#FDB813] h-16 w-16 rounded-full ${avatar ? 'bg-cover' : ''}`} style={{ backgroundImage: `url(${avatar})` }}>
 //         </div>
 //         <div className="absolute right-0 top-8">
 //           <img src={Quote} className='rotate-180 h-12 -mt-10 opacity-10' alt="Quote" />
@@ -18,7 +18,7 @@ import Quote from "../assets/images/quote.png";
 //       </div>
 //       <div className="text-center">
 //         <div className="font-medium">{name}</div>
-//         <div className="text-yellow-[#FDB813] text-sm">{position}</div>
+//         <div className="text-[#FDB813] text-sm">{position}</div>
 //       </div>
 //     </div>
 //   );
@@ -36,11 +36,11 @@ export const TestimonialCard: React.FC<{
 
       
       <div className="relative flex gap-1 mb-3">
-        <StarFilled className="text-yellow-[#FDB813]"/>
-        <StarFilled className="text-yellow-[#FDB813]"/>
-        <StarFilled className="text-yellow-[#FDB813]"/>
-        <StarFilled className="text-yellow-[#FDB813]"/>
-        <StarFilled className="text-yellow-[#FDB813]"/>
+        <StarFilled className="text-[#FDB813]"/>
+        <StarFilled className="text-[#FDB813]"/>
+        <StarFilled className="text-[#FDB813]"/>
+        <StarFilled className="text-[#FDB813]"/>
+        <StarFilled className="text-[#FDB813]"/>
         <div className="absolute top-14">
           <img src={Quote} className='rotate-180 h-12 -mt-10 opacity-10' alt="Quote" />
         </div>
@@ -50,7 +50,7 @@ export const TestimonialCard: React.FC<{
       </div>
       </div>
       <div className="flex gap-2 items-center">
-        <div className={`bg-yellow-500 h-16 w-16 rounded-full ${avatar ? "bg-cover" : ""}`}
+        <div className={`bg-[#FDB813] h-16 w-16 rounded-full ${avatar ? "bg-cover" : ""}`}
           style={{ backgroundImage: `url(${avatar})` }}/>
           <div className="flex flex-col justify-evenly h-full py-1">
             <div className="font-bold text-sm">{name}</div>

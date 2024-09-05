@@ -99,7 +99,7 @@ const BillCard: React.FC<BillCardProps> = ({
             </div>
             <div className="flex justify-between">
               <div>Extra Pickup/Drop</div>
-              <div>₹ {settings?.extraPickupDropCharges?.toLocaleString()}</div>
+              <div>{settings?.extraPickupDropCharges?.toLocaleString()}</div>
             </div>
           </div>
         </div>
@@ -383,7 +383,7 @@ const Search: React.FC = () => {
 
   return (
     <>
-      <div className="bg-[#F5F5F5] px-1">
+      <div className="bg-[#ececf4] px-1">
         <div
           className="justify-center w-full
           hidden
@@ -400,7 +400,7 @@ const Search: React.FC = () => {
               >
                 <div className="px-2 flex justify-between items-center">
                   <div>
-                    <div className="text-yellow-[#FDB813]">TRIP TYPE</div>
+                    <div className="text-[#FDB813]">TRIP TYPE</div>
                     <div className="text-white">{tripType}</div>
                   </div>
                   <svg
@@ -441,7 +441,7 @@ const Search: React.FC = () => {
                     onClick={toggleFrom}
                   >
                     <div className="px-2">
-                      <div className="text-yellow-[#FDB813]">FROM</div>
+                      <div className="text-[#FDB813]">FROM</div>
                       <div className="text-white">{from}</div>
                     </div>
                     <Select
@@ -480,7 +480,7 @@ const Search: React.FC = () => {
                     onClick={toggleTo}
                   >
                     <div className="px-2">
-                      <div className="text-yellow-[#FDB813]">TO</div>
+                      <div className="text-[#FDB813]">TO</div>
                       <div className="text-white">{to}</div>
                     </div>
                     <Select
@@ -512,7 +512,7 @@ const Search: React.FC = () => {
                     onClick={togglePickupCity}
                   >
                     <div className="px-2">
-                      <div className="text-yellow-[#FDB813]">PICKUP LOCATION</div>
+                      <div className="text-[#FDB813]">PICKUP LOCATION</div>
                       <div className="text-white">{pickupCity}</div>
                     </div>
                     <Select
@@ -542,7 +542,7 @@ const Search: React.FC = () => {
               `}
               >
                 <div className="px-2" onClick={togglePickupDatePicker}>
-                  <div className="text-yellow-[#FDB813]">PICKUP DATE</div>
+                  <div className="text-[#FDB813]">PICKUP DATE</div>
                   <div className="text-white">
                     {pickupDate?.format("D MMM YYYY")}
                   </div>
@@ -561,6 +561,18 @@ const Search: React.FC = () => {
                         current.isAfter(currentDate.add(30, "days"))
                       : false
                   }
+                  dateRender={(currentDate) => {
+                    const isSunday = currentDate.day() === 0; // 0 represents Sunday in dayjs
+                    return (
+                      <div
+                        className={`ant-picker-cell-inner ${
+                          isSunday ? 'bg-[#FDB813]' : ''
+                        }`}
+                      >
+                        {currentDate.date()}
+                      </div>
+                    );
+                  }}
                 />
               </div>
 
@@ -571,7 +583,7 @@ const Search: React.FC = () => {
                 onClick={togglePickupTime}
               >
                 <div className="px-2">
-                  <div className="text-yellow-[#FDB813]">PICKUP TIME</div>
+                  <div className="text-[#FDB813]">PICKUP TIME</div>
                   <div className="text-white">{pickupTime}</div>
                 </div>
                 <Select
@@ -601,7 +613,7 @@ const Search: React.FC = () => {
                   {tripType === "Round Trip" ? (
                     <>
                       <div className="" onClick={toggleReturnDatePicker}>
-                        <div className="text-yellow-[#FDB813]">RETURN DATE</div>
+                        <div className="text-[#FDB813]">RETURN DATE</div>
                         <div className="text-white">
                           {returnDate?.format("D MMM YYYY")}
                         </div>
@@ -618,15 +630,27 @@ const Search: React.FC = () => {
                         disabledDate={(current) =>
                           current
                             ? current.isBefore(pickupDate, "day") ||
-                              current.isAfter(currentDate.add(30, "days"))
+                              current.isAfter(currentDate.add(90, "days"))
                             : false
                         }
+                        dateRender={(currentDate) => {
+                          const isSunday = currentDate.day() === 0; // 0 represents Sunday in dayjs
+                          return (
+                            <div
+                              className={`ant-picker-cell-inner ${
+                                isSunday ? 'bg-[#FDB813]' : ''
+                              }`}
+                            >
+                              {currentDate.date()}
+                            </div>
+                          );
+                        }}
                       />
                     </>
                   ) : (
                     <>
                       <div className="" onClick={toggleReturnDatePicker}>
-                        <div className="text-yellow-[#FDB813]">RETURN DATE</div>
+                        <div className="text-[#FDB813]">RETURN DATE</div>
                         <div className="text-white text-center">
                           --- --- ---
                         </div>
@@ -644,7 +668,7 @@ const Search: React.FC = () => {
                     onClick={toggleHourlyPackage}
                   >
                     <div className="px-2">
-                      <div className="text-yellow-[#FDB813]">SELECT PACKAGE</div>
+                      <div className="text-[#FDB813]">SELECT PACKAGE</div>
                       <div className="text-white">{hourlyPackage}</div>
                     </div>
                     <Select
@@ -669,7 +693,7 @@ const Search: React.FC = () => {
               )}
 
               {/* <div className='w-32 bg-[#404040] mx-1 p-2 rounded-lg text-sm'>
-                <div className='text-yellow-[#FDB813]'>DROP TIME</div>
+                <div className='text-[#FDB813]'>DROP TIME</div>
                 <div className='text-white'>24:00</div>
               </div> */}
 

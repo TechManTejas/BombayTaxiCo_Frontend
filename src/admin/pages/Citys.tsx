@@ -145,7 +145,7 @@ const Citys: React.FC = () => {
               // onSearch={fetchData} // Trigger fetchData on search
             />
             <div>
-              <Button icon={<PlusOutlined />} size={'large'} className='bg-yellow-500 font-bold text-md' onClick={()=>{
+              <Button icon={<PlusOutlined />} size={'large'} className='bg-[#FDB813] font-bold text-md' onClick={()=>{
                 navigate('/admin/cities/add-edit')
               }}>
                 ADD NEW

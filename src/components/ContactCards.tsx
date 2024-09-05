@@ -10,7 +10,7 @@ export const ContactCards: React.FC = () => {
                             borderTop: "3px solid",
                             borderImage: "linear-gradient(to right, #fff 70%, transparent 30%) 100% 0"
                         }} />
-                        <div className='h-20 w-20 bg-yellow-500 rounded-full'></div>
+                        <div className='h-20 w-20 bg-[#FDB813] rounded-full'></div>
                         <div className='font-black text-2xl'>Office Address</div>
                         <div className='font-medium '>25/B Milford, New York, USA</div>
                     </div>

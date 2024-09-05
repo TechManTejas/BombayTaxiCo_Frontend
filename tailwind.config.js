@@ -7,7 +7,7 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        lora: ['Lora', 'sans-serif'],
+        lora: ['sans-serif'],
       },
       animations: {
         fadeIn: {
