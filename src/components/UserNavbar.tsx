@@ -239,7 +239,7 @@ const UserNavbar: React.FC = () => {
                     <div className="">
                         <p className="text-white text-sm md:text-base">
                             We Provide{/* */}
-                            <span className="text-yellow-500 mx-1">
+                            <span className="text-yellow-[#FDB813] mx-1">
                                 The Best Service &amp; Discounts
                             </span>
                             for your every Trip{/* */}
@@ -371,12 +371,12 @@ const UserNavbar: React.FC = () => {
 
                     <div className='hidden md:flex space-x-6'>
                         {userAuthenticated ?
-                            <button className="text-xl font-medium hidden md:block hover:text-yellow-500" onClick={() => {
+                            <button className="text-xl font-medium hidden md:block hover:text-yellow-[#FDB813]" onClick={() => {
                                 navigate('/profile')
                             }}>
                                 <UserOutlined /> PROFILE
                             </button>
-                            : <button className="text-xl font-medium hidden md:block hover:text-yellow-500" onClick={showLoginModal}>
+                            : <button className="text-xl font-medium hidden md:block hover:text-yellow-[#FDB813]" onClick={showLoginModal}>
                                 <span className='flex gap-2'>
                                 <LoginIcon/>
                                 LOGIN

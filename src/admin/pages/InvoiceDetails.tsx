@@ -158,7 +158,7 @@ const InvoiceDetails: React.FC = () => {
                   <div className="text-4xl font-bold flex items-center">
                     <img className="inline-block w-12 h-auto mr-2" src={Logo} />
                     <span>Bombay Taxi Co</span>
-                    <span className="text-yellow-500">.</span>
+                    <span className="text-yellow-[#FDB813]">.</span>
                   </div>
                 </div>
                 <div className="text-4xl uppercase font-bold">Invoice</div>

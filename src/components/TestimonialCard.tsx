@@ -18,7 +18,7 @@ import Quote from "../assets/images/quote.png";
 //       </div>
 //       <div className="text-center">
 //         <div className="font-medium">{name}</div>
-//         <div className="text-yellow-500 text-sm">{position}</div>
+//         <div className="text-yellow-[#FDB813] text-sm">{position}</div>
 //       </div>
 //     </div>
 //   );
@@ -36,11 +36,11 @@ export const TestimonialCard: React.FC<{
 
       
       <div className="relative flex gap-1 mb-3">
-        <StarFilled className="text-yellow-500"/>
-        <StarFilled className="text-yellow-500"/>
-        <StarFilled className="text-yellow-500"/>
-        <StarFilled className="text-yellow-500"/>
-        <StarFilled className="text-yellow-500"/>
+        <StarFilled className="text-yellow-[#FDB813]"/>
+        <StarFilled className="text-yellow-[#FDB813]"/>
+        <StarFilled className="text-yellow-[#FDB813]"/>
+        <StarFilled className="text-yellow-[#FDB813]"/>
+        <StarFilled className="text-yellow-[#FDB813]"/>
         <div className="absolute top-14">
           <img src={Quote} className='rotate-180 h-12 -mt-10 opacity-10' alt="Quote" />
         </div>

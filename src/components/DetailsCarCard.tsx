@@ -155,7 +155,7 @@ const DetailsCarCard: React.FC<DetailsCarCardProps> = ({
                     <div className='flex-shrink-0 flex flex-col items-end space-y-3'>
                         <div className='text-end my-1'>
                             {parseInt(discount) > 0 &&
-                                <div className='font-bold text-yellow-500
+                                <div className='font-bold text-yellow-[#FDB813]
                                 text-sm
                                 lg:text-base
                                 '>

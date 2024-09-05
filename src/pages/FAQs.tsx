@@ -11,7 +11,7 @@ const BreadCrumb: React.FC = () => {
     <>
       <div className="text-gray-700 container py-6 flex space-x-1">
         <button
-          className="hover:text-yellow-500 hover:underline"
+          className="hover:text-yellow-[#FDB813] hover:underline"
           onClick={() => {
             navigate("/");
           }}

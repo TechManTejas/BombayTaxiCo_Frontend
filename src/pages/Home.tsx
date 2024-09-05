@@ -400,10 +400,10 @@ const Hero: React.FC = () => {
             </div>
           </div>
           <div className="flex flex-col items-center justify-center w-[370px]">
-            <div className="rounded-full bg-white shadow-lg -mb-16 lg:-mb-6 z-10 border border-yellow-500">
+            <div className="rounded-2xl bg-white shadow-lg -mb-16 lg:-mb-6 z-10 border border-yellow-500">
               <Segmented
                 value={activeTab}
-                className="rounded-full"
+                className="rounded-2xl"
                 onChange={(value) => {
                   handleTabChange(value.toString());
                 }}
@@ -412,7 +412,7 @@ const Hero: React.FC = () => {
                     label: (
                       <div className="lg:text-lg m-2">
                         <div className="flex items-center">
-                          <div className="hidden lg:flex">
+                          <div className="hidden">
                             <OneWayTripIcon />
                           </div>
                           <span className="-mx-1.5 lg:mx-2">One-Way Trip</span>
@@ -425,7 +425,7 @@ const Hero: React.FC = () => {
                     label: (
                       <div className="lg:text-lg m-2">
                         <div className="flex items-center">
-                          <div className="hidden lg:flex">
+                          <div className="hidden">
                             <RoundTripIcon />
                           </div>
                           <span className="-mx-1.5 lg:mx-2">Round Trip</span>
@@ -438,7 +438,7 @@ const Hero: React.FC = () => {
                     label: (
                       <div className="lg:text-lg m-2">
                         <div className="flex items-center">
-                          <div className="hidden lg:flex">
+                          <div className="hidden">
                             <HourlyRentalIcon />
                           </div>
                           <span className="-mx-1.5 lg:mx-2">Hourly Rental</span>
@@ -465,7 +465,7 @@ const Hero: React.FC = () => {
                     <div className="text-xs">PICKUP LOCATION</div>
                     <Dropdown menu={menuPropsPickupCity} placement="bottomLeft">
                       <button
-                        className="text-xl lg:text-3xl hover:text-yellow-500"
+                        className="text-xl lg:text-3xl hover:text-yellow-[#FDB813]"
                         style={{ border: "none" }}
                       >
                         {pickupCity || "Select City"}
@@ -506,7 +506,7 @@ const Hero: React.FC = () => {
                       <div className="text-xs">FROM</div>
                       <Dropdown menu={menuPropsFrom} placement="bottomLeft">
                         <button
-                          className="text-xl lg:text-3xl hover:text-yellow-500"
+                          className="text-xl lg:text-3xl hover:text-yellow-[#FDB813]"
                           style={{ border: "none" }}
                         >
                           {from || "Select City"}
@@ -518,7 +518,7 @@ const Hero: React.FC = () => {
                       <div className="text-xs">TO</div>
                       <Dropdown menu={menuPropsTo} placement="bottomLeft">
                         <button
-                          className="text-xl lg:text-3xl hover:text-yellow-500"
+                          className="text-xl lg:text-3xl hover:text-yellow-[#FDB813]"
                           style={{ border: "none" }}
                         >
                           {to || "Select City"}
@@ -530,7 +530,7 @@ const Hero: React.FC = () => {
                 <div className="relative w-full lg:w-[164px] p-3 pb-4 space-y-1 border rounded-xl">
                   <div className="text-xs">PICKUP DATE</div>
                   <button
-                    className="text-xl lg:text-3xl hover:text-yellow-500"
+                    className="text-xl lg:text-3xl hover:text-yellow-[#FDB813]"
                     onClick={togglePickupDatePicker}
                   >
                     {pickupDate?.format("D MMM") ?? (
@@ -562,7 +562,7 @@ const Hero: React.FC = () => {
                   <div className="text-xs">PICKUP TIME</div>
                   <Dropdown menu={menuPropsTime} placement="bottomLeft">
                     <button
-                      className="text-xl lg:text-3xl hover:text-yellow-500"
+                      className="text-xl lg:text-3xl hover:text-yellow-[#FDB813]"
                       style={{ border: "none" }}
                     >
                       {pickupTime || "Select a Time"}
@@ -576,7 +576,7 @@ const Hero: React.FC = () => {
                       {activeTab === "Round Trip" ? (
                         <>
                           <button
-                            className="text lg:text-3xl hover:text-yellow-500"
+                            className="text lg:text-3xl hover:text-yellow-[#FDB813]"
                             onClick={toggleReturnDatePicker}
                           >
                             {returnDate?.format("D MMM") ?? (
@@ -607,7 +607,7 @@ const Hero: React.FC = () => {
                       ) : (
                         <>
                           <button
-                            className="text-xs text-left hover:text-yellow-500"
+                            className="text-xs text-left hover:text-yellow-[#FDB813]"
                             onClick={() => setActiveTab("Round Trip")}
                           >
                             Add return date for bigger discount
@@ -623,7 +623,7 @@ const Hero: React.FC = () => {
                       <div className="text-xs">SELECT PACKAGE</div>
                       <Dropdown menu={menuPropsDistance} placement="bottomLeft">
                         <button
-                          className="text lg:text-3xl hover:text-yellow-500"
+                          className="text lg:text-3xl hover:text-yellow-[#FDB813]"
                           style={{ border: "none" }}
                         >
                           {hourlyPackage || "Select a Time"}
@@ -1366,7 +1366,7 @@ const AwsomeFeatures: React.FC = () => {
             className="text-3xl font-medium "
           >
             Our Awesome Features
-            <span className="text-yellow-500">.</span>
+            <span className="text-yellow-[#FDB813]">.</span>
           </motion.div>
           <motion.div
             initial="hidden"
@@ -1421,11 +1421,11 @@ const AwsomeFeatures: React.FC = () => {
                     key={index}
                     className="flex flex-shrink-0 items-center gap-2 w-80 border border-opacity-10 rounded-3xl p-3"
                   >
-                    <div className="text-yellow-500">{feature.icon}</div>
+                    <div className="text-yellow-[#FDB813]">{feature.icon}</div>
                     <div>
                       <div className="font-semibold">
                         {feature.text}
-                        <span className="text-yellow-500">.</span>
+                        <span className="text-yellow-[#FDB813]">.</span>
                       </div>
                       <div className="text-sm text-zinc-500">
                         {feature?.description}
@@ -1462,32 +1462,32 @@ const OurBenefitsList: React.FC = () => {
 
   // const benefits = [
   //   {
-  //     icon: <CreditCardOutlined className='text-5xl text-yellow-500' />,
+  //     icon: <CreditCardOutlined className='text-5xl text-yellow-[#FDB813]' />,
   //     title: "Online Payment",
   //     description: "Convenient and secure online payment options with support for multiple gateways.",
   //   },
   //   {
-  //     icon: <SafetyOutlined className='text-5xl text-yellow-500' />,
+  //     icon: <SafetyOutlined className='text-5xl text-yellow-[#FDB813]' />,
   //     title: "Safety Guarantee",
   //     description: "Top-notch safety measures for every ride ensuring a worry-free travel experience.",
   //   },
   //   {
-  //     icon: <CarOutlined className='text-5xl text-yellow-500' />,
+  //     icon: <CarOutlined className='text-5xl text-yellow-[#FDB813]' />,
   //     title: "Quick Ride",
   //     description: "Efficient booking and dispatch system to minimize wait times and get you on your way faster.",
   //   },
   //   {
-  //     icon: <DollarOutlined className='text-5xl text-yellow-500' />,
+  //     icon: <DollarOutlined className='text-5xl text-yellow-[#FDB813]' />,
   //     title: "Free Quotation",
   //     description: "Get a free and instant quote for your ride with no hidden charges.",
   //   },
   //   {
-  //     icon: <UserOutlined className='text-5xl text-yellow-500' />,
+  //     icon: <UserOutlined className='text-5xl text-yellow-[#FDB813]' />,
   //     title: "Cleared Drivers",
   //     description: "Professionally trained drivers with thorough background checks for your peace of mind.",
   //   },
   //   {
-  //     icon: <TagOutlined className='text-5xl text-yellow-500' />,
+  //     icon: <TagOutlined className='text-5xl text-yellow-[#FDB813]' />,
   //     title: "Discount & Promo",
   //     description: "Enjoy exclusive discounts and promotions to save on your rides.",
   //   },
@@ -1513,7 +1513,7 @@ const OurBenefitsList: React.FC = () => {
             viewport={{ once: true, amount: 0.5 }}
             className="text-3xl font-medium "
           >
-            We Offer The Best For You<span className="text-yellow-500">.</span>
+            We Offer The Best For You<span className="text-yellow-[#FDB813]">.</span>
           </motion.div>
           <motion.div
             initial="hidden"
@@ -1571,7 +1571,7 @@ const OurBenefitsList: React.FC = () => {
             <div className="bg-yellow-500 rounded-2xl p-5 py-8 flex flex-col gap-5 w-full">
               <div className="flex gap-x-3">
                 <div className="bg-[#2A2A2A] rounded-lg p-3 flex justify-center items-center">
-                  <SafetyOutlined className="text-3xl text-yellow-500" />
+                  <SafetyOutlined className="text-3xl text-yellow-[#FDB813]" />
                 </div>
                 <div className="text-xl flex flex-col justify-between">
                   <div className="tracking-wide">Safety First</div>
@@ -1615,13 +1615,13 @@ const OurBenefitsList: React.FC = () => {
               <div className="flex justify-around gap-5">
                 <div className="flex gap-x-2">
                   <div className="text-xl flex justify-center w-8 h-5 rounded">
-                    <AppleFilled className="text-yellow-500" />
+                    <AppleFilled className="text-yellow-[#FDB813]" />
                   </div>
                   <div className="font-light text-sm">Apple</div>
                 </div>
                 <div className="flex gap-x-2">
                   <div className="text-xl flex justify-center w-8 h-5 rounded">
-                    <AndroidFilled className="text-yellow-500" />
+                    <AndroidFilled className="text-yellow-[#FDB813]" />
                   </div>
                   <div className="font-light text-sm">Android</div>
                 </div>
@@ -1660,7 +1660,7 @@ const OurBenefitsList: React.FC = () => {
               sm:m-0
             '>
               <div className='h-20 w-20 bg-[#2A2A2A] rounded-2xl flex justify-center items-center shadow-2xl'>
-                <CarOutlined className='text-3xl text-yellow-500' />
+                <CarOutlined className='text-3xl text-yellow-[#FDB813]' />
               </div>
               <div className='text-xl'>
                 Booking A Taxi
@@ -1673,7 +1673,7 @@ const OurBenefitsList: React.FC = () => {
               sm:m-0
             '>
               <div className='h-20 w-20 bg-[#ffffff] rounded-2xl flex justify-center items-center shadow-2xl'>
-                <UserOutlined className='text-3xl text-yellow-500' />
+                <UserOutlined className='text-3xl text-yellow-[#FDB813]' />
               </div>
               <div className='text-xl'>
                 Get a Driver
@@ -1686,7 +1686,7 @@ const OurBenefitsList: React.FC = () => {
               sm:m-0
             '>
               <div className='h-20 w-20 bg-[#2A2A2A] rounded-2xl flex justify-center items-center shadow-2xl'>
-                <LikeOutlined className='text-3xl text-yellow-500' />
+                <LikeOutlined className='text-3xl text-yellow-[#FDB813]' />
               </div>
               <div className='text-xl'>
                 Enjoy Your Ride
@@ -1734,7 +1734,7 @@ const EasyStep: React.FC = () => {
             className="text-3xl font-medium "
           >
             Easy Step For Book Your Taxi
-            <span className="text-yellow-500">.</span>
+            <span className="text-yellow-[#FDB813]">.</span>
           </motion.div>
           <motion.div
             initial="hidden"
@@ -1775,7 +1775,7 @@ const EasyStep: React.FC = () => {
             "
             >
               <div className="h-20 w-20 bg-[#2A2A2A] rounded-2xl flex justify-center items-center shadow-2xl">
-                <CarOutlined className="text-3xl text-yellow-500" />
+                <CarOutlined className="text-3xl text-yellow-[#FDB813]" />
               </div>
               <div className="text-xl">Booking A Taxi</div>
               <div className="text-gray-500 text-sm text-center">
@@ -1788,7 +1788,7 @@ const EasyStep: React.FC = () => {
             "
             >
               <div className="h-20 w-20 bg-[#ffffff] rounded-2xl flex justify-center items-center shadow-2xl">
-                <DollarCircleOutlined className="text-3xl text-yellow-500" />
+                <DollarCircleOutlined className="text-3xl text-yellow-[#FDB813]" />
               </div>
               <div className="text-xl">Pay Your Taxi</div>
               <div className="text-gray-500 text-sm text-center">
@@ -1801,7 +1801,7 @@ const EasyStep: React.FC = () => {
             "
             >
               <div className="h-20 w-20 bg-[#ffffff] rounded-2xl flex justify-center items-center shadow-2xl">
-                <UserOutlined className="text-3xl text-yellow-500" />
+                <UserOutlined className="text-3xl text-yellow-[#FDB813]" />
               </div>
               <div className="text-xl">Get a Driver</div>
               <div className="text-gray-500 text-sm text-center">
@@ -1814,7 +1814,7 @@ const EasyStep: React.FC = () => {
             "
             >
               <div className="h-20 w-20 bg-[#2A2A2A] rounded-2xl flex justify-center items-center shadow-2xl">
-                <LikeOutlined className="text-3xl text-yellow-500" />
+                <LikeOutlined className="text-3xl text-yellow-[#FDB813]" />
               </div>
               <div className="text-xl">Enjoy Your Ride</div>
               <div className="text-gray-500 text-sm text-center">
