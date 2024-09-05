@@ -26,7 +26,7 @@ const BreadCrumb: React.FC = () => {
     <>
       <div className="text-gray-700 container py-6 flex space-x-1">
         <button
-          className="hover:text-yellow-500 hover:underline"
+          className="hover:text-yellow-[#FDB813] hover:underline"
           onClick={() => {
             navigate("/");
           }}
@@ -146,7 +146,7 @@ const EasyStep: React.FC = () => {
         >
           <div className="text-3xl font-medium ">
             Easy Step For Book Your Taxi
-            <span className="text-yellow-500">.</span>
+            <span className="text-yellow-[#FDB813]">.</span>
           </div>
           <div
             className="text-sm text-gray-500
@@ -177,7 +177,7 @@ const EasyStep: React.FC = () => {
             "
             >
               <div className="h-20 w-20 bg-[#2A2A2A] rounded-2xl flex justify-center items-center shadow-2xl">
-                <CarOutlined className="text-3xl text-yellow-500" />
+                <CarOutlined className="text-3xl text-yellow-[#FDB813]" />
               </div>
               <div className="text-xl">Booking A Taxi</div>
               <div className="text-gray-500 text-sm text-center">
@@ -190,7 +190,7 @@ const EasyStep: React.FC = () => {
             "
             >
               <div className="h-20 w-20 bg-[#ffffff] rounded-2xl flex justify-center items-center shadow-2xl">
-                <DollarCircleOutlined className="text-3xl text-yellow-500" />
+                <DollarCircleOutlined className="text-3xl text-yellow-[#FDB813]" />
               </div>
               <div className="text-xl">Pay Your Taxi</div>
               <div className="text-gray-500 text-sm text-center">
@@ -203,7 +203,7 @@ const EasyStep: React.FC = () => {
             "
             >
               <div className="h-20 w-20 bg-[#ffffff] rounded-2xl flex justify-center items-center shadow-2xl">
-                <UserOutlined className="text-3xl text-yellow-500" />
+                <UserOutlined className="text-3xl text-yellow-[#FDB813]" />
               </div>
               <div className="text-xl">Get a Driver</div>
               <div className="text-gray-500 text-sm text-center">
@@ -216,7 +216,7 @@ const EasyStep: React.FC = () => {
             "
             >
               <div className="h-20 w-20 bg-[#2A2A2A] rounded-2xl flex justify-center items-center shadow-2xl">
-                <LikeOutlined className="text-3xl text-yellow-500" />
+                <LikeOutlined className="text-3xl text-yellow-[#FDB813]" />
               </div>
               <div className="text-xl">Enjoy Your Ride</div>
               <div className="text-gray-500 text-sm text-center">

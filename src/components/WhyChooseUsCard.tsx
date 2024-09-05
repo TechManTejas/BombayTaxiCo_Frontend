@@ -13,7 +13,7 @@ export const WhyChooseUsCard: React.FC<WhyChooseUsCardProps> = ({ icon, title, d
               {icon}  
             </div>
             <div className='text-xl font-medium'>
-                {title}<span className='text-yellow-500'>.</span>
+                {title}<span className='text-yellow-[#FDB813]'>.</span>
             </div>
             <div className='text-center text-sm w-48'>
                 {description}

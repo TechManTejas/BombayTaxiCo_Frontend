@@ -70,7 +70,7 @@ const InvoiceDetails: React.FC = () => {
                                         <span>
                                             Bombay Taxi Co
                                         </span>
-                                        <span className='text-yellow-500'>.</span>
+                                        <span className='text-yellow-[#FDB813]'>.</span>
 
                                     </div>
                                     <div>

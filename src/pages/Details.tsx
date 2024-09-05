@@ -650,7 +650,7 @@ const Details: React.FC = () => {
   //                   onChange={(e) => setCouponCode(e.target.value)}
   //                 />
   //                 <Button
-  //                   className='font-semibold text-yellow-500 border-l-0'
+  //                   className='font-semibold text-yellow-[#FDB813] border-l-0'
   //                   onClick={handleApplyCoupon}
   //                 >
   //                   APPLY
@@ -679,7 +679,7 @@ const Details: React.FC = () => {
   //                 Inclusive of GST
   //               </div>
   //               <div className='space-x-3'>
-  //                 <span className='font-bold text-yellow-500'>{(taxiRate.taxiType.discount_percentage).toString() || ''}% OFF</span>
+  //                 <span className='font-bold text-yellow-[#FDB813]'>{(taxiRate.taxiType.discount_percentage).toString() || ''}% OFF</span>
   //               </div>
   //             </div>
   //           </div>
@@ -1006,17 +1006,17 @@ const Details: React.FC = () => {
                         By proceeding to book, I Agree to Bombay Taxi's{" "}
                         <a
                           href="/privacy-policy"
-                          className="text-yellow-500 hover:underline"
+                          className="text-yellow-[#FDB813] hover:underline"
                         >
                           Privacy Policy{" "}
                         </a>
-                        {/* <a className='text-yellow-500 hover:underline'>
+                        {/* <a className='text-yellow-[#FDB813] hover:underline'>
                             User Agreement{' '}
                           </a> */}
                         and
                         <a
                           href="/terms-conditions"
-                          className="text-yellow-500 hover:underline"
+                          className="text-yellow-[#FDB813] hover:underline"
                         >
                           Terms of Service{" "}
                         </a>
@@ -1343,14 +1343,14 @@ const Details: React.FC = () => {
                         />
                         {couponDiscountedAmount ? (
                           <Button
-                            className="font-semibold text-yellow-500 border-l-0"
+                            className="font-semibold text-yellow-[#FDB813] border-l-0"
                             onClick={handleClearCoupon}
                           >
                             CLEAR
                           </Button>
                         ) : (
                           <Button
-                            className="font-semibold text-yellow-500 border-l-0"
+                            className="font-semibold text-yellow-[#FDB813] border-l-0"
                             onClick={handleApplyCoupon}
                           >
                             APPLY
@@ -1398,7 +1398,7 @@ const Details: React.FC = () => {
                     <div className="w-full flex justify-between items-end">
                       <div className="font-semibold">Inclusive of GST</div>
                       <div className="space-x-3">
-                        <span className="font-bold text-yellow-500">
+                        <span className="font-bold text-yellow-[#FDB813]">
                           {taxiRate.taxiType.discount_percentage.toString() ||
                             ""}
                           % OFF

@@ -81,7 +81,7 @@ const UserRoutes: React.FC = () => {
           },
           Segmented: {
             itemSelectedBg: "#FDB813",
-            borderRadiusSM: 20
+            borderRadiusSM: 14
           }
         },
       }}
