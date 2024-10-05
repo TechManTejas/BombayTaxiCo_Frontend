@@ -1,5 +1,6 @@
 import { useNavigate } from "react-router-dom"
 import { Footer } from "../components/Footer"
+import { ReadyToBook } from "../components/ReadyToBook"
 
 const BreadCrumb: React.FC = () => {
 
@@ -75,6 +76,7 @@ export const HourlyRental = () => {
                 <BreadCrumb />
                 <Content />
             </div>
+            <ReadyToBook/>
             <Footer />
         </div>
     )

@@ -16,6 +16,8 @@ import { ISettings } from "../types/settings.types";
 import { IRoute } from "../types/routes.types";
 import { ITaxiType } from "../types/taxiTypes.types";
 import { generateDistanceOptions } from "../utils/GenerateDistanceOptions";
+import { ReadyToBook } from "../components/ReadyToBook";
+import { Container } from "@mui/material";
 
 interface BillCardProps {
   routeDistance: number;
@@ -53,10 +55,10 @@ const BillCard: React.FC<BillCardProps> = ({
 
   return (
     <>
-      <div className="min-w-[360px] max-w-xs w-full m-1 p-3 sticky top-36 bg-white border rounded-lg">
+      <div className="min-w-[360px] max-w-xs w-full m-1 mb-3 p-3 sticky top-36 bg-white border rounded-lg">
         <div>
           <div className="text-xl my-1">Fare Details</div>
-          <div className="font-light space-y-1">
+          <div className="font-light space-y-2">
             <div className="flex justify-between">
               <div>Base Fare</div>
               <div>{settings?.baseFare}</div>
@@ -82,7 +84,7 @@ const BillCard: React.FC<BillCardProps> = ({
         <hr className="my-3" />
         <div>
           <div className="text-xl my-1">Other Charges</div>
-          <div className="font-light space-y-1">
+          <div className="font-light space-y-2">
             <div className="flex justify-between">
               <div>Parking & Airport Entry</div>
               <div>{settings?.parkingAndAirportEntry}</div>
@@ -112,7 +114,7 @@ const BillCard: React.FC<BillCardProps> = ({
               <>Extra Hr Charges</>
             )}
           </div>
-          <div className="font-light space-y-1">
+          <div className="font-light space-y-2">
             {tripRates.map((tripRate: TripRate) => (
               <div key={tripRate.taxiType._id} className="flex justify-between">
                 <div>{tripRate.taxiType.name}</div>
@@ -383,7 +385,7 @@ const Search: React.FC = () => {
 
   return (
     <>
-      <div className="bg-[#ececf4] px-1">
+      <div className="bg-[#ececf4] px-1 space-y-2">
         <div
           className="justify-center w-full
           hidden
@@ -713,7 +715,7 @@ const Search: React.FC = () => {
           <div
             className="flex container justify-center
             flex-col-reverse items-center
-            lg:flex-row lg:items-start
+            lg:flex-row lg:items-start gap-2
           "
           >
             <BillCard
@@ -729,7 +731,7 @@ const Search: React.FC = () => {
                 </div>
               ) : tripRates.length > 0 ? (
                 // Map and display car cards here
-                <>
+                <div className="space-y-3 pb-3">
                   {tripRates.map((rate: any, index: number) => (
                     <div className="my-1">
                       <CarCard
@@ -747,7 +749,7 @@ const Search: React.FC = () => {
                       />
                     </div>
                   ))}
-                </>
+                </div>
               ) : (
                 // Display a message when there are no car cards
                 <div className="text-center py-32 text-lg font-medium">
@@ -800,16 +802,18 @@ const Search: React.FC = () => {
         </div>
       </div>
       <div className="flex justify-center py-8">
-        <div className="container text-center space-x-1">
+        <Container className="container text-center space-x-1">
           <span className="text-zinc-800 font-semibold">Disclaimer:</span>
           <span className="text-zinc-600">
             Fare listed above are estimated based on gathered information. Final
-            fare shall depend on actual traveled distance. Mileage & Timings
-            will be calculated from our garage to garage whereas vehicles will
-            be dispatched from the nearest garage.
+            fare shall depend on actual travelled distance. Mileage & Timings
+            will be calculated from Customer pickup location to customer drop location.
+            <br/>
+            Your trip has a KM & Time limit, if your usage exceeds this limit, you will be charges for exes.
           </span>
-        </div>
+        </Container>
       </div>
+      <ReadyToBook/>
       <Footer />
     </>
   );

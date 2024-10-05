@@ -2,6 +2,7 @@ import { useNavigate } from "react-router-dom"
 import { Footer } from "../components/Footer"
 import HeroImage1 from "../assets/images/hero1.jpg";
 import { Container } from "@mui/material"
+import { ReadyToBook } from "../components/ReadyToBook";
 
 const BreadCrumb: React.FC = () => {
 
@@ -32,7 +33,7 @@ const Badge: React.FC = () => {
           backgroundSize: "cover",
         }}
       >
-        <div className="bg-[#00000099] text-white space-y-1 rounded-3xl p-16">
+        <div className="bg-[#00000099] text-white space-y-1 rounded-3xl p-24">
           <div className="text-center text-6xl font-bold">
             <span className="text-[#FDB813]">Privacy</span> Policy
           </div>
@@ -160,6 +161,7 @@ export const PrivacyPolicy = () => {
                 <Badge/>
             </Container>
                 <Content />
+                <ReadyToBook/>
             <Footer />
         </div>
     )

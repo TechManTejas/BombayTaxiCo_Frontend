@@ -3,12 +3,12 @@ import {
   AndroidFilled,
   AppleFilled,
   BankOutlined,
-  BoxPlotOutlined,
   CarOutlined,
   CompassOutlined,
   CreditCardOutlined,
   DollarCircleOutlined,
   DollarOutlined,
+  EnvironmentFilled,
   EnvironmentOutlined,
   LikeOutlined,
   MobileOutlined,
@@ -67,6 +67,7 @@ import { AirportTransferIcon } from "../icons/AirportTransfer.js";
 import { CorporateCarRentalIcon } from "../icons/CorporateCarRental.js";
 import { FaCalendarAlt, FaClock } from "react-icons/fa";
 import { MdNavigation } from "react-icons/md";
+import { ReadyToBook } from "../components/ReadyToBook.js";
 
 message.config({
   top: "25%",
@@ -376,10 +377,10 @@ const Hero: React.FC = () => {
           "
           >
             <div
-              key={currentTextIndex}
+              // key={currentTextIndex}
               className="h-16 lg:h-max text-center space-y-4"
             >
-              <motion.div
+              {/* <motion.div
                 key={currentTextIndex}
                 initial={{ opacity: 0, y: -50, scale: 0.95 }}
                 animate={{ opacity: 1, y: 0, scale: 1 }}
@@ -398,7 +399,17 @@ const Hero: React.FC = () => {
                 className="text-2xl lg:text-5xl font-bold text-white fade-in"
               >
                 {currentText.text2}
-              </motion.div>
+              </motion.div> */}
+              <div
+                className="text-xl lg:text-3xl font-thin text-white fade-in"
+              >
+                Welcome to Bombay Taxi Co. 
+              </div>
+              <div
+                className="text-2xl lg:text-5xl font-bold text-white fade-in"
+              >
+                Book Taxi For Your Ride
+              </div>
             </div>
           </div>
           <div className="flex flex-col items-center justify-center w-[370px]">
@@ -463,10 +474,10 @@ const Hero: React.FC = () => {
               "
               >
                 {activeTab === "Hourly Rental" && (
-                  <div className="group w-full lg:w-[312px] p-3 pb-4 space-y-1 border rounded-xl hover:border-[#FDB813] transition-all duration-300">
+                  <div className="group w-full lg:w-[315px] p-3 pb-4 space-y-1 border rounded-xl hover:border-[#FDB813] transition-all duration-300">
                     <div className="text-xs flex items-center gap-1">
                       {" "}
-                      <EnvironmentOutlined />
+                      <EnvironmentFilled />
                       PICKUP LOCATION
                     </div>
                     <Dropdown menu={menuPropsPickupCity} placement="bottomLeft">
@@ -510,7 +521,7 @@ const Hero: React.FC = () => {
                     }
                     <div className="group w-[328px] lg:w-[220px]  p-3 pb-4 space-y-1 border rounded-xl z-20 hover:border-[#FDB813] transition-all duration-300">
                       <div className="text-xs flex items-center gap-1">
-                        <MdNavigation />
+                      <EnvironmentFilled />
                         FROM
                       </div>
                       <Dropdown menu={menuPropsFrom} placement="bottomLeft">
@@ -525,7 +536,7 @@ const Hero: React.FC = () => {
 
                     <div className="group w-full lg:w-[220px] p-3 pb-4 space-y-1 border rounded-xl z-20 hover:border-[#FDB813] transition-all duration-300">
                       <div className="text-xs flex items-center gap-1">
-                        <MdNavigation />
+                      <EnvironmentFilled />
                         TO
                       </div>
                       <Dropdown menu={menuPropsTo} placement="bottomLeft">
@@ -539,7 +550,7 @@ const Hero: React.FC = () => {
                     </div>
                   </div>
                 )}
-                <div className="group relative w-full lg:w-[164px] p-3 pb-4 space-y-1 border rounded-xl hover:border-[#FDB813] transition-all duration-300">
+                <div className="group relative w-full lg:w-[166px] p-3 pb-4 space-y-1 border rounded-xl hover:border-[#FDB813] transition-all duration-300">
                   <div className="text-xs flex items-center gap-1">
                     <FaCalendarAlt />
                     PICKUP DATE
@@ -602,7 +613,7 @@ const Hero: React.FC = () => {
                   </Dropdown>
                 </div>
                 {activeTab !== "Hourly Rental" && (
-                  <div className="group relative w-full lg:w-[164px] p-3 pb-4 space-y-1 border rounded-xl hover:border-[rgb(253,184,19)] transition-all duration-300">
+                  <div className="group relative w-full lg:w-[166px] p-3 pb-4 space-y-1 border rounded-xl hover:border-[rgb(253,184,19)] transition-all duration-300">
                     <div className="text-xs flex items-center gap-1">
                       {" "}
                       <FaClock />
@@ -655,7 +666,7 @@ const Hero: React.FC = () => {
                       ) : (
                         <>
                           <button
-                            className="text-xs text-left group-hover:text-[#FDB813] transition-all duration-300"
+                            className="text-xs text-left group-hover:text-[#FDB813]"
                             onClick={() => setActiveTab("Round Trip")}
                           >
                             Add return date for bigger discount
@@ -734,17 +745,17 @@ const WhyChooseUs: React.FC = () => {
         >
           <WhyChooseUsCard
             icon={<UserOutlined />}
-            title="Professional Drivers"
-            description="Experienced Staff & Professionally trained Chauffers"
+            title="Personalized Rides"
+            description="Book our services and adjust according to your need"
           />
           <WhyChooseUsCard
             icon={<CarOutlined />}
-            title="Quality Car"
-            description="Luxurious and well-maintained vehicles for your comfort."
+            title="Flexible Cancellation"
+            description="If the unforeseen happens, you can easily request a cancellation through our easy to use booking platform"
           />
           <WhyChooseUsCard
             icon={<DollarCircleOutlined />}
-            title="Affordable Pricing"
+            title="Transparent Billing"
             description="Competitive and budget-friendly prices for quality transportation."
           />
           <WhyChooseUsCard
@@ -900,7 +911,7 @@ const OurAchievement: React.FC = () => {
             backgroundSize: "cover",
           }}
         >
-          <div className="px-14 p-12 bg-blue-950 bg-opacity-70 rounded-3xl">
+          <div className="px-14 p-12 py-16 bg-blue-950 bg-opacity-70 rounded-3xl flex flex-col gap-6">
             <div className="lg:flex justify-between">
               <div className="text-3xl lg:text-5xl text-white font-extrabold text-center">
                 Our Achievement
@@ -1012,7 +1023,6 @@ const StatsAndTestamonials: React.FC = () => {
   const cardWidthIncludingGap = 320 + 30;
   const numberOfVisibleCards = 1;
   const slideInterval = 2000;
-  const [isHovering, setIsHovering] = useState(false);
 
   const testimonials = [
     {
@@ -1077,7 +1087,7 @@ const StatsAndTestamonials: React.FC = () => {
   );
 
   useEffect(() => {
-    if (!isHovering) {
+   
       const interval = setInterval(() => {
         setTranslateX((currentTranslate) => {
           const newTranslate = currentTranslate - cardWidthIncludingGap;
@@ -1091,8 +1101,8 @@ const StatsAndTestamonials: React.FC = () => {
       }, slideInterval);
 
       return () => clearInterval(interval);
-    }
-  }, [testimonials.length, cardWidthIncludingGap, isHovering]);
+    
+  }, [testimonials.length, cardWidthIncludingGap]);
 
   useEffect(() => {
     if (isVisible) {
@@ -1304,14 +1314,18 @@ const AwsomeFeatures: React.FC = () => {
     visible: { x: 0, opacity: 1, transition: { duration: 1 } },
   };
 
-  const [translateX, setTranslateX] = useState(0);
+  const [translateX, setTranslateX] = useState(-(320+16));
   const [transitionDuration, setTransitionDuration] = useState("duration-700");
   const cardWidthIncludingGap = 320 + 16;
   const numberOfVisibleCards = 1;
   const slideInterval = 2000;
-  const [isHovering, setIsHovering] = useState(false);
 
   const features = [
+    {
+      icon: <img src={BestDealsDiscounts} className="w-12 h-12" />,
+      text: "Best Deals & Discounts",
+      description: "Unlock best value with premium deals & exclusive discounts",
+    },
     {
       icon: <img src={PremiumServices} className="w-12 h-12" />,
       text: "Premium Services",
@@ -1347,6 +1361,26 @@ const AwsomeFeatures: React.FC = () => {
       text: "Best Deals & Discounts",
       description: "Unlock best value with premium deals & exclusive discounts",
     },
+    {
+      icon: <img src={PremiumServices} className="w-12 h-12" />,
+      text: "Premium Services",
+      description: "Experience unmatched luxury and comfort",
+    },
+    {
+      icon: <img src={SafetyGaurantee} className="w-12 h-12" />,
+      text: "100% Safety Guarantee",
+      description: "Ensuring your safety is our top priority",
+    },
+    {
+      icon: <img src={AffordablePricing} className="w-12 h-12" />,
+      text: "Affordable Pricing",
+      description: "Enjoy great services at unbeatable prices",
+    },
+    {
+      icon: <img src={BestQualityFleet} className="w-12 h-12" />,
+      text: "Best Quality Fleet",
+      description: "Offering unparalleled choices for your travel needs",
+    },
   ];
 
   const maxTranslate = -(
@@ -1356,22 +1390,22 @@ const AwsomeFeatures: React.FC = () => {
   );
 
   useEffect(() => {
-    if (!isHovering) {
+    
       const interval = setInterval(() => {
         setTranslateX((currentTranslate) => {
           const newTranslate = currentTranslate - cardWidthIncludingGap;
           if (newTranslate < maxTranslate) {
             setTransitionDuration("duration-0"); // Instantly reset position without transition
             setTimeout(() => setTransitionDuration("duration-700"), 50); // Then restore the transition for the next slide
-            return 0; // Start over
+            return -(320+16); // Start over
           }
           return newTranslate;
         });
       }, slideInterval);
 
       return () => clearInterval(interval);
-    }
-  }, [features.length, cardWidthIncludingGap, isHovering]);
+    
+  }, [features.length, cardWidthIncludingGap]);
 
   // const handleNext = () => {
   //   if (translateX > maxTranslate) {
@@ -2086,9 +2120,10 @@ const Home: React.FC = () => {
       <Container>
         <EasyStep />
       </Container>
-        <OurAchievement />
+      <OurAchievement />
       <StatsAndTestamonials />
       <CallUsNow />
+      <ReadyToBook />
       <Footer />
     </div>
   );

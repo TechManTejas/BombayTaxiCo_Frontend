@@ -3,6 +3,7 @@ import { Menu } from 'antd';
 import "./Sidebar.css"
 import { confirmation } from './Confirmation';
 import { Context } from '../context/context.provider';
+import LogoutIcon from "../icons/Logout.svg"
 
 interface SidebarProps {
     handleTabChange: (tab: string) => void;
@@ -32,7 +33,7 @@ const Sidebar: React.FC<SidebarProps> = ({ handleTabChange }) => {
             <Menu
                 mode={(window.innerWidth > 1024)? "vertical":"horizontal"}
                 defaultSelectedKeys={["bookings"]}
-                className='h-full bg-inherit lg:text-xl gap-2'
+                className='h-full bg-inherit lg:text-xl gap-2 lg:w-36'
             >
                 <Menu.Item key="bookings" onClick={() => {
                     handleTabChange("bookings")
@@ -44,7 +45,10 @@ const Sidebar: React.FC<SidebarProps> = ({ handleTabChange }) => {
                     handleTabChange("profile")
                 }}>Profile</Menu.Item>
                 <Menu.Item key="logout" onClick={handleLogout}>
+                 <div className='flex gap-1 items-center'>
+                    <img src={LogoutIcon}/>
                     Log out
+                    </div>
                 </Menu.Item>
             </Menu>
         </div>
