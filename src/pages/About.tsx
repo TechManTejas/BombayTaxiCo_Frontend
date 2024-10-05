@@ -26,6 +26,7 @@ import { RoundTripIcon } from "../icons/RoundTripIcon";
 import { HourlyRentalIcon } from "../icons/HourlyRentalIcon";
 import { AirportTransferIcon } from "../icons/AirportTransfer";
 import { CorporateCarRentalIcon } from "../icons/CorporateCarRental";
+import { ReadyToBook } from "../components/ReadyToBook";
 
 const BreadCrumb: React.FC = () => {
   const navigate = useNavigate();
@@ -56,7 +57,7 @@ const Badge: React.FC = () => {
         backgroundSize: "cover",
       }}
     >
-      <div className="bg-[#00000099] text-white space-y-1 rounded-3xl p-16">
+      <div className="bg-[#00000099] text-white space-y-1 rounded-3xl p-24">
         <div className="text-center text-6xl font-bold">
           <span className="text-[#FDB813]">About</span> Us
         </div>
@@ -435,6 +436,7 @@ const About: React.FC = () => {
       <EasyStep />
       <WhatWeAreOffering />
       <CallUsNow />
+      <ReadyToBook/>
       <Footer />
     </>
   );

@@ -15,6 +15,7 @@ import Driver from "../assets/images/driver.jpg";
 import { useNavigate } from "react-router-dom";
 import axios from "../api/axios";
 import { Container } from "@mui/material";
+import { ReadyToBook } from "../components/ReadyToBook";
 
 const BreadCrumb: React.FC = () => {
   const navigate = useNavigate();
@@ -41,7 +42,6 @@ const Cards: React.FC = () => {
     <div
       className="grid justify-items-center py-8
       md:grid-cols-2
-      xl:grid-cols-4
     "
     >
       <div className="p-4 rounded-3xl bg-white m-8 w-[282px] h-[280px] shadow-xl">
@@ -287,7 +287,7 @@ const Badge: React.FC = () => {
         backgroundSize: "cover",
       }}
     >
-      <div className="bg-[#00000099] text-white space-y-1 rounded-3xl p-16">
+      <div className="bg-[#00000099] text-white space-y-1 rounded-3xl p-24">
         <div className="text-center text-6xl font-bold">
           <span className="text-[#FDB813]">Contact</span> Us
         </div>
@@ -331,6 +331,7 @@ const Contact: React.FC = () => {
       </Container>
       <Map />
       <CallUsNow />
+      <ReadyToBook/>
       <Footer />
     </div>
   );

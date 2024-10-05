@@ -6,6 +6,7 @@ import { Button, Form, Input, notification } from 'antd';
 import Driver from "../assets/images/driver.jpg"
 import { useNavigate } from 'react-router-dom';
 import axios from "../api/axios"
+import { ReadyToBook } from '../components/ReadyToBook';
 
 const BreadCrumb: React.FC = () => {
 
@@ -168,6 +169,7 @@ const AttachTaxi: React.FC = () => {
                 <BreadCrumb />
                 <Content />
             </div>
+            <ReadyToBook/>
             <Footer />
         </div>
     );

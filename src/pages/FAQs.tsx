@@ -3,6 +3,7 @@ import { Footer } from "../components/Footer";
 import { Collapse } from "antd";
 import HeroImage1 from "../assets/images/hero1.jpg";
 import { Container } from "@mui/material";
+import { ReadyToBook } from "../components/ReadyToBook";
 
 const { Panel } = Collapse;
 
@@ -35,7 +36,7 @@ const Badge: React.FC = () => {
         backgroundSize: "cover",
       }}
     >
-      <div className="bg-[#00000099] text-white space-y-1 rounded-3xl p-16">
+      <div className="bg-[#00000099] text-white space-y-1 rounded-3xl p-24">
         <div className="text-center text-6xl font-bold">
           <span className="text-[#FDB813]">FAQ</span>s
         </div>
@@ -492,6 +493,7 @@ export const FAQs = () => {
         <Badge/>
       </Container>
         <Content />
+        <ReadyToBook/>
       <Footer />
     </div>
   );
