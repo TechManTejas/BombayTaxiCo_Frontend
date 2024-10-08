@@ -19,7 +19,6 @@ import {
 } from "@ant-design/icons";
 import { DatePicker, Dropdown, MenuProps, Segmented, message } from "antd";
 import React, { useEffect, useState } from "react";
-import { motion } from "framer-motion";
 import { Container } from "@mui/material";
 import axios from "../api/axios";
 import { ICity } from "../types/citys.types";
@@ -29,8 +28,6 @@ import { Footer } from "../components/Footer";
 import { CallUsNow } from "../components/CallUsNow";
 import { WhyChooseUsCard } from "../components/WhyChooseUsCard";
 import HeroImage1 from "../assets/images/hero1.jpg";
-import HeroImage2 from "../assets/images/hero2.jpg";
-import HeroImage3 from "../assets/images/hero3.jpg";
 import WeOffer1 from "../assets/images/Online easy booking.png";
 import WeOffer2 from "../assets/images/One way trip.png";
 import WeOffer3 from "../assets/images/Round trip.png";
@@ -66,7 +63,6 @@ import { OnlineEasyBookingIcon } from "../icons/OnlineEasyBooking.js";
 import { AirportTransferIcon } from "../icons/AirportTransfer.js";
 import { CorporateCarRentalIcon } from "../icons/CorporateCarRental.js";
 import { FaCalendarAlt, FaClock } from "react-icons/fa";
-import { MdNavigation } from "react-icons/md";
 import { ReadyToBook } from "../components/ReadyToBook.js";
 
 message.config({
@@ -322,49 +318,11 @@ const Hero: React.FC = () => {
     fetchCities();
   }, []);
 
-  const [currentTextIndex, setCurrentTextIndex] = useState(0);
-
-  const texts = [
-    {
-      text: "Welcome to Bombay Taxi Co. ",
-      text2: "Book Taxi For Your Ride",
-      background: HeroImage1,
-    },
-    {
-      text: "24/7 Online taxi For Your Ride Enjoying a",
-      text2: "Comfortable Trip With Bombay Taxi Co.",
-      background: HeroImage2,
-    },
-    {
-      text: "Lets Ride With Us",
-      text2: "Enjoy Your Luxury Taxi With Low Price",
-      background: HeroImage3,
-    },
-  ];
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentTextIndex(
-        (currentTestimonialIndex) =>
-          (currentTestimonialIndex + 1) % texts.length
-      );
-    }, 5000); // Change every 3 seconds
-
-    return () => clearInterval(interval);
-  }, []);
-
-  const currentText = texts[currentTextIndex];
-
   return (
     <>
       <div
-        // initial={{ opacity: 0 }}
-        // animate={{ opacity: 1 }}
-        // exit={{ opacity: 0 }}
-        // transition={{ duration: 1 }}
-        className=""
         style={{
-          backgroundImage: `url(${texts[0].background})`,
+          backgroundImage: `url(${HeroImage1})`,
           backgroundSize: "cover",
         }}
       >
@@ -377,38 +335,13 @@ const Hero: React.FC = () => {
           "
           >
             <div
-              // key={currentTextIndex}
               className="h-16 lg:h-max text-center space-y-4"
             >
-              {/* <motion.div
-                key={currentTextIndex}
-                initial={{ opacity: 0, y: -50, scale: 0.95 }}
-                animate={{ opacity: 1, y: 0, scale: 1 }}
-                exit={{ opacity: 0, y: 50, scale: 0.8 }}
-                transition={{ duration: 1.5, ease: "easeInOut" }}
-                className="text-xl lg:text-3xl font-thin text-white fade-in"
-              >
-                {currentText.text}
-              </motion.div>
-              <motion.div
-                key={currentTextIndex}
-                initial={{ opacity: 0, y: -50, scale: 0.95 }}
-                animate={{ opacity: 1, y: 0, scale: 1 }}
-                exit={{ opacity: 0, y: 50, scale: 0.8 }}
-                transition={{ duration: 1.5, ease: "easeInOut" }}
-                className="text-2xl lg:text-5xl font-bold text-white fade-in"
-              >
-                {currentText.text2}
-              </motion.div> */}
-              <div
-                className="text-xl lg:text-3xl font-thin text-white fade-in"
-              >
-                Welcome to Bombay Taxi Co. 
+              <div className="text-xl lg:text-3xl font-thin text-white fade-in">
+                Welcome to Bombay Taxi Co.
               </div>
-              <div
-                className="text-2xl lg:text-5xl font-bold text-white fade-in"
-              >
-                Book Taxi For Your Ride
+              <div className="text-2xl lg:text-5xl font-bold text-white fade-in">
+              Enjoy Your Comfortable Trip<span className="text-[#FDB813]">.</span>
               </div>
             </div>
           </div>
@@ -416,7 +349,7 @@ const Hero: React.FC = () => {
             <div className="rounded-2xl bg-white shadow-lg -mb-16 lg:-mb-6 z-10 border border-yellow-500">
               <Segmented
                 value={activeTab}
-                className="rounded-2xl"
+                className="rounded-2xl p-1"
                 onChange={(value) => {
                   handleTabChange(value.toString());
                 }}
@@ -474,7 +407,7 @@ const Hero: React.FC = () => {
               "
               >
                 {activeTab === "Hourly Rental" && (
-                  <div className="group w-full lg:w-[315px] p-3 pb-4 space-y-1 border rounded-xl hover:border-[#FDB813] transition-all duration-300">
+                  <div className="group w-full lg:w-[331px] p-3 pb-4 space-y-1 border-2 rounded-xl hover:border-[#FDB813] transition-all duration-300">
                     <div className="text-xs flex items-center gap-1">
                       {" "}
                       <EnvironmentFilled />
@@ -482,7 +415,7 @@ const Hero: React.FC = () => {
                     </div>
                     <Dropdown menu={menuPropsPickupCity} placement="bottomLeft">
                       <button
-                        className="text-xl lg:text-3xl group-hover:text-[#FDB813] transition-all duration-300"
+                        className="text-[1.4rem] group-hover:text-[#FDB813] transition-all duration-300"
                         style={{ border: "none" }}
                       >
                         {pickupCity || "Select City"}
@@ -519,14 +452,14 @@ const Hero: React.FC = () => {
                         </div>
                       </>
                     }
-                    <div className="group w-[328px] lg:w-[220px]  p-3 pb-4 space-y-1 border rounded-xl z-20 hover:border-[#FDB813] transition-all duration-300">
+                    <div className="group w-[328px] lg:w-[228px]  p-3 pb-4 space-y-1 border-2 rounded-xl z-20 hover:border-[#FDB813] transition-all duration-300">
                       <div className="text-xs flex items-center gap-1">
-                      <EnvironmentFilled />
+                        <EnvironmentFilled />
                         FROM
                       </div>
                       <Dropdown menu={menuPropsFrom} placement="bottomLeft">
                         <button
-                          className="text-xl lg:text-3xl group-hover:text-[#FDB813] transition-all duration-300"
+                          className="text-[1.4rem] group-hover:text-[#FDB813] transition-all duration-300"
                           style={{ border: "none" }}
                         >
                           {from || "Select City"}
@@ -534,14 +467,14 @@ const Hero: React.FC = () => {
                       </Dropdown>
                     </div>
 
-                    <div className="group w-full lg:w-[220px] p-3 pb-4 space-y-1 border rounded-xl z-20 hover:border-[#FDB813] transition-all duration-300">
+                    <div className="group w-full lg:w-[228px] p-3 pb-4 space-y-1 border-2 rounded-xl z-20 hover:border-[#FDB813] transition-all duration-300">
                       <div className="text-xs flex items-center gap-1">
-                      <EnvironmentFilled />
+                        <EnvironmentFilled />
                         TO
                       </div>
                       <Dropdown menu={menuPropsTo} placement="bottomLeft">
                         <button
-                          className="text-xl lg:text-3xl group-hover:text-[#FDB813] transition-all duration-300"
+                          className="text-[1.4rem] group-hover:text-[#FDB813] transition-all duration-300"
                           style={{ border: "none" }}
                         >
                           {to || "Select City"}
@@ -550,13 +483,13 @@ const Hero: React.FC = () => {
                     </div>
                   </div>
                 )}
-                <div className="group relative w-full lg:w-[166px] p-3 pb-4 space-y-1 border rounded-xl hover:border-[#FDB813] transition-all duration-300">
+                <div className="group relative w-full lg:w-[166px] p-3 pb-4 space-y-1 border-2 rounded-xl hover:border-[#FDB813] transition-all duration-300">
                   <div className="text-xs flex items-center gap-1">
                     <FaCalendarAlt />
                     PICKUP DATE
                   </div>
                   <button
-                    className="text-xl lg:text-3xl group-hover:text-[#FDB813] transition-all duration-300"
+                    className="text-[1.4rem] group-hover:text-[#FDB813] transition-all duration-300"
                     onClick={togglePickupDatePicker}
                   >
                     {pickupDate?.format("D MMM") ?? (
@@ -597,7 +530,7 @@ const Hero: React.FC = () => {
                     }}
                   />
                 </div>
-                <div className="group w-full lg:w-[164px] p-3 pb-4 space-y-1 border rounded-xl hover:border-[rgb(253,184,19)] transition-all duration-300">
+                <div className="group w-full lg:w-[164px] p-3 pb-4 space-y-1 border-2 rounded-xl hover:border-[rgb(253,184,19)] transition-all duration-300">
                   <div className="text-xs flex items-center gap-1">
                     {" "}
                     <FaClock />
@@ -605,7 +538,7 @@ const Hero: React.FC = () => {
                   </div>
                   <Dropdown menu={menuPropsTime} placement="bottomLeft">
                     <button
-                      className="text-xl lg:text-3xl group-hover:text-[#FDB813] transition-all duration-300"
+                      className="text-[1.4rem] group-hover:text-[#FDB813] transition-all duration-300"
                       style={{ border: "none" }}
                     >
                       {pickupTime || "Select a Time"}
@@ -613,7 +546,7 @@ const Hero: React.FC = () => {
                   </Dropdown>
                 </div>
                 {activeTab !== "Hourly Rental" && (
-                  <div className="group relative w-full lg:w-[166px] p-3 pb-4 space-y-1 border rounded-xl hover:border-[rgb(253,184,19)] transition-all duration-300">
+                  <div className="group relative w-full lg:w-[166px] p-3 pb-4 space-y-1 border-2 rounded-xl hover:border-[rgb(253,184,19)] transition-all duration-300">
                     <div className="text-xs flex items-center gap-1">
                       {" "}
                       <FaClock />
@@ -623,7 +556,7 @@ const Hero: React.FC = () => {
                       {activeTab === "Round Trip" ? (
                         <>
                           <button
-                            className="text lg:text-3xl group-hover:text-[#FDB813] transition-all duration-300"
+                            className="text-[1.4rem] group-hover:text-[#FDB813] transition-all duration-300"
                             onClick={toggleReturnDatePicker}
                           >
                             {returnDate?.format("D MMM") ?? (
@@ -666,7 +599,7 @@ const Hero: React.FC = () => {
                       ) : (
                         <>
                           <button
-                            className="text-xs text-left group-hover:text-[#FDB813]"
+                            className="text-xs text-left group-hover:text-[#FDB813] absolute"
                             onClick={() => setActiveTab("Round Trip")}
                           >
                             Add return date for bigger discount
@@ -678,7 +611,7 @@ const Hero: React.FC = () => {
                 )}
                 {activeTab === "Hourly Rental" && (
                   <div>
-                    <div className="group w-[328px] lg:w-[300px] p-3 pb-4 space-y-1 border rounded-xl hover:border-[rgb(253,184,19)] transition-all duration-300">
+                    <div className="group w-[328px] lg:w-[300px] p-3 pb-4 space-y-1 border-2 rounded-xl hover:border-[rgb(253,184,19)] transition-all duration-300">
                       <div className="text-xs flex items-center gap-1">
                         {" "}
                         <CompassOutlined />
@@ -686,7 +619,7 @@ const Hero: React.FC = () => {
                       </div>
                       <Dropdown menu={menuPropsDistance} placement="bottomLeft">
                         <button
-                          className="text lg:text-3xl group-hover:text-[#FDB813] transition-all duration-300"
+                          className="text-[1.4rem] group-hover:text-[#FDB813] transition-all duration-300"
                           style={{ border: "none" }}
                         >
                           {hourlyPackage || "Select a Time"}
@@ -699,10 +632,10 @@ const Hero: React.FC = () => {
             </div>
             <div className="w-full flex justify-center">
               <button
-                className="text-sm lg:text-base bg-[#FDB813] hover:bg-yellow-400 text-black font-semibold w-28 lg:w-36 h-12 rounded-lg border-yellow-500 z-10"
+                className="text-sm lg:text-base bg-[#FDB813] hover:bg-yellow-400 text-black font-semibold w-32 lg:w-40 h-12 rounded-lg border-yellow-500 z-10"
                 onClick={handleLetsRideClick}
               >
-                SEE PRICES
+                SEE TAXI FARE
               </button>
             </div>
           </div>
@@ -713,33 +646,17 @@ const Hero: React.FC = () => {
 };
 
 const WhyChooseUs: React.FC = () => {
-  const fadeInDown = {
-    hidden: { opacity: 0, y: -50 },
-    visible: { opacity: 1, y: 0, transition: { duration: 1 } },
-  };
-
-  const slideIn = {
-    hidden: { x: -100, opacity: 0 },
-    visible: { x: 0, opacity: 1, transition: { duration: 1 } },
-  };
 
   return (
     <div className="flex w-full justify-center bg-[#ececf4]">
       <div className="space-y-12 py-20 w-full container">
-        <motion.div
-          initial="hidden"
-          whileInView="visible"
-          variants={fadeInDown}
-          viewport={{ once: true, amount: 0.5 }}
-          className="text-center text-3xl font-medium"
-        >
-          Why Choose Us?
-        </motion.div>
-        <motion.div
-          initial="hidden"
-          whileInView="visible"
-          variants={slideIn}
-          viewport={{ once: true, amount: 0.5 }}
+        <div className="text-center text-4xl font-bold">
+          <div className="text-base font-bold pb-5 text-[#FDB813]">
+            Why Choose Bombay Taxi Company
+          </div>
+          Why Choose Us?<span className="text-[#FDB813]">.</span>
+        </div>
+        <div
           className="flex flex-wrap gap-5 items-center justify-center
         "
         >
@@ -763,7 +680,7 @@ const WhyChooseUs: React.FC = () => {
             title="Largest Fleet"
             description="Choose from our extensive fleet for your transportation needs."
           />
-        </motion.div>
+        </div>
       </div>
     </div>
   );
@@ -912,9 +829,13 @@ const OurAchievement: React.FC = () => {
           }}
         >
           <div className="px-14 p-12 py-16 bg-blue-950 bg-opacity-70 rounded-3xl flex flex-col gap-6">
-            <div className="lg:flex justify-between">
-              <div className="text-3xl lg:text-5xl text-white font-extrabold text-center">
-                Our Achievement
+            <div className="text-center">
+              <div className="text-base font-bold text-[#FDB813] pb-5">
+                Our Experience
+              </div>
+              <div className="text-3xl lg:text-4xl text-white font-extrabold ">
+                We Are Experienced Since 2022 Until Now
+                <span className="text-[#FDB813]">.</span>
               </div>
             </div>
             <div className="flex flex-wrap md:flex md:flex-nowrap justify-center md:justify-between gap-24">
@@ -994,15 +915,6 @@ const OurAchievement: React.FC = () => {
 };
 
 const StatsAndTestamonials: React.FC = () => {
-  const fadeInDown = {
-    hidden: { opacity: 0, y: -50 },
-    visible: { opacity: 1, y: 0, transition: { duration: 1 } },
-  };
-
-  const zoomIn = {
-    hidden: { scale: 0.8, opacity: 0 },
-    visible: { scale: 1, opacity: 1, transition: { duration: 1 } },
-  };
 
   const [isVisible, elementRef] = useIntersectionObserver({});
   const [stats, setStats] = useState({
@@ -1011,6 +923,7 @@ const StatsAndTestamonials: React.FC = () => {
     dropped: 0,
     satisfied: 0,
   });
+
   const finalStats = {
     fleet: 32002,
     trips: 16008,
@@ -1087,21 +1000,19 @@ const StatsAndTestamonials: React.FC = () => {
   );
 
   useEffect(() => {
-   
-      const interval = setInterval(() => {
-        setTranslateX((currentTranslate) => {
-          const newTranslate = currentTranslate - cardWidthIncludingGap;
-          if (newTranslate < maxTranslate) {
-            setTransitionDuration("duration-0"); // Instantly reset position without transition
-            setTimeout(() => setTransitionDuration("duration-700"), 50); // Then restore the transition for the next slide
-            return 0; // Start over
-          }
-          return newTranslate;
-        });
-      }, slideInterval);
+    const interval = setInterval(() => {
+      setTranslateX((currentTranslate) => {
+        const newTranslate = currentTranslate - cardWidthIncludingGap;
+        if (newTranslate < maxTranslate) {
+          setTransitionDuration("duration-0"); // Instantly reset position without transition
+          setTimeout(() => setTransitionDuration("duration-700"), 50); // Then restore the transition for the next slide
+          return 0; // Start over
+        }
+        return newTranslate;
+      });
+    }, slideInterval);
 
-      return () => clearInterval(interval);
-    
+    return () => clearInterval(interval);
   }, [testimonials.length, cardWidthIncludingGap]);
 
   useEffect(() => {
@@ -1131,140 +1042,24 @@ const StatsAndTestamonials: React.FC = () => {
     }
   }, [isVisible]);
 
-  const handleNext = () => {
-    if (translateX > maxTranslate) {
-      setTranslateX(translateX - cardWidthIncludingGap);
-    }
-  };
-
-  const handlePrev = () => {
-    if (translateX < 0) {
-      setTranslateX(translateX + cardWidthIncludingGap);
-    }
-  };
-
   return (
     <>
-      {/* <div
-        initial="hidden"
-        whileInView="visible"
-        variants={fadeInDown}
-        viewport={{ once: true, amount: 0.5 }}
-        className="bg-blue-900 text-white"
-        ref={elementRef}
-        style={{
-          backgroundImage: `url(${Experience})`,
-          backgroundSize: "cover",
-        }}
-      >
-        <div className="flex flex-col justify-center items-center bg-blue-950 w-full h-full bg-opacity-70 text-center p-3">
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            variants={fadeInDown}
-            viewport={{ once: true, amount: 0.5 }}
-            className="flex justify-center max-w-6xl mx-auto py-32 px-4"
-          >
-            <div
-              className="grid text-center gap-y-8 gap-x-8 md:gap-x-0
-              grid-cols-2
-              lg:grid-cols-4
-            "
-            >
-
-              <div className="flex flex-col items-center">
-                <div className="mb-2 text-5xl md:text-8xl">
-                  <CarOutlined />
-                </div>
-                <div className="hidden md:block border-b opacity-60 w-60"></div>
-                <div className="hidden md:block bg-white rounded-full p-1 my-3">
-                  <div className=" w-2.5 h-2.5 bg-red-600 rounded-full"></div>
-                </div>
-                <div className="text-4xl md:text-5xl font-semibold my-3">
-                  {stats.fleet}
-                </div>
-                <div>Best Vehicles Fleet</div>
-              </div>
-
-              <div className="flex flex-col items-center">
-                <div className="mb-2 text-5xl md:text-8xl">
-                  <EnvironmentOutlined />
-                </div>
-                <div className="hidden md:block border-b opacity-60 w-60"></div>
-                <div className="hidden md:block bg-white rounded-full p-1 my-3">
-                  <div className="w-2.5 h-2.5 bg-red-600 rounded-full"></div>
-                </div>
-                <div className="text-4xl md:text-5xl font-semibold my-3">
-                  {stats.trips}
-                </div>
-                <div>Road Trips Done</div>
-              </div>
-
-              <div className="flex flex-col items-center">
-                <div className="mb-2 text-5xl md:text-8xl">
-                  <UserOutlined />
-                </div>
-                <div className="hidden md:block border-b opacity-60 w-60"></div>
-                <div className="hidden md:block bg-white rounded-full p-1 my-3">
-                  <div className="w-2.5 h-2.5 bg-red-600 rounded-full"></div>
-                </div>
-                <div className="text-4xl md:text-5xl font-semibold my-3">
-                  {stats.dropped}
-                </div>
-                <div>People Dropped</div>
-              </div>
-
-              <div className="flex flex-col items-center">
-                <div className="mb-2 text-5xl md:text-8xl">
-                  <SmileOutlined />
-                </div>
-                <div className="hidden md:block border-b opacity-60 w-60"></div>
-                <div className="hidden md:block bg-white rounded-full p-1 my-3">
-                  <div className="w-2.5 h-2.5 bg-red-600 rounded-full"></div>
-                </div>
-                <div className="text-4xl md:text-5xl font-semibold my-3">
-                  {stats.satisfied}
-                </div>
-                <div>Satisfied Client</div>
-              </div>
-            </div>
-          </motion.div>
-        </div>
-      </div> */}
-
-      <div
-        className="flex flex-col items-center"
-        onMouseOver={() => setIsHovering(true)}
-        onMouseLeave={() => setIsHovering(false)}
-      >
+      <div className="flex flex-col items-center">
         <div
-          className="py-16 w-full
+          className="py-16 w-full text-center
           md:px-8
           xl:px-32
           "
         >
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            variants={fadeInDown}
-            viewport={{ once: true, amount: 0.5 }}
-            className="text-center text-3xl  font-medium"
-          >
-            What Our Customers Say
-          </motion.div>
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            variants={zoomIn}
-            viewport={{ once: true, amount: 0.5 }}
+            <div className="text-base font-bold text-[#FDB813] pb-5">
+            Customers Feedback
+          </div>
+          <div className=" text-4xl  font-bold">
+            Our Customers Reviews<span className="text-[#FDB813]">.</span>
+          </div>
+          <div
             className="flex justify-center items-center w-full relative"
           >
-            {/* <button
-              className="bg-white w-14 h-14 hover:bg-yellow-400 text-black font-semibold shadow-xl px-4 rounded-full border-2 border-yellow-500 z-10"
-              onClick={handlePrev}
-            >
-              <LeftOutlined />
-            </button> */}
             <div
               className="m-8 py-1 overflow-x-scroll scroll-smooth no-scrollbar
               lg:w-[1020px]
@@ -1290,13 +1085,7 @@ const StatsAndTestamonials: React.FC = () => {
                 ))}
               </div>
             </div>
-            {/* <button
-              className="bg-white w-14 h-14 hover:bg-yellow-400 text-black font-semibold px-4 rounded-full border-2 border-yellow-500 z-10 shadow-xl"
-              onClick={handleNext}
-            >
-              <RightOutlined />
-            </button> */}
-          </motion.div>
+          </div>
         </div>
       </div>
     </>
@@ -1304,17 +1093,8 @@ const StatsAndTestamonials: React.FC = () => {
 };
 
 const AwsomeFeatures: React.FC = () => {
-  const fadeInDown = {
-    hidden: { opacity: 0, y: -50 },
-    visible: { opacity: 1, y: 0, transition: { duration: 1 } },
-  };
 
-  const slideIn = {
-    hidden: { x: -100, opacity: 0 },
-    visible: { x: 0, opacity: 1, transition: { duration: 1 } },
-  };
-
-  const [translateX, setTranslateX] = useState(-(320+16));
+  const [translateX, setTranslateX] = useState(-(320 + 16));
   const [transitionDuration, setTransitionDuration] = useState("duration-700");
   const cardWidthIncludingGap = 320 + 16;
   const numberOfVisibleCards = 1;
@@ -1390,40 +1170,26 @@ const AwsomeFeatures: React.FC = () => {
   );
 
   useEffect(() => {
-    
-      const interval = setInterval(() => {
-        setTranslateX((currentTranslate) => {
-          const newTranslate = currentTranslate - cardWidthIncludingGap;
-          if (newTranslate < maxTranslate) {
-            setTransitionDuration("duration-0"); // Instantly reset position without transition
-            setTimeout(() => setTransitionDuration("duration-700"), 50); // Then restore the transition for the next slide
-            return -(320+16); // Start over
-          }
-          return newTranslate;
-        });
-      }, slideInterval);
+    const interval = setInterval(() => {
+      setTranslateX((currentTranslate) => {
+        const newTranslate = currentTranslate - cardWidthIncludingGap;
+        if (newTranslate < maxTranslate) {
+          setTransitionDuration("duration-0"); // Instantly reset position without transition
+          setTimeout(() => setTransitionDuration("duration-700"), 50); // Then restore the transition for the next slide
+          return -(320 + 16); // Start over
+        }
+        return newTranslate;
+      });
+    }, slideInterval);
 
-      return () => clearInterval(interval);
-    
+    return () => clearInterval(interval);
   }, [features.length, cardWidthIncludingGap]);
-
-  // const handleNext = () => {
-  //   if (translateX > maxTranslate) {
-  //     setTranslateX(translateX - cardWidthIncludingGap);
-  //   }
-  // };
-
-  // const handlePrev = () => {
-  //   if (translateX < 0) {
-  //     setTranslateX(translateX + cardWidthIncludingGap);
-  //   }
-  // };
 
   return (
     <>
       <div className="space-y-10 py-20 pt-40">
         <div
-          className="flex flex-col justify-center items-center space-y-3 text-center
+          className="flex flex-col justify-center items-center space-y-5 text-center
         px-4
         sm:px-6
         md:px-10
@@ -1432,52 +1198,22 @@ const AwsomeFeatures: React.FC = () => {
         2xl:px:32
       "
         >
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            variants={fadeInDown}
-            viewport={{ once: true, amount: 0.5 }}
-            className="text-3xl font-medium "
+          <div className="font-bold text-[#FDB813]">Our Features</div>
+          <div
+            className="text-4xl font-bold "
           >
             Our Awesome Features
             <span className="text-[#FDB813]">.</span>
-          </motion.div>
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            variants={fadeInDown}
-            viewport={{ once: true, amount: 0.5 }}
-            className="text-sm text-gray-500
-              sm:w-[600px]
-        "
-          >
-            Explore top-tier service excellence with us. We're committed to
-            ensuring your safety and satisfaction. Our affordable rates make
-            luxury accessible, and our skilled drivers guarantee a stellar
-            journey, any time.
-          </motion.div>
+          </div>
         </div>
-        <motion.div
-          initial="hidden"
-          whileInView="visible"
-          variants={slideIn}
-          viewport={{ once: true, amount: 0.5 }}
+        <div
           className="px-16 relative"
         >
           <div
             className="flex justify-center items-center overflow-hidden"
-            onMouseOver={() => setIsHovering(true)}
-            onMouseLeave={() => setIsHovering(false)}
           >
-            {/* <button
-              className="absolute left-0 w-14 h-14 hidden lg:block bg-white hover:bg-yellow-400 text-black font-semibold px-4 rounded-full border-2 border-yellow-500 z-10 shadow-xl"
-              onClick={handlePrev}
-            >
-              <LeftOutlined />
-            </button> */}
-
             <div
-              className="m-8 py-1 scroll-smooth no-scrollbar
+              className="py-1 scroll-smooth no-scrollbar
               lg:w-[992px]
               md:w-[656px]
               w-[320px]
@@ -1511,69 +1247,25 @@ const AwsomeFeatures: React.FC = () => {
                 ))}
               </div>
             </div>
-
-            {/* <button
-              className="absolute right-0 w-14 h-14 hidden lg:block bg-white hover:bg-yellow-400 text-black font-semibold px-4 rounded-full border-2 border-yellow-500 z-10 shadow-xl"
-              onClick={handleNext}
-            >
-              <RightOutlined />
-            </button> */}
           </div>
-        </motion.div>
+        </div>
       </div>
     </>
   );
 };
 
 const OurBenefitsList: React.FC = () => {
-  const fadeInDown = {
-    hidden: { opacity: 0, y: -50 },
-    visible: { opacity: 1, y: 0, transition: { duration: 1 } },
-  };
 
   const slideIn = {
     hidden: { x: -100, opacity: 0 },
     visible: { x: 0, opacity: 1, transition: { duration: 1 } },
   };
 
-  // const benefits = [
-  //   {
-  //     icon: <CreditCardOutlined className='text-5xl text-[#FDB813]' />,
-  //     title: "Online Payment",
-  //     description: "Convenient and secure online payment options with support for multiple gateways.",
-  //   },
-  //   {
-  //     icon: <SafetyOutlined className='text-5xl text-[#FDB813]' />,
-  //     title: "Safety Guarantee",
-  //     description: "Top-notch safety measures for every ride ensuring a worry-free travel experience.",
-  //   },
-  //   {
-  //     icon: <CarOutlined className='text-5xl text-[#FDB813]' />,
-  //     title: "Quick Ride",
-  //     description: "Efficient booking and dispatch system to minimize wait times and get you on your way faster.",
-  //   },
-  //   {
-  //     icon: <DollarOutlined className='text-5xl text-[#FDB813]' />,
-  //     title: "Free Quotation",
-  //     description: "Get a free and instant quote for your ride with no hidden charges.",
-  //   },
-  //   {
-  //     icon: <UserOutlined className='text-5xl text-[#FDB813]' />,
-  //     title: "Cleared Drivers",
-  //     description: "Professionally trained drivers with thorough background checks for your peace of mind.",
-  //   },
-  //   {
-  //     icon: <TagOutlined className='text-5xl text-[#FDB813]' />,
-  //     title: "Discount & Promo",
-  //     description: "Enjoy exclusive discounts and promotions to save on your rides.",
-  //   },
-  // ];
-
   return (
     <>
       <div className="space-y-10 py-20">
         <div
-          className="flex flex-col justify-center items-center space-y-3 text-center
+          className="flex flex-col justify-center items-center space-y-5 text-center
           px-4
           sm:px-6
           md:px-10
@@ -1582,34 +1274,19 @@ const OurBenefitsList: React.FC = () => {
           2xl:px:32
         "
         >
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            variants={fadeInDown}
-            viewport={{ once: true, amount: 0.5 }}
-            className="text-3xl font-medium "
-          >
+          <div className="text-base font-bold text-[#FDB813]">
+            What We Offer
+          </div>
+          <div className="text-4xl font-bold ">
             We Offer The Best For You<span className="text-[#FDB813]">.</span>
-          </motion.div>
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            variants={fadeInDown}
-            viewport={{ once: true, amount: 0.5 }}
-            className="text-sm text-gray-500
-            sm:w-[600px]
-          "
-          >
+          </div>
+          <div className="text-[13px] text-gray-500 sm:w-[600px]">
             Discover unmatched services tailored just for you. We prioritize
             your convenience and safety, delivering quality and reliability with
             every interaction. Experience excellence redefined.
-          </motion.div>
+          </div>
         </div>
-        <motion.div
-          initial="hidden"
-          whileInView="visible"
-          variants={slideIn}
-          viewport={{ once: true, amount: 0.5 }}
+        <div
           className="flex flex-wrap gap-8 justify-center"
         >
           <div className="max-w-xs min-w-[320px]">
@@ -1619,7 +1296,7 @@ const OurBenefitsList: React.FC = () => {
                   <DollarOutlined className="text-3xl" />
                 </div>
                 <div className="text-white text-xl flex flex-col justify-between">
-                  <div className="tracking-wide">Support All Payment</div>
+                  <div className="tracking-wide">All Payment</div>
                   <div className="font-light text-sm">
                     Supports all major payment methods.
                   </div>
@@ -1720,7 +1397,7 @@ const OurBenefitsList: React.FC = () => {
               </div>
             </div>
           ))} */}
-        </motion.div>
+        </div>
 
         {/* <div className='w-full'>
           <div className='flex justify-center -mb-10'>
@@ -1793,7 +1470,7 @@ const EasyStep: React.FC = () => {
     <>
       <div className="space-y-24 py-20">
         <div
-          className="flex flex-col justify-center items-center space-y-3 text-center
+          className="flex flex-col justify-center items-center space-y-5 text-center
           px-4
           sm:px-6
           md:px-10
@@ -1802,34 +1479,21 @@ const EasyStep: React.FC = () => {
           2xl:px:32
         "
         >
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            variants={fadeInDown}
-            viewport={{ once: true, amount: 0.5 }}
-            className="text-3xl font-medium "
-          >
+          <div className="text-base font-bold text-[#FDB813]">How We Work</div>
+          <div className="text-4xl font-bold">
             Easy Step For Book Your Taxi
             <span className="text-[#FDB813]">.</span>
-          </motion.div>
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            variants={fadeInDown}
-            viewport={{ once: true, amount: 0.5 }}
+          </div>
+          <div
             className="text-sm text-gray-500
             sm:w-[600px]
           "
           >
             Four simple steps to a smooth, stress-free taxi booking. We ensure a
             seamless experience from start to finish.
-          </motion.div>
+          </div>
         </div>
-        <motion.div
-          initial="hidden"
-          whileInView="visible"
-          variants={zoomIn}
-          viewport={{ once: true, amount: 0.5 }}
+        <div
           className="w-full"
         >
           <div className="flex justify-center -mb-10">
@@ -1898,7 +1562,7 @@ const EasyStep: React.FC = () => {
               </div>
             </div>
           </div>
-        </motion.div>
+        </div>
       </div>
     </>
   );
@@ -1978,37 +1642,11 @@ const WhatWeAreOffering: React.FC = () => {
   ];
 
   const [translateX, setTranslateX] = useState(0);
-  const [transitionDuration, setTransitionDuration] = useState("duration-700");
-  const cardWidthIncludingGap = 440;
-  const numberOfVisibleCards = 2;
-  const slideInterval = 2000;
 
   const [isHovering, setIsHovering] = useState(false);
   const [isDragging, setIsDragging] = useState(false);
   const [startX, setStartX] = useState(0);
   const [currentX, setCurrentX] = useState(0);
-
-  // useEffect(() => {
-  //   if (!isHovering) {
-  //     // Only run the interval if not hovering
-  //     const maxTranslate = -(services.length * cardWidthIncludingGap - window.innerWidth + cardWidthIncludingGap * numberOfVisibleCards);
-  //     const interval = setInterval(() => {
-  //       if (!isDragging) { // Pause sliding if dragging
-  //         setTranslateX(currentTranslate => {
-  //           const newTranslate = currentTranslate - cardWidthIncludingGap;
-  //           if (newTranslate < maxTranslate) {
-  //             setTransitionDuration('duration-0');
-  //             setTimeout(() => setTransitionDuration('duration-700'), 50);
-  //             return 0;
-  //           }
-  //           return newTranslate;
-  //         });
-  //       }
-  //     }, slideInterval);
-
-  //     return () => clearInterval(interval);
-  //   }
-  // }, [services.length, cardWidthIncludingGap, isHovering, isDragging]);
 
   const handleMouseDown = (e: any) => {
     setIsDragging(true);
@@ -2028,17 +1666,18 @@ const WhatWeAreOffering: React.FC = () => {
   };
 
   return (
-    <>
-      <div className="space-y-12 py-20 bg-[#ececf4]">
-        <motion.div
-          initial="hidden"
-          whileInView="visible"
-          variants={fadeInDown}
-          viewport={{ once: true, amount: 0.01 }}
-          className="text-center text-3xl font-medium"
-        >
+    <div className="">
+      <div className="flex flex-col justify-center items-center text-center space-y-5 py-20 bg-[#ececf4]">
+        <div className=" font-bold text-[#FDB813]">Ride In Comfort</div>
+        <div className="text-4xl font-bold">
           We Make Your Every Trip Comfortable
-        </motion.div>
+          <span className="text-[#FDB813]">.</span>
+        </div>
+        <div className="text-[13px] text-gray-500 sm:w-[600px]">
+          Discover unmatched services tailored just for you. We prioritize your
+          convenience and safety, delivering quality and reliability with every
+          interaction. Experience excellence redefined.
+        </div>
         <div
           className="flex justify-center"
           onMouseLeave={() => setIsHovering(false)}
@@ -2054,18 +1693,12 @@ const WhatWeAreOffering: React.FC = () => {
             onMouseUp={handleMouseUp}
             onMouseLeave={handleMouseUp}
           >
-            <motion.div
-              initial="hidden"
-              whileInView="visible"
-              variants={staggerContainer}
-              viewport={{ once: true, amount: 0.3 }}
+            <div
               className={`flex flex-wrap justify-center gap-8`}
             >
               {services.map((service, index) => (
-                <motion.div
-                  key={index}
+                <div
                   className="service-card"
-                  variants={fadeInDown}
                 >
                   <ServiceCard
                     icon={service.icon}
@@ -2075,13 +1708,13 @@ const WhatWeAreOffering: React.FC = () => {
                     detailsUrl={service.detailsUrl}
                     image={service.image}
                   />
-                </motion.div>
+                </div>
               ))}
-            </motion.div>
+            </div>
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

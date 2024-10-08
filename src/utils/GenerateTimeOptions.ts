@@ -20,7 +20,7 @@ export const generateTimeOptions = (date: Dayjs): { label: string; key: string }
     const minutes = time.getMinutes();
     const ampm = hours >= 12 ? 'PM' : 'AM';
 
-    const formattedHours = hours % 12 === 0 ? 12 : hours % 12;
+    const formattedHours = (hours % 12 === 0 ? 12 : hours % 12).toString().padStart(2, '0');
     const formattedMinutes = minutes === 0 ? '00' : minutes;
 
     const timeString = `${formattedHours}:${formattedMinutes} ${ampm}`;

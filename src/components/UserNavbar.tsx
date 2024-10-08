@@ -384,10 +384,10 @@ const UserNavbar: React.FC = () => {
 
                     <div className='hidden md:flex space-x-6 mr-2'>
                         {userAuthenticated ?
-                            <button className="border border-[#FDB813] p-2 rounded-xl text-lg font-medium hidden md:block hover:text-[#FDB813]" onClick={() => {
+                            <button className="border-2 border-[#FDB813] p-2 rounded-xl text-lg font-medium hidden md:block hover:text-[#FDB813]" onClick={() => {
                                 navigate('/profile')
                             }}>
-                                <UserOutlined className='rounded-full bg-[#FDB813] text-white p-2'/> Hey TRAVELLER
+                                <UserOutlined className='rounded-full bg-[#FDB813] text-white p-2'/> Travel Account
                             </button>
                             : <button className="text-xl font-medium hidden md:block hover:text-[#FDB813]" onClick={showLoginModal}>
                                 <span className='flex gap-2'>
