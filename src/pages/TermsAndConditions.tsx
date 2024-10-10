@@ -35,7 +35,7 @@ const Badge: React.FC = () => {
     >
       <div className="bg-[#00000099] text-white space-y-1 rounded-3xl p-24">
         <div className="text-center text-6xl font-bold">
-          <span className="text-[#FDB813]">Terms &</span> Conditions
+          <span className="text-[#FDB813]">Terms &</span> Conditions<span className="text-[#FDB813]">.</span>
         </div>
         <div className="text-center text-sm">
           Reliable, affordable taxi services for safe and comfortable journeys.
