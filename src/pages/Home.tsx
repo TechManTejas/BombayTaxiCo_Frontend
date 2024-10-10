@@ -64,6 +64,7 @@ import { AirportTransferIcon } from "../icons/AirportTransfer.js";
 import { CorporateCarRentalIcon } from "../icons/CorporateCarRental.js";
 import { FaCalendarAlt, FaClock } from "react-icons/fa";
 import { ReadyToBook } from "../components/ReadyToBook.js";
+import { From } from "../icons/From.js";
 
 message.config({
   top: "25%",
@@ -190,7 +191,14 @@ const Hero: React.FC = () => {
   const menuDistance: MenuProps["items"] = generateDistanceOptions();
 
   const menuPropsPickupCity = {
-    items: menuCities,
+    items: cities.map((city: ICity) => ({
+      label: (
+        <span>
+            {<EnvironmentFilled />} {city.name}
+          </span>
+      ),
+      key: city._id,
+    })),
     onClick: handleMenuClickPickupCity,
   };
 
@@ -199,9 +207,10 @@ const Hero: React.FC = () => {
       .filter((city: ICity) => city._id !== toId)
       .map((city: ICity) => ({
         label: (
-          <span>
-            {<EnvironmentOutlined />} {city.name}
-          </span>
+          <div className="flex items-center">
+            <div>{<From />}</div>
+            <div>{city.name}</div>
+          </div>
         ),
         key: city._id,
       })),
@@ -214,7 +223,7 @@ const Hero: React.FC = () => {
       .map((city: ICity) => ({
         label: (
           <span>
-            {<EnvironmentOutlined />} {city.name}
+            {<EnvironmentFilled />} {city.name}
           </span>
         ),
         key: city._id,
@@ -334,14 +343,11 @@ const Hero: React.FC = () => {
             lg:mt-0
           "
           >
-            <div
-              className="h-16 lg:h-max text-center space-y-4"
-            >
-              <div className="text-xl lg:text-3xl font-thin text-white fade-in">
-                Welcome to Bombay Taxi Co.
-              </div>
-              <div className="text-2xl lg:text-5xl font-bold text-white fade-in">
-              Enjoy Your Comfortable Trip<span className="text-[#FDB813]">.</span>
+            <div className="h-16 lg:h-max text-center space-y-4">
+              <div className="text-[#FDB813]">Welcome to Bombay Taxi Co.</div>
+              <div className="text-[3.2rem] font-bold text-white">
+                Enjoy Your Comfortable Trip
+                <span className="text-[#FDB813]">.</span>
               </div>
             </div>
           </div>
@@ -454,7 +460,7 @@ const Hero: React.FC = () => {
                     }
                     <div className="group w-[328px] lg:w-[228px]  p-3 pb-4 space-y-1 border-2 rounded-xl z-20 hover:border-[#FDB813] transition-all duration-300">
                       <div className="text-xs flex items-center gap-1">
-                        <EnvironmentFilled />
+                        <From />
                         FROM
                       </div>
                       <Dropdown menu={menuPropsFrom} placement="bottomLeft">
@@ -646,15 +652,15 @@ const Hero: React.FC = () => {
 };
 
 const WhyChooseUs: React.FC = () => {
-
   return (
     <div className="flex w-full justify-center bg-[#ececf4]">
       <div className="space-y-12 py-20 w-full container">
-        <div className="text-center text-4xl font-bold">
-          <div className="text-base font-bold pb-5 text-[#FDB813]">
+        <div className="text-center text-4xl">
+          <div className="text-base pb-5 text-[#FDB813]">Why Choose Us?</div>
+          <div className="text-[2.7rem] text-[#2a2a2a] font-bold">
             Why Choose Bombay Taxi Company
+            <span className="text-[#FDB813]">.</span>
           </div>
-          Why Choose Us?<span className="text-[#FDB813]">.</span>
         </div>
         <div
           className="flex flex-wrap gap-5 items-center justify-center
@@ -663,12 +669,12 @@ const WhyChooseUs: React.FC = () => {
           <WhyChooseUsCard
             icon={<UserOutlined />}
             title="Personalized Rides"
-            description="Book our services and adjust according to your need"
+            description="Book our services and adjust according to your need."
           />
           <WhyChooseUsCard
             icon={<CarOutlined />}
             title="Flexible Cancellation"
-            description="If the unforeseen happens, you can easily request a cancellation through our easy to use booking platform"
+            description="Easy trip cancel through our user-friendly booking platform."
           />
           <WhyChooseUsCard
             icon={<DollarCircleOutlined />}
@@ -915,7 +921,6 @@ const OurAchievement: React.FC = () => {
 };
 
 const StatsAndTestamonials: React.FC = () => {
-
   const [isVisible, elementRef] = useIntersectionObserver({});
   const [stats, setStats] = useState({
     fleet: 0,
@@ -1051,15 +1056,13 @@ const StatsAndTestamonials: React.FC = () => {
           xl:px-32
           "
         >
-            <div className="text-base font-bold text-[#FDB813] pb-5">
+          <div className="text-base text-[#FDB813] pb-5">
             Customers Feedback
           </div>
-          <div className=" text-4xl  font-bold">
+          <div className=" text-[2.7rem] text-[#2a2a2a]  font-bold">
             Our Customers Reviews<span className="text-[#FDB813]">.</span>
           </div>
-          <div
-            className="flex justify-center items-center w-full relative"
-          >
+          <div className="flex justify-center items-center w-full relative">
             <div
               className="m-8 py-1 overflow-x-scroll scroll-smooth no-scrollbar
               lg:w-[1020px]
@@ -1093,7 +1096,6 @@ const StatsAndTestamonials: React.FC = () => {
 };
 
 const AwsomeFeatures: React.FC = () => {
-
   const [translateX, setTranslateX] = useState(-(320 + 16));
   const [transitionDuration, setTransitionDuration] = useState("duration-700");
   const cardWidthIncludingGap = 320 + 16;
@@ -1198,20 +1200,14 @@ const AwsomeFeatures: React.FC = () => {
         2xl:px:32
       "
         >
-          <div className="font-bold text-[#FDB813]">Our Features</div>
-          <div
-            className="text-4xl font-bold "
-          >
+          <div className="text-[#FDB813]">Our Features</div>
+          <div className="text-[2.7rem] text-[#2a2a2a] font-bold ">
             Our Awesome Features
             <span className="text-[#FDB813]">.</span>
           </div>
         </div>
-        <div
-          className="px-16 relative"
-        >
-          <div
-            className="flex justify-center items-center overflow-hidden"
-          >
+        <div className="px-16 relative">
+          <div className="flex justify-center items-center overflow-hidden">
             <div
               className="py-1 scroll-smooth no-scrollbar
               lg:w-[992px]
@@ -1255,12 +1251,6 @@ const AwsomeFeatures: React.FC = () => {
 };
 
 const OurBenefitsList: React.FC = () => {
-
-  const slideIn = {
-    hidden: { x: -100, opacity: 0 },
-    visible: { x: 0, opacity: 1, transition: { duration: 1 } },
-  };
-
   return (
     <>
       <div className="space-y-10 py-20">
@@ -1274,10 +1264,8 @@ const OurBenefitsList: React.FC = () => {
           2xl:px:32
         "
         >
-          <div className="text-base font-bold text-[#FDB813]">
-            What We Offer
-          </div>
-          <div className="text-4xl font-bold ">
+          <div className="text-base text-[#FDB813]">What We Offer</div>
+          <div className="text-[2.7rem] text-[#2a2a2a] font-bold ">
             We Offer The Best For You<span className="text-[#FDB813]">.</span>
           </div>
           <div className="text-[13px] text-gray-500 sm:w-[600px]">
@@ -1286,9 +1274,7 @@ const OurBenefitsList: React.FC = () => {
             every interaction. Experience excellence redefined.
           </div>
         </div>
-        <div
-          className="flex flex-wrap gap-8 justify-center"
-        >
+        <div className="flex flex-wrap gap-8 justify-center">
           <div className="max-w-xs min-w-[320px]">
             <div className="bg-[#2A2A2A] rounded-2xl p-5 py-8 flex flex-col gap-5 w-full">
               <div className="flex gap-x-3">
@@ -1456,16 +1442,6 @@ const OurBenefitsList: React.FC = () => {
 };
 
 const EasyStep: React.FC = () => {
-  const fadeInDown = {
-    hidden: { opacity: 0, y: -50 },
-    visible: { opacity: 1, y: 0, transition: { duration: 1 } },
-  };
-
-  const zoomIn = {
-    hidden: { scale: 0.8, opacity: 0 },
-    visible: { scale: 1, opacity: 1, transition: { duration: 1 } },
-  };
-
   return (
     <>
       <div className="space-y-24 py-20">
@@ -1479,8 +1455,8 @@ const EasyStep: React.FC = () => {
           2xl:px:32
         "
         >
-          <div className="text-base font-bold text-[#FDB813]">How We Work</div>
-          <div className="text-4xl font-bold">
+          <div className="text-base text-[#FDB813]">How We Work</div>
+          <div className="text-[2.7rem] text-[#2a2a2a] font-bold">
             Easy Step For Book Your Taxi
             <span className="text-[#FDB813]">.</span>
           </div>
@@ -1493,9 +1469,7 @@ const EasyStep: React.FC = () => {
             seamless experience from start to finish.
           </div>
         </div>
-        <div
-          className="w-full"
-        >
+        <div className="w-full">
           <div className="flex justify-center -mb-10">
             <div
               className="border border-dashed  justify-center w-[600px]
@@ -1569,21 +1543,6 @@ const EasyStep: React.FC = () => {
 };
 
 const WhatWeAreOffering: React.FC = () => {
-  const fadeInDown = {
-    hidden: { opacity: 0, y: -50 },
-    visible: { opacity: 1, y: 0, transition: { duration: 1 } },
-  };
-
-  const staggerContainer = {
-    hidden: { opacity: 1 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.3,
-      },
-    },
-  };
-
   const services = [
     {
       icon: <OnlineEasyBookingIcon />,
@@ -1668,8 +1627,8 @@ const WhatWeAreOffering: React.FC = () => {
   return (
     <div className="">
       <div className="flex flex-col justify-center items-center text-center space-y-5 py-20 bg-[#ececf4]">
-        <div className=" font-bold text-[#FDB813]">Ride In Comfort</div>
-        <div className="text-4xl font-bold">
+        <div className="text-[#FDB813]">Ride In Comfort</div>
+        <div className="text-[2.7rem] text-[#2a2a2a] font-bold">
           We Make Your Every Trip Comfortable
           <span className="text-[#FDB813]">.</span>
         </div>
@@ -1693,13 +1652,9 @@ const WhatWeAreOffering: React.FC = () => {
             onMouseUp={handleMouseUp}
             onMouseLeave={handleMouseUp}
           >
-            <div
-              className={`flex flex-wrap justify-center gap-8`}
-            >
+            <div className={`flex flex-wrap justify-center gap-8`}>
               {services.map((service, index) => (
-                <div
-                  className="service-card"
-                >
+                <div className="service-card">
                   <ServiceCard
                     icon={service.icon}
                     feature={service.feature}
