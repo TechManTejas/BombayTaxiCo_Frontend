@@ -22,10 +22,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 
 import { ISettings } from "../types/settings.types";
 import { IRoute } from "../types/routes.types";
-import {
-  ArrowRightOutlined,
-  UpOutlined,
-} from "@ant-design/icons";
+import { ArrowRightOutlined, UpOutlined } from "@ant-design/icons";
 import dayjs, { Dayjs } from "dayjs";
 import { Context } from "../context/context.provider";
 import { BookingConfirmed } from "../components/BookingConfirmed";
@@ -350,6 +347,31 @@ const PreBoardingGuidelines = () => {
                 <div className="w-full">
                   ● Provide the one-time password (otp) to the driver to start
                   the trip.
+                </div>
+              </div>
+            </div>
+          </Panel>
+        </Collapse>
+      </div>
+    </>
+  );
+};
+
+const WaitingAndDriverAllowance = () => {
+  return (
+    <>
+      <div className="bg-white border my-3  rounded-lg">
+        <Collapse accordion className="bg-white rounded-2xl border-none">
+          <Panel header="Waiting and Driver allowance" key="4">
+            <div
+              className="lg:flex gap-8
+            lg:w-[730px]
+          "
+            >
+              <div className="font-light space-y-2 w-full">
+                <div className="flex w-full justify-between">
+                  <div>Name</div>
+                  <div>₹ price/KM</div>
                 </div>
               </div>
             </div>
@@ -730,7 +752,7 @@ const Details: React.FC = () => {
                         </div>
                         {tripType === "Hourly Rental" ? (
                           <>
-                             <div className="font-bold flex items-center gap-0.5">
+                            <div className="font-bold flex items-center gap-0.5">
                               <div>{state?.pickupCity}</div>
                             </div>
                           </>
@@ -784,12 +806,12 @@ const Details: React.FC = () => {
               />
               <>
                 <div
-                  className="flex h-full
+                  className="flex h-full bg-white my-3 rounded-lg shadow-lg border
                   flex-col
                   lg:flex-row
                 "
                 >
-                  <div className="lg:w-1/2 bg-white border my-3 mr-3 p-4 rounded-lg shadow-lg">
+                  <div className="lg:w-1/2  p-4 ">
                     <div className="font-medium text-2xl mb-4">Inclusions</div>
                     <div className="mx-4 mb-4">
                       <ul className="list-disc space-y-2 text-sm">
@@ -814,14 +836,15 @@ const Details: React.FC = () => {
                       </ul>
                     </div>
                   </div>
-                  <div className="lg:w-1/2 bg-white border my-3 ml-3  p-4 rounded-lg shadow-lg">
+                  <div className="border-r"></div>
+                  <div className="lg:w-1/2  p-4 ">
                     <div className="font-medium text-2xl mb-4">Exclusions</div>
                     <div className="mx-4 mb-4">
                       <ul className="list-disc space-y-2 text-sm">
                         <li>
                           <div className="flex">
                             <div className="flex-grow">Waiting Charges</div>
-                            <div className="text-right w-24 font-semibold">
+                            <div className="flex-grow text-right w-24 font-semibold">
                               After 45 mins, ₹{" "}
                               {settings?.waitingChargesPerMinute?.toLocaleString()}
                             </div>
@@ -839,8 +862,7 @@ const Details: React.FC = () => {
                               Kms
                             </div>
                             <div className="text-right w-24 font-semibold">
-                              ₹{" "}
-                              {taxiRate.taxiType.extra_km_charges?.toLocaleString()}
+                              ₹ {taxiRate.extraKmCharges?.toLocaleString()}
                               /Km
                             </div>
                           </div>
@@ -881,7 +903,8 @@ const Details: React.FC = () => {
                             },
                             {
                               pattern: /^[A-Za-z\s]+$/,
-                              message: "Name can only contain letters and spaces!",
+                              message:
+                                "Name can only contain letters and spaces!",
                             },
                           ]}
                         >
@@ -1150,7 +1173,7 @@ const Details: React.FC = () => {
                         Additional details
                       </div>
 
-                      <div className="lg:flex w-full gap-10">
+                      <div className="lg:flex w-full gap-3">
                         <Form.Item
                           className="w-full lg:w-1/3"
                           label="No. of passengers"
@@ -1208,9 +1231,10 @@ const Details: React.FC = () => {
                         serve you better.
                       </div>
 
-                      <div className="lg:flex w-full">
-                        <div className="lg:w-1/3">
+                      <div className="lg:flex gap-3 w-full">
+                        <div className="w-full">
                           <Form.Item
+                            className="m-0"
                             name="seniorCitizen"
                             valuePropName="checked"
                           >
@@ -1220,6 +1244,7 @@ const Details: React.FC = () => {
                           </Form.Item>
 
                           <Form.Item
+                            className="m-0"
                             name="womenTraveling"
                             valuePropName="checked"
                           >
@@ -1228,14 +1253,15 @@ const Details: React.FC = () => {
                             </Checkbox>
                           </Form.Item>
 
-                          <Form.Item name="kidsOnBoard" valuePropName="checked">
+                          <Form.Item className="m-0" name="kidsOnBoard" valuePropName="checked">
                             <Checkbox value="kidsOnBoard">
                               Kids on board
                             </Checkbox>
                           </Form.Item>
                         </div>
-                        <div className="lg:w-1/3">
+                        <div className="w-full">
                           <Form.Item
+                            className="m-0"
                             name="need7Plus1Seater"
                             valuePropName="checked"
                           >
@@ -1244,6 +1270,7 @@ const Details: React.FC = () => {
                             </Checkbox>
                           </Form.Item>
                           <Form.Item
+                            className="m-0"
                             name="carrierOverTop"
                             valuePropName="checked"
                           >
@@ -1252,6 +1279,7 @@ const Details: React.FC = () => {
                             </Checkbox>
                           </Form.Item>
                           <Form.Item
+                            className="m-0"
                             name="bookingForSomeoneElse"
                             valuePropName="checked"
                           >
@@ -1260,7 +1288,7 @@ const Details: React.FC = () => {
                             </Checkbox>
                           </Form.Item>
                           {isOtherChecked && (
-                            <Form.Item name="otherDetails">
+                            <Form.Item className="m-0" name="otherDetails">
                               <Input.TextArea
                                 placeholder="Please specify"
                                 autoSize={{ minRows: 3, maxRows: 3 }}
@@ -1269,8 +1297,9 @@ const Details: React.FC = () => {
                             </Form.Item>
                           )}
                         </div>
-                        <div className="lg:w-1/3">
-                        <Form.Item
+                        <div className="w-full">
+                          <Form.Item
+                            className="m-0"
                             name="englishSpeakingDriver"
                             valuePropName="checked"
                           >
@@ -1278,12 +1307,12 @@ const Details: React.FC = () => {
                               English-speaking driver preferred
                             </Checkbox>
                           </Form.Item>
-                          <Form.Item name="carryingPet" valuePropName="checked">
+                          <Form.Item className="m-0" name="carryingPet" valuePropName="checked">
                             <Checkbox value="carryingPet">
                               Carrying Pet
                             </Checkbox>
                           </Form.Item>
-                          <Form.Item name="other" valuePropName="checked">
+                          <Form.Item className="m-0" name="other" valuePropName="checked">
                             <Checkbox
                               onChange={onOtherCheckboxChange}
                               value="other"
@@ -1292,7 +1321,7 @@ const Details: React.FC = () => {
                             </Checkbox>
                           </Form.Item>
                           {isOtherChecked && (
-                            <Form.Item name="otherDetails">
+                            <Form.Item className="m-0" name="otherDetails">
                               <Input.TextArea
                                 placeholder="Please specify"
                                 autoSize={{ minRows: 3, maxRows: 3 }}
@@ -1310,6 +1339,7 @@ const Details: React.FC = () => {
               <OnTripDosAndDonts />
               <OtherTerms />
               <PreBoardingGuidelines />
+              <WaitingAndDriverAllowance />
             </div>
             <>
               <div className="min-w-full lg:min-w-[320px] max-w-xs lg:w-full m-3 sticky top-36">
