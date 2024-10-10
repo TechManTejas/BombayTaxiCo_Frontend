@@ -16,7 +16,6 @@ import { ISettings } from "../types/settings.types";
 import { IRoute } from "../types/routes.types";
 import { ITaxiType } from "../types/taxiTypes.types";
 import { generateDistanceOptions } from "../utils/GenerateDistanceOptions";
-import { ReadyToBook } from "../components/ReadyToBook";
 import { Container } from "@mui/material";
 
 interface BillCardProps {
@@ -392,7 +391,7 @@ const Search: React.FC = () => {
           lg:flex
         "
         >
-          <div className="container flex justify-center bg-[#2A2A2A] rounded-lg w-[1160px]">
+          <div className="container flex justify-center bg-[#2A2A2A] rounded-lg w-[1164px]">
             <div className="flex items-center h-full py-2">
               <div
                 className={`relative bg-[#404040] mx-1 py-2 rounded-lg text-sm hover:bg-gray-700 hover:cursor-pointer
@@ -436,15 +435,24 @@ const Search: React.FC = () => {
               {tripType !== "Hourly Rental" && (
                 <div className="flex relative">
                   <div
-                    className="relative bg-[#404040] mx-1 py-2 rounded-lg text-sm hover:bg-gray-700 hover:cursor-pointer z-20
+                    className="relative bg-[#404040] mx-1 mr-2 py-2 rounded-lg text-sm hover:bg-gray-700 hover:cursor-pointer z-20
                 w-36
                 xl:w-44
               "
                     onClick={toggleFrom}
                   >
-                    <div className="px-2">
+                    <div className="px-2 w-full">
                       <div className="text-[#FDB813]">FROM</div>
-                      <div className="text-white">{from}</div>
+                      <div
+                        className="text-white w-full"
+                        style={{
+                          overflow: "hidden",
+                          whiteSpace: "nowrap",
+                          textOverflow: "ellipsis",
+                        }}
+                      >
+                        {from}
+                      </div>
                     </div>
                     <Select
                       open={fromOpen}
@@ -475,15 +483,24 @@ const Search: React.FC = () => {
                   </div>
 
                   <div
-                    className="relative bg-[#404040] mx-1 py-2 rounded-lg text-sm hover:bg-gray-700 hover:cursor-pointer z-20
+                    className="relative bg-[#404040] mx-1 ml-2 py-2 rounded-lg text-sm hover:bg-gray-700 hover:cursor-pointer z-20
                 w-36
                 xl:w-44
               "
                     onClick={toggleTo}
                   >
-                    <div className="px-2">
+                    <div className="px-2 w-full">
                       <div className="text-[#FDB813]">TO</div>
-                      <div className="text-white">{to}</div>
+                      <div
+                        className="text-white w-full"
+                        style={{
+                          overflow: "hidden",
+                          whiteSpace: "nowrap",
+                          textOverflow: "ellipsis",
+                        }}
+                      >
+                        {to}
+                      </div>
                     </div>
                     <Select
                       open={toOpen}
@@ -508,14 +525,23 @@ const Search: React.FC = () => {
               {tripType === "Hourly Rental" && (
                 <>
                   <div
-                    className={`relative bg-[#404040] mx-1 py-2 rounded-lg text-sm hover:bg-gray-700 hover:cursor-pointer
+                    className={`relative bg-[rgb(64,64,64)] mx-1 py-2 rounded-lg text-sm hover:bg-gray-700 hover:cursor-pointer
                     ${tripType === "Hourly Rental" ? "w-48" : "w-36 xl:w-40"}
                   `}
                     onClick={togglePickupCity}
                   >
-                    <div className="px-2">
+                    <div className="px-2 w-full">
                       <div className="text-[#FDB813]">PICKUP LOCATION</div>
-                      <div className="text-white">{pickupCity}</div>
+                      <div
+                        className="text-white w-full"
+                        style={{
+                          overflow: "hidden",
+                          whiteSpace: "nowrap",
+                          textOverflow: "ellipsis",
+                        }}
+                      >
+                        {pickupCity}
+                      </div>
                     </div>
                     <Select
                       open={pickupCityOpen}
@@ -568,7 +594,7 @@ const Search: React.FC = () => {
                     return (
                       <div
                         className={`ant-picker-cell-inner ${
-                          isSunday ? 'bg-[#FDB813]' : ''
+                          isSunday ? "bg-[#FDB813]" : ""
                         }`}
                       >
                         {currentDate.date()}
@@ -640,7 +666,7 @@ const Search: React.FC = () => {
                           return (
                             <div
                               className={`ant-picker-cell-inner ${
-                                isSunday ? 'bg-[#FDB813]' : ''
+                                isSunday ? "bg-[#FDB813]" : ""
                               }`}
                             >
                               {currentDate.date()}
@@ -807,13 +833,15 @@ const Search: React.FC = () => {
           <span className="text-zinc-600">
             Fare listed above are estimated based on gathered information. Final
             fare shall depend on actual travelled distance. Mileage & Timings
-            will be calculated from Customer pickup location to customer drop location.
-            <br/>
-            Your trip has a KM & Time limit, if your usage exceeds this limit, you will be charges for exes.
+            will be calculated from Customer pickup location to customer drop
+            location.
+            <br />
+            Your trip has a KM & Time limit, if your usage exceeds this limit,
+            you will be charges for exes.
           </span>
         </Container>
       </div>
-      <ReadyToBook/>
+      {/* <ReadyToBook/> */}
       <Footer />
     </>
   );

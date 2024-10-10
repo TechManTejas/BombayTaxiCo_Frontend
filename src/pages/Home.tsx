@@ -65,6 +65,8 @@ import { CorporateCarRentalIcon } from "../icons/CorporateCarRental.js";
 import { FaCalendarAlt, FaClock } from "react-icons/fa";
 import { ReadyToBook } from "../components/ReadyToBook.js";
 import { From } from "../icons/From.js";
+import { DividerWithLogo } from "../components/DividerWithLogo.js";
+import { DividerWithoutLogo } from "../components/DividerWithoutLogo.js";
 
 message.config({
   top: "25%",
@@ -419,10 +421,15 @@ const Hero: React.FC = () => {
                       <EnvironmentFilled />
                       PICKUP LOCATION
                     </div>
-                    <Dropdown menu={menuPropsPickupCity} placement="bottomLeft">
+                    <Dropdown menu={menuPropsPickupCity} placement="bottomLeft" className="w-full">
                       <button
-                        className="text-[1.4rem] group-hover:text-[#FDB813] transition-all duration-300"
-                        style={{ border: "none" }}
+                        className="text-[1.4rem] group-hover:text-[#FDB813] transition-all duration-300 w-full"
+                        style={{
+                          border: "none",
+                          overflow: "hidden",
+                          whiteSpace: "nowrap",
+                          textOverflow: "ellipsis", 
+                        }}
                       >
                         {pickupCity || "Select City"}
                       </button>
@@ -463,10 +470,15 @@ const Hero: React.FC = () => {
                         <From />
                         FROM
                       </div>
-                      <Dropdown menu={menuPropsFrom} placement="bottomLeft">
+                      <Dropdown menu={menuPropsFrom} placement="bottomLeft" className="w-full">
                         <button
-                          className="text-[1.4rem] group-hover:text-[#FDB813] transition-all duration-300"
-                          style={{ border: "none" }}
+                          className="text-[1.4rem] group-hover:text-[#FDB813] transition-all duration-300 w-full"
+                          style={{
+                            border: "none",
+                            overflow: "hidden",
+                            whiteSpace: "nowrap",
+                            textOverflow: "ellipsis", 
+                          }}
                         >
                           {from || "Select City"}
                         </button>
@@ -478,10 +490,15 @@ const Hero: React.FC = () => {
                         <EnvironmentFilled />
                         TO
                       </div>
-                      <Dropdown menu={menuPropsTo} placement="bottomLeft">
+                      <Dropdown menu={menuPropsTo} placement="bottomLeft" className="w-full">
                         <button
-                          className="text-[1.4rem] group-hover:text-[#FDB813] transition-all duration-300"
-                          style={{ border: "none" }}
+                          className="text-[1.4rem] group-hover:text-[#FDB813] transition-all duration-300 w-full"
+                          style={{
+                            border: "none",
+                            overflow: "hidden",
+                            whiteSpace: "nowrap",
+                            textOverflow: "ellipsis", 
+                          }}
                         >
                           {to || "Select City"}
                         </button>
@@ -653,7 +670,7 @@ const Hero: React.FC = () => {
 
 const WhyChooseUs: React.FC = () => {
   return (
-    <div className="flex w-full justify-center bg-[#ececf4]">
+    <div className="flex w-full justify-center">
       <div className="space-y-12 py-20 w-full container">
         <div className="text-center text-4xl">
           <div className="text-base pb-5 text-[#FDB813]">Why Choose Us?</div>
@@ -825,7 +842,7 @@ const OurAchievement: React.FC = () => {
   }, [isVisible]);
 
   return (
-    <div ref={elementRef} className="">
+    <div ref={elementRef} className="mb-32">
       <div className="flex justify-center">
         <div
           className="rounded-3xl"
@@ -836,7 +853,7 @@ const OurAchievement: React.FC = () => {
         >
           <div className="px-14 p-12 py-16 bg-blue-950 bg-opacity-70 rounded-3xl flex flex-col gap-6">
             <div className="text-center">
-              <div className="text-base font-bold text-[#FDB813] pb-5">
+              <div className="text-base text-[#FDB813] pb-5">
                 Our Experience
               </div>
               <div className="text-3xl lg:text-4xl text-white font-extrabold ">
@@ -1096,9 +1113,9 @@ const StatsAndTestamonials: React.FC = () => {
 };
 
 const AwsomeFeatures: React.FC = () => {
-  const [translateX, setTranslateX] = useState(-(320 + 16));
+  const [translateX, setTranslateX] = useState(-(320 + 30));
   const [transitionDuration, setTransitionDuration] = useState("duration-700");
-  const cardWidthIncludingGap = 320 + 16;
+  const cardWidthIncludingGap = 320 + 30;
   const numberOfVisibleCards = 1;
   const slideInterval = 2000;
 
@@ -1178,7 +1195,7 @@ const AwsomeFeatures: React.FC = () => {
         if (newTranslate < maxTranslate) {
           setTransitionDuration("duration-0"); // Instantly reset position without transition
           setTimeout(() => setTransitionDuration("duration-700"), 50); // Then restore the transition for the next slide
-          return -(320 + 16); // Start over
+          return -(320 + 30); // Start over
         }
         return newTranslate;
       });
@@ -1192,12 +1209,8 @@ const AwsomeFeatures: React.FC = () => {
       <div className="space-y-10 py-20 pt-40">
         <div
           className="flex flex-col justify-center items-center space-y-5 text-center
-        px-4
-        sm:px-6
-        md:px-10
-        lg:px-14
-        xl:px-20
-        2xl:px:32
+        md:px-8
+          xl:px-32
       "
         >
           <div className="text-[#FDB813]">Our Features</div>
@@ -1206,19 +1219,19 @@ const AwsomeFeatures: React.FC = () => {
             <span className="text-[#FDB813]">.</span>
           </div>
         </div>
-        <div className="px-16 relative">
+        <div className="relative">
           <div className="flex justify-center items-center overflow-hidden">
             <div
-              className="py-1 scroll-smooth no-scrollbar
-              lg:w-[992px]
-              md:w-[656px]
+              className="py-1 scroll-smooth no-scrollbar  overflow-hidden
+              lg:w-[1020px]
+              md:w-[670px]
               w-[320px]
             "
             >
               <div
                 className={`flex gap-4 ${transitionDuration}`}
                 style={{
-                  gap: `${16}px`,
+                  gap: `${30}px`,
                   transform: `translateX(${translateX}px)`,
                 }}
               >
@@ -1626,7 +1639,7 @@ const WhatWeAreOffering: React.FC = () => {
 
   return (
     <div className="">
-      <div className="flex flex-col justify-center items-center text-center space-y-5 py-20 bg-[#ececf4]">
+      <div className="flex flex-col justify-center items-center text-center space-y-5 py-20">
         <div className="text-[#FDB813]">Ride In Comfort</div>
         <div className="text-[2.7rem] text-[#2a2a2a] font-bold">
           We Make Your Every Trip Comfortable
@@ -1691,7 +1704,9 @@ const Home: React.FC = () => {
       >
         <AwsomeFeatures />
       </div>
+        <DividerWithoutLogo/>
       <WhatWeAreOffering />
+      <DividerWithLogo/>
       <div
         className="
         px-4
@@ -1704,11 +1719,15 @@ const Home: React.FC = () => {
       >
         <OurBenefitsList />
       </div>
+        <DividerWithoutLogo/>
       <WhyChooseUs />
+      <DividerWithLogo/>
       <Container>
         <EasyStep />
       </Container>
+      <DividerWithoutLogo/>
       <OurAchievement />
+      <DividerWithLogo/>
       <StatsAndTestamonials />
       <CallUsNow />
       <ReadyToBook />

@@ -130,14 +130,14 @@ const CarCard: React.FC<CarCardProps> = ({
             </div>
             {features && (
               <div className="space-y-1">
-                <div
+                {/* <div
                   className="text-sm font-medium
                                 hidden
                                 lg:block
                             "
                 >
                   AMENITIES
-                </div>
+                </div> */}
                 <div
                   className="flex-wrap
                                 
@@ -186,7 +186,7 @@ const CarCard: React.FC<CarCardProps> = ({
             <div className="border-l border-gray-300 mx-2" />
             <div className="flex-shrink-0 flex flex-col items-end space-y-3">
               <div className="text-end my-1">
-                {parseInt(discount) > 0 && (
+                {/* {parseInt(discount) > 0 && (
                   <div
                     className="font-bold text-[#FDB813]
                                 text-sm
@@ -195,7 +195,7 @@ const CarCard: React.FC<CarCardProps> = ({
                   >
                     {discount}% OFF
                   </div>
-                )}
+                )} */}
                 <div className="space-x-3">
                   {parseInt(discount) > 0 && (
                     <span
@@ -226,7 +226,7 @@ const CarCard: React.FC<CarCardProps> = ({
                                         text-xs
                                     "
                   >
-                    Inclusive Of Toll & Sate Tax
+                    Inclusive Of Toll & State Tax
                   </div>
                 ) : (
                   <div className="lg:w-60"></div>
