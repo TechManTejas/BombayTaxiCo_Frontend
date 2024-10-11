@@ -54,7 +54,7 @@ const DetailsCarCard: React.FC<DetailsCarCardProps> = ({
 }) => {
   return (
     <div
-      className="bg-white"
+      className="bg-white rounded-t-lg"
       onClick={() => {
         if (window.innerWidth < 1024) {
           if (onBook) {
@@ -64,14 +64,14 @@ const DetailsCarCard: React.FC<DetailsCarCardProps> = ({
       }}
     >
       <div
-        className="border w-full flex rounded-lg  gap-2
+        className="border w-full flex rounded-t-lg  gap-2
                 flex-row
                 p-1
                 lg:p-4
             "
       >
         <div
-          className="flex-shrink-0 bg-white rounded-lg flex justify-center items-center
+          className="flex-shrink-0 bg-white rounded-t-lg flex justify-center items-center
                     h-16 lg:h-40
                     w-20 lg:w-40
                 "

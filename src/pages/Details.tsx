@@ -737,61 +737,8 @@ const Details: React.FC = () => {
           "
           >
             <div className="px-1">
-              <>
-                <div className="bg-[#FDB813] border pt-2 px-4 rounded-b-lg -mx-4 -mb-6 pb-8">
-                  <div
-                    className="flex h-full
-                      flex-col
-                      lg:flex-row
-                    "
-                  >
-                    <div>
-                      <div className="">
-                        <div className="font-bold text-xl flex items-center gap-2 pb-2">
-                          Review Booking
-                        </div>
-                        {tripType === "Hourly Rental" ? (
-                          <>
-                            <div className="font-bold flex items-center gap-0.5">
-                              <div>{state?.pickupCity}</div>
-                            </div>
-                          </>
-                        ) : (
-                          <>
-                            <div className="font-bold flex items-center gap-0.5">
-                              <div>{state?.from}</div>
-                              {state?.to && (
-                                <div>
-                                  <ArrowRightOutlined className="rounded-full p-1" />
-                                </div>
-                              )}
-                              {state?.to && <div>{state?.to}</div>}
-                            </div>
-                          </>
-                        )}
-                        <div className="flex gap-2 text-sm">
-                          <div className="font-medium">
-                            {tripType} | Pickup:{" "}
-                            {pickupDate.format("ddd, D MMM YYYY")}, {pickupTime}
-                          </div>
-                        </div>
-                        {tripType === "Round Trip" && returnDate && (
-                          <div className="flex gap-2 text-sm">
-                            <div className="font-medium">Return Date:</div>
-                            <div>{returnDate.format("D MMM YYYY")}</div>
-                          </div>
-                        )}
-                        {tripType === "Hourly Rental" && (
-                          <div className="flex gap-2 text-sm">
-                            <div className="font-medium">Selected Package:</div>{" "}
-                            {hourlyPackage}
-                          </div>
-                        )}
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </>
+              <div className="my-3">
+              </div>
               <DetailsCarCard
                 carImage={taxiRate.taxiType?.image}
                 category={taxiRate.taxiType?.name || ""}
@@ -799,11 +746,163 @@ const Details: React.FC = () => {
                 features={taxiRate.taxiType?.car_features || []}
                 originalPrice={taxiRate.originalPrice || ""}
                 discountedPrice={taxiRate.discountedPrice || ""}
-                discount={
-                  taxiRate.taxiType.discount_percentage.toString() || ""
-                }
+                discount={taxiRate.taxiType.discount_percentage.toString() || ""}
                 preview
               />
+              <div className="bg-white border-b border-x rounded-b-lg p-4">
+                {tripType === "One-Way Trip" && (
+                  <div className="flex flex-col gap-1">
+                    <div className="flex justify-between">
+                      <div className="flex flex-col gap-1">
+                        <div className="text-sm text-slate-500">
+                          Pickup Location
+                        </div>
+                        <div className="text-sm font-bold">{state?.from}</div>
+                      </div>
+                      <div className="flex flex-col gap-1 items-end">
+                        <div className="text-sm text-slate-500">
+                          Drop-Off Location
+                        </div>
+                        <div className="text-sm font-bold">{state?.to}</div>
+                      </div>
+                    </div>
+                    <div className="flex items-center">
+                      <div
+                        className="flex-1 bg-black h-[1px]"
+                        style={{
+                          background:
+                            "linear-gradient(to right, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0))",
+                        }}
+                      ></div>
+                      <div>
+                        {" "}
+                        <ArrowRightOutlined className="rounded-full p-1 mx-8" />
+                      </div>
+                      <div
+                        className="flex-1 bg-black h-[1px]"
+                        style={{
+                          background:
+                            "linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 1))",
+                        }}
+                      ></div>
+                    </div>
+                    <div className="flex justify-between">
+                      <div className="flex flex-col gap-1">
+                        <div className="text-sm text-slate-500">
+                          Pickup Date & Time
+                        </div>
+                        <div className="text-sm font-bold">
+                          {pickupDate.format("ddd, D MMM YYYY")}, {pickupTime}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                )}
+                {tripType === "Round Trip" && (
+                  <div className="flex flex-col gap-1">
+                    <div className="flex justify-between">
+                      <div className="flex flex-col gap-1">
+                        <div className="text-sm text-slate-500">
+                          Pickup Location
+                        </div>
+                        <div className="text-sm font-bold">{state?.from}</div>
+                      </div>
+                      <div className="flex flex-col gap-1 items-end">
+                        <div className="text-sm text-slate-500">
+                          Drop-Off Location
+                        </div>
+                        <div className="text-sm font-bold">{state?.to}</div>
+                      </div>
+                    </div>
+                    <div className="flex items-center">
+                      <div
+                        className="flex-1 bg-black h-[1px]"
+                        style={{
+                          background:
+                            "linear-gradient(to right, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0))",
+                        }}
+                      ></div>
+                      <div>
+                        {" "}
+                        <ArrowRightOutlined className="rounded-full p-1 mx-8" />
+                      </div>
+                      <div
+                        className="flex-1 bg-black h-[1px]"
+                        style={{
+                          background:
+                            "linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 1))",
+                        }}
+                      ></div>
+                    </div>
+                    <div className="flex justify-between">
+                      <div className="flex flex-col gap-1">
+                        <div className="text-sm text-slate-500">
+                          Pickup Date & Time
+                        </div>
+                        <div className="text-sm font-bold">
+                          {pickupDate.format("ddd, D MMM YYYY")}, {pickupTime}
+                        </div>
+                      </div>
+                      <div className="flex flex-col gap-1 items-end">
+                        <div className="text-sm text-slate-500">
+                          Drop-Off Date & Time
+                        </div>
+                        <div className="text-sm font-bold">
+                          {returnDate.format("ddd, D MMM YYYY")}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                )}
+                {tripType === "Hourly Rental" && (
+                  <div className="flex flex-col gap-1">
+                    <div className="flex justify-between">
+                      <div className="flex flex-col gap-1">
+                        <div className="text-sm text-slate-500">
+                          Pickup Location
+                        </div>
+                        <div className="text-sm font-bold">{state?.pickupCity}</div>
+                      </div>
+                      <div className="flex flex-col gap-1 items-end">
+                        <div className="text-sm text-slate-500">
+                          Drop-Off Location
+                        </div>
+                        <div className="text-sm font-bold">{state?.pickupCity}</div>
+                      </div>
+                    </div>
+                    <div className="flex items-center">
+                      <div
+                        className="flex-1 bg-black h-[1px]"
+                        style={{
+                          background:
+                            "linear-gradient(to right, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0))",
+                        }}
+                      ></div>
+                      <div>
+                        {" "}
+                        <ArrowRightOutlined className="rounded-full p-1 mx-8" />
+                      </div>
+                      <div
+                        className="flex-1 bg-black h-[1px]"
+                        style={{
+                          background:
+                            "linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 1))",
+                        }}
+                      ></div>
+                    </div>
+                    <div className="flex justify-between">
+                      <div className="flex flex-col gap-1">
+                        <div className="text-sm text-slate-500">
+                          Pickup Date & Time
+                        </div>
+                        <div className="text-sm font-bold">
+                          {pickupDate.format("ddd, D MMM YYYY")}, {pickupTime}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                )}
+              </div>
               <>
                 <div
                   className="flex h-full bg-white my-3 rounded-lg shadow-lg border
@@ -1253,7 +1352,11 @@ const Details: React.FC = () => {
                             </Checkbox>
                           </Form.Item>
 
-                          <Form.Item className="m-0" name="kidsOnBoard" valuePropName="checked">
+                          <Form.Item
+                            className="m-0"
+                            name="kidsOnBoard"
+                            valuePropName="checked"
+                          >
                             <Checkbox value="kidsOnBoard">
                               Kids on board
                             </Checkbox>
@@ -1307,12 +1410,20 @@ const Details: React.FC = () => {
                               English-speaking driver preferred
                             </Checkbox>
                           </Form.Item>
-                          <Form.Item className="m-0" name="carryingPet" valuePropName="checked">
+                          <Form.Item
+                            className="m-0"
+                            name="carryingPet"
+                            valuePropName="checked"
+                          >
                             <Checkbox value="carryingPet">
                               Carrying Pet
                             </Checkbox>
                           </Form.Item>
-                          <Form.Item className="m-0" name="other" valuePropName="checked">
+                          <Form.Item
+                            className="m-0"
+                            name="other"
+                            valuePropName="checked"
+                          >
                             <Checkbox
                               onChange={onOtherCheckboxChange}
                               value="other"
