@@ -67,6 +67,7 @@ import { ReadyToBook } from "../components/ReadyToBook.js";
 import { From } from "../icons/From.js";
 import { DividerWithLogo } from "../components/DividerWithLogo.js";
 import { DividerWithoutLogo } from "../components/DividerWithoutLogo.js";
+import { Swap } from "../icons/Swap.js";
 
 message.config({
   top: "25%",
@@ -196,8 +197,8 @@ const Hero: React.FC = () => {
     items: cities.map((city: ICity) => ({
       label: (
         <span>
-            {<EnvironmentFilled />} {city.name}
-          </span>
+          {<EnvironmentFilled />} {city.name}
+        </span>
       ),
       key: city._id,
     })),
@@ -421,14 +422,18 @@ const Hero: React.FC = () => {
                       <EnvironmentFilled />
                       PICKUP LOCATION
                     </div>
-                    <Dropdown menu={menuPropsPickupCity} placement="bottomLeft" className="w-full">
+                    <Dropdown
+                      menu={menuPropsPickupCity}
+                      placement="bottomLeft"
+                      className="w-full"
+                    >
                       <button
                         className="text-[1.4rem] group-hover:text-[#FDB813] transition-all duration-300 w-full"
                         style={{
                           border: "none",
                           overflow: "hidden",
                           whiteSpace: "nowrap",
-                          textOverflow: "ellipsis", 
+                          textOverflow: "ellipsis",
                         }}
                       >
                         {pickupCity || "Select City"}
@@ -445,22 +450,9 @@ const Hero: React.FC = () => {
                             className="bg-white z-30 border rounded-full border-yellow-500"
                             onClick={switchValues}
                           >
-                            <SwapOutlined
-                              size={50}
-                              className="border rounded-full p-1 text-xl hover:bg-gray-200 shadow-lg"
-                            />
-                          </button>
-                        </div>
-                        <div className="flex absolute lg:hidden h-full items-center right-14">
-                          <button
-                            className="bg-white  border rounded-full border-yellow-500 right-10 h-8"
-                            onClick={switchValues}
-                          >
-                            <SwapOutlined
-                              size={50}
-                              className="border rounded-full p-1 text-xl hover:bg-gray-200 shadow-lg"
-                              style={{ transform: "rotate(90deg)" }}
-                            />
+                            <div className="border rounded-full p-1 text-xl hover:bg-gray-200 shadow-lg">
+                              <Swap />
+                            </div>
                           </button>
                         </div>
                       </>
@@ -470,14 +462,18 @@ const Hero: React.FC = () => {
                         <From />
                         FROM
                       </div>
-                      <Dropdown menu={menuPropsFrom} placement="bottomLeft" className="w-full">
+                      <Dropdown
+                        menu={menuPropsFrom}
+                        placement="bottomLeft"
+                        className="w-full"
+                      >
                         <button
                           className="text-[1.4rem] group-hover:text-[#FDB813] transition-all duration-300 w-full"
                           style={{
                             border: "none",
                             overflow: "hidden",
                             whiteSpace: "nowrap",
-                            textOverflow: "ellipsis", 
+                            textOverflow: "ellipsis",
                           }}
                         >
                           {from || "Select City"}
@@ -490,14 +486,18 @@ const Hero: React.FC = () => {
                         <EnvironmentFilled />
                         TO
                       </div>
-                      <Dropdown menu={menuPropsTo} placement="bottomLeft" className="w-full">
+                      <Dropdown
+                        menu={menuPropsTo}
+                        placement="bottomLeft"
+                        className="w-full"
+                      >
                         <button
                           className="text-[1.4rem] group-hover:text-[#FDB813] transition-all duration-300 w-full"
                           style={{
                             border: "none",
                             overflow: "hidden",
                             whiteSpace: "nowrap",
-                            textOverflow: "ellipsis", 
+                            textOverflow: "ellipsis",
                           }}
                         >
                           {to || "Select City"}
@@ -1704,9 +1704,9 @@ const Home: React.FC = () => {
       >
         <AwsomeFeatures />
       </div>
-        <DividerWithoutLogo/>
+      <DividerWithoutLogo />
       <WhatWeAreOffering />
-      <DividerWithLogo/>
+      <DividerWithLogo />
       <div
         className="
         px-4
@@ -1719,15 +1719,15 @@ const Home: React.FC = () => {
       >
         <OurBenefitsList />
       </div>
-        <DividerWithoutLogo/>
+      <DividerWithoutLogo />
       <WhyChooseUs />
-      <DividerWithLogo/>
+      <DividerWithLogo />
       <Container>
         <EasyStep />
       </Container>
-      <DividerWithoutLogo/>
+      <DividerWithoutLogo />
       <OurAchievement />
-      <DividerWithLogo/>
+      <DividerWithLogo />
       <StatsAndTestamonials />
       <CallUsNow />
       <ReadyToBook />

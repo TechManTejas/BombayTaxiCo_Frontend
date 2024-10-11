@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { LeftOutlined, SwapOutlined } from "@ant-design/icons";
+import { LeftOutlined } from "@ant-design/icons";
 import React, { useEffect, useState } from "react";
 import { DatePicker, Select, Spin, message } from "antd";
 import { Option } from "antd/es/mentions";
@@ -17,6 +17,7 @@ import { IRoute } from "../types/routes.types";
 import { ITaxiType } from "../types/taxiTypes.types";
 import { generateDistanceOptions } from "../utils/GenerateDistanceOptions";
 import { Container } from "@mui/material";
+import { Swap } from "../icons/Swap";
 
 interface BillCardProps {
   routeDistance: number;
@@ -54,9 +55,9 @@ const BillCard: React.FC<BillCardProps> = ({
 
   return (
     <>
-      <div className="min-w-[360px] max-w-xs w-full m-1 mb-3 p-3 sticky top-36 bg-white border rounded-lg">
+      <div className="min-w-[360px] max-w-xs w-full m-1 mb-3 p-3 sticky top-36 bg-white border rounded-lg text-sm">
         <div>
-          <div className="text-xl my-1">Fare Details</div>
+          <div className="text-lg my-1 font-semibold">Fare Details</div>
           <div className="font-light space-y-2">
             <div className="flex justify-between">
               <div>Base Fare</div>
@@ -82,7 +83,7 @@ const BillCard: React.FC<BillCardProps> = ({
         </div>
         <hr className="my-3" />
         <div>
-          <div className="text-xl my-1">Other Charges</div>
+          <div className="text-lg my-1 font-semibold">Other Charges</div>
           <div className="font-light space-y-2">
             <div className="flex justify-between">
               <div>Parking & Airport Entry</div>
@@ -106,7 +107,7 @@ const BillCard: React.FC<BillCardProps> = ({
         </div>
         <hr className="my-3" />
         <div>
-          <div className="text-xl my-1">
+          <div className="text-lg my-1 font-semibold">
             {tripType !== "Hourly Rental" ? (
               <>Extra Km Charges</>
             ) : (
@@ -475,10 +476,10 @@ const Search: React.FC = () => {
 
                   <div className="absolute w-full h-full flex justify-center items-center">
                     <button
-                      className="hover:shadow-xl border-yellow-500 border rounded-full xl:w-7 z-30 hover:bg-yellow-500 bg-zinc-500"
+                      className="hover:shadow-xl border-yellow-500 border rounded-full xl:w-7 xl:h-7 z-30 hover:bg-yellow-500 bg-zinc-500 w-full flex justify-center items-center p-1"
                       onClick={switchValues}
                     >
-                      <SwapOutlined className="text-white" />
+                      <Swap />
                     </button>
                   </div>
 
