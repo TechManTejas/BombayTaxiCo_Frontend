@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useEffect, useState } from "react";
 import DetailsCarCard from "../components/DetailsCarCard";
+import RightArrow from "../assets/images/right-arrow.png"
 import {
   Button,
   Checkbox,
@@ -26,6 +27,7 @@ import { ArrowRightOutlined, UpOutlined } from "@ant-design/icons";
 import dayjs, { Dayjs } from "dayjs";
 import { Context } from "../context/context.provider";
 import { BookingConfirmed } from "../components/BookingConfirmed";
+import { FaArrowRight } from "react-icons/fa";
 
 const { Panel } = Collapse;
 
@@ -776,7 +778,7 @@ const Details: React.FC = () => {
                       ></div>
                       <div>
                         {" "}
-                        <ArrowRightOutlined className="rounded-full p-1 mx-8" />
+                        <img src={RightArrow} className="w-4 mx-8"></img>
                       </div>
                       <div
                         className="flex-1 bg-black h-[1px]"

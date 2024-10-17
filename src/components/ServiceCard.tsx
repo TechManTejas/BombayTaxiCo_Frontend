@@ -75,12 +75,12 @@ export const ServiceCard: React.FC<ServiceCardProps> = ({
       <div className="relative w-[320px] h-[200px] justify-center rounded-3xl"> 
         <img src={image} className="absolute top-8 left-0 bg-zinc-200 h-[200px] rounded-3xl z-20"/>
       </div>
-      <div className="absolute bottom-0 left-0 right-0 bg-[#FDB813] h-[160px] rounded-3xl mx-8 p-4 flex flex-col items-center justify-between z-30">
-        <div className="font-semibold text-xl">{title}</div>
+      <div className="absolute bottom-0 left-0 right-0 bg-[#FDB813] h-[160px] rounded-3xl mx-8 p-4 flex flex-col items-center gap-2 z-30">
+        <div className="text-xl">{title}</div>
         <div className="text-center text-sm">{description}</div>
-        <div className="text-xs hover:text-base transition-all cursor-pointer" onClick={handleReadDetails}>
+        {/* <div className="text-xs hover:text-base transition-all cursor-pointer" onClick={handleReadDetails}>
           Learn More <ArrowRightOutlined className="" />
-        </div>
+        </div> */}
       </div>
     </div>
   );

@@ -52,7 +52,7 @@ export const TestimonialCard: React.FC<{
       <div className="flex gap-2 items-center">
         <div className={`bg-[#FDB813] h-16 w-16 rounded-full ${avatar ? "bg-cover" : ""}`}
           style={{ backgroundImage: `url(${avatar})` }}/>
-          <div className="flex flex-col justify-evenly h-full py-1">
+          <div className="flex flex-col justify-evenly h-full py-1 text-left">
             <div className="font-bold text-sm">{name}</div>
             <div className="text-xs">{position}</div>
           </div>

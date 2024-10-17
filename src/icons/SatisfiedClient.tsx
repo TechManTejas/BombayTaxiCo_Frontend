@@ -1,6 +1,6 @@
 import React from "react";
 
-import SatisfiedClient from "../assets/images/Satisfied Client.png";
+import SatisfiedClient from "../assets/images/satisfied client.png";
 
 export const SatisfiedClientIcon = () => {
   return (
