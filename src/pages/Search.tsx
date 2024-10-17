@@ -476,7 +476,7 @@ const Search: React.FC = () => {
 
                   <div className="absolute w-full h-full flex justify-center items-center">
                     <button
-                      className="hover:shadow-xl border-yellow-500 border rounded-full xl:w-7 xl:h-7 z-30 hover:bg-yellow-500 bg-zinc-500 w-full flex justify-center items-center p-1"
+                      className="hover:shadow-xl border-yellow-500 border rounded-xl xl:w-7 xl:h-7 z-30 hover:bg-yellow-500 bg-zinc-500 w-full flex justify-center items-center p-1"
                       onClick={switchValues}
                     >
                       <Swap />

@@ -9,12 +9,10 @@ import {
   DollarCircleOutlined,
   DollarOutlined,
   EnvironmentFilled,
-  EnvironmentOutlined,
   LikeOutlined,
   MobileOutlined,
   MoneyCollectOutlined,
   SafetyOutlined,
-  SwapOutlined,
   UserOutlined,
 } from "@ant-design/icons";
 import { DatePicker, Dropdown, MenuProps, Segmented, message } from "antd";
@@ -62,7 +60,7 @@ import Woman from "../assets/images/woman.png";
 import { OnlineEasyBookingIcon } from "../icons/OnlineEasyBooking.js";
 import { AirportTransferIcon } from "../icons/AirportTransfer.js";
 import { CorporateCarRentalIcon } from "../icons/CorporateCarRental.js";
-import { FaCalendarAlt, FaClock } from "react-icons/fa";
+import { FaCalendarAlt, FaClock, FaRupeeSign } from "react-icons/fa";
 import { ReadyToBook } from "../components/ReadyToBook.js";
 import { From } from "../icons/From.js";
 import { DividerWithLogo } from "../components/DividerWithLogo.js";
@@ -341,7 +339,7 @@ const Hero: React.FC = () => {
         <div className="bg-[#00000095] h-full w-full flex flex-col justify-center items-center space-y-8 pt-8">
           {/* <!-- Rotating Text Container --> */}
           <div
-            className=" lg:w-[1036px] 
+            className="lg:w-[1036px] 
             mt-24
             lg:mt-0
           "
@@ -416,7 +414,7 @@ const Hero: React.FC = () => {
               "
               >
                 {activeTab === "Hourly Rental" && (
-                  <div className="group w-full lg:w-[331px] p-3 pb-4 space-y-1 border-2 rounded-xl hover:border-[#FDB813] transition-all duration-300">
+                  <div className="group w-full lg:w-[338px] p-3 pb-4 space-y-1 border-2 rounded-xl hover:border-[#FDB813] transition-all duration-300">
                     <div className="text-xs flex items-center gap-1">
                       {" "}
                       <EnvironmentFilled />
@@ -447,10 +445,10 @@ const Hero: React.FC = () => {
                       <>
                         <div className="hidden absolute w-full h-full lg:flex justify-center items-center">
                           <button
-                            className="bg-white z-30 border rounded-full border-yellow-500"
+                            className="bg-white z-30 border rounded-xl border-yellow-500"
                             onClick={switchValues}
                           >
-                            <div className="border rounded-full p-1 text-xl hover:bg-gray-200 shadow-lg">
+                            <div className="border rounded-xl p-1 text-xl hover:bg-gray-200 shadow-lg">
                               <Swap />
                             </div>
                           </button>
@@ -460,7 +458,9 @@ const Hero: React.FC = () => {
                     <div className="group w-[328px] lg:w-[228px]  p-3 pb-4 space-y-1 border-2 rounded-xl z-20 hover:border-[#FDB813] transition-all duration-300">
                       <div className="text-xs flex items-center gap-1">
                         <From />
-                        FROM
+                        <div className="-ml-2">
+                          FROM
+                        </div>
                       </div>
                       <Dropdown
                         menu={menuPropsFrom}
@@ -468,7 +468,7 @@ const Hero: React.FC = () => {
                         className="w-full"
                       >
                         <button
-                          className="text-[1.4rem] group-hover:text-[#FDB813] transition-all duration-300 w-full"
+                          className="text-[1.4rem] group-hover:text-[#FDB813] transition-all duration-300 w-full text-left"
                           style={{
                             border: "none",
                             overflow: "hidden",
@@ -492,7 +492,7 @@ const Hero: React.FC = () => {
                         className="w-full"
                       >
                         <button
-                          className="text-[1.4rem] group-hover:text-[#FDB813] transition-all duration-300 w-full"
+                          className="text-[1.4rem] group-hover:text-[#FDB813] transition-all duration-300 w-full text-left"
                           style={{
                             border: "none",
                             overflow: "hidden",
@@ -506,7 +506,7 @@ const Hero: React.FC = () => {
                     </div>
                   </div>
                 )}
-                <div className="group relative w-full lg:w-[166px] p-3 pb-4 space-y-1 border-2 rounded-xl hover:border-[#FDB813] transition-all duration-300">
+                <div className="group relative w-full lg:w-[164px] p-3 pb-4 space-y-1 border-2 rounded-xl hover:border-[#FDB813] transition-all duration-300">
                   <div className="text-xs flex items-center gap-1">
                     <FaCalendarAlt />
                     PICKUP DATE
@@ -694,7 +694,7 @@ const WhyChooseUs: React.FC = () => {
             description="Easy trip cancel through our user-friendly booking platform."
           />
           <WhyChooseUsCard
-            icon={<DollarCircleOutlined />}
+            icon={<FaRupeeSign />}
             title="Transparent Billing"
             description="Competitive and budget-friendly prices for quality transportation."
           />
@@ -842,7 +842,7 @@ const OurAchievement: React.FC = () => {
   }, [isVisible]);
 
   return (
-    <div ref={elementRef} className="mb-32">
+    <div ref={elementRef} className="my-24">
       <div className="flex justify-center">
         <div
           className="rounded-3xl"
@@ -851,7 +851,7 @@ const OurAchievement: React.FC = () => {
             backgroundSize: "cover",
           }}
         >
-          <div className="px-14 p-12 py-16 bg-blue-950 bg-opacity-70 rounded-3xl flex flex-col gap-6">
+          <div className="px-14 p-12 py-24 bg-blue-950 bg-opacity-70 rounded-3xl flex flex-col gap-6">
             <div className="text-center">
               <div className="text-base text-[#FDB813] pb-5">
                 Our Experience
@@ -885,7 +885,7 @@ const OurAchievement: React.FC = () => {
                     {stats.trips}
                   </div>
                 </div>
-                <div className="text-white font-bold text-xl lg:text-2xl text-center">
+                <div className="text-white text-xl lg:text-2xl text-center">
                   Road Trips Done
                 </div>
                 {/* <div className="text-xs lg:text-sm text-white">
@@ -903,7 +903,7 @@ const OurAchievement: React.FC = () => {
                     {stats.dropped}
                   </div>
                 </div>
-                <div className="text-white font-bold text-xl lg:text-2xl text-center">
+                <div className="text-white text-xl lg:text-2xl text-center">
                   People Dropped
                 </div>
                 {/* <div className="text-xs lg:text-sm text-white">
@@ -921,7 +921,7 @@ const OurAchievement: React.FC = () => {
                     {stats.satisfied}
                   </div>
                 </div>
-                <div className="text-white font-bold text-xl lg:text-2xl text-center">
+                <div className="text-white text-xl lg:text-2xl text-center">
                   Satisfied Client
                 </div>
                 {/* <div className="text-xs lg:text-sm text-white">
@@ -1073,7 +1073,7 @@ const StatsAndTestamonials: React.FC = () => {
           xl:px-32
           "
         >
-          <div className="text-base text-[#FDB813] pb-5">
+          <div className="text-base text-[#FDB813] pb-2">
             Customers Feedback
           </div>
           <div className=" text-[2.7rem] text-[#2a2a2a]  font-bold">
@@ -1208,13 +1208,13 @@ const AwsomeFeatures: React.FC = () => {
     <>
       <div className="space-y-10 py-20 pt-40">
         <div
-          className="flex flex-col justify-center items-center space-y-5 text-center
+          className="flex flex-col justify-center items-center space-y-2 text-center
         md:px-8
           xl:px-32
       "
         >
           <div className="text-[#FDB813]">Our Features</div>
-          <div className="text-[2.7rem] text-[#2a2a2a] font-bold ">
+          <div className="text-[2.7rem] text-[#2a2a2a] font-bold">
             Our Awesome Features
             <span className="text-[#FDB813]">.</span>
           </div>
@@ -1222,7 +1222,7 @@ const AwsomeFeatures: React.FC = () => {
         <div className="relative">
           <div className="flex justify-center items-center overflow-hidden">
             <div
-              className="py-1 scroll-smooth no-scrollbar  overflow-hidden
+              className="scroll-smooth no-scrollbar  overflow-hidden
               lg:w-[1020px]
               md:w-[670px]
               w-[320px]
@@ -1268,7 +1268,7 @@ const OurBenefitsList: React.FC = () => {
     <>
       <div className="space-y-10 py-20">
         <div
-          className="flex flex-col justify-center items-center space-y-5 text-center
+          className="flex flex-col justify-center items-center space-y-2 text-center
           px-4
           sm:px-6
           md:px-10
@@ -1292,9 +1292,9 @@ const OurBenefitsList: React.FC = () => {
             <div className="bg-[#2A2A2A] rounded-2xl p-5 py-8 flex flex-col gap-5 w-full">
               <div className="flex gap-x-3">
                 <div className="bg-[#FDB813] rounded-lg p-3 flex justify-center items-center">
-                  <DollarOutlined className="text-3xl" />
+                  <FaRupeeSign className="text-3xl" />
                 </div>
-                <div className="text-white text-xl flex flex-col justify-between">
+                <div className="text-white text-xl flex flex-col gap-2 justify-between">
                   <div className="tracking-wide">All Payment</div>
                   <div className="font-light text-sm">
                     Supports all major payment methods.
@@ -1325,7 +1325,7 @@ const OurBenefitsList: React.FC = () => {
                 <div className="bg-[#2A2A2A] rounded-lg p-3 flex justify-center items-center">
                   <SafetyOutlined className="text-3xl text-[#FDB813]" />
                 </div>
-                <div className="text-xl flex flex-col justify-between">
+                <div className="text-xl flex flex-col gap-2 justify-between">
                   <div className="tracking-wide">Safety First</div>
                   <div className="font-light text-sm">
                     Commitment to safety with every journey you take.
@@ -1356,7 +1356,7 @@ const OurBenefitsList: React.FC = () => {
                 <div className="bg-[#FDB813] rounded-lg p-3 flex justify-center items-center">
                   <MobileOutlined className="text-3xl" />
                 </div>
-                <div className="text-xl flex flex-col justify-between">
+                <div className="text-xl flex flex-col gap-2 justify-between">
                   <div className="tracking-wide">100% Digital</div>
                   <div className="font-light text-sm">
                     Complete digital experience from booking to payment.
@@ -1459,7 +1459,7 @@ const EasyStep: React.FC = () => {
     <>
       <div className="space-y-24 py-20">
         <div
-          className="flex flex-col justify-center items-center space-y-5 text-center
+          className="flex flex-col justify-center items-center space-y-2 text-center
           px-4
           sm:px-6
           md:px-10
@@ -1501,7 +1501,7 @@ const EasyStep: React.FC = () => {
               sm:m-0
             "
             >
-              <div className="h-20 w-20 bg-[#2A2A2A] rounded-2xl flex justify-center items-center shadow-2xl">
+              <div className="h-20 w-20 bg-[#2A2A2A] rounded-2xl flex justify-center items-center">
                 <CarOutlined className="text-3xl text-[#FDB813]" />
               </div>
               <div className="text-xl">Booking A Taxi</div>
@@ -1514,8 +1514,8 @@ const EasyStep: React.FC = () => {
               sm:m-0
             "
             >
-              <div className="h-20 w-20 bg-[#ffffff] rounded-2xl flex justify-center items-center shadow-2xl">
-                <DollarCircleOutlined className="text-3xl text-[#FDB813]" />
+              <div className="h-20 w-20 bg-[#ffffff] rounded-2xl flex justify-center items-center border">
+              <FaRupeeSign className="text-3xl text-[#FDB813]" />
               </div>
               <div className="text-xl">Pay Your Taxi</div>
               <div className="text-gray-500 text-sm text-center">
@@ -1527,8 +1527,8 @@ const EasyStep: React.FC = () => {
               sm:m-0
             "
             >
-              <div className="h-20 w-20 bg-[#ffffff] rounded-2xl flex justify-center items-center shadow-2xl">
-                <UserOutlined className="text-3xl text-[#FDB813]" />
+              <div className="h-20 w-20 bg-[#FDB813] rounded-2xl flex justify-center items-center">
+                <UserOutlined className="text-3xl text-black" />
               </div>
               <div className="text-xl">Get a Driver</div>
               <div className="text-gray-500 text-sm text-center">
@@ -1540,7 +1540,7 @@ const EasyStep: React.FC = () => {
               sm:m-0
             "
             >
-              <div className="h-20 w-20 bg-[#2A2A2A] rounded-2xl flex justify-center items-center shadow-2xl">
+              <div className="h-20 w-20 bg-[#2A2A2A] rounded-2xl flex justify-center items-center">
                 <LikeOutlined className="text-3xl text-[#FDB813]" />
               </div>
               <div className="text-xl">Enjoy Your Ride</div>
@@ -1639,7 +1639,7 @@ const WhatWeAreOffering: React.FC = () => {
 
   return (
     <div className="">
-      <div className="flex flex-col justify-center items-center text-center space-y-5 py-20">
+      <div className="flex flex-col justify-center items-center text-center space-y-2 py-20">
         <div className="text-[#FDB813]">Ride In Comfort</div>
         <div className="text-[2.7rem] text-[#2a2a2a] font-bold">
           We Make Your Every Trip Comfortable
@@ -1665,7 +1665,7 @@ const WhatWeAreOffering: React.FC = () => {
             onMouseUp={handleMouseUp}
             onMouseLeave={handleMouseUp}
           >
-            <div className={`flex flex-wrap justify-center gap-8`}>
+            <div className={`flex flex-wrap justify-center gap-8 mt-3`}>
               {services.map((service, index) => (
                 <div className="service-card">
                   <ServiceCard
@@ -1704,9 +1704,14 @@ const Home: React.FC = () => {
       >
         <AwsomeFeatures />
       </div>
-      <DividerWithoutLogo />
+      <Container>
+        <DividerWithoutLogo />
+      </Container>
       <WhatWeAreOffering />
+      <Container>
+
       <DividerWithLogo />
+      </Container>
       <div
         className="
         px-4
@@ -1719,13 +1724,22 @@ const Home: React.FC = () => {
       >
         <OurBenefitsList />
       </div>
+      <Container>
+
       <DividerWithoutLogo />
+      </Container>
       <WhyChooseUs />
+      <Container>
+
       <DividerWithLogo />
+      </Container>
       <Container>
         <EasyStep />
       </Container>
+      <Container>
+
       <DividerWithoutLogo />
+      </Container>
       <OurAchievement />
       <DividerWithLogo />
       <StatsAndTestamonials />

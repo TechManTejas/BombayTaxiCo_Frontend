@@ -190,7 +190,7 @@ const EasyStep: React.FC = () => {
         <div className="w-full">
           <div className="flex justify-center -mb-10">
             <div
-              className="border border-dashed  justify-center w-[600px]
+              className="border border-dashed justify-center w-[600px]
               hidden
               sm:flex
             "

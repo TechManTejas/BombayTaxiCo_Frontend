@@ -8,8 +8,8 @@ interface WhyChooseUsCardProps {
 export const WhyChooseUsCard: React.FC<WhyChooseUsCardProps> = ({ icon, title, description }) => {
   return (
     <>
-        <div className='bg-white flex flex-col justify-center items-center hover:border-2 w-60 h-60 rounded-xl  hover:border-yellow-500 space-y-1 shadow hover:shadow-xl transition-all'>
-            <div className='bg-[#2A2A2A] text-2xl w-16 h-16 rounded-full flex text-white justify-center items-center'>
+        <div className='bg-white flex flex-col justify-center items-center hover:border-2 w-60 h-60 rounded-xl  hover:border-yellow-500 space-y-2 shadow hover:shadow-xl transition-all'>
+            <div className='bg-[#2A2A2A] text-2xl w-16 h-16 rounded-full flex text-white justify-center items-center mb-2'>
               {icon}  
             </div>
             <div className='text-xl font-medium'>
