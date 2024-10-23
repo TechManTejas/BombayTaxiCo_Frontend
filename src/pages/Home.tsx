@@ -414,7 +414,7 @@ const Hero: React.FC = () => {
               "
               >
                 {activeTab === "Hourly Rental" && (
-                  <div className="group w-full lg:w-[338px] p-3 pb-4 space-y-1 border-2 rounded-xl hover:border-[#FDB813] transition-all duration-300">
+                  <div className="group w-full lg:w-[330px] p-3 pb-4 space-y-1 border-2 rounded-xl hover:border-[#FDB813] transition-all duration-300">
                     <div className="text-xs flex items-center gap-1">
                       {" "}
                       <EnvironmentFilled />
@@ -426,7 +426,7 @@ const Hero: React.FC = () => {
                       className="w-full"
                     >
                       <button
-                        className="text-[1.4rem] group-hover:text-[#FDB813] transition-all duration-300 w-full"
+                        className="text-[1.4rem] group-hover:text-[#FDB813] transition-all duration-300 w-full text-left"
                         style={{
                           border: "none",
                           overflow: "hidden",

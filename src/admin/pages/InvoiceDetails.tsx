@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useRef } from "react";
-import Logo from "../../assets/images/logo.png";
+import Logo from "../../assets/images/logo.webp";
 import { Button, message } from "antd";
 import { LeftOutlined } from "@ant-design/icons";
 import { useReactToPrint } from "react-to-print";
@@ -17,52 +17,10 @@ const InvoiceDetails: React.FC = () => {
   const { state } = useLocation();
   const invoice: IInvoice = state?.invoice;
 
-  console.log(JSON.stringify(invoice));
-
   const componentRef = useRef(null);
   const handlePrint = useReactToPrint({
     content: () => componentRef.current,
   });
-
-  // const printToPdfBlob = async (element: any) => {
-  //   if (!element) {
-  //     throw new Error("No element provided or element is not rendered yet.");
-  //   }
-  
-  //   // html2canvas capture
-  //   const canvas = await html2canvas(element, {
-  //     windowWidth: element.scrollWidth,
-  //     windowHeight: element.scrollHeight,
-  //   });
-  //   const imgData = canvas.toDataURL('image/png');
-  
-  //   // A4 dimensions at 72 DPI in points (1 point = 1/72 inch)
-  //   const pdfWidth = 595.28;
-  //   const pdfHeight = 841.89;
-  
-  //   // Scaling factor to fit the canvas in the A4 dimensions
-  //   const scale = Math.min(pdfWidth / canvas.width, pdfHeight / canvas.height);
-  
-  //   // Create a new jsPDF instance
-  //   const pdf = new jsPDF({
-  //     orientation: 'p',
-  //     unit: 'pt', // points
-  //     format: 'a4' // A4 page size
-  //   });
-  
-  //   // Add the image to the pdf with the scaling factor
-  //   pdf.addImage(imgData, 'PNG', 0, 0, canvas.width * scale, canvas.height * scale);
-  
-  //   // Convert the PDF to a Blob
-  //   return new Promise<Blob>((resolve, reject) => {
-  //     try {
-  //       const pdfBlob = pdf.output('blob');
-  //       resolve(pdfBlob);
-  //     } catch (error) {
-  //       reject(error);
-  //     }
-  //   });
-  // };
 
   const printToPdfBlob = async (element: any) => {
     const dataUrl = await domtoimage.toPng(element);
@@ -77,8 +35,6 @@ const InvoiceDetails: React.FC = () => {
   const handleSend = async () => {
     try {
       const pdfBlob = await printToPdfBlob(componentRef.current); // Hypothetical function
-
-      console.log(pdfBlob);
 
       const formData = new FormData();
       formData.append('invoice', pdfBlob, 'invoice.pdf');
@@ -156,9 +112,7 @@ const InvoiceDetails: React.FC = () => {
               <div className="flex justify-between items-center pb-4 border-b border-gray-200 mb-3">
                 <div className="flex flex-col">
                   <div className="text-4xl font-bold flex items-center">
-                    <img className="inline-block w-12 h-auto mr-2" src={Logo} />
-                    <span>Bombay Taxi Co</span>
-                    <span className="text-[#FDB813]">.</span>
+                    <img className="inline-block h-12 mr-2" src={Logo} />
                   </div>
                 </div>
                 <div className="text-4xl uppercase font-bold">Invoice</div>
@@ -435,7 +389,7 @@ const InvoiceDetails: React.FC = () => {
                     href="https://www.bombaytaxicompany.com/"
                     className="text-sky-600 underline"
                   >
-                    wwww.bombaytaxicompany.com
+                    wwww.bombaytaxico.com
                   </a>{" "}
                   for terms and conditions.
                 </div>

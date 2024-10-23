@@ -402,6 +402,8 @@ const Details: React.FC = () => {
     useState<boolean>(false);
   const [isOtherChecked, setIsOtherChecked] = useState(false);
   const [showConfirmationModal, setShowConfirmationModal] = useState(false);
+  const [showCouponError, setShowCouponError] = useState(false);
+  const [showCouponApplied, setShowCouponApplied] = useState(false);
 
   const tripType = state.tripType || null;
   const taxiRate = state.taxi_rate || null;
@@ -443,6 +445,10 @@ const Details: React.FC = () => {
 
   const handleApplyCoupon = async () => {
     try {
+      // Reset states before making API call
+      setShowCouponError(false);
+      setShowCouponApplied(false);
+      
       const response = await axios.post("/coupons/apply-coupon", {
         couponCode,
         amount: taxiRate.discountedPrice,
@@ -450,15 +456,23 @@ const Details: React.FC = () => {
 
       setCouponDiscountedAmount(response.data.discountedAmount);
       setCouponId(response.data.couponId);
+      setShowCouponApplied(true); // Show coupon applied status
+      setShowCouponError(false);  // Ensure error is reset
       message.success("Coupons applied successfully!");
     } catch (error: any) {
-      // Check if the error is due to an invalid coupon code (404 status)
+      setCouponDiscountedAmount(0); // Reset discount amount on error
+      setShowCouponApplied(false);  // Hide coupon applied status
+
+      // Check if the coupon was invalid or expired
       if (error.response && error.response.status === 404) {
-        setCouponDiscountedAmount(0);
+        setShowCouponError(true); // Show error message
         message.error("Invalid coupon code. Please check and try again.");
+      } else if (error.response && error.response.status === 400) {
+        setShowCouponError(true); // Show error message
+        message.error("Coupon is expired or not active.");
       } else {
         console.error("Error applying coupon:", error);
-        // Handle other errors as needed
+        message.error("Error applying coupon. Please try again.");
       }
     }
   };
@@ -467,6 +481,8 @@ const Details: React.FC = () => {
     setCouponId(null);
     setCouponCode("");
     setCouponDiscountedAmount(0);
+    setShowCouponApplied(false); // Hide coupon applied status when cleared
+    setShowCouponError(false);   // Reset coupon error status
   };
 
   const onChange = (e: RadioChangeEvent) => {
@@ -601,6 +617,7 @@ const Details: React.FC = () => {
           gender: formValues.gender,
           emailId: formValues.emailId,
           contactNumber: formValues.contactNumber,
+          whatsAppNumber: formValues.whatsAppNumber,
           pincode: formValues.pincode,
           address: formValues.address,
           //
@@ -1108,7 +1125,7 @@ const Details: React.FC = () => {
                               </div>
                             </div>
                           }
-                          name="alternateContactNumber"
+                          name="whatsAppNumber"
                           rules={[
                             {
                               pattern: new RegExp(/^\d+$/),
@@ -1392,15 +1409,6 @@ const Details: React.FC = () => {
                               Booking for someone else
                             </Checkbox>
                           </Form.Item>
-                          {isOtherChecked && (
-                            <Form.Item className="m-0" name="otherDetails">
-                              <Input.TextArea
-                                placeholder="Please specify"
-                                autoSize={{ minRows: 3, maxRows: 3 }}
-                                style={{ resize: "none" }}
-                              />
-                            </Form.Item>
-                          )}
                         </div>
                         <div className="w-full">
                           <Form.Item
@@ -1452,7 +1460,7 @@ const Details: React.FC = () => {
               <OnTripDosAndDonts />
               <OtherTerms />
               <PreBoardingGuidelines />
-              <WaitingAndDriverAllowance />
+              {/* <WaitingAndDriverAllowance /> */}
             </div>
             <>
               <div className="min-w-full lg:min-w-[320px] max-w-xs lg:w-full m-3 sticky top-36">
@@ -1511,17 +1519,25 @@ const Details: React.FC = () => {
                           </Button>
                         )}
                       </Space.Compact>
+                      {/* Display relevant text based on coupon status */}
+                      {showCouponError && (
+                        <p className="text-red-500 mt-2 text-sm">Coupon is expired or invalid.</p>
+                      )}
+
+                      {showCouponApplied && !showCouponError && (
+                        <p className="text-green-500 mt-2 text-sm">Coupon applied successfully!</p>
+                      )}
                     </div>
                   </div>
                   <hr className="my-4" />
                   <div className="my-4">
                     {paymentType === "full" ? (
-                      <div className="w-full flex justify-between items-end">
+                      <div className="w-full flex justify-between items-center">
                         <div className="font-semibold text-xl">
                           Total Amount
                         </div>
-                        <div className="space-x-3">
-                          <span
+                        <div className="space-x-3 text-right">
+                          <div
                             className="font-semibold"
                             style={{
                               textDecoration: "line-through",
@@ -1529,12 +1545,10 @@ const Details: React.FC = () => {
                             }}
                           >
                             ₹ {taxiRate.originalPrice?.toLocaleString()}
-                          </span>
-                          <span className="text-2xl font-bold">
-                            ₹{" "}
-                            {couponDiscountedAmount ||
-                              taxiRate.discountedPrice?.toLocaleString()}
-                          </span>
+                          </div>
+                          <div className="text-2xl font-bold">
+                            ₹ {couponDiscountedAmount || taxiRate.discountedPrice?.toLocaleString()}
+                          </div>
                         </div>
                       </div>
                     ) : (

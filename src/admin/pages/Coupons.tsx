@@ -141,7 +141,7 @@ const Coupons: React.FC = () => {
       _id: coupon?._id,
       coupon: coupon?.name,
       discount: `${coupon?.discount_perc}%`,
-      timeline: `${moment(coupon?.from_date).format('YYYY-MM-DD')} to ${moment(coupon?.to_date).format('YYYY-MM-DD')}`,
+      timeline: `${moment(coupon?.from_date).format('DD-MM-YYYY')} to ${moment(coupon?.to_date).format('DD-MM-YYYY')}`,
       status: coupon?.status
     }));
   };
