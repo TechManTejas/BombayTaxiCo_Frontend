@@ -4,7 +4,7 @@ export const From = () => {
       <svg
         width="20"
         height="16"
-        viewBox="5 3 20 16"
+        viewBox="5 4 20 16"
         fill="none"
         data-baseweb="icon"
       >
