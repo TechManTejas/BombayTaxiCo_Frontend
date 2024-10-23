@@ -54,15 +54,16 @@ export default function BookingDetails() {
     setHoveredDriver(driver);
   };
 
-  const totalAmount = "₹" + booking.base_fare?.toFixed(2) || "₹0.00";
+  const totalAmount = "₹" + booking.base_fare || "₹0.00";
   const paymentsTotal =
     booking.payments?.reduce(
       (sum: any, payment: any) => sum + payment.amount / 100,
       0
     ) || 0;
   const dueAmount = booking.base_fare
-    ? "₹" + (booking.base_fare - paymentsTotal).toFixed(2)
+    ? "₹" + (booking.base_fare - paymentsTotal)
     : "---";
+  const advanceAmount = (paymentsTotal - (booking.base_fare - paymentsTotal))
 
   const goBack = () => {
     window.history.back();
@@ -411,7 +412,26 @@ export default function BookingDetails() {
                     </Button>
                   </>
                 )}
-              {(isBookingConfirmed || (isBookingResheduled && !hasDriverTaxi)) && (
+                {(isBookingConfirmed || (isBookingResheduled && !hasDriverTaxi)) && (
+                <>
+                  <div className="w-28" />
+                  <Button
+                    htmlType="submit"
+                    className="bg-[#FDB813] hover:bg-[#FDB813] text-black font-semibold w-28 h-10"
+                  >
+                    CONFIRM
+                  </Button>
+                  {!isBookingConfirmed &&
+                    <Button
+                    className="font-semibold w-32 h-10"
+                    onClick={onCancelTrip}
+                    >
+                      CANCEL TRIP
+                    </Button>
+                    }
+                </>
+              )}
+              {(isBookingConfirmed) && (
                 <>
                   <div className="w-28" />
                   <Button
@@ -459,6 +479,16 @@ export default function BookingDetails() {
             <div className="overflow-x-auto">
               <table className="divide-y divide-gray-200">
                 <tbody className="bg-white divide-y divide-gray-200">
+                <tr>
+                    <td className="py-4 whitespace-nowrap">
+                      <div className="text-sm font-medium text-gray-900">
+                        ADVANCE AMOUNT
+                      </div>
+                    </td>
+                    <td className="px-6 py-4">
+                      <div className="text-sm text-gray-500">{advanceAmount}</div>
+                    </td>
+                  </tr>
                   <tr>
                     <td className="py-4 whitespace-nowrap">
                       <div className="text-sm font-medium text-gray-900">
@@ -635,24 +665,36 @@ export default function BookingDetails() {
                   <tr>
                     <td className="py-4 whitespace-nowrap">
                       <div className="text-sm font-medium text-gray-900">
-                        PHONE
+                        WHATSAPP NUMBER
                       </div>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
                       <div className="text-sm text-gray-500">
-                        +91 {booking?.pincode}
+                        {booking?.whatsAppNumber}
                       </div>
                     </td>
                   </tr>
                   <tr>
                     <td className="py-4 whitespace-nowrap">
                       <div className="text-sm font-medium text-gray-900">
-                        PHONE
+                        PINCODE
                       </div>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
                       <div className="text-sm text-gray-500">
-                        +91 {booking?.address}
+                        {booking?.pincode}
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td className="py-4 whitespace-nowrap">
+                      <div className="text-sm font-medium text-gray-900">
+                        CONTACT ADDRESS
+                      </div>
+                    </td>
+                    <td className="px-6 py-4 whitespace-nowrap">
+                      <div className="text-sm text-gray-500">
+                        {booking?.address}
                       </div>
                     </td>
                   </tr>

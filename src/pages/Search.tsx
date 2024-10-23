@@ -127,6 +127,20 @@ const BillCard: React.FC<BillCardProps> = ({
             ))}
           </div>
         </div>
+        <hr className="my-3" />
+        <div>
+          <div className="text-lg my-1 font-semibold">Waiting & Driver Allowance</div>
+          <div className="font-light space-y-2">
+            <div className="flex justify-between">
+              <div>Driver Allowance</div>
+              <div>{settings?.parkingAndAirportEntry}</div>
+            </div>
+            <div className="flex justify-between">
+              <div>Waiting Charges</div>
+              <div>₹ {settings?.waitingChargesPerMinute?.toLocaleString()}</div>
+            </div>
+          </div>
+        </div>
       </div>
     </>
   );

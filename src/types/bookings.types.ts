@@ -61,6 +61,7 @@ export interface IBooking extends Document {
     gender: string;
     emailId: string;
     contactNumber: string;
+    whatsAppNumber: string;
     pincode?: string;
     address: string;
     numberOfPassengers: string,
