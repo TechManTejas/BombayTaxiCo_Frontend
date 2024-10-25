@@ -956,7 +956,7 @@ const StatsAndTestamonials: React.FC = () => {
     satisfied: 19508,
   };
 
-  const [translateX, setTranslateX] = useState(0);
+  const [translateX, setTranslateX] = useState(-(320 + 30));
   const [transitionDuration, setTransitionDuration] = useState("duration-700");
   const cardWidthIncludingGap = 320 + 30;
   const numberOfVisibleCards = 1;
@@ -997,6 +997,14 @@ const StatsAndTestamonials: React.FC = () => {
       position: "Chairmen",
     },
     {
+      avatar: Woman,
+      testimonialText:
+        "Bombay Taxi Company made my trip stress-free from start to finish. Booking was quick, the driver was exceptionally friendly, and the car was spotless. It was the perfect experience, and I can't recommend them enough for anyone needing reliable and comfortable transportation.",
+      name: "Sophia Patel",
+      position: "Marketing Head",
+    },
+    //repeat
+    {
       avatar: Man,
       testimonialText:
         "Using Bombay taxi company was an absolute breeze! From booking to drop-off, everything was seamless. The driver was punctual, courteous, and the vehicle was clean and comfortable. I highly recommend them for anyone looking for a reliable and stress-free transportation option.",
@@ -1016,6 +1024,26 @@ const StatsAndTestamonials: React.FC = () => {
       name: "Alice Johnson",
       position: "CEO",
     },
+    {
+      avatar: Man,
+      testimonialText:
+        "As a frequent traveller, I've tried many cab rental services, but none compare to Bombay Taxi Company. Their prices are competitive, their fleet is diverse, and their drivers are always professional and courteous. Whether it's a short trip around town or a long-distance journey, I trust Bombay Taxi Company to get me to my destination safely and on time.",
+      name: "Mark Brown",
+    },
+    {
+      avatar: Woman,
+      testimonialText:
+        "I recently used Bombay Taxi Company for airport transfer, and I was thoroughly impressed. The driver was waiting for me at the arrivals area, holding a sign with my name, making it easy for me to locate them. I will definitely be using Bombay Taxi Company for all my future transportation needs.",
+      name: "Emily Clark",
+      position: "Chairmen",
+    },
+    {
+      avatar: Woman,
+      testimonialText:
+        "Bombay Taxi Company made my trip stress-free from start to finish. Booking was quick, the driver was exceptionally friendly, and the car was spotless. It was the perfect experience, and I can't recommend them enough for anyone needing reliable and comfortable transportation.",
+      name: "Sophia Patel",
+      position: "Marketing Head",
+    }
   ];
 
   const maxTranslate = -(
@@ -1031,7 +1059,7 @@ const StatsAndTestamonials: React.FC = () => {
         if (newTranslate < maxTranslate) {
           setTransitionDuration("duration-0"); // Instantly reset position without transition
           setTimeout(() => setTransitionDuration("duration-700"), 50); // Then restore the transition for the next slide
-          return 0; // Start over
+          return -(320 + 30); // Start over
         }
         return newTranslate;
       });
