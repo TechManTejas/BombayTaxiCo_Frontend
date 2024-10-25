@@ -40,14 +40,15 @@ const BreadCrumb: React.FC = () => {
 const Cards: React.FC = () => {
   return (
     <div
-      className="grid justify-items-center py-8
+      className="grid justify-items-center py-8 text-center text-sm
       md:grid-cols-2
+      lg:grid-cols-4
     "
     >
-      <div className="p-4 rounded-3xl bg-white m-8 w-[282px] h-[280px] shadow-xl">
+      <div className="p-4 rounded-3xl bg-white m-8 w-[282px] h-[280px] hover:shadow">
         <div className="p-3">
           <div className="flex flex-col justify-center items-center space-y-3">
-            <div className="h-20 w-20 bg-[#FDB813] rounded-full flex justify-center items-center">
+            <div className="h-20 w-20 bg-[#FDB813] rounded-full flex justify-center items-center mb-2">
               <EnvironmentOutlined className="text-3xl text-white" />
             </div>
             <div className="font-black text-2xl">Office Address</div>
@@ -58,10 +59,10 @@ const Cards: React.FC = () => {
           </div>
         </div>
       </div>
-      <div className="p-4 rounded-3xl bg-white m-8 w-[282px] h-[280px] shadow-xl">
+      <div className="p-4 rounded-3xl bg-white m-8 w-[282px] h-[280px] hover:shadow">
         <div className="p-3">
           <div className="flex flex-col justify-center items-center space-y-3">
-            <div className="h-20 w-20 bg-[#FDB813] rounded-full flex justify-center items-center">
+            <div className="h-20 w-20 bg-[#FDB813] rounded-full flex justify-center items-center mb-2">
               <PhoneOutlined className="text-3xl text-white" />
             </div>
             <div className="font-black text-2xl">For Reservations</div>
@@ -74,10 +75,10 @@ const Cards: React.FC = () => {
           </div>
         </div>
       </div>
-      <div className="p-4 rounded-3xl bg-white m-8 w-[282px] h-[280px] shadow-xl">
+      <div className="p-4 rounded-3xl bg-white m-8 w-[282px] h-[280px] hover:shadow">
         <div className="p-3">
           <div className="flex flex-col justify-center items-center space-y-3">
-            <div className="h-20 w-20 bg-[#FDB813] rounded-full flex justify-center items-center">
+            <div className="h-20 w-20 bg-[#FDB813] rounded-full flex justify-center items-center mb-2">
               <MailOutlined className="text-3xl text-white" />
             </div>
             <div className="font-black text-2xl">Email Us</div>
@@ -90,10 +91,10 @@ const Cards: React.FC = () => {
           </div>
         </div>
       </div>
-      <div className="p-4 rounded-3xl bg-white m-8 w-[282px] h-[280px] shadow-xl">
+      <div className="p-4 rounded-3xl bg-white m-8 w-[282px] h-[280px] hover:shadow">
         <div className="p-3">
           <div className="flex flex-col justify-center items-center space-y-3">
-            <div className="h-20 w-20 bg-[#FDB813] rounded-full flex justify-center items-center">
+            <div className="h-20 w-20 bg-[#FDB813] rounded-full flex justify-center items-center mb-2">
               <ClockCircleOutlined className="text-3xl text-white" />
             </div>
             <div className="font-black text-2xl">Open Timing</div>
@@ -323,7 +324,7 @@ const Contact: React.FC = () => {
       <Container >
         <BreadCrumb />
         <Badge/>
-        <div className="text-center text-3xl font-medium">
+        <div className="text-center text-3xl font-bold mt-16">
           Any questions? Get in touch with us!
         </div>
         <Cards />

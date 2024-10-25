@@ -55,13 +55,13 @@ const TnCBombayTaxiCompany: React.FC = () => {
                 "
         >
           <div
-            className="space-y-6 
+            className="space-y-6 mt-6
                         w-full
                         xl:w-1/2
                     "
           >
             <div className="space-y-3">
-              <div className="text-3xl font-medium">General</div>
+              <div className="text-3xl font-bold">General</div>
               <div className="text-gray-700">
                 Welcome to the Bombay Taxi Company (“Bombay Taxi Company `”,
                 “we”, “our”, “us”, “Company”) website (collectively, the
@@ -89,7 +89,7 @@ const TnCBombayTaxiCompany: React.FC = () => {
               </div>
             </div>
             <div className="space-y-3">
-              <div className="text-3xl font-medium">Disclaimer</div>
+              <div className="text-3xl font-bold">Disclaimer</div>
               <div className="text-gray-700">
                 Bombay Taxi Company does not act as principal but makes
                 arrangements with third-party vendors, such as, but not limited
@@ -139,7 +139,7 @@ const TnCBombayTaxiCompany: React.FC = () => {
               </div>
             </div>
             <div className="space-y-3">
-              <div className="text-3xl font-medium">
+              <div className="text-3xl font-bold">
                 Intellectual Property Rights
               </div>
               <div className="text-gray-700">
@@ -161,7 +161,7 @@ const TnCBombayTaxiCompany: React.FC = () => {
               </div>
             </div>
             <div className="space-y-3">
-              <div className="text-3xl font-medium">
+              <div className="text-3xl font-bold">
                 Limitation of Liability
               </div>
               <div className="text-gray-700">
@@ -190,7 +190,7 @@ const TnCBombayTaxiCompany: React.FC = () => {
               </div>
             </div>
             <div className="space-y-3">
-              <div className="text-3xl font-medium">Privacy</div>
+              <div className="text-3xl font-bold">Privacy</div>
               <div className="text-gray-700">
                 Any personally identifiable data about you which we collect from
                 you on this website, including without limitation, personally
@@ -224,7 +224,7 @@ const TnCBombayTaxiCompany: React.FC = () => {
               </div>
             </div>
             <div className="space-y-3">
-              <div className="text-3xl font-medium">Disclosure</div>
+              <div className="text-3xl font-bold">Disclosure</div>
               <div className="text-gray-700">
                 We may disclose your personally identifiable information not
                 limited to the email address if we reasonably believe we are
@@ -269,7 +269,7 @@ const TnCBombayTaxiCompany: React.FC = () => {
               </div>
             </div>
             <div className="space-y-3">
-              <div className="text-3xl font-medium">User(s) Eligibility</div>
+              <div className="text-3xl font-bold">User(s) Eligibility</div>
               <div className="text-gray-700">
                 User(s) means any individual or business entity/organization
                 that legally operates in India or in other countries, uses and
@@ -295,7 +295,7 @@ const TnCBombayTaxiCompany: React.FC = () => {
               </div>
             </div>
             <div className="space-y-3">
-              <div className="text-3xl font-medium">
+              <div className="text-3xl font-bold">
                 Cancellation and Refund Policy
               </div>
               <div className="text-gray-700">
@@ -323,7 +323,7 @@ const TnCBombayTaxiCompany: React.FC = () => {
               </div>
             </div>
             <div className="space-y-3">
-              <div className="text-3xl font-medium">Special instructions</div>
+              <div className="text-3xl font-bold">Special instructions</div>
               <div className="text-gray-700">
                 <ul className="">
                   <li>
@@ -354,7 +354,7 @@ const TnCBombayTaxiCompany: React.FC = () => {
               </div>
             </div>
             <div className="space-y-3">
-              <div className="text-3xl font-medium">Use of Cabs</div>
+              <div className="text-3xl font-bold">Use of Cabs</div>
               <div className="text-gray-700">
                 The following Terms & Conditions shall apply to customers /
                 passengers utilizing the Services offered by the Bombay Taxi

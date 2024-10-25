@@ -57,9 +57,6 @@ const Content: React.FC = () => {
                         xl:w-1/2
                     '>
                         <div className="space-y-3">
-                            <div className='text-3xl font-medium'>
-                                Privacy Policy
-                            </div>
                             <div className="space-y-3 text-gray-700">
                                 <div className=''>
                                     Privacy is a hot topic these days, and we want you to feel totally comfortable using our service, so our privacy policy is very simple
@@ -122,13 +119,13 @@ const Content: React.FC = () => {
                                     <span className="font-bold pr-1">
                                         Correction/Updating/Deleting Personally Identifiable Information:
                                     </span>
-                                    Bombay Taxi Company provides you with the ability to review, correct and delete any of the personally identifiable information that you have provided to us. If you wish to review, correct or delete any information you have provided to us, you may contact us at care@BombayTaxiCompany.in
+                                    Bombay Taxi Company provides you with the ability to review, correct and delete any of the personally identifiable information that you have provided to us. If you wish to review, correct or delete any information you have provided to us, you may contact us at care@bombaytaxico.com
                                 </div>
                                 <div>
                                     <span className="font-bold pr-1">
                                         Changes to This Privacy Policy
                                     </span>
-                                    we decide to change our privacy policy, we will post those changes to this privacy statement page, so that you are aware of what information we collect, how we use it, and under what circumstances if any, we disclose it. We reserve the right to modify this privacy statement at any time, so please review it frequently. If we make material changes to this policy, we will notify you by email or by means of a notice on our homepage. Questions or Concerns if you have any questions or concerns regarding privacy at Bombay Taxi Company, please send us a detailed message to care@BombayTaxiCompany.in
+                                    we decide to change our privacy policy, we will post those changes to this privacy statement page, so that you are aware of what information we collect, how we use it, and under what circumstances if any, we disclose it. We reserve the right to modify this privacy statement at any time, so please review it frequently. If we make material changes to this policy, we will notify you by email or by means of a notice on our homepage. Questions or Concerns if you have any questions or concerns regarding privacy at Bombay Taxi Company, please send us a detailed message to care@bombaytaxico.com
                                 </div>
                                 <div>
                                     <span className="font-bold pr-1">
@@ -138,10 +135,10 @@ const Content: React.FC = () => {
                                         Mumbai
                                     </div>
                                     <div>
-                                        care@BombayTaxi Company.in
+                                        care@bombaytaxico.com
                                     </div>
                                     <div>
-                                        effort to resolve your concerns. Effective date: Oct 27, 2023
+                                        effort to resolve your concerns.
                                     </div>
                                 </div>
                             </div>

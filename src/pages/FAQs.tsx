@@ -51,7 +51,7 @@ const Badge: React.FC = () => {
 const Content: React.FC = () => {
   return (
     <>
-      <div className="pb-20 flex justify-center w-full">
+      <div className="py-6 flex justify-center w-full">
         <div
           className="flex flex-col justify-center items-center container
                     xl:flex-row
@@ -64,7 +64,7 @@ const Content: React.FC = () => {
                     "
           >
             <div className="space-y-3">
-              <div className="text-3xl font-medium">General</div>
+              <div className="text-3xl font-bold">General</div>
               <Collapse accordion className="bg-white rounded-2xl border-none">
                 <Panel header="1. What is Bombay Taxi Company?" key="1">
                   <div className="space-y-3">
@@ -132,7 +132,7 @@ const Content: React.FC = () => {
             </div>
 
             <div className="space-y-3">
-              <div className="text-3xl font-medium">Booking</div>
+              <div className="text-3xl font-bold">Booking</div>
               <Collapse accordion className="bg-white rounded-2xl border-none">
                 <Panel
                   header="1. How can I book a taxi on Bombay Taxi Company?"
@@ -250,7 +250,7 @@ const Content: React.FC = () => {
             </div>
 
             <div className="space-y-3">
-              <div className="text-3xl font-medium">Pricing</div>
+              <div className="text-3xl font-bold">Pricing</div>
               <Collapse accordion className="bg-white rounded-2xl border-none">
                 <Panel
                   header="1. How is the total fare/price calculated for an intercity car rental service?"
@@ -348,7 +348,7 @@ const Content: React.FC = () => {
             </div>
 
             <div className="space-y-3">
-              <div className="text-3xl font-medium">Registration</div>
+              <div className="text-3xl font-bold">Registration</div>
               <Collapse accordion className="bg-white rounded-2xl border-none">
                 <Panel
                   header="1. Do I have to register to avail the service?"
@@ -366,7 +366,7 @@ const Content: React.FC = () => {
             </div>
 
             <div className="space-y-3">
-              <div className="text-3xl font-medium">Payment</div>
+              <div className="text-3xl font-bold">Payment</div>
               <Collapse accordion className="bg-white rounded-2xl border-none">
                 <Panel header="1. How do I pay for the service?" key="1">
                   <div className="space-y-3">
@@ -422,7 +422,7 @@ const Content: React.FC = () => {
             </div>
 
             <div className="space-y-3">
-              <div className="text-3xl font-medium">Other</div>
+              <div className="text-3xl font-bold">Other</div>
               <Collapse accordion className="bg-white rounded-2xl border-none">
                 <Panel
                   header="1. Where can I give feedback regarding Bombay Taxi Company?"
