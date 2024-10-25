@@ -24,7 +24,7 @@ import dayjs, { Dayjs } from "dayjs";
 import axios from "../api/axios";
 import { confirmation } from "../components/Confirmation";
 import { useEffect, useState } from "react";
-import { generateTimeOptions } from "../utils/GenerateTimeOptions";
+import { generateTimeOptionsAll } from "../utils/GenerateTimeOptions";
 
 export default function UserBookingDetails() {
   const { state } = useLocation();
@@ -38,7 +38,7 @@ export default function UserBookingDetails() {
   const [returnDate, setReturnDate] = useState<Dayjs | null>(
     booking.return_date ? dayjs(booking.return_date) : null
   );
-  const [timeOptions, setTimeOptions] = useState(generateTimeOptions(pickupDate ?? dayjs()));
+  const [timeOptions, setTimeOptions] = useState(generateTimeOptionsAll(pickupDate ?? dayjs()));
   const [originalDuration, setOriginalDuration] = useState<number>();
 
   const onTimeChange = (e: any) => {
@@ -46,9 +46,8 @@ export default function UserBookingDetails() {
   };
 
   useEffect(() => {
-    const timeOptions = generateTimeOptions(pickupDate ?? dayjs());
+    const timeOptions = generateTimeOptionsAll(pickupDate ?? dayjs());
     setTimeOptions(timeOptions);
-    setPickupTime(timeOptions[0]?.label ?? "");
   }, [pickupDate]);
 
   const isEditable =
@@ -95,17 +94,16 @@ export default function UserBookingDetails() {
   const isBookingCancelledByUser =
     booking?.booking_status === BookingStatus.CancelledByUser;
 
-  console.log(booking);
-
-  const totalAmount = "₹" + booking.base_fare?.toFixed(2) || "₹0.00";
+  const totalAmount = "₹" + booking.base_fare || "₹0";
   const paymentsTotal =
     booking.payments?.reduce(
       (sum: any, payment: any) => sum + payment.amount / 100,
       0
     ) || 0;
   const dueAmount = booking.base_fare
-    ? "₹" + (booking.base_fare - paymentsTotal).toFixed(2)
+    ? "₹" + (booking.base_fare - paymentsTotal)
     : "---";
+  const advanceAmount = "₹" + paymentsTotal;
 
   const goBack = () => {
     window.history.back();
@@ -385,6 +383,18 @@ export default function UserBookingDetails() {
             <div className="overflow-x-auto">
               <table className="divide-y divide-gray-200">
                 <tbody className="bg-white divide-y divide-gray-200">
+                <tr>
+                    <td className="py-4 whitespace-nowrap">
+                      <div className="text-sm font-medium text-gray-900">
+                        ADVANCE AMOUNT
+                      </div>
+                    </td>
+                    <td className="px-6 py-4">
+                      <div className="text-sm text-gray-500">
+                        {advanceAmount}
+                      </div>
+                    </td>
+                  </tr>
                   <tr>
                     <td className="py-4 whitespace-nowrap">
                       <div className="text-sm font-medium text-gray-900">
@@ -474,7 +484,9 @@ export default function UserBookingDetails() {
                       </div>
                     </td>
                   </tr>
-                  <tr>
+                  {booking?.trip_type === TripType.Round && (
+
+                    <tr>
                     <td className="py-4 whitespace-nowrap">
                       <div className="text-sm font-medium text-gray-900">
                         RETURN DATE
@@ -486,6 +498,7 @@ export default function UserBookingDetails() {
                       </div>
                     </td>
                   </tr>
+                    )}
                   <tr>
                     <td className="py-4 whitespace-nowrap">
                       <div className="text-sm font-medium text-gray-900">

@@ -154,9 +154,9 @@ export const Profile = () => {
             page: page,
             pageSize: 10,
             filter:
-              activeTab !== "All"
-                ? JSON.stringify({ booking_status: activeTab })
-                : JSON.stringify({ booking_status: "New" }),
+              activeTab === "All"
+                ? null
+                : JSON.stringify({ booking_status: activeTab }),
             search: searchQuery,
           },
         });
@@ -263,19 +263,19 @@ export const Profile = () => {
               tabPosition="top"
               onChange={handleTabChange}
             >
-              <TabPane tab={renderTabTitle("Requested", "New")} key="New" />
-              <TabPane
+              <TabPane tab={renderTabTitle("All", "All")} key="All" />
+              {/* <TabPane
                 tab={renderTabTitle("Upcoming", "Confirmed")}
                 key="Confirmed"
-              />
+              /> */}
               <TabPane
                 tab={renderTabTitle("Rescheduled", "Rescheduled")}
                 key="Rescheduled"
               />
-              <TabPane
+              {/* <TabPane
                 tab={renderTabTitle("Completed", "Completed")}
                 key="Completed"
-              />
+              /> */}
               <TabPane
                 tab={renderTabTitle("Cancelled", "Cancelled")}
                 key="Cancelled"

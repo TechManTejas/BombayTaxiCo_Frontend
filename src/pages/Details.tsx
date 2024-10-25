@@ -359,31 +359,6 @@ const PreBoardingGuidelines = () => {
   );
 };
 
-const WaitingAndDriverAllowance = () => {
-  return (
-    <>
-      <div className="bg-white border my-3  rounded-lg">
-        <Collapse accordion className="bg-white rounded-2xl border-none">
-          <Panel header="Waiting and Driver allowance" key="4">
-            <div
-              className="lg:flex gap-8
-            lg:w-[730px]
-          "
-            >
-              <div className="font-light space-y-2 w-full">
-                <div className="flex w-full justify-between">
-                  <div>Name</div>
-                  <div>₹ price/KM</div>
-                </div>
-              </div>
-            </div>
-          </Panel>
-        </Collapse>
-      </div>
-    </>
-  );
-};
-
 const Details: React.FC = () => {
   const { userAuthenticated, setOpenAuthModal } = Context();
 
