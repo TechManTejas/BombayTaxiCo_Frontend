@@ -93,17 +93,17 @@ export default function DriverDetails() {
                         </table>
                     </div>
 
-                    <Space className='space-x-4 my-4'>
+                    {/* <Space className='space-x-4 my-4'>
                         <Button htmlType="submit" className="bg-[#FDB813] hover:bg-[#FDB813] text-black font-semibold w-28 h-10">
                             ASSIGN
                         </Button>
-                        {/* <Button className="font-semibold w-28 h-10" onClick={goBack}>
+                        <Button className="font-semibold w-28 h-10" onClick={goBack}>
                             DELETE
-                        </Button> */}
-                    </Space>
+                        </Button>
+                    </Space> */}
 
                 </div>
-                <div>
+                {/* <div>
                     <div className="text-gray-400 my-3">
                         ASSIGN TO
                     </div>
@@ -119,7 +119,7 @@ export default function DriverDetails() {
                         </table>
                     </div>
 
-                </div>
+                </div> */}
             </div>
         </div>
     )

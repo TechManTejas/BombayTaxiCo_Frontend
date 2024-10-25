@@ -341,7 +341,7 @@ const RoutesAddEdit: React.FC = () => {
                     </Space>
 
                     <Form.Item name="route_status" label="Status" rules={[{ required: true, message: 'Please select the status' }]}>
-                        <Switch checkedChildren="Active" unCheckedChildren="Inactive" className='bg-yellow-800' defaultChecked={routeToEdit?.route_status === "Active" || true} />
+                        <Switch checkedChildren="Active" unCheckedChildren="Inactive" className='bg-yellow-800' defaultChecked={routeToEdit?.route_status === "Active"} />
                     </Form.Item>
 
                     <Form.Item>

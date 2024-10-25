@@ -388,6 +388,8 @@ const Details: React.FC = () => {
   const pickupTime = state.pickupTime || null;
   const pickupCityId = state.pickupCityId || null;
   const hourlyPackage = state.hourlyPackage || null;
+  const [hours, _, kms, __] = state.hourlyPackage.split(' ').map((value: string) => parseInt(value));
+
   const cancellationDeadline = dayjs(
     `${pickupDate.format("YYYY-MM-DD")} ${pickupTime}`
   ).subtract(2, "hour");
@@ -914,7 +916,7 @@ const Details: React.FC = () => {
                           {tripType === "Round Trip"
                             ? route?.round_trip_km || 0
                             : tripType === "Hourly Rental"
-                            ? 0
+                            ? kms.toString()
                             : route?.one_way_trip_km || 0}{" "}
                           Kms
                         </li>
@@ -950,13 +952,23 @@ const Details: React.FC = () => {
                               {tripType === "Round Trip"
                                 ? route?.round_trip_km || 0
                                 : tripType === "Hourly Rental"
-                                ? 0
+                                ? kms.toString()
                                 : route?.one_way_trip_km || 0}{" "}
                               Kms
                             </div>
                             <div className="text-right w-24 font-semibold">
-                              ₹ {taxiRate.extraKmCharges?.toLocaleString()}
-                              /Km
+                              {tripType === "Hourly Rental" ? (
+                                  <>
+                                    ₹ {taxiRate.taxiType.price_hour} / hour
+                                  </>
+                                ):
+                                (
+                                  <>
+                                     ₹ {taxiRate.extraKmCharges?.toLocaleString()} /Km
+                                  </>
+                                )
+                              }
+                             
                             </div>
                           </div>
                         </li>
