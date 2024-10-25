@@ -32,7 +32,7 @@ const UserInvoiceDetails: React.FC = () => {
                 INVOICE
             </div>
             <div className="w-full py-2 sm:px-2 flex-grow">
-                <div className="flex flex-wrap flex-row">
+                <div className="flex flex-col">
                     <div
                         id="title-invoice"
                         className="flex justify-between max-w-full px-4 py-4 w-full"
@@ -57,9 +57,9 @@ const UserInvoiceDetails: React.FC = () => {
                             Print Invoice
                         </Button>
                     </div>
-                    <div className='min-w-[400px] overflow-auto'>
-                        <div className="flex-shrink max-w-full px-4 w-full mb-6 shadow-lg min-w-min overflow-auto">
-                            <div ref={componentRef} className="p-4 bg-white rounded-lg space-y-0">
+                    <div className='flex w-full justify-center'>
+                        <div className="px-4  mb-6 shadow-lg">
+                            <div ref={componentRef} className="p-4 bg-white rounded-lg space-y-0 w-[1005px]">
                                 <div className="flex justify-between items-center pb-4 border-b border-gray-200 mb-3">
                                     <div className="flex flex-col">
                                         <div className="text-4xl font-bold flex items-center">
@@ -408,7 +408,7 @@ const UserInvoiceDetails: React.FC = () => {
                                         All disputes are subject to jurisdiction of courts in Mumbai.
                                     </div>
                                     <div>
-                                        Please refer our website <a href='https://www.bombaytaxicompany.com/' className='text-sky-600 underline'>wwww.bombaytaxicompany.com</a> for terms and conditions.
+                                        Please refer our website <a href='https://www.bombaytaxico.com/' className='text-sky-600 underline'>wwww.bombaytaxico.com</a> for terms and conditions.
                                     </div>
                                     <div>
                                         For any queries, please write to us at <a href="mailto:bombaytaxicompany@gmail.com" className="text-sky-600 underline">bombaytaxicompany@gmail.com</a>.

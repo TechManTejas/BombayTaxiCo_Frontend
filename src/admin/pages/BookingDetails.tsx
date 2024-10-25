@@ -38,7 +38,7 @@ export default function BookingDetails() {
     booking?.booking_status === BookingStatus.CancelledByUser;
   const isBookingResheduled =
     booking?.booking_status === BookingStatus.Resheduled;
-  const hasDriverTaxi = !!booking?.driver_id && !!booking?.taxi_id
+  const hasDriverTaxi = !!booking?.driver_id && !!booking?.taxi_id;
 
   const [drivers, setDrivers] = useState([]);
   const [taxis, setTaxis] = useState([]);
@@ -54,7 +54,7 @@ export default function BookingDetails() {
     setHoveredDriver(driver);
   };
 
-  const totalAmount = "₹" + booking.base_fare || "₹0.00";
+  const totalAmount = "₹" + booking.base_fare || "₹0";
   const paymentsTotal =
     booking.payments?.reduce(
       (sum: any, payment: any) => sum + payment.amount / 100,
@@ -63,7 +63,7 @@ export default function BookingDetails() {
   const dueAmount = booking.base_fare
     ? "₹" + (booking.base_fare - paymentsTotal)
     : "---";
-  const advanceAmount = (paymentsTotal - (booking.base_fare - paymentsTotal))
+  const advanceAmount = "₹" + paymentsTotal;
 
   const goBack = () => {
     window.history.back();
@@ -79,10 +79,15 @@ export default function BookingDetails() {
       // If user confirms, proceed with the Axios post request
       if (isConfirmed) {
         // Make Axios post request to /assign-taxi-driver endpoint
-        const response = await axios.post(hasDriverTaxi ? "/bookings/reassign-taxi-driver" : "/bookings/assign-taxi-driver", {
-          ...values,
-          booking_id: booking?._id,
-        });
+        const response = await axios.post(
+          hasDriverTaxi
+            ? "/bookings/reassign-taxi-driver"
+            : "/bookings/assign-taxi-driver",
+          {
+            ...values,
+            booking_id: booking?._id,
+          }
+        );
 
         // Handle response as needed
         console.log("Assignment successful:", response.data);
@@ -301,8 +306,10 @@ export default function BookingDetails() {
         },
       })
       .then((response) => {
-        setDrivers(response.data.drivers)
-        const driver = response.data.drivers.find((driver: IDriver) => driver._id === booking?.driver_id?._id);
+        setDrivers(response.data.drivers);
+        const driver = response.data.drivers.find(
+          (driver: IDriver) => driver._id === booking?.driver_id?._id
+        );
         handleHoverDriver(driver);
       })
       .catch((error) => console.error("Error fetching drivers:", error));
@@ -320,7 +327,9 @@ export default function BookingDetails() {
       })
       .then((response) => {
         setTaxis(response.data.taxis);
-        const taxi = response.data.taxis.find((taxi: ITaxi) => taxi._id === booking?.taxi_id?._id);
+        const taxi = response.data.taxis.find(
+          (taxi: ITaxi) => taxi._id === booking?.taxi_id?._id
+        );
         handleHoverTaxi(taxi);
       })
       .catch((error) => console.error("Error fetching taxis:", error));
@@ -412,7 +421,8 @@ export default function BookingDetails() {
                     </Button>
                   </>
                 )}
-                {(isBookingConfirmed || (isBookingResheduled && !hasDriverTaxi)) && (
+              {(isBookingConfirmed ||
+                (isBookingResheduled && !hasDriverTaxi)) && (
                 <>
                   <div className="w-28" />
                   <Button
@@ -421,17 +431,17 @@ export default function BookingDetails() {
                   >
                     CONFIRM
                   </Button>
-                  {!isBookingConfirmed &&
+                  {!isBookingConfirmed && (
                     <Button
-                    className="font-semibold w-32 h-10"
-                    onClick={onCancelTrip}
+                      className="font-semibold w-32 h-10"
+                      onClick={onCancelTrip}
                     >
                       CANCEL TRIP
                     </Button>
-                    }
+                  )}
                 </>
               )}
-              {(isBookingConfirmed) && (
+              {isBookingConfirmed && (
                 <>
                   <div className="w-28" />
                   <Button
@@ -440,33 +450,32 @@ export default function BookingDetails() {
                   >
                     START TRIP
                   </Button>
-                  {!isBookingConfirmed &&
-                    <Button
-                    className="font-semibold w-32 h-10"
-                    onClick={onCancelTrip}
-                    >
-                      CANCEL TRIP
-                    </Button>
-                    }
-                </>
-              )}
-               {(isBookingConfirmed ||
-                isBookingResheduled) && hasDriverTaxi && (
-                  <>
-                    <Button
-                      htmlType="submit"
-                      className="bg-red-500 hover:bg-red-600 text-black font-semibold w-28 h-10"
-                    >
-                      REASSIGN
-                    </Button>
+                  {!isBookingConfirmed && (
                     <Button
                       className="font-semibold w-32 h-10"
                       onClick={onCancelTrip}
                     >
                       CANCEL TRIP
                     </Button>
-                  </>
-                )}
+                  )}
+                </>
+              )}
+              {(isBookingConfirmed || isBookingResheduled) && hasDriverTaxi && (
+                <>
+                  <Button
+                    htmlType="submit"
+                    className="bg-red-500 hover:bg-red-600 text-black font-semibold w-28 h-10"
+                  >
+                    REASSIGN
+                  </Button>
+                  <Button
+                    className="font-semibold w-32 h-10"
+                    onClick={onCancelTrip}
+                  >
+                    CANCEL TRIP
+                  </Button>
+                </>
+              )}
             </Space>
           </Form>
         </div>
@@ -479,14 +488,16 @@ export default function BookingDetails() {
             <div className="overflow-x-auto">
               <table className="divide-y divide-gray-200">
                 <tbody className="bg-white divide-y divide-gray-200">
-                <tr>
+                  <tr>
                     <td className="py-4 whitespace-nowrap">
                       <div className="text-sm font-medium text-gray-900">
                         ADVANCE AMOUNT
                       </div>
                     </td>
                     <td className="px-6 py-4">
-                      <div className="text-sm text-gray-500">{advanceAmount}</div>
+                      <div className="text-sm text-gray-500">
+                        {advanceAmount}
+                      </div>
                     </td>
                   </tr>
                   <tr>
@@ -578,18 +589,20 @@ export default function BookingDetails() {
                       </div>
                     </td>
                   </tr>
-                  <tr>
-                    <td className="py-4 whitespace-nowrap">
-                      <div className="text-sm font-medium text-gray-900">
-                        RETURN DATE
-                      </div>
-                    </td>
-                    <td className="px-6 py-4">
-                      <div className="text-sm text-gray-500">
-                        {dayjs(booking?.return_date).format("DD-MM-YYYY")}
-                      </div>
-                    </td>
-                  </tr>
+                  {booking?.trip_type === TripType.Round && (
+                    <tr>
+                      <td className="py-4 whitespace-nowrap">
+                        <div className="text-sm font-medium text-gray-900">
+                          RETURN DATE
+                        </div>
+                      </td>
+                      <td className="px-6 py-4">
+                        <div className="text-sm text-gray-500">
+                          {dayjs(booking?.return_date).format("DD-MM-YYYY")}
+                        </div>
+                      </td>
+                    </tr>
+                  )}
                   <tr>
                     <td className="py-4 whitespace-nowrap">
                       <div className="text-sm font-medium text-gray-900">
@@ -862,8 +875,7 @@ export default function BookingDetails() {
             </div>
           </div>
         </div>
-        {
-          !isBookingOnRide &&
+        {!isBookingOnRide &&
           !isBookingCompleted &&
           !isBookingCancelled &&
           !isBookingCancelledByUser && (

@@ -10,8 +10,8 @@ import { TripType } from "../../types/bookings.types";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPaperPlane } from "@fortawesome/free-solid-svg-icons";
 import axios from "../../api/axios";
-import jsPDF from 'jspdf';
-import domtoimage from 'dom-to-image';
+import jsPDF from "jspdf";
+import domtoimage from "dom-to-image";
 
 const InvoiceDetails: React.FC = () => {
   const { state } = useLocation();
@@ -24,12 +24,12 @@ const InvoiceDetails: React.FC = () => {
 
   const printToPdfBlob = async (element: any) => {
     const dataUrl = await domtoimage.toPng(element);
-    const pdf = new jsPDF('p', 'mm', 'a4');
-    const imgProps= pdf.getImageProperties(dataUrl);
+    const pdf = new jsPDF("p", "mm", "a4");
+    const imgProps = pdf.getImageProperties(dataUrl);
     const pdfWidth = pdf.internal.pageSize.getWidth();
     const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
-    pdf.addImage(dataUrl, 'PNG', 0, 0, pdfWidth, pdfHeight);
-    return pdf.output('blob');
+    pdf.addImage(dataUrl, "PNG", 0, 0, pdfWidth, pdfHeight);
+    return pdf.output("blob");
   };
 
   const handleSend = async () => {
@@ -37,20 +37,24 @@ const InvoiceDetails: React.FC = () => {
       const pdfBlob = await printToPdfBlob(componentRef.current); // Hypothetical function
 
       const formData = new FormData();
-      formData.append('invoice', pdfBlob, 'invoice.pdf');
-      formData.append('email', invoice.booking.user_id.email_id);
+      formData.append("invoice", pdfBlob, "invoice.pdf");
+      formData.append("email", invoice.booking.user_id.email_id);
 
-      message.info("Invoice will be sent in few minutes")
-      const response = await axios.post('/emails/send-email-invoice', formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
-      });
-      message.success("Invoice sent successfully")
+      message.info("Invoice will be sent in few minutes");
+      const response = await axios.post(
+        "/emails/send-email-invoice",
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+      message.success("Invoice sent successfully");
 
-      console.log('Response:', response.data);
+      console.log("Response:", response.data);
     } catch (error) {
-      console.error('Error:', error);
+      console.error("Error:", error);
     }
   };
 
@@ -69,7 +73,7 @@ const InvoiceDetails: React.FC = () => {
       </Button>
       <div className="text-2xl font-light">INVOICE</div>
       <div className="w-full mx-auto py-2 sm:px-2 flex-grow">
-        <div className="flex flex-wrap flex-row">
+        <div className="flex flex-col">
           <div
             id="title-invoice"
             className="flex justify-between max-w-full px-4 py-4 w-full"
@@ -104,312 +108,315 @@ const InvoiceDetails: React.FC = () => {
               </Button>
             </div>
           </div>
-          <div className="flex-shrink max-w-full px-4 w-full mb-6 shadow-lg">
-            <div
-              ref={componentRef}
-              className="p-4 bg-white rounded-lg space-y-0"
-            >
-              <div className="flex justify-between items-center pb-4 border-b border-gray-200 mb-3">
-                <div className="flex flex-col">
-                  <div className="text-4xl font-bold flex items-center">
-                    <img className="inline-block h-12 mr-2" src={Logo} />
+          <div className="flex w-full justify-center">
+            <div className="px-4 mb-6 shadow-lg">
+              <div
+                ref={componentRef}
+                className="p-4 bg-white rounded-lg space-y-0 w-[1005px]"
+              >
+                <div className="flex justify-between items-center pb-4 border-b border-gray-200 mb-3">
+                  <div className="flex flex-col">
+                    <div className="text-4xl font-bold flex items-center">
+                      <img className="inline-block h-12 mr-2" src={Logo} />
+                    </div>
+                  </div>
+                  <div className="text-4xl uppercase font-bold">Invoice</div>
+                </div>
+                <div className="">
+                  <div className="p-1 font-semibold text-xl bg-zinc-300 border border-black">
+                    Customer Details
+                  </div>
+                  <div className="flex text-lg">
+                    <div className="w-full border border-black border-t-0 py-1">
+                      <div className="flex">
+                        <div className="flex flex-shrink-0 justify-between w-20 px-1">
+                          <div>Name</div>
+                          <div>:</div>
+                        </div>
+                        <div className="px-1">
+                          {invoice.booking.user_id.name ?? ""}
+                        </div>
+                      </div>
+                      <div className="flex">
+                        <div className="flex flex-shrink-0 justify-between w-20 px-1">
+                          <div>Email</div>
+                          <div>:</div>
+                        </div>
+                        <div className="px-1">
+                          {invoice.booking.user_id.email_id ?? ""}
+                        </div>
+                      </div>
+                      <div className="flex">
+                        <div className="flex flex-shrink-0 justify-between w-20 px-1">
+                          <div>Phone</div>
+                          <div>:</div>
+                        </div>
+                        <div className="px-1">
+                          {invoice.booking.user_id.mobile_no ?? ""}
+                        </div>
+                      </div>
+                    </div>
+                    <div className="flex-shrink-0 w-80 border border-black border-t-0 border-l-0 py-1">
+                      <div className="flex">
+                        <div className="flex flex-shrink-0 justify-between w-32 px-1">
+                          <div>Invoice No#</div>
+                          <div>:</div>
+                        </div>
+                        <div className="px-1">
+                          IC-{invoice._id.slice(-5).toLocaleUpperCase()}
+                        </div>
+                      </div>
+                      <div className="flex">
+                        <div className="flex flex-shrink-0 justify-between w-32 px-1">
+                          <div>Billed On</div>
+                          <div>:</div>
+                        </div>
+                        <div className="px-1">
+                          {new Date(invoice.date).toLocaleDateString("en-US", {
+                            year: "numeric",
+                            month: "long",
+                            day: "numeric",
+                          })}
+                        </div>
+                      </div>
+                      <div className="flex">
+                        <div className="flex flex-shrink-0 justify-between w-32 px-1">
+                          <div>Booking ID</div>
+                          <div>:</div>
+                        </div>
+                        <div className="px-1">
+                          BTC{invoice.booking.booking_number}
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 </div>
-                <div className="text-4xl uppercase font-bold">Invoice</div>
-              </div>
-              <div className="">
-                <div className="p-1 font-semibold text-xl bg-zinc-300 border border-black">
-                  Customer Details
-                </div>
-                <div className="flex text-lg">
-                  <div className="w-full border border-black border-t-0 py-1">
-                    <div className="flex">
-                      <div className="flex flex-shrink-0 justify-between w-20 px-1">
-                        <div>Name</div>
-                        <div>:</div>
+                <div className="">
+                  <div className="flex">
+                    <div className="flex-1 p-1 font-semibold text-xl bg-zinc-300 border border-black">
+                      Trip Details
+                    </div>
+                    <div className="w-80 p-1 font-semibold text-xl bg-zinc-300 border border-black border-l-0">
+                      Amount
+                    </div>
+                  </div>
+                  <div className="flex text-lg">
+                    <div className="w-full border border-black border-t-0 py-1">
+                      <div className="flex">
+                        <div className="flex flex-shrink-0 justify-between w-36 px-1">
+                          <div>Trip Type</div>
+                          <div>:</div>
+                        </div>
+                        <div className="px-1">{invoice.booking.trip_type}</div>
                       </div>
-                      <div className="px-1">
-                        {invoice.booking.user_id.name ?? ""}
+                      <div className="flex">
+                        <div className="flex flex-shrink-0 justify-between w-36 px-1">
+                          <div>Cab Type</div>
+                          <div>:</div>
+                        </div>
+                        <div className="px-1">
+                          {invoice.booking.taxi_id?.taxi_type_id?.name}
+                        </div>
+                      </div>
+                      <div className="flex">
+                        <div className="flex flex-shrink-0 justify-between w-36 px-1">
+                          <div>Pickup City</div>
+                          <div>:</div>
+                        </div>
+                        <div className="px-1">
+                          {invoice.booking.route_id?.from_id?.name}, Maharashtra
+                        </div>
+                      </div>
+                      <div className="flex">
+                        <div className="flex flex-shrink-0 justify-between w-36 px-1">
+                          <div>Pickup location</div>
+                          <div>:</div>
+                        </div>
+                        <div className="px-1">
+                          {invoice.booking.pickup_address}
+                        </div>
+                      </div>
+                      <div className="flex">
+                        <div className="flex flex-shrink-0 justify-between w-36 px-1">
+                          <div>Destination</div>
+                          <div>:</div>
+                        </div>
+                        <div className="px-1">
+                          {invoice.booking.drop_address ?? ""}
+                        </div>
+                      </div>
+                      <div className="flex">
+                        <div className="flex flex-shrink-0 justify-between w-36 px-1">
+                          <div>Itenerary</div>
+                          <div>:</div>
+                        </div>
+                        <div className="px-1">
+                          {(() => {
+                            switch (invoice.booking.trip_type) {
+                              case TripType.OneWay:
+                                return (
+                                  <div>
+                                    {invoice.booking.route_id?.from_id?.name} →{" "}
+                                    {invoice.booking.route_id?.to_id?.name}
+                                  </div>
+                                );
+                              case TripType.Round:
+                                return (
+                                  <div>
+                                    {invoice.booking.route_id?.from_id?.name} →{" "}
+                                    {invoice.booking.route_id?.to_id?.name} →{" "}
+                                    {invoice.booking.route_id?.from_id.name}
+                                  </div>
+                                );
+                              case TripType.Hourly:
+                                return <div></div>;
+                              default:
+                                return null;
+                            }
+                          })()}
+                        </div>
+                      </div>
+                      <div className="flex">
+                        <div className="flex flex-shrink-0 justify-between w-36 px-1">
+                          <div>Start Date</div>
+                          <div>:</div>
+                        </div>
+                        <div className="px-1">
+                          {new Date(
+                            invoice.booking.pick_up_date
+                          ).toLocaleDateString("en-US", {
+                            year: "numeric",
+                            month: "long",
+                            day: "numeric",
+                          })}
+                        </div>
+                      </div>
+                      <div className="flex">
+                        <div className="flex flex-shrink-0 justify-between w-36 px-1">
+                          <div>End Date</div>
+                          <div>:</div>
+                        </div>
+                        <div className="px-1">
+                          {new Date(
+                            invoice?.booking?.return_date ?? ""
+                          ).toLocaleDateString("en-US", {
+                            year: "numeric",
+                            month: "long",
+                            day: "numeric",
+                          })}
+                        </div>
                       </div>
                     </div>
-                    <div className="flex">
-                      <div className="flex flex-shrink-0 justify-between w-20 px-1">
-                        <div>Email</div>
-                        <div>:</div>
+                    <div className="flex-shrink-0 w-80 border border-black border-t-0 border-l-0 py-1">
+                      <div className="flex">
+                        <div className="flex flex-shrink-0 justify-between w-40 px-1">
+                          <div>Base Fare</div>
+                          <div>:</div>
+                        </div>
+                        <div className="px-1">
+                          ₹ {invoice.amount.toLocaleString()}
+                        </div>
                       </div>
-                      <div className="px-1">
-                        {invoice.booking.user_id.email_id ?? ""}
+                      <div className="flex">
+                        <div className="flex flex-shrink-0 justify-between w-40 px-1">
+                          <div>Toll Tax</div>
+                          <div>:</div>
+                        </div>
+                        <div className="px-1">Included</div>
                       </div>
-                    </div>
-                    <div className="flex">
-                      <div className="flex flex-shrink-0 justify-between w-20 px-1">
-                        <div>Phone</div>
-                        <div>:</div>
-                      </div>
-                      <div className="px-1">
-                        {invoice.booking.user_id.mobile_no ?? ""}
+                      <div className="flex">
+                        <div className="flex flex-shrink-0 justify-between w-40 px-1">
+                          <div>Driver Allowance</div>
+                          <div>:</div>
+                        </div>
+                        <div className="px-1">Included</div>
                       </div>
                     </div>
                   </div>
-                  <div className="flex-shrink-0 w-80 border border-black border-t-0 border-l-0 py-1">
-                    <div className="flex">
-                      <div className="flex flex-shrink-0 justify-between w-32 px-1">
-                        <div>Invoice No#</div>
-                        <div>:</div>
-                      </div>
-                      <div className="px-1">
-                        IC-{invoice._id.slice(-5).toLocaleUpperCase()}
-                      </div>
-                    </div>
-                    <div className="flex">
-                      <div className="flex flex-shrink-0 justify-between w-32 px-1">
-                        <div>Billed On</div>
-                        <div>:</div>
-                      </div>
-                      <div className="px-1">
-                        {new Date(invoice.date).toLocaleDateString("en-US", {
-                          year: "numeric",
-                          month: "long",
-                          day: "numeric",
-                        })}
-                      </div>
-                    </div>
-                    <div className="flex">
-                      <div className="flex flex-shrink-0 justify-between w-32 px-1">
-                        <div>Booking ID</div>
-                        <div>:</div>
-                      </div>
-                      <div className="px-1">
-                        BTC{invoice.booking.booking_number}
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div className="">
-                <div className="flex">
-                  <div className="flex-1 p-1 font-semibold text-xl bg-zinc-300 border border-black">
-                    Trip Details
-                  </div>
-                  <div className="w-80 p-1 font-semibold text-xl bg-zinc-300 border border-black border-l-0">
-                    Amount
-                  </div>
-                </div>
-                <div className="flex text-lg">
-                  <div className="w-full border border-black border-t-0 py-1">
-                    <div className="flex">
-                      <div className="flex flex-shrink-0 justify-between w-36 px-1">
-                        <div>Trip Type</div>
-                        <div>:</div>
-                      </div>
-                      <div className="px-1">{invoice.booking.trip_type}</div>
-                    </div>
-                    <div className="flex">
-                      <div className="flex flex-shrink-0 justify-between w-36 px-1">
-                        <div>Cab Type</div>
-                        <div>:</div>
-                      </div>
-                      <div className="px-1">
-                        {invoice.booking.taxi_id?.taxi_type_id?.name}
-                      </div>
-                    </div>
-                    <div className="flex">
-                      <div className="flex flex-shrink-0 justify-between w-36 px-1">
-                        <div>Pickup City</div>
-                        <div>:</div>
-                      </div>
-                      <div className="px-1">
-                        {invoice.booking.route_id?.from_id?.name}, Maharashtra
-                      </div>
-                    </div>
-                    <div className="flex">
-                      <div className="flex flex-shrink-0 justify-between w-36 px-1">
-                        <div>Pickup location</div>
-                        <div>:</div>
-                      </div>
-                      <div className="px-1">
-                        {invoice.booking.pickup_address}
-                      </div>
-                    </div>
-                    <div className="flex">
-                      <div className="flex flex-shrink-0 justify-between w-36 px-1">
-                        <div>Destination</div>
-                        <div>:</div>
-                      </div>
-                      <div className="px-1">
-                        {invoice.booking.drop_address ?? ""}
-                      </div>
-                    </div>
-                    <div className="flex">
-                      <div className="flex flex-shrink-0 justify-between w-36 px-1">
-                        <div>Itenerary</div>
-                        <div>:</div>
-                      </div>
-                      <div className="px-1">
-                        {(() => {
-                          switch (invoice.booking.trip_type) {
-                            case TripType.OneWay:
-                              return (
-                                <div>
-                                  {invoice.booking.route_id?.from_id?.name} →{" "}
-                                  {invoice.booking.route_id?.to_id?.name}
-                                </div>
-                              );
-                            case TripType.Round:
-                              return (
-                                <div>
-                                  {invoice.booking.route_id?.from_id?.name} →{" "}
-                                  {invoice.booking.route_id?.to_id?.name} →{" "}
-                                  {invoice.booking.route_id?.from_id.name}
-                                </div>
-                              );
-                            case TripType.Hourly:
-                              return <div></div>;
-                            default:
-                              return null;
-                          }
-                        })()}
-                      </div>
-                    </div>
-                    <div className="flex">
-                      <div className="flex flex-shrink-0 justify-between w-36 px-1">
-                        <div>Start Date</div>
-                        <div>:</div>
-                      </div>
-                      <div className="px-1">
-                        {new Date(
-                          invoice.booking.pick_up_date
-                        ).toLocaleDateString("en-US", {
-                          year: "numeric",
-                          month: "long",
-                          day: "numeric",
-                        })}
-                      </div>
-                    </div>
-                    <div className="flex">
-                      <div className="flex flex-shrink-0 justify-between w-36 px-1">
-                        <div>End Date</div>
-                        <div>:</div>
-                      </div>
-                      <div className="px-1">
-                        {new Date(
-                          invoice?.booking?.return_date ?? ""
-                        ).toLocaleDateString("en-US", {
-                          year: "numeric",
-                          month: "long",
-                          day: "numeric",
-                        })}
-                      </div>
-                    </div>
-                  </div>
-                  <div className="flex-shrink-0 w-80 border border-black border-t-0 border-l-0 py-1">
-                    <div className="flex">
-                      <div className="flex flex-shrink-0 justify-between w-40 px-1">
-                        <div>Base Fare</div>
-                        <div>:</div>
-                      </div>
-                      <div className="px-1">
+                  <div className="flex text-lg">
+                    <div className="flex w-full border border-black border-t-0" />
+                    <div className="flex flex-shrink-0 w-80 border border-black border-t-0 border-l-0">
+                      <div className="p-1 flex flex-1 justify-end font-bold text-2xl">
                         ₹ {invoice.amount.toLocaleString()}
                       </div>
                     </div>
-                    <div className="flex">
-                      <div className="flex flex-shrink-0 justify-between w-40 px-1">
-                        <div>Toll Tax</div>
-                        <div>:</div>
-                      </div>
-                      <div className="px-1">Included</div>
-                    </div>
-                    <div className="flex">
-                      <div className="flex flex-shrink-0 justify-between w-40 px-1">
-                        <div>Driver Allowance</div>
-                        <div>:</div>
-                      </div>
-                      <div className="px-1">Included</div>
-                    </div>
                   </div>
                 </div>
-                <div className="flex text-lg">
-                  <div className="flex w-full border border-black border-t-0" />
-                  <div className="flex flex-shrink-0 w-80 border border-black border-t-0 border-l-0">
-                    <div className="p-1 flex flex-1 justify-end font-bold text-2xl">
-                      ₹ {invoice.amount.toLocaleString()}
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div className="">
-                <div className="p-1 font-semibold text-xl bg-zinc-300 border border-black">
-                  Payment Details
-                </div>
-                <div className="flex text-lg">
-                  <div className="w-full border border-black border-t-0 py-1">
-                    <div className="flex w-full justify-end px-1 border-b border-black">
-                      Online Paid
-                    </div>
-                    <div className="flex w-full justify-end px-1 border-b border-black font-bold">
-                      Cash Paid
-                    </div>
-                    <div className="flex w-full justify-end px-1 border-black">
-                      Amount Due
-                    </div>
-                  </div>
-                  <div className="flex-shrink-0 w-80 border border-black border-t-0 border-l-0 py-1">
-                    <div className="flex w-full justify-end px-1 border-b border-black">
-                      ₹{" "}
-                      {(
-                        invoice.booking.payments[0].amount / 100
-                      ).toLocaleString()}
-                    </div>
-                    <div className="flex w-full justify-end px-1 border-b border-black font-bold">
-                      ₹ {invoice.cashPaid.toLocaleString()}
-                    </div>
-                    <div className="flex w-full justify-end px-1 border-black">
-                      ₹ {invoice.amountDue.toLocaleString()}
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div className="border border-black h-28 relative">
-                <div className="absolute bottom-1 right-1">
-                  Bombay Taxi Company
-                </div>
-              </div>
-              <div className="border border-black p-1">
-                <div className="font-bold">Terms & Conditions</div>
-                <div>
-                  This is an electronically generated invoice and does not
-                  require signature
-                </div>
-                <div>
-                  All disputes are subject to jurisdiction of courts in Mumbai.
-                </div>
-                <div>
-                  Please refer our website{" "}
-                  <a
-                    href="https://www.bombaytaxicompany.com/"
-                    className="text-sky-600 underline"
-                  >
-                    wwww.bombaytaxico.com
-                  </a>{" "}
-                  for terms and conditions.
-                </div>
-                <div>
-                  For any queries, please write to us at{" "}
-                  <a
-                    href="mailto:bombaytaxicompany@gmail.com"
-                    className="text-sky-600 underline"
-                  >
-                    bombaytaxicompany@gmail.com
-                  </a>
-                  .
-                </div>
-              </div>
-              <div className="border border-black">
                 <div className="">
-                  <div className="text-center">Bombay Taxi Company</div>
-                  <div className="text-center">
-                    Shop no. 1 Sai Society, Mhada Colony, Laxmi Nagar, Ghatkopar
-                    East, Mumbai 400075
+                  <div className="p-1 font-semibold text-xl bg-zinc-300 border border-black">
+                    Payment Details
+                  </div>
+                  <div className="flex text-lg">
+                    <div className="w-full border border-black border-t-0 py-1">
+                      <div className="flex w-full justify-end px-1 border-b border-black">
+                        Online Paid
+                      </div>
+                      <div className="flex w-full justify-end px-1 border-b border-black font-bold">
+                        Cash Paid
+                      </div>
+                      <div className="flex w-full justify-end px-1 border-black">
+                        Amount Due
+                      </div>
+                    </div>
+                    <div className="flex-shrink-0 w-80 border border-black border-t-0 border-l-0 py-1">
+                      <div className="flex w-full justify-end px-1 border-b border-black">
+                        ₹{" "}
+                        {(
+                          invoice.booking.payments[0].amount / 100
+                        ).toLocaleString()}
+                      </div>
+                      <div className="flex w-full justify-end px-1 border-b border-black font-bold">
+                        ₹ {invoice.cashPaid.toLocaleString()}
+                      </div>
+                      <div className="flex w-full justify-end px-1 border-black">
+                        ₹ {invoice.amountDue.toLocaleString()}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div className="border border-black h-28 relative">
+                  <div className="absolute bottom-1 right-1">
+                    Bombay Taxi Company
+                  </div>
+                </div>
+                <div className="border border-black p-1">
+                  <div className="font-bold">Terms & Conditions</div>
+                  <div>
+                    This is an electronically generated invoice and does not
+                    require signature
+                  </div>
+                  <div>
+                    All disputes are subject to jurisdiction of courts in
+                    Mumbai.
+                  </div>
+                  <div>
+                    Please refer our website{" "}
+                    <a
+                      href="https://www.bombaytaxico.com/"
+                      className="text-sky-600 underline"
+                    >
+                      wwww.bombaytaxico.com
+                    </a>{" "}
+                    for terms and conditions.
+                  </div>
+                  <div>
+                    For any queries, please write to us at{" "}
+                    <a
+                      href="mailto:bombaytaxicompany@gmail.com"
+                      className="text-sky-600 underline"
+                    >
+                      bombaytaxicompany@gmail.com
+                    </a>
+                    .
+                  </div>
+                </div>
+                <div className="border border-black">
+                  <div className="">
+                    <div className="text-center">Bombay Taxi Company</div>
+                    <div className="text-center">
+                      Shop no. 1 Sai Society, Mhada Colony, Laxmi Nagar,
+                      Ghatkopar East, Mumbai 400075
+                    </div>
                   </div>
                 </div>
               </div>

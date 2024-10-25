@@ -194,9 +194,10 @@ const Hero: React.FC = () => {
   const menuPropsPickupCity = {
     items: cities.map((city: ICity) => ({
       label: (
-        <span>
-          {<EnvironmentFilled />} {city.name}
-        </span>
+        <div className="flex items-center">
+            <div>{<From />}</div>
+            <div>{city.name}</div>
+          </div>
       ),
       key: city._id,
     })),
@@ -417,8 +418,10 @@ const Hero: React.FC = () => {
                   <div className="group w-full lg:w-[330px] p-3 pb-4 space-y-1 border-2 rounded-xl hover:border-[#FDB813] transition-all duration-300">
                     <div className="text-xs flex items-center gap-1">
                       {" "}
-                      <EnvironmentFilled />
+                      <From />
+                      <div className="-ml-2">
                       PICKUP LOCATION
+                      </div>
                     </div>
                     <Dropdown
                       menu={menuPropsPickupCity}

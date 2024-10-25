@@ -1,7 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { LeftOutlined } from "@ant-design/icons";
 import React, { useEffect, useState } from "react";
-import { DatePicker, Select, Spin, message } from "antd";
+import { DatePicker, Select, Spin, message, Collapse } from "antd";
+const { Panel } = Collapse;
 import { Option } from "antd/es/mentions";
 import dayjs, { Dayjs } from "dayjs";
 import { Footer } from "../components/Footer";
@@ -32,6 +33,37 @@ interface TripRate {
   extraKmCharges: number;
 }
 
+const WaitingAndDriverAllowance = (settings) => {
+  return (
+    <>
+      <div className="bg-white border my-3  rounded-lg">
+        <Collapse accordion className="bg-white rounded-2xl border-none">
+          <Panel header="Waiting and Driver allowance" key="4">
+            <div
+              className="lg:flex gap-8
+            lg:w-[730px]
+          "
+            >
+              <div className="font-light space-y-2">
+              <div className="flex justify-between">
+                <div>Driver Allowance</div>
+                <div>{settings?.parkingAndAirportEntry}</div>
+              </div>
+              <div className="flex justify-between">
+                <div>Waiting Charges</div>
+                <div>
+                  ₹ {settings?.waitingChargesPerMinute?.toLocaleString()}
+                </div>
+              </div>
+            </div>
+            </div>
+          </Panel>
+        </Collapse>
+      </div>
+    </>
+  );
+};
+
 const BillCard: React.FC<BillCardProps> = ({
   routeDistance,
   tripRates,
@@ -55,92 +87,86 @@ const BillCard: React.FC<BillCardProps> = ({
 
   return (
     <>
-      <div className="min-w-[360px] max-w-xs w-full m-1 mb-3 p-3 sticky top-36 bg-white border rounded-lg text-sm">
-        <div>
-          <div className="text-lg my-1 font-semibold">Fare Details</div>
-          <div className="font-light space-y-2">
-            <div className="flex justify-between">
-              <div>Base Fare</div>
-              <div>{settings?.baseFare}</div>
-            </div>
-            <div className="flex justify-between">
-              <div>GST(5% on Base Fare)</div>
-              <div>{settings?.gst}</div>
-            </div>
-            <div className="flex justify-between">
-              <div>State, Toll Tax</div>
-              <div>{settings?.stateTollTax}</div>
-            </div>
-            <div className="flex justify-between">
-              <div>Vehicles & Fuel Charges</div>
-              <div>{routeDistance}KM</div>
-            </div>
-            <div className="flex justify-between">
-              <div>One Pickup & Drop</div>
-              <div>{settings?.onePickupAndDrop}</div>
-            </div>
-          </div>
-        </div>
-        <hr className="my-3" />
-        <div>
-          <div className="text-lg my-1 font-semibold">Other Charges</div>
-          <div className="font-light space-y-2">
-            <div className="flex justify-between">
-              <div>Parking & Airport Entry</div>
-              <div>{settings?.parkingAndAirportEntry}</div>
-            </div>
-            <div className="flex justify-between">
-              <div>Waiting Charges</div>
-              <div>₹ {settings?.waitingChargesPerMinute?.toLocaleString()}</div>
-            </div>
-            <div className="flex justify-between">
-              <div>
-                Night Charges <br /> (11 PM & 6 AM)
+      <div className="min-w-[360px] max-w-xs w-full m-1 sticky top-36 text-sm">
+        <div className="mb-3 p-3 border bg-white rounded-lg">
+          <div>
+            <div className="text-lg my-1 font-semibold">Fare Details</div>
+            <div className="font-light space-y-2">
+              <div className="flex justify-between">
+                <div>Base Fare</div>
+                <div>{settings?.baseFare}</div>
               </div>
-              <div>₹ {settings?.nightChargePerDay?.toLocaleString()}</div>
-            </div>
-            <div className="flex justify-between">
-              <div>Extra Pickup/Drop</div>
-              <div>{settings?.extraPickupDropCharges?.toLocaleString()}</div>
-            </div>
-          </div>
-        </div>
-        <hr className="my-3" />
-        <div>
-          <div className="text-lg my-1 font-semibold">
-            {tripType !== "Hourly Rental" ? (
-              <>Extra Km Charges</>
-            ) : (
-              <>Extra Hr Charges</>
-            )}
-          </div>
-          <div className="font-light space-y-2">
-            {tripRates.map((tripRate: TripRate) => (
-              <div key={tripRate.taxiType._id} className="flex justify-between">
-                <div>{tripRate.taxiType.name}</div>
-                {tripType !== "Hourly Rental" ? (
-                  <div>₹ {tripRate.extraKmCharges}/KM</div>
-                ) : (
-                  <div>₹ {tripRate.taxiType.price_hour}/hr</div>
-                )}
+              <div className="flex justify-between">
+                <div>GST(5% on Base Fare)</div>
+                <div>{settings?.gst}</div>
               </div>
-            ))}
-          </div>
-        </div>
-        <hr className="my-3" />
-        <div>
-          <div className="text-lg my-1 font-semibold">Waiting & Driver Allowance</div>
-          <div className="font-light space-y-2">
-            <div className="flex justify-between">
-              <div>Driver Allowance</div>
-              <div>{settings?.parkingAndAirportEntry}</div>
-            </div>
-            <div className="flex justify-between">
-              <div>Waiting Charges</div>
-              <div>₹ {settings?.waitingChargesPerMinute?.toLocaleString()}</div>
+              <div className="flex justify-between">
+                <div>State, Toll Tax</div>
+                <div>{settings?.stateTollTax}</div>
+              </div>
+              <div className="flex justify-between">
+                <div>Vehicles & Fuel Charges</div>
+                <div>{routeDistance}KM</div>
+              </div>
+              <div className="flex justify-between">
+                <div>One Pickup & Drop</div>
+                <div>{settings?.onePickupAndDrop}</div>
+              </div>
             </div>
           </div>
+          <hr className="my-3" />
+          <div>
+            <div className="text-lg my-1 font-semibold">Other Charges</div>
+            <div className="font-light space-y-2">
+              <div className="flex justify-between">
+                <div>Parking & Airport Entry</div>
+                <div>{settings?.parkingAndAirportEntry}</div>
+              </div>
+              <div className="flex justify-between">
+                <div>Waiting Charges</div>
+                <div>
+                  ₹ {settings?.waitingChargesPerMinute?.toLocaleString()}
+                </div>
+              </div>
+              <div className="flex justify-between">
+                <div>
+                  Night Charges <br /> (11 PM & 6 AM)
+                </div>
+                <div>₹ {settings?.nightChargePerDay?.toLocaleString()}</div>
+              </div>
+              <div className="flex justify-between">
+                <div>Extra Pickup/Drop</div>
+                <div>{settings?.extraPickupDropCharges?.toLocaleString()}</div>
+              </div>
+            </div>
+          </div>
+          <hr className="my-3" />
+          <div>
+            <div className="text-lg my-1 font-semibold">
+              {tripType !== "Hourly Rental" ? (
+                <>Extra Km Charges</>
+              ) : (
+                <>Extra Hr Charges</>
+              )}
+            </div>
+            <div className="font-light space-y-2">
+              {tripRates.map((tripRate: TripRate) => (
+                <div
+                  key={tripRate.taxiType._id}
+                  className="flex justify-between"
+                >
+                  <div>{tripRate.taxiType.name}</div>
+                  {tripType !== "Hourly Rental" ? (
+                    <div>₹ {tripRate.extraKmCharges}/KM</div>
+                  ) : (
+                    <div>₹ {tripRate.taxiType.price_hour}/hr</div>
+                  )}
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
+        <WaitingAndDriverAllowance settings={settings}/>
       </div>
     </>
   );
@@ -149,8 +175,6 @@ const BillCard: React.FC<BillCardProps> = ({
 const Search: React.FC = () => {
   const location = useLocation();
   const { state } = location;
-
-  console.log(state);
 
   const navigate = useNavigate();
 
