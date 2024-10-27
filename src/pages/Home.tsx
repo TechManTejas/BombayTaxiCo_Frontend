@@ -343,14 +343,12 @@ const Hero: React.FC = () => {
         <div className="bg-[#00000000] h-full w-full flex flex-col justify-center items-center space-y-8 pt-8">
           {/* <!-- Rotating Text Container --> */}
           <div
-            className="lg:w-[1036px] 
-            mt-24
-            lg:mt-0
+            className="lg:w-[1036px]
           "
           >
             <div className="h-16 lg:h-max text-center space-y-4">
               <div className="text-[#FDB813]">Welcome to Bombay Taxi Co.</div>
-              <div className="text-[3.2rem] font-bold text-white">
+              <div className="text-[1.6rem] lg:text-[3.2rem] font-bold text-white">
                 Enjoy Your Comfortable Trip
                 <span className="text-[#FDB813]">.</span>
               </div>
@@ -628,7 +626,7 @@ const Hero: React.FC = () => {
                       ) : (
                         <>
                           <button
-                            className="text-xs text-left group-hover:text-[#FDB813] absolute"
+                            className="text-xs text-left group-hover:text-[#FDB813] md:absolute"
                             onClick={() => setActiveTab("Round Trip")}
                           >
                             Add return date for bigger discount

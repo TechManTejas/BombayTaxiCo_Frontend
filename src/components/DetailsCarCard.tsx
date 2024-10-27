@@ -133,15 +133,11 @@ const DetailsCarCard: React.FC<DetailsCarCardProps> = ({
                   AMENITIES
                 </div> */}
                 <div
-                  className="flex-wrap
-                                
-                                lg:flex
-                                lg:w-80
-                            "
+                  className="flex-wrap flex w-36 lg:w-80"
                 >
                   {features.map((feature, index) => (
                     <div
-                      className="text-xs rounded p-1.5 px-3 m-1 bg-zinc-100 text-zinc-700"
+                      className="text-xs rounded lg:p-1.5 lg:px-3 m-1 bg-zinc-100 text-zinc-700"
                       key={index}
                     >
                       <div className="flex items-center gap-1">
@@ -152,7 +148,7 @@ const DetailsCarCard: React.FC<DetailsCarCardProps> = ({
                           />
                         ) : null}
                         {feature.feature && (
-                          <span className="pl-1 font-bold">
+                          <span className="pl-1 font-bold hidden lg:block">
                             {feature.feature}
                           </span>
                         )}
@@ -175,6 +171,7 @@ const DetailsCarCard: React.FC<DetailsCarCardProps> = ({
             )}
           </div>
           <div className="m-3"></div>
+          
           <div className="flex-shrink-0 flex flex-col items-end space-y-3">
             <div className="text-end my-1">
               {/* {parseInt(discount) > 0 && (

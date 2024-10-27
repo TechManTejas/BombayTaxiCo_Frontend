@@ -96,9 +96,7 @@ const CarCard: React.FC<CarCardProps> = ({
               />
             )}
           </div>
-          <div
-            className="hidden lg:block text-xs text-zinc-400 lg:text-sm w-40"
-            >
+          <div className="hidden lg:block text-xs text-zinc-400 lg:text-sm w-40">
             {description}
           </div>
         </div>
@@ -122,11 +120,9 @@ const CarCard: React.FC<CarCardProps> = ({
               >
                 {category}
               </div>
-              <div
-            className="black lg:hidden text-xs text-zinc-400 lg:text-sm"
-            >
-            {description}
-          </div>
+              <div className="black lg:hidden text-xs text-zinc-400 lg:text-sm">
+                {description}
+              </div>
             </div>
             {features && (
               <div className="space-y-1">
@@ -138,16 +134,10 @@ const CarCard: React.FC<CarCardProps> = ({
                 >
                   AMENITIES
                 </div> */}
-                <div
-                  className="flex-wrap
-                                
-                                lg:flex
-                                lg:w-80
-                            "
-                >
+                <div className="flex-wrap flex w-36 lg:w-80">
                   {features.map((feature, index) => (
                     <div
-                      className="text-xs rounded p-1.5 px-3 m-1 bg-zinc-100 text-zinc-700"
+                      className="text-xs rounded lg:p-1.5 lg:px-3 m-1 bg-zinc-100 text-zinc-700"
                       key={index}
                     >
                       <div className="flex items-center gap-1">
@@ -158,7 +148,7 @@ const CarCard: React.FC<CarCardProps> = ({
                           />
                         ) : null}
                         {feature.feature && (
-                          <span className="pl-1 font-bold">
+                          <span className="pl-1 font-bold hidden lg:block">
                             {feature.feature}
                           </span>
                         )}
@@ -211,14 +201,14 @@ const CarCard: React.FC<CarCardProps> = ({
                       ₹ {originalPrice?.toLocaleString()}
                     </span>
                   )}
-                  <span
+                  <div
                     className="font-bold
                                     text-lg
                                     lg:text-2xl
                                 "
                   >
                     ₹ {discountedPrice?.toLocaleString()}
-                  </span>
+                  </div>
                 </div>
                 {!preview ? (
                   <div

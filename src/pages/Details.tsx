@@ -23,7 +23,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 
 import { ISettings } from "../types/settings.types";
 import { IRoute } from "../types/routes.types";
-import { ArrowRightOutlined, UpOutlined } from "@ant-design/icons";
+import { ArrowRightOutlined, DownOutlined, UpOutlined } from "@ant-design/icons";
 import dayjs, { Dayjs } from "dayjs";
 import { Context } from "../context/context.provider";
 import { BookingConfirmed } from "../components/BookingConfirmed";
@@ -389,6 +389,14 @@ const Details: React.FC = () => {
   const pickupCityId = state.pickupCityId || null;
   const hourlyPackage = state.hourlyPackage || null;
   const [hours, _, kms, __] = state.hourlyPackage.split(' ').map((value: string) => parseInt(value));
+
+  useEffect(() => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth" // Use "auto" if you don't want a smooth scroll
+    });
+  }, []);
+  
 
   const cancellationDeadline = dayjs(
     `${pickupDate.format("YYYY-MM-DD")} ${pickupTime}`
@@ -901,7 +909,7 @@ const Details: React.FC = () => {
               </div>
               <>
                 <div
-                  className="flex h-full bg-white my-3 rounded-lg shadow-lg border
+                  className="flex  bg-white my-3 rounded-lg shadow-lg border
                   flex-col
                   lg:flex-row
                 "

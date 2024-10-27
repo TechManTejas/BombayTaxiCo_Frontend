@@ -425,12 +425,14 @@ export default function BookingDetails() {
                 (isBookingResheduled && !hasDriverTaxi)) && (
                 <>
                   <div className="w-28" />
+                  {!isBookingConfirmed && (
                   <Button
                     htmlType="submit"
                     className="bg-[#FDB813] hover:bg-[#FDB813] text-black font-semibold w-28 h-10"
                   >
                     CONFIRM
                   </Button>
+                  )}
                   {!isBookingConfirmed && (
                     <Button
                       className="font-semibold w-32 h-10"
