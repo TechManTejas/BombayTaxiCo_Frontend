@@ -25,7 +25,7 @@ import dayjs, { Dayjs } from "dayjs";
 import { Footer } from "../components/Footer";
 import { CallUsNow } from "../components/CallUsNow";
 import { WhyChooseUsCard } from "../components/WhyChooseUsCard";
-import HeroImage1 from "../assets/images/hero1.jpg";
+import HeroImage1 from "../assets/images/Banner.png";
 import WeOffer1 from "../assets/images/Online easy booking.png";
 import WeOffer2 from "../assets/images/One way trip.png";
 import WeOffer3 from "../assets/images/Round trip.png";
@@ -66,6 +66,9 @@ import { From } from "../icons/From.js";
 import { DividerWithLogo } from "../components/DividerWithLogo.js";
 import { DividerWithoutLogo } from "../components/DividerWithoutLogo.js";
 import { Swap } from "../icons/Swap.js";
+import { TransparentBilling } from "../icons/TransparentBilling.js";
+import { FlexibleCancellation } from "../icons/FlexibleCancellation.js";
+import { TransparentBillingYellow } from "../icons/TransparentBillingYellow.js";
 
 message.config({
   top: "25%",
@@ -337,7 +340,7 @@ const Hero: React.FC = () => {
           backgroundSize: "cover",
         }}
       >
-        <div className="bg-[#00000095] h-full w-full flex flex-col justify-center items-center space-y-8 pt-8">
+        <div className="bg-[#00000000] h-full w-full flex flex-col justify-center items-center space-y-8 pt-8">
           {/* <!-- Rotating Text Container --> */}
           <div
             className="lg:w-[1036px] 
@@ -692,12 +695,12 @@ const WhyChooseUs: React.FC = () => {
             description="Book our services and adjust according to your need."
           />
           <WhyChooseUsCard
-            icon={<CarOutlined />}
+            icon={<FlexibleCancellation />}
             title="Flexible Cancellation"
             description="Easy trip cancel through our user-friendly booking platform."
           />
           <WhyChooseUsCard
-            icon={<FaRupeeSign />}
+            icon={<TransparentBilling />}
             title="Transparent Billing"
             description="Competitive and budget-friendly prices for quality transportation."
           />
@@ -1546,7 +1549,7 @@ const EasyStep: React.FC = () => {
             "
             >
               <div className="h-20 w-20 bg-[#ffffff] rounded-2xl flex justify-center items-center border">
-              <FaRupeeSign className="text-3xl text-[#FDB813]" />
+              <TransparentBillingYellow />
               </div>
               <div className="text-xl">Pay Your Taxi</div>
               <div className="text-gray-500 text-sm text-center">
