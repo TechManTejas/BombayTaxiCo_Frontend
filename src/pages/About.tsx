@@ -30,6 +30,9 @@ import { ReadyToBook } from "../components/ReadyToBook";
 import { FaRupeeSign } from "react-icons/fa";
 import { DividerWithLogo } from "../components/DividerWithLogo";
 import { DividerWithoutLogo } from "../components/DividerWithoutLogo";
+import { FlexibleCancellation } from "../icons/FlexibleCancellation";
+import { TransparentBilling } from "../icons/TransparentBilling";
+import { TransparentBillingYellow } from "../icons/TransparentBillingYellow";
 
 const BreadCrumb: React.FC = () => {
   const navigate = useNavigate();
@@ -147,12 +150,12 @@ const WhyChooseUs: React.FC = () => {
             description="Book our services and adjust according to your need."
           />
           <WhyChooseUsCard
-            icon={<CarOutlined />}
+            icon={<FlexibleCancellation />}
             title="Flexible Cancellation"
             description="Easy trip cancel through our user-friendly booking platform."
           />
           <WhyChooseUsCard
-            icon={<FaRupeeSign />}
+            icon={<TransparentBilling />}
             title="Transparent Billing"
             description="Competitive and budget-friendly prices for quality transportation."
           />
@@ -228,7 +231,7 @@ const EasyStep: React.FC = () => {
             "
             >
               <div className="h-20 w-20 bg-[#ffffff] rounded-2xl flex justify-center items-center border">
-              <FaRupeeSign className="text-3xl text-[#FDB813]" />
+              <TransparentBillingYellow />
               </div>
               <div className="text-xl">Pay Your Taxi</div>
               <div className="text-gray-500 text-sm text-center">
