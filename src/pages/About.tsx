@@ -63,7 +63,7 @@ const Badge: React.FC = () => {
         backgroundSize: "cover",
       }}
     >
-      <div className="bg-[#00000099] text-white space-y-1 rounded-3xl p-24">
+      <div className="bg-[#00000099] text-white space-y-1 rounded-3xl p-4 lg:p-24">
         <div className="text-center text-6xl font-bold">
           <span className="text-[#FDB813]">About</span> Us<span className="text-[#FDB813]">.</span>
         </div>

@@ -36,7 +36,7 @@ const Badge: React.FC = () => {
         backgroundSize: "cover",
       }}
     >
-      <div className="bg-[#00000099] text-white space-y-1 rounded-3xl p-24">
+      <div className="bg-[#00000099] text-white space-y-1 rounded-3xl p-4 lg:p-24">
         <div className="text-center text-6xl font-bold">
           <span className="text-[#FDB813]">FAQ</span>s<span className="text-[#FDB813]">.</span>
         </div>
@@ -51,7 +51,7 @@ const Badge: React.FC = () => {
 const Content: React.FC = () => {
   return (
     <>
-      <div className="py-6 flex justify-center w-full">
+      <div className="py-6 flex justify-center w-full px-4">
         <div
           className="flex flex-col justify-center items-center container
                     xl:flex-row
@@ -487,7 +487,7 @@ const Content: React.FC = () => {
 
 export const FAQs = () => {
   return (
-    <div>
+    <>
       <Container>
         <BreadCrumb />
         <Badge/>
@@ -495,6 +495,6 @@ export const FAQs = () => {
         <Content />
         <ReadyToBook/>
       <Footer />
-    </div>
+    </>
   );
 };

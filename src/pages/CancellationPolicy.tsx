@@ -33,8 +33,8 @@ const Badge: React.FC = () => {
         backgroundSize: "cover",
       }}
     >
-      <div className="bg-[#00000099] text-white space-y-1 rounded-3xl p-24">
-        <div className="text-center text-6xl font-bold">
+      <div className="bg-[#00000099] text-white space-y-1 rounded-3xl p-4 lg:p-24">
+        <div className="text-center text-5xl lg:text-6xl font-bold">
           <span className="text-[#FDB813]">Cancellation</span> Policy
           <span className="text-[#FDB813]">.</span>
         </div>
@@ -49,7 +49,7 @@ const Badge: React.FC = () => {
 const Content: React.FC = () => {
   return (
     <>
-      <div className="py-6 flex justify-center w-full">
+      <div className="py-6 flex justify-center w-full px-4">
         <div
           className="flex flex-col justify-center items-center xl:flex-row">
           <div
