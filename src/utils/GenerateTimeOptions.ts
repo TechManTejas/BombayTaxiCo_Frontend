@@ -12,7 +12,7 @@ export const generateTimeOptions = (date: Dayjs): { label: string; key: string }
     const time = new Date(startTime.getTime() + i * 15 * 60 * 1000);
     
     // Only include times greater than 2 hours from the current time if today is selected
-    if (date.isSame(dayjs(), "day") && time <= twoHoursLater) {
+    if (date.isSame(dayjs(), "day") && time <= currentTime) {
       continue;
     }
     
