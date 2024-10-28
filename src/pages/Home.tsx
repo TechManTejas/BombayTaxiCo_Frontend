@@ -6,8 +6,6 @@ import {
   CarOutlined,
   CompassOutlined,
   CreditCardOutlined,
-  DollarCircleOutlined,
-  DollarOutlined,
   EnvironmentFilled,
   LikeOutlined,
   MobileOutlined,
@@ -87,17 +85,17 @@ const Hero: React.FC = () => {
   const [to, setTo] = useState("");
   const [toId, setToId] = useState<string | null>(null);
   const [pickupDateOpen, setPickupDateOpen] = useState<boolean>(false);
-  const [pickupDate, setPickupDate] = useState<Dayjs | null>(dayjs());
+  const [pickupDate, setPickupDate] = useState<Dayjs | null>(null);
   const [returnDateOpen, setReturnDateOpen] = useState<boolean>(false);
-  const [returnDate, setReturnDate] = useState<Dayjs | null>(
-    dayjs().add(1, "day")
-  );
+  const [returnDate, setReturnDate] = useState<Dayjs | null>(null);
 
   const [pickupTime, setPickupTime] = useState<string>("");
-  const [hourlyPackage, setHourlyPackage] = useState<string>("8 hr 80 kms");
+  const [hourlyPackage, setHourlyPackage] = useState<string>("");
 
   const [activeTab, setActiveTab] = useState("One-Way Trip");
   const [cities, setCities] = useState<ICity[]>([]);
+
+  const [showEmergency, setShowEmergency] = useState<boolean>(false);
 
   useEffect(() => {
     const timeOptions = generateTimeOptions(pickupDate ?? dayjs());
@@ -105,9 +103,9 @@ const Hero: React.FC = () => {
       // No time options available, shift to the next day
       const nextDay = (pickupDate ?? dayjs()).add(1, "day");
       setPickupDate(nextDay);
-      setPickupTime(generateTimeOptions(nextDay)[0]?.label ?? "");
+      // setPickupTime(generateTimeOptions(nextDay)[0]?.label ?? "");
     } else {
-      setPickupTime(timeOptions[0]?.label ?? "");
+      // setPickupTime(timeOptions[0]?.label ?? "");
     }
   }, [pickupDate]);
 
@@ -144,8 +142,24 @@ const Hero: React.FC = () => {
     setToId(e.key);
   };
 
+  const menuTime: MenuProps["items"] = generateTimeOptions(
+    pickupDate ?? dayjs()
+  ).map((option, index) => ({
+    label: option.label,
+    key: option.key,
+    index: index,
+  }));
+
   const handleMenuClickTime = (e: any) => {
     setPickupTime(e.key);
+    const selectedTime = menuTime?.find((item) => item?.key === e.key);
+
+    // Check if the index is 8 or less
+    if (selectedTime && selectedTime?.index < 8) {
+      setShowEmergency(true);
+    } else {
+      setShowEmergency(false);
+    }
   };
 
   const handleMenuClickPackage = (e: any) => {
@@ -185,22 +199,15 @@ const Hero: React.FC = () => {
     key: city._id,
   }));
 
-  const menuTime: MenuProps["items"] = generateTimeOptions(
-    pickupDate ?? dayjs()
-  ).map((option) => ({
-    label: option.label,
-    key: option.key,
-  }));
-
   const menuDistance: MenuProps["items"] = generateDistanceOptions();
 
   const menuPropsPickupCity = {
     items: cities.map((city: ICity) => ({
       label: (
         <div className="flex items-center">
-            <div>{<From />}</div>
-            <div>{city.name}</div>
-          </div>
+          <div>{<From />}</div>
+          <div>{city.name}</div>
+        </div>
       ),
       key: city._id,
     })),
@@ -279,6 +286,27 @@ const Hero: React.FC = () => {
         message.warning("Please select city before proceeding.");
         return;
       }
+
+      if (!hourlyPackage) {
+        // Prompt the user to select FROM and TO cities
+        message.warning("Please select an hourly package before proceeding.");
+        return;
+      }
+    }
+    
+    if (!pickupDate || !pickupTime) {
+      message.warning(
+        "Please select both Pickup date and Pickup time"
+      );
+      return;
+    }
+
+    if (activeTab === "Round Trip") {
+      if (!returnDate) {
+        // Prompt the user to select FROM and TO cities
+        message.warning("Please select a return date");
+        return;
+      }
     }
 
     const state = {
@@ -354,7 +382,7 @@ const Hero: React.FC = () => {
               </div>
             </div>
           </div>
-          <div className="flex flex-col items-center justify-center w-[370px]">
+          <div className="flex flex-col items-center justify-center ">
             <div className="rounded-2xl bg-white shadow-lg -mb-16 lg:-mb-6 z-10 border border-yellow-500">
               <Segmented
                 value={activeTab}
@@ -406,7 +434,7 @@ const Hero: React.FC = () => {
               />
             </div>
             <div
-              className="bg-white rounded-3xl -mb-6 flex justify-center items-center shadow-lg py-8 px-6 pt-20 lg:pt-8
+              className="bg-white rounded-3xl -mb-6 flex flex-col justify-center items-center shadow-lg py-8 px-6 pt-20 lg:pt-8
               lg:px-6
             "
             >
@@ -420,9 +448,7 @@ const Hero: React.FC = () => {
                     <div className="text-xs flex items-center gap-1">
                       {" "}
                       <From />
-                      <div className="-ml-2">
-                      PICKUP LOCATION
-                      </div>
+                      <div className="-ml-2">PICKUP LOCATION</div>
                     </div>
                     <Dropdown
                       menu={menuPropsPickupCity}
@@ -430,7 +456,7 @@ const Hero: React.FC = () => {
                       className="w-full"
                     >
                       <button
-                        className="text-[1.4rem] group-hover:text-[#FDB813] transition-all duration-300 w-full text-left"
+                        className="text-[1.3rem] group-hover:text-[#FDB813] transition-all duration-300 w-full text-left"
                         style={{
                           border: "none",
                           overflow: "hidden",
@@ -438,7 +464,7 @@ const Hero: React.FC = () => {
                           textOverflow: "ellipsis",
                         }}
                       >
-                        {pickupCity || "Select City"}
+                        {pickupCity || "Enter a pickup city"}
                       </button>
                     </Dropdown>
                   </div>
@@ -462,9 +488,7 @@ const Hero: React.FC = () => {
                     <div className="group w-[328px] lg:w-[228px]  p-3 pb-4 space-y-1 border-2 rounded-xl z-20 hover:border-[#FDB813] transition-all duration-300">
                       <div className="text-xs flex items-center gap-1">
                         <From />
-                        <div className="-ml-2">
-                          FROM
-                        </div>
+                        <div className="-ml-2">FROM</div>
                       </div>
                       <Dropdown
                         menu={menuPropsFrom}
@@ -472,7 +496,7 @@ const Hero: React.FC = () => {
                         className="w-full"
                       >
                         <button
-                          className="text-[1.4rem] group-hover:text-[#FDB813] transition-all duration-300 w-full text-left"
+                          className="text-[1.3rem] group-hover:text-[#FDB813] transition-all duration-300 w-full text-left"
                           style={{
                             border: "none",
                             overflow: "hidden",
@@ -480,7 +504,7 @@ const Hero: React.FC = () => {
                             textOverflow: "ellipsis",
                           }}
                         >
-                          {from || "Select City"}
+                          {from || "Enter a pickup city"}
                         </button>
                       </Dropdown>
                     </div>
@@ -496,7 +520,7 @@ const Hero: React.FC = () => {
                         className="w-full"
                       >
                         <button
-                          className="text-[1.4rem] group-hover:text-[#FDB813] transition-all duration-300 w-full text-left"
+                          className="text-[1.3rem] group-hover:text-[#FDB813] transition-all duration-300 w-full text-left"
                           style={{
                             border: "none",
                             overflow: "hidden",
@@ -504,7 +528,12 @@ const Hero: React.FC = () => {
                             textOverflow: "ellipsis",
                           }}
                         >
-                          {to || "Select City"}
+                          {to ||
+                            `${
+                              activeTab === "One-Way Trip"
+                                ? "Enter a drop off city"
+                                : "Destination"
+                            }`}
                         </button>
                       </Dropdown>
                     </div>
@@ -515,19 +544,19 @@ const Hero: React.FC = () => {
                     <FaCalendarAlt />
                     PICKUP DATE
                   </div>
-                  <button
-                    className="text-[1.4rem] group-hover:text-[#FDB813] transition-all duration-300"
+                  <div
+                    className="text-[1.3rem] group-hover:text-[#FDB813] transition-all duration-300"
                     onClick={togglePickupDatePicker}
                   >
                     {pickupDate?.format("D MMM") ?? (
-                      <button className="border p-1 rounded-lg bg-gray-100 text-base">
-                        select a pickup date
+                      <button className="text-xs text-left md:absolute">
+                        select a pickup date for the trip
                       </button>
                     )}{" "}
                     <span className="text-base">
                       {pickupDate?.format("YYYY")}
                     </span>
-                  </button>
+                  </div>
                   <DatePicker
                     className="absolute bottom-0 left-0 w-0 h-0"
                     style={{
@@ -565,10 +594,10 @@ const Hero: React.FC = () => {
                   </div>
                   <Dropdown menu={menuPropsTime} placement="bottomLeft">
                     <button
-                      className="text-[1.4rem] group-hover:text-[#FDB813] transition-all duration-300"
+                      className="text-[1.3rem] group-hover:text-[#FDB813] transition-all duration-300"
                       style={{ border: "none" }}
                     >
-                      {pickupTime || "Select a Time"}
+                      {pickupTime || <div className="text-xs text-left">Select a pickup time for the trip</div>}
                     </button>
                   </Dropdown>
                 </div>
@@ -582,19 +611,19 @@ const Hero: React.FC = () => {
                     <div>
                       {activeTab === "Round Trip" ? (
                         <>
-                          <button
-                            className="text-[1.4rem] group-hover:text-[#FDB813] transition-all duration-300"
+                          <div
+                            className="text-[1.3rem] group-hover:text-[#FDB813] transition-all duration-300"
                             onClick={toggleReturnDatePicker}
                           >
                             {returnDate?.format("D MMM") ?? (
-                              <button className="border p-1 rounded-lg bg-gray-100 text-base">
-                                select a pickup date
+                              <button className="text-xs text-left md:absolute">
+                                select a pickup date for the trip
                               </button>
                             )}{" "}
                             <span className="text-base">
                               {returnDate?.format("YYYY")}
                             </span>
-                          </button>
+                          </div>
                           <DatePicker
                             className="absolute bottom-0 left-0 w-0 h-0"
                             style={{
@@ -638,7 +667,7 @@ const Hero: React.FC = () => {
                 )}
                 {activeTab === "Hourly Rental" && (
                   <div>
-                    <div className="group w-[328px] lg:w-[300px] p-3 pb-4 space-y-1 border-2 rounded-xl hover:border-[rgb(253,184,19)] transition-all duration-300">
+                    <div className="group w-[328px] lg:w-[300px] p-3 pb-4 space-y-1 border-2 rounded-xl hover:border-[rgb(253,184,19)] transition-all duration-300 h-full">
                       <div className="text-xs flex items-center gap-1">
                         {" "}
                         <CompassOutlined />
@@ -646,19 +675,34 @@ const Hero: React.FC = () => {
                       </div>
                       <Dropdown menu={menuPropsDistance} placement="bottomLeft">
                         <button
-                          className="text-[1.4rem] group-hover:text-[#FDB813] transition-all duration-300"
+                          className="text-[1.3rem] group-hover:text-[#FDB813] transition-all duration-300"
                           style={{ border: "none" }}
                         >
-                          {hourlyPackage || "Select a Time"}
+                          {hourlyPackage || <div className="text-xs ">Select a package</div>}
                         </button>
                       </Dropdown>
                     </div>
                   </div>
                 )}
               </div>
+              {showEmergency && (
+                <div className="text-red-600 w-[328px] lg:w-11/12 text-center pt-2">
+                  You have selected a time that is within 2 hours of the current
+                  time, in case there is an emergency call us on
+                  <br />
+                  <a
+                    href="tel:+916262744744"
+                    className="text-blue-600 underline"
+                  >
+                    +91-6262-744-744
+                  </a>
+                </div>
+              )}
             </div>
+
             <div className="w-full flex justify-center">
               <button
+                disabled={showEmergency}
                 className="text-sm lg:text-base bg-[#FDB813] hover:bg-yellow-400 text-black font-semibold w-32 lg:w-40 h-12 rounded-lg border-yellow-500 z-10"
                 onClick={handleLetsRideClick}
               >
@@ -1044,7 +1088,7 @@ const StatsAndTestamonials: React.FC = () => {
         "Bombay Taxi Company made my trip stress-free from start to finish. Booking was quick, the driver was exceptionally friendly, and the car was spotless. It was the perfect experience, and I can't recommend them enough for anyone needing reliable and comfortable transportation.",
       name: "Sophia Patel",
       position: "Marketing Head",
-    }
+    },
   ];
 
   const maxTranslate = -(
@@ -1547,7 +1591,7 @@ const EasyStep: React.FC = () => {
             "
             >
               <div className="h-20 w-20 bg-[#ffffff] rounded-2xl flex justify-center items-center border">
-              <TransparentBillingYellow />
+                <TransparentBillingYellow />
               </div>
               <div className="text-xl">Pay Your Taxi</div>
               <div className="text-gray-500 text-sm text-center">
@@ -1741,8 +1785,7 @@ const Home: React.FC = () => {
       </Container>
       <WhatWeAreOffering />
       <Container>
-
-      <DividerWithLogo />
+        <DividerWithLogo />
       </Container>
       <div
         className="
@@ -1757,20 +1800,17 @@ const Home: React.FC = () => {
         <OurBenefitsList />
       </div>
       <Container>
-
-      <DividerWithoutLogo />
+        <DividerWithoutLogo />
       </Container>
       <WhyChooseUs />
       <Container>
-
-      <DividerWithLogo />
+        <DividerWithLogo />
       </Container>
       <Container>
         <EasyStep />
       </Container>
       <Container>
-
-      <DividerWithoutLogo />
+        <DividerWithoutLogo />
       </Container>
       <OurAchievement />
       <DividerWithLogo />
