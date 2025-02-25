@@ -153,9 +153,11 @@ const Hero: React.FC = () => {
   const handleMenuClickTime = (e: any) => {
     setPickupTime(e.key);
     const selectedTime = menuTime?.find((item) => item?.key === e.key);
-
-    // Check if the index is 8 or less
-    if (selectedTime && selectedTime?.index < 8) {
+  
+    const isToday = pickupDate?.isSame(dayjs(), "day");
+  
+    // Check if the index is 8 or less and the selected date is today
+    if (selectedTime && selectedTime?.index < 8 && isToday) {
       setShowEmergency(true);
     } else {
       setShowEmergency(false);
