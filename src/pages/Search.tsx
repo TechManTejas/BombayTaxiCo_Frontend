@@ -176,6 +176,8 @@ const Search: React.FC = () => {
   const location = useLocation();
   const { state } = location;
 
+  console.log(state.pickupTime);
+
   const navigate = useNavigate();
 
   const [currentDate, setCurrentDate] = useState(dayjs());
@@ -227,7 +229,7 @@ const Search: React.FC = () => {
       setPickupDate(nextDay);
       setPickupTime(generateTimeOptions(nextDay)[0]?.label ?? "");
     } else {
-      setPickupTime(timeOptions[0]?.label ?? "");
+      setPickupTime(state.pickupTime ?? timeOptions[0]?.label ?? "");
     }
   }, [pickupDate]);
 
