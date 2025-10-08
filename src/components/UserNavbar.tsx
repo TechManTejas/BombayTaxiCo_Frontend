@@ -315,7 +315,7 @@ const UserNavbar: React.FC = () => {
             </div>
             <div className="bg-white  ">
                 <nav className="bg-secondary mx-auto container rounded-xl drop-shadow flex justify-between items-center content-center">
-                    <h1 className="p-4 w-52 md:w-72">
+                    <div className="p-4 w-52 md:w-72 hover:cursor-pointer">
                         <span
                             style={{
                                 boxSizing: "border-box",
@@ -372,7 +372,7 @@ const UserNavbar: React.FC = () => {
                                 sizes="100vw"
                             />
                         </span>
-                    </h1>
+                    </div>
 
                     <div className="flex md:hidden mr-4">
                         <Button
