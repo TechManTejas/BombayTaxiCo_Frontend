@@ -8,7 +8,7 @@ export const ReadyToBook: React.FC = () => {
         <div className="container px-2 flex justify-between items-center">
           <div className="font-bold text-xl">Ready to book?</div>
           <button className="text-sm lg:text-base bg-[#FDB813] hover:bg-yellow-400 text-black font-semibold w-28 lg:w-36 h-12 rounded-lg border-yellow-500 z-10" onClick={()=>{
-            window.location.href = '/home'
+            window.location.href = '/'
           }}>
             BOOK NOW
           </button>
