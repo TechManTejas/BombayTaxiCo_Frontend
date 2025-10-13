@@ -22,7 +22,7 @@ export const DividerWithLogo = () => {
           <img
             className=" ls-is-cached lazyloaded"
             src="logo.png"
-            alt="Transfeero Logo"
+            alt=""
             style={{ width: 100, paddingRight: 20, paddingLeft: 20 }}
           />
         </div>

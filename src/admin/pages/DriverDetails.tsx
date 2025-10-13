@@ -51,7 +51,7 @@ export default function DriverDetails() {
             <hr className="my-5" />
             <div className="grid grid-cols-2">
                 <div>
-                    <div className="text-gray-400 my-3">
+                    <div className="text-gray-900 my-3">
                         DETAILS
                     </div>
                     <div className="overflow-x-auto">
@@ -59,34 +59,34 @@ export default function DriverDetails() {
                             <tbody className="bg-white divide-y divide-gray-200">
                                 <tr>
                                     <td className="py-4 whitespace-nowrap">
-                                        <div className="text-sm font-medium text-gray-900">EMAIL ID</div>
+                                        <div className="text-sm font-medium text-gray-500">EMAIL ID</div>
                                     </td>
                                     <td className="px-6 py-4 whitespace-nowrap">
-                                        <div className="text-sm text-gray-500">{driver.email_id}</div>
+                                        <div className="text-sm text-gray-900">{driver.email_id}</div>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td className="py-4 whitespace-nowrap">
-                                        <div className="text-sm font-medium text-gray-900">CONTACT NO.</div>
+                                        <div className="text-sm font-medium text-gray-500">CONTACT NO.</div>
                                     </td>
                                     <td className="px-6 py-4 whitespace-nowrap">
-                                        <div className="text-sm text-gray-500">{driver.mobile_no}</div>
+                                        <div className="text-sm text-gray-900">{driver.mobile_no}</div>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td className="py-4 whitespace-nowrap">
-                                        <div className="text-sm font-medium text-gray-900">ADDRESS</div>
+                                        <div className="text-sm font-medium text-gray-500">ADDRESS</div>
                                     </td>
                                     <td className="px-6 py-4 whitespace-nowrap">
-                                        <div className="text-sm text-gray-500">{driver.address}</div>
+                                        <div className="text-sm text-gray-900">{driver.address}</div>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td className="py-4 whitespace-nowrap">
-                                        <div className="text-sm font-medium text-gray-900">RC Registration Number</div>
+                                        <div className="text-sm font-medium text-gray-500">RC Registration Number</div>
                                     </td>
                                     <td className="px-6 py-4 whitespace-nowrap">
-                                        <div className="text-sm text-gray-500">{driver.driving_license}</div>
+                                        <div className="text-sm text-gray-900">{driver.driving_license}</div>
                                     </td>
                                 </tr>
                             </tbody>

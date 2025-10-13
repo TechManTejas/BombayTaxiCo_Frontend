@@ -9,8 +9,6 @@ import {
 
 import About from "./pages/About";
 import Contact from "./pages/Contact";
-import Signin from "./pages/Signin";
-import Signup from "./pages/Signup";
 import Search from "./pages/Search";
 import Details from "./pages/Details";
 import UserNavbar from "./components/UserNavbar";
@@ -51,7 +49,7 @@ import { FAQs } from "./pages/FAQs";
 import { HourlyRental } from "./pages/HourlyRental";
 import { OneWayTrip } from "./pages/OneWayTrip";
 import UserInvoiceDetails from "./pages/InvoiceDetails";
-import StickyCallUs from "./components/CallUsSticky";
+// import StickyCallUs from "./components/CallUsSticky";
 
 const isAuthenticated = () => {
   return !!localStorage.getItem("token");
@@ -87,7 +85,7 @@ const UserRoutes: React.FC = () => {
       }}
     >
       <>
-        <StickyCallUs />
+        {/* <StickyCallUs /> */}
         <div className="sticky top-0 z-40 shadow-md">
           <UserNavbar />
         </div>
@@ -110,8 +108,6 @@ const UserRoutes: React.FC = () => {
           <Route path="/terms-conditions" element={<TermsAndConditions />} />
           <Route path="/faqs" element={<FAQs />} />
           <Route path="/privacy-policy" element={<PrivacyPolicy />} />
-          <Route path="/signin" element={<Signin />} />
-          <Route path="/signup" element={<Signup />} />
           <Route path="/hourly-rental" element={<HourlyRental />} />
           <Route path="/one-way-trip" element={<OneWayTrip />} />
           <Route path="/invoices/details" element={<UserInvoiceDetails />} />
@@ -210,10 +206,10 @@ const App: React.FC = () => {
       <Router>
         <Routes>
           {/* User Route  */}
-          <Route path="/*" element={<UserRoutes />} />
+          {/* <Route path="/*" element={<UserRoutes />} /> */}
           {/* <Route path="/*" element={<Navigate to={'admin'} />} /> */}
           {/* Admin Route  */}
-          {/* <Route path="/admin/*" element={<AdminRoutes />} /> */}
+          <Route path="/admin/*" element={<AdminRoutes />} />
         </Routes>
       </Router>
     </div>

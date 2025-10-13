@@ -50,7 +50,7 @@ export default function TaxiDetails() {
             </div>
             <hr className="my-5" />
             <div>
-                <div className="text-gray-400 my-3">
+                <div className="text-gray-900 my-3">
                     DETAILS
                 </div>
                 <div className="overflow-x-auto">
@@ -58,23 +58,23 @@ export default function TaxiDetails() {
                         <tbody className="bg-white divide-y divide-gray-200">
                             <tr>
                                 <td className="py-4 whitespace-nowrap">
-                                    <div className="text-sm font-medium text-gray-900">RATE PER KM</div>
+                                    <div className="text-sm font-medium text-gray-500">RATE PER KM</div>
                                 </td>
                                 <td className="px-6 py-4 whitespace-nowrap">
-                                    <div className="text-sm text-gray-500">{taxi.taxi_type_id.price_km}</div>
+                                    <div className="text-sm text-gray-900">{taxi.taxi_type_id.price_km}</div>
                                 </td>
                             </tr>
                             <tr>
                                 <td className="py-4 whitespace-nowrap">
-                                    <div className="text-sm font-medium text-gray-900">RATE PER HOUR</div>
+                                    <div className="text-sm font-medium text-gray-500">RATE PER HOUR</div>
                                 </td>
                                 <td className="px-6 py-4 whitespace-nowrap">
-                                    <div className="text-sm text-gray-500">{taxi.taxi_type_id.price_hour}</div>
+                                    <div className="text-sm text-gray-900">{taxi.taxi_type_id.price_hour}</div>
                                 </td>
                             </tr>
                             <tr>
                                 <td className="py-4 whitespace-nowrap">
-                                    <div className="text-sm font-medium text-gray-900">CAR FEATURES</div>
+                                    <div className="text-sm font-medium text-gray-500">CAR FEATURES</div>
                                 </td>
                                 <td className="px-6 py-4 whitespace-nowrap">
                                     <div className="text-sm text-gray-500 font-bold">
@@ -91,10 +91,10 @@ export default function TaxiDetails() {
                             </tr>
                             <tr>
                                 <td className="py-4 whitespace-nowrap">
-                                    <div className="text-sm font-medium text-gray-900">DRIVING LICENSE</div>
+                                    <div className="text-sm font-medium text-gray-500">DRIVING LICENSE</div>
                                 </td>
                                 <td className="px-6 py-4 whitespace-nowrap">
-                                    <div className="text-sm text-gray-500">{taxi.driving_license}</div>
+                                    <div className="text-sm text-gray-900">{taxi.driving_license}</div>
                                 </td>
                             </tr>
                         </tbody>

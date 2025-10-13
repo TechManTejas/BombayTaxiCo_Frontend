@@ -184,7 +184,7 @@ const DetailsCarCard: React.FC<DetailsCarCardProps> = ({
                   {discount}% OFF
                 </div>
               )} */}
-              <div className="space-x-3">
+              {/* <div className="space-x-3">
                 {parseInt(discount) > 0 && (
                   <span
                     className="font-semibold
@@ -207,7 +207,7 @@ const DetailsCarCard: React.FC<DetailsCarCardProps> = ({
                 >
                   ₹ {discountedPrice?.toLocaleString()}
                 </span>
-              </div>
+              </div> */}
               {!preview ? (
                 <div
                   className="font-light text-zinc-500

@@ -23,7 +23,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 
 import { ISettings } from "../types/settings.types";
 import { IRoute } from "../types/routes.types";
-import { ArrowRightOutlined, DownOutlined, UpOutlined } from "@ant-design/icons";
+import { ArrowRightOutlined, DownOutlined, SwapOutlined, UpOutlined } from "@ant-design/icons";
 import dayjs, { Dayjs } from "dayjs";
 import { Context } from "../context/context.provider";
 import { BookingConfirmed } from "../components/BookingConfirmed";
@@ -828,7 +828,7 @@ const Details: React.FC = () => {
                       ></div>
                       <div>
                         {" "}
-                        <ArrowRightOutlined className="rounded-full p-1 mx-8" />
+                        <SwapOutlined className="rounded-full p-1 mx-8" />
                       </div>
                       <div
                         className="flex-1 bg-black h-[1px]"
