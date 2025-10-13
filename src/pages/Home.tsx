@@ -153,9 +153,9 @@ const Hero: React.FC = () => {
   const handleMenuClickTime = (e: any) => {
     setPickupTime(e.key);
     const selectedTime = menuTime?.find((item) => item?.key === e.key);
-  
+
     const isToday = pickupDate?.isSame(dayjs(), "day");
-  
+
     // Check if the index is 8 or less and the selected date is today
     if (selectedTime && selectedTime?.index < 8 && isToday) {
       setShowEmergency(true);
@@ -248,7 +248,7 @@ const Hero: React.FC = () => {
   const menuPropsTime = {
     items: menuTime,
     onClick: handleMenuClickTime,
-    style: { height: "300px", overflow: "auto" },
+    style: { height: "200px", overflow: "auto" },
   };
 
   const menuPropsDistance = {
@@ -295,11 +295,9 @@ const Hero: React.FC = () => {
         return;
       }
     }
-    
+
     if (!pickupDate || !pickupTime) {
-      message.warning(
-        "Please select both Pickup date and Pickup time"
-      );
+      message.warning("Please select both Pickup date and Pickup time");
       return;
     }
 
@@ -343,6 +341,8 @@ const Hero: React.FC = () => {
 
         setCities(fetchedCities);
 
+        setHourlyPackage(String(menuDistance[0]?.key || ""));
+
         // Set initial values for from and to based on the first two cities
         // if (fetchedCities.length > 0) {
         //   setFrom(fetchedCities[0].name);
@@ -377,11 +377,11 @@ const Hero: React.FC = () => {
           "
           >
             <div className="h-16 lg:h-max text-center space-y-4">
-              <div className="text-[#FDB813]">Welcome to Bombay Taxi Co.</div>
-              <div className="text-[1.6rem] lg:text-[3.2rem] font-bold text-white">
+              {/* <div className="text-[#FDB813]">Welcome to Bombay Taxi Co.</div> */}
+              <h1 className="text-[1.6rem] lg:text-[3.2rem] font-bold text-white">
                 Enjoy Your Comfortable Trip
                 <span className="text-[#FDB813]">.</span>
-              </div>
+              </h1>
             </div>
           </div>
           <div className="flex flex-col items-center justify-center ">
@@ -450,7 +450,7 @@ const Hero: React.FC = () => {
                     <div className="text-xs flex items-center gap-1">
                       {" "}
                       <From />
-                      <div className="-ml-2">PICKUP LOCATION</div>
+                      <div className="-ml-2">Pickup Location</div>
                     </div>
                     <Dropdown
                       menu={menuPropsPickupCity}
@@ -458,7 +458,9 @@ const Hero: React.FC = () => {
                       className="w-full"
                     >
                       <button
-                        className="text-[1.3rem] group-hover:text-[#FDB813] transition-all duration-300 w-full text-left"
+                        className={`text-[1.3rem] group-hover:text-[#FDB813] transition-all duration-300 w-full text-left ${
+                          pickupCity ? "font-bold" : ""
+                        }`}
                         style={{
                           border: "none",
                           overflow: "hidden",
@@ -490,7 +492,7 @@ const Hero: React.FC = () => {
                     <div className="group w-[328px] lg:w-[228px]  p-3 pb-4 space-y-1 border-2 rounded-xl z-20 hover:border-[#FDB813] transition-all duration-300">
                       <div className="text-xs flex items-center gap-1">
                         <From />
-                        <div className="-ml-2">FROM</div>
+                        <div className="-ml-2">From</div>
                       </div>
                       <Dropdown
                         menu={menuPropsFrom}
@@ -498,7 +500,9 @@ const Hero: React.FC = () => {
                         className="w-full"
                       >
                         <button
-                          className="text-[1.3rem] group-hover:text-[#FDB813] transition-all duration-300 w-full text-left"
+                          className={`text-[1.3rem] group-hover:text-[#FDB813] transition-all duration-300 w-full text-left ${
+                            from ? "font-bold" : ""
+                          }`}
                           style={{
                             border: "none",
                             overflow: "hidden",
@@ -514,7 +518,7 @@ const Hero: React.FC = () => {
                     <div className="group w-full lg:w-[228px] p-3 pb-4 space-y-1 border-2 rounded-xl z-20 hover:border-[#FDB813] transition-all duration-300">
                       <div className="text-xs flex items-center gap-1">
                         <EnvironmentFilled />
-                        TO
+                        To
                       </div>
                       <Dropdown
                         menu={menuPropsTo}
@@ -522,7 +526,9 @@ const Hero: React.FC = () => {
                         className="w-full"
                       >
                         <button
-                          className="text-[1.3rem] group-hover:text-[#FDB813] transition-all duration-300 w-full text-left"
+                          className={`text-[1.3rem] group-hover:text-[#FDB813] transition-all duration-300 w-full text-left ${
+                            to ? "font-bold" : ""
+                          }`}
                           style={{
                             border: "none",
                             overflow: "hidden",
@@ -544,10 +550,12 @@ const Hero: React.FC = () => {
                 <div className="group relative w-full lg:w-[164px] p-3 pb-4 space-y-1 border-2 rounded-xl hover:border-[#FDB813] transition-all duration-300">
                   <div className="text-xs flex items-center gap-1">
                     <FaCalendarAlt />
-                    PICKUP DATE
+                    Pickup Date
                   </div>
                   <div
-                    className="text-[1.3rem] group-hover:text-[#FDB813] transition-all duration-300"
+                    className={`text-[1.3rem] group-hover:text-[#FDB813] transition-all duration-300 ${
+                      pickupDate ? "font-bold" : ""
+                    }`}
                     onClick={togglePickupDatePicker}
                   >
                     {pickupDate?.format("D MMM") ?? (
@@ -592,14 +600,32 @@ const Hero: React.FC = () => {
                   <div className="text-xs flex items-center gap-1">
                     {" "}
                     <FaClock />
-                    PICKUP TIME
+                    Pickup Time
                   </div>
                   <Dropdown menu={menuPropsTime} placement="bottomLeft">
                     <button
-                      className="text-[1.3rem] group-hover:text-[#FDB813] transition-all duration-300"
+                      className={`text-[1.3rem] group-hover:text-[#FDB813] transition-all duration-300 ${
+                        pickupTime ? "font-bold" : ""
+                      }`}
                       style={{ border: "none" }}
                     >
-                      {pickupTime || <div className="text-xs text-left">Select a pickup time for the trip</div>}
+                      {pickupTime ? (
+                        (() => {
+                          const [time, meridian] = pickupTime.split(" ");
+                          return (
+                            <span>
+                              {time}{" "}
+                              <span className="text-sm font-medium align-center">
+                                {meridian}
+                              </span>
+                            </span>
+                          );
+                        })()
+                      ) : (
+                        <div className="text-xs text-left">
+                          Select a pickup time for the trip
+                        </div>
+                      )}
                     </button>
                   </Dropdown>
                 </div>
@@ -608,13 +634,15 @@ const Hero: React.FC = () => {
                     <div className="text-xs flex items-center gap-1">
                       {" "}
                       <FaClock />
-                      RETURN DATE
+                      Return Date
                     </div>
                     <div>
                       {activeTab === "Round Trip" ? (
                         <>
                           <div
-                            className="text-[1.3rem] group-hover:text-[#FDB813] transition-all duration-300"
+                            className={`text-[1.3rem] group-hover:text-[#FDB813] transition-all duration-300 ${
+                              returnDate ? "font-bold" : ""
+                            }`}
                             onClick={toggleReturnDatePicker}
                           >
                             {returnDate?.format("D MMM") ?? (
@@ -673,14 +701,18 @@ const Hero: React.FC = () => {
                       <div className="text-xs flex items-center gap-1">
                         {" "}
                         <CompassOutlined />
-                        SELECT PACKAGE
+                        Select Package
                       </div>
                       <Dropdown menu={menuPropsDistance} placement="bottomLeft">
                         <button
-                          className="text-[1.3rem] group-hover:text-[#FDB813] transition-all duration-300"
+                          className={`text-[1.3rem] group-hover:text-[#FDB813] transition-all duration-300 ${
+                            hourlyPackage ? "font-bold" : ""
+                          }`}
                           style={{ border: "none" }}
                         >
-                          {hourlyPackage || <div className="text-xs ">Select a package</div>}
+                          {hourlyPackage || (
+                            <div className="text-xs ">Select a package</div>
+                          )}
                         </button>
                       </Dropdown>
                     </div>
@@ -733,26 +765,59 @@ const WhyChooseUs: React.FC = () => {
           className="flex flex-wrap gap-5 items-center justify-center
         "
         >
-          <WhyChooseUsCard
+          {/* <WhyChooseUsCard
             icon={<UserOutlined />}
             title="Personalized Rides"
             description="Book our services and adjust according to your need."
-          />
-          <WhyChooseUsCard
+          /> */}
+          <div className="bg-[#FDB813] flex flex-col justify-center items-center hover:border-2 w-60 h-60 rounded-xl  hover:border-yellow-500 space-y-2 shadow hover:shadow-xl transition-all">
+            <div className="bg-[#2A2A2A] text-2xl w-16 h-16 rounded-full flex text-white justify-center items-center mb-2">
+              <UserOutlined className="text-[#FDB813]"/>
+            </div>
+            <div className="text-xl font-medium">
+              Personalized Rides<span className="text-[#FDB813]">.</span>
+            </div>
+            <div className="text-center text-sm w-48">
+              Book our services and adjust according to your need.
+            </div>
+          </div>
+          {/* <WhyChooseUsCard
             icon={<FlexibleCancellation />}
             title="Flexible Cancellation"
             description="Easy trip cancel through our user-friendly booking platform."
-          />
+          /> */}
+          <div className="bg-[#2A2A2A] flex flex-col justify-center items-center hover:border-2 w-60 h-60 rounded-xl  hover:border-yellow-500 space-y-2 shadow hover:shadow-xl transition-all text-white">
+            <div className="bg-[#FDB813] text-2xl w-16 h-16 rounded-full flex text-white justify-center items-center mb-2">
+            <FlexibleCancellation />
+            </div>
+            <div className="text-xl font-medium">
+              Flexible Cancellation<span className="text-[#FDB813]">.</span>
+            </div>
+            <div className="text-center text-sm w-48">
+              Easy trip cancel through our user-friendly booking platform.
+            </div>
+          </div>
           <WhyChooseUsCard
             icon={<TransparentBilling />}
             title="Transparent Billing"
             description="Competitive and budget-friendly prices for quality transportation."
           />
-          <WhyChooseUsCard
+          {/* <WhyChooseUsCard
             icon={<CarOutlined />}
             title="Largest Fleet"
             description="Choose from our extensive fleet for your transportation needs."
-          />
+          /> */}
+          <div className="bg-[#FDB813] flex flex-col justify-center items-center hover:border-2 w-60 h-60 rounded-xl  hover:border-yellow-500 space-y-2 shadow hover:shadow-xl transition-all">
+            <div className="bg-[#2A2A2A] text-2xl w-16 h-16 rounded-full flex text-white justify-center items-center mb-2">
+              <CarOutlined className="text-[#FDB813]"/>
+            </div>
+            <div className="text-xl font-medium">
+              Largest Fleet<span className="text-[#FDB813]">.</span>
+            </div>
+            <div className="text-center text-sm w-48">
+              Choose from our extensive fleet for your transportation needs.
+            </div>
+          </div>
         </div>
       </div>
     </div>

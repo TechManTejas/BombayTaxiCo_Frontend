@@ -62,7 +62,15 @@ const LoginForm: React.FC<LoginFormProps> = ({ hideLoginModal }) => {
                     { pattern: /^[0-9]{10}$/, message: 'Please enter a valid 10-digit mobile number' }
                 ]}
             >
-                <Input placeholder="Mobile Number" />
+                <Input
+                    placeholder="Mobile Number"
+                    maxLength={10} // UI limit
+                    onChange={(e) => {
+                        // Keep only digits, limit to 10 characters
+                        const numericValue = e.target.value.replace(/\D/g, '').slice(0, 10);
+                        form.setFieldsValue({ number: numericValue });
+                    }}
+                />
             </Form.Item>
 
             {otpRequired && (
@@ -73,7 +81,14 @@ const LoginForm: React.FC<LoginFormProps> = ({ hideLoginModal }) => {
                         { pattern: /^[0-9]{6}$/, message: 'Please enter a valid 6-digit OTP' }
                     ]}
                 >
-                    <Input placeholder="OTP" />
+                    <Input
+                        placeholder="OTP"
+                        maxLength={6}
+                        onChange={(e) => {
+                        const numericValue = e.target.value.replace(/\D/g, '').slice(0, 6);
+                        form.setFieldsValue({ otp: numericValue });
+                        }}
+                    />
                 </Form.Item>
             )}
 
@@ -141,27 +156,51 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ hideLoginModal }) => {
                 <>
                     <Form.Item
                         name="name"
-                        rules={[{ required: true, message: 'Please enter your name' }]}
+                        rules={[
+                        { required: true, message: 'Please enter your name' },
+                        {
+                            pattern: /^[A-Za-z\s]+$/,
+                            message: 'Name should only contain letters and spaces',
+                        },
+                        ]}
                     >
-                        <Input placeholder="Name" />
+                        <Input
+                        placeholder="Name"
+                        maxLength={50}
+                        onChange={(e) => {
+                            // Allow only letters and spaces
+                            const onlyLetters = e.target.value.replace(/[^A-Za-z\s]/g, '');
+                            form.setFieldsValue({ name: onlyLetters });
+                        }}
+                        />
                     </Form.Item>
+                    {/* MOBILE NUMBER FIELD */}
                     <Form.Item
                         name="number"
                         rules={[
-                            { required: true, message: 'Please enter your mobile number' },
-                            { pattern: /^[0-9]{10}$/, message: 'Please enter a valid 10-digit mobile number' }
+                        { required: true, message: 'Please enter your mobile number' },
+                        { pattern: /^[0-9]{10}$/, message: 'Please enter a valid 10-digit mobile number' },
                         ]}
                     >
-                        <Input placeholder="Mobile Number" />
+                        <Input
+                        placeholder="Mobile Number"
+                        maxLength={10}
+                        onChange={(e) => {
+                            // Keep only digits, limit to 10
+                            const numericValue = e.target.value.replace(/\D/g, '').slice(0, 10);
+                            form.setFieldsValue({ number: numericValue });
+                        }}
+                        />
                     </Form.Item>
+                    {/* EMAIL FIELD */}
                     <Form.Item
                         name="email"
                         rules={[
-                            { required: true, message: 'Please enter your email' },
-                            { type: 'email', message: 'Invalid email address' },
+                        { required: true, message: 'Please enter your email' },
+                        { type: 'email', message: 'Please enter a valid email address' },
                         ]}
                     >
-                        <Input placeholder="Email" />
+                        <Input placeholder="Email" maxLength={100} />
                     </Form.Item>
                 </>
             ) : (
@@ -234,7 +273,7 @@ const UserNavbar: React.FC = () => {
                     </TabPane>
                 </Tabs>
             </Modal>
-            <div className="bg-[#2A2A2A]">
+            <div className="bg-[#2A2A2A] hidden lg:block">
                 <div className="container px-2 mx-auto flex justify-between py-4">
                     
                     <div>
@@ -302,8 +341,8 @@ const UserNavbar: React.FC = () => {
                             </a>
                         </div>
                     </div>
-                    <div className="">
-                        <p className="text-white text-sm md:text-base">
+                    <div className="text-xs md:text-sm flex items-center">
+                        <p className="text-white">
                             We Provide{/* */}
                             <span className="text-[#FDB813] mx-1">
                                 The Best Service &amp; Discounts
@@ -412,16 +451,6 @@ const UserNavbar: React.FC = () => {
                     defaultSelectedKeys={[]}
                     style={{ width: '100%' }}
                 >
-                    <Menu.Item key="about" onClick={() => {
-                        hideDrawer("about")
-                    }}>
-                        About Us
-                    </Menu.Item>
-                    <Menu.Item key="contact" onClick={() => {
-                        hideDrawer("contact")
-                    }}>
-                        Contact Us
-                    </Menu.Item>
                     {userAuthenticated ?
                         <Menu.Item key="profile" onClick={() => {
                             hideDrawer("profile")
@@ -435,6 +464,31 @@ const UserNavbar: React.FC = () => {
                             Login
                         </Menu.Item>
                     }
+                    <Menu.Item key="about" onClick={() => {
+                        hideDrawer("about")
+                    }}>
+                        About Us
+                    </Menu.Item>
+                    <Menu.Item key="contact" onClick={() => {
+                        hideDrawer("contact")
+                    }}>
+                        Contact Us
+                    </Menu.Item>
+                    <Menu.Item key="faqs" onClick={() => {
+                        hideDrawer("faqs")
+                    }}>
+                        FAQs
+                    </Menu.Item>
+                    <Menu.Item key="cancellation-policy" onClick={() => {
+                        hideDrawer("cancellation-policy")
+                    }}>
+                        Cancellation Policy
+                    </Menu.Item>
+                    <Menu.Item key="terms-conditions" onClick={() => {
+                        hideDrawer("terms-conditions")
+                    }}>
+                        Terms Conditions
+                    </Menu.Item>
                 </Menu>
             </Drawer>
             {/* <Button className='bg-red-600 text-white font-bold fixed bottom-5 right-5 z-10 rounded' onClick={() => {

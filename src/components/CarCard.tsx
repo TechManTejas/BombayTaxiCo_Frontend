@@ -100,7 +100,7 @@ const CarCard: React.FC<CarCardProps> = ({
             {description}
           </div>
         </div>
-        <div className="border-l border-gray-300 mx-2" />
+        <div className="lg:border-l border-gray-300 mx-2" />
         <div
           className="flex justify-between w-full
                     flex-row
@@ -171,9 +171,9 @@ const CarCard: React.FC<CarCardProps> = ({
             )}
           </div>
           <div className="m-3"></div>
-          <div className="border-l border-gray-300 mx-2" />
+          <div className="lg:border-l border-gray-300 mx-2" />
           <div>
-            <div className="border-l border-gray-300 mx-2" />
+            <div className="lg:border-l border-gray-300 mx-2" />
             <div className="flex-shrink-0 flex flex-col items-end space-y-3">
               <div className="text-end my-1">
                 {/* {parseInt(discount) > 0 && (
@@ -224,7 +224,7 @@ const CarCard: React.FC<CarCardProps> = ({
               </div>
               {!preview && (
                 <div
-                  className="shadow-lg
+                  className="shadow-lg rounded-lg
                                 hidden
                                 lg:block
                             "

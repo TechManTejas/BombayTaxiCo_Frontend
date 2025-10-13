@@ -347,10 +347,10 @@ export default function BookingDetails() {
         </Button>
         <div className="flex justify-between items-center">
           <div className="space-y-2">
-            <div className="text-sm text-gray-400">
-              Booking ID: {booking?.booking_number}
+            <div className="text-sm">
+              <span className="text-gray-400">Booking ID:</span> {booking?.booking_number}
               <br />
-              Booking Date & Time:{" "}
+              <span className="text-gray-400">Booking Date & Time:</span>{" "}
               {dayjs(booking?.createdAt).format("DD-MM-YYYY hh:mm A")}
             </div>
             <div className="text-xl flex items-center space-x-3">
@@ -486,40 +486,40 @@ export default function BookingDetails() {
       <div className="flex">
         <div className=" w-1/3 h-full">
           <div>
-            <div className="text-gray-400 my-3">PAYMENT DETAILS</div>
+            <div className="text-gray-900 my-3">PAYMENT DETAILS</div>
             <div className="overflow-x-auto">
               <table className="divide-y divide-gray-200">
                 <tbody className="bg-white divide-y divide-gray-200">
                   <tr>
                     <td className="py-4 whitespace-nowrap">
-                      <div className="text-sm font-medium text-gray-900">
+                      <div className="text-sm font-medium text-gray-400">
                         ADVANCE AMOUNT
                       </div>
                     </td>
                     <td className="px-6 py-4">
-                      <div className="text-sm text-gray-500">
+                      <div className="text-sm text-gray-900">
                         {advanceAmount}
                       </div>
                     </td>
                   </tr>
                   <tr>
                     <td className="py-4 whitespace-nowrap">
-                      <div className="text-sm font-medium text-gray-900">
+                      <div className="text-sm font-medium text-gray-400">
                         TOTAL AMOUNT
                       </div>
                     </td>
                     <td className="px-6 py-4">
-                      <div className="text-sm text-gray-500">{totalAmount}</div>
+                      <div className="text-sm text-gray-900">{totalAmount}</div>
                     </td>
                   </tr>
                   <tr>
                     <td className="py-4 whitespace-nowrap">
-                      <div className="text-sm font-medium text-gray-900">
+                      <div className="text-sm font-medium text-gray-400">
                         DUE AMOUNT
                       </div>
                     </td>
                     <td className="px-6 py-4">
-                      <div className="text-sm text-gray-500">{dueAmount}</div>
+                      <div className="text-sm text-gray-900">{dueAmount}</div>
                     </td>
                   </tr>
                 </tbody>
@@ -527,66 +527,66 @@ export default function BookingDetails() {
             </div>
           </div>
           <div>
-            <div className="text-gray-400 my-3">TRIP DETAILS</div>
+            <div className="text-gray-900 my-3">TRIP DETAILS</div>
             <div className="overflow-x-auto">
               <table className="divide-y divide-gray-200">
                 <tbody className="bg-white divide-y divide-gray-200">
                   <tr>
                     <td className="py-4 whitespace-nowrap">
-                      <div className="text-sm font-medium text-gray-900">
+                      <div className="text-sm font-medium text-gray-400">
                         REQUESTED TAXI
                       </div>
                     </td>
                     <td className="px-6 py-4">
-                      <div className="text-sm text-gray-500">
+                      <div className="text-sm text-gray-900">
                         {booking?.requested_taxi_type?.name}
                       </div>
                     </td>
                   </tr>
                   <tr>
                     <td className="py-4 whitespace-nowrap">
-                      <div className="text-sm font-medium text-gray-900">
+                      <div className="text-sm font-medium text-gray-400">
                         PICKUP ADDRESS
                       </div>
                     </td>
                     <td className="px-6 py-4">
-                      <div className="text-sm text-gray-500">
+                      <div className="text-sm text-gray-900">
                         {booking?.pickup_address}
                       </div>
                     </td>
                   </tr>
                   <tr>
                     <td className="py-4 whitespace-nowrap">
-                      <div className="text-sm font-medium text-gray-900">
+                      <div className="text-sm font-medium text-gray-400">
                         DROP ADDRESS
                       </div>
                     </td>
                     <td className="px-6 py-4">
-                      <div className="text-sm text-gray-500">
+                      <div className="text-sm text-gray-900">
                         {booking?.drop_address}
                       </div>
                     </td>
                   </tr>
                   <tr>
                     <td className="py-4 whitespace-nowrap">
-                      <div className="text-sm font-medium text-gray-900">
+                      <div className="text-sm font-medium text-gray-400">
                         PICKUP DATE
                       </div>
                     </td>
                     <td className="px-6 py-4">
-                      <div className="text-sm text-gray-500">
+                      <div className="text-sm text-gray-900">
                         {dayjs(booking?.pick_up_date).format("DD-MM-YYYY")}
                       </div>
                     </td>
                   </tr>
                   <tr>
                     <td className="py-4 whitespace-nowrap">
-                      <div className="text-sm font-medium text-gray-900">
+                      <div className="text-sm font-medium text-gray-400">
                         PICKUP TIME
                       </div>
                     </td>
                     <td className="px-6 py-4">
-                      <div className="text-sm text-gray-500">
+                      <div className="text-sm text-gray-900">
                         {booking?.pick_up_time}
                       </div>
                     </td>
@@ -594,12 +594,12 @@ export default function BookingDetails() {
                   {booking?.trip_type === TripType.Round && (
                     <tr>
                       <td className="py-4 whitespace-nowrap">
-                        <div className="text-sm font-medium text-gray-900">
+                        <div className="text-sm font-medium text-gray-400">
                           RETURN DATE
                         </div>
                       </td>
                       <td className="px-6 py-4">
-                        <div className="text-sm text-gray-500">
+                        <div className="text-sm text-gray-900">
                           {dayjs(booking?.return_date).format("DD-MM-YYYY")}
                         </div>
                       </td>
@@ -607,15 +607,15 @@ export default function BookingDetails() {
                   )}
                   <tr>
                     <td className="py-4 whitespace-nowrap">
-                      <div className="text-sm font-medium text-gray-900">
+                      <div className="text-sm font-medium text-gray-400">
                         COUPON
                       </div>
                     </td>
                     <td className="px-6 py-4">
-                      <div className="text-sm text-green-600">
+                      <div className="text-sm text-green-700">
                         {booking?.coupon_id?.name}
                       </div>
-                      <div className="text-sm text-green-500">
+                      <div className="text-sm text-green-700">
                         {booking?.coupon_id?.discount_perc}% discount
                       </div>
                     </td>
@@ -625,90 +625,90 @@ export default function BookingDetails() {
             </div>
           </div>
           <div>
-            <div className="text-gray-400 my-3">TRAVELLERS DETAILS</div>
+            <div className="text-gray-900 my-3">TRAVELLERS DETAILS</div>
             <div className="overflow-x-auto">
               <table className="divide-y divide-gray-200">
                 <tbody className="bg-white divide-y divide-gray-200">
                   <tr>
                     <td className="py-4 whitespace-nowrap">
-                      <div className="text-sm font-medium text-gray-900">
+                      <div className="text-sm font-medium text-gray-400">
                         NAME
                       </div>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
-                      <div className="text-sm text-gray-500">
+                      <div className="text-sm text-gray-900">
                         {booking?.name}
                       </div>
                     </td>
                   </tr>
                   <tr>
                     <td className="py-4 whitespace-nowrap">
-                      <div className="text-sm font-medium text-gray-900">
+                      <div className="text-sm font-medium text-gray-400">
                         GENDER
                       </div>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
-                      <div className="text-sm text-gray-500">
+                      <div className="text-sm text-gray-900">
                         {booking?.gender}
                       </div>
                     </td>
                   </tr>
                   <tr>
                     <td className="py-4 whitespace-nowrap">
-                      <div className="text-sm font-medium text-gray-900">
+                      <div className="text-sm font-medium text-gray-400">
                         EMAIL
                       </div>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
-                      <div className="text-sm text-gray-500">
+                      <div className="text-sm text-gray-900">
                         {booking?.emailId}
                       </div>
                     </td>
                   </tr>
                   <tr>
                     <td className="py-4 whitespace-nowrap">
-                      <div className="text-sm font-medium text-gray-900">
+                      <div className="text-sm font-medium text-gray-400">
                         PHONE
                       </div>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
-                      <div className="text-sm text-gray-500">
+                      <div className="text-sm text-gray-900">
                         +91 {booking?.contactNumber}
                       </div>
                     </td>
                   </tr>
                   <tr>
                     <td className="py-4 whitespace-nowrap">
-                      <div className="text-sm font-medium text-gray-900">
+                      <div className="text-sm font-medium text-gray-400">
                         WHATSAPP NUMBER
                       </div>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
-                      <div className="text-sm text-gray-500">
+                      <div className="text-sm text-gray-900">
                         {booking?.whatsAppNumber}
                       </div>
                     </td>
                   </tr>
                   <tr>
                     <td className="py-4 whitespace-nowrap">
-                      <div className="text-sm font-medium text-gray-900">
+                      <div className="text-sm font-medium text-gray-400">
                         PINCODE
                       </div>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
-                      <div className="text-sm text-gray-500">
+                      <div className="text-sm text-gray-900">
                         {booking?.pincode}
                       </div>
                     </td>
                   </tr>
                   <tr>
                     <td className="py-4 whitespace-nowrap">
-                      <div className="text-sm font-medium text-gray-900">
+                      <div className="text-sm font-medium text-gray-400">
                         CONTACT ADDRESS
                       </div>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
-                      <div className="text-sm text-gray-500">
+                      <div className="text-sm text-gray-900">
                         {booking?.address}
                       </div>
                     </td>
@@ -718,18 +718,18 @@ export default function BookingDetails() {
             </div>
           </div>
           <div>
-            <div className="text-gray-400 my-3">ADDITIONAL INFORMATION</div>
+            <div className="text-gray-900 my-3">ADDITIONAL INFORMATION</div>
             <div className="overflow-x-auto">
               <table className="divide-y divide-gray-200">
                 <tbody className="bg-white divide-y divide-gray-200">
                   <tr>
                     <td className="py-4 whitespace-nowrap">
-                      <div className="text-sm font-medium text-gray-900">
+                      <div className="text-sm font-medium text-gray-400">
                         No. of passengers
                       </div>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
-                      <div className="text-sm text-gray-500">
+                      <div className="text-sm text-gray-900">
                         {booking?.numberOfPassengers
                           ? booking?.numberOfPassengers
                           : "-"}
@@ -738,12 +738,12 @@ export default function BookingDetails() {
                   </tr>
                   <tr>
                     <td className="py-4 whitespace-nowrap">
-                      <div className="text-sm font-medium text-gray-900">
+                      <div className="text-sm font-medium text-gray-400">
                         No. of small bags
                       </div>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
-                      <div className="text-sm text-gray-500">
+                      <div className="text-sm text-gray-900">
                         {booking?.numberOfSmallBags
                           ? booking?.numberOfSmallBags
                           : "-"}
@@ -752,12 +752,12 @@ export default function BookingDetails() {
                   </tr>
                   <tr>
                     <td className="py-4 whitespace-nowrap">
-                      <div className="text-sm font-medium text-gray-900">
+                      <div className="text-sm font-medium text-gray-400">
                         No. of large bags
                       </div>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
-                      <div className="text-sm text-gray-500">
+                      <div className="text-sm text-gray-900">
                         {booking?.numberOfLargeBags
                           ? booking?.numberOfLargeBags
                           : "-"}
@@ -766,108 +766,108 @@ export default function BookingDetails() {
                   </tr>
                   <tr>
                     <td className="py-4 whitespace-nowrap">
-                      <div className="text-sm font-medium text-gray-900">
+                      <div className="text-sm font-medium text-gray-400">
                         Senior citizen traveling
                       </div>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
-                      <div className="text-sm text-gray-500">
+                      <div className="text-sm text-gray-900">
                         {booking?.seniorCitizen ? "YES" : "NO"}
                       </div>
                     </td>
                   </tr>
                   <tr>
                     <td className="py-4 whitespace-nowrap">
-                      <div className="text-sm font-medium text-gray-900">
+                      <div className="text-sm font-medium text-gray-400">
                         Women traveling
                       </div>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
-                      <div className="text-sm text-gray-500">
+                      <div className="text-sm text-gray-900">
                         {booking?.womenTraveling ? "YES" : "NO"}
                       </div>
                     </td>
                   </tr>
                   <tr>
                     <td className="py-4 whitespace-nowrap">
-                      <div className="text-sm font-medium text-gray-900">
+                      <div className="text-sm font-medium text-gray-400">
                         Kids on board
                       </div>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
-                      <div className="text-sm text-gray-500">
+                      <div className="text-sm text-gray-900">
                         {booking?.kidsOnBoard ? "YES" : "NO"}
                       </div>
                     </td>
                   </tr>
                   <tr>
                     <td className="py-4 whitespace-nowrap">
-                      <div className="text-sm font-medium text-gray-900">
+                      <div className="text-sm font-medium text-gray-400">
                         English-speaking driver preferred
                       </div>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
-                      <div className="text-sm text-gray-500">
+                      <div className="text-sm text-gray-900">
                         {booking?.englishSpeakingDriver ? "YES" : "NO"}
                       </div>
                     </td>
                   </tr>
                   <tr>
                     <td className="py-4 whitespace-nowrap">
-                      <div className="text-sm font-medium text-gray-900">
+                      <div className="text-sm font-medium text-gray-400">
                         Carrying Pet
                       </div>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
-                      <div className="text-sm text-gray-500">
+                      <div className="text-sm text-gray-900">
                         {booking?.carryingPet ? "YES" : "NO"}
                       </div>
                     </td>
                   </tr>
                   <tr>
                     <td className="py-4 whitespace-nowrap">
-                      <div className="text-sm font-medium text-gray-900">
+                      <div className="text-sm font-medium text-gray-400">
                         Need 7+1 seater
                       </div>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
-                      <div className="text-sm text-gray-500">
+                      <div className="text-sm text-gray-900">
                         {booking?.need7Plus1Seater ? "YES" : "NO"}
                       </div>
                     </td>
                   </tr>
                   <tr>
                     <td className="py-4 whitespace-nowrap">
-                      <div className="text-sm font-medium text-gray-900">
+                      <div className="text-sm font-medium text-gray-400">
                         Carrier over the top of vehicle
                       </div>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
-                      <div className="text-sm text-gray-500">
+                      <div className="text-sm text-gray-900">
                         {booking?.carrierOverTop ? "YES" : "NO"}
                       </div>
                     </td>
                   </tr>
                   <tr>
                     <td className="py-4 whitespace-nowrap">
-                      <div className="text-sm font-medium text-gray-900">
+                      <div className="text-sm font-medium text-gray-400">
                         Booking for someone else
                       </div>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
-                      <div className="text-sm text-gray-500">
+                      <div className="text-sm text-gray-900">
                         {booking?.bookingForSomeoneElse ? "YES" : "NO"}
                       </div>
                     </td>
                   </tr>
                   <tr>
                     <td className="py-4 whitespace-nowrap">
-                      <div className="text-sm font-medium text-gray-900">
+                      <div className="text-sm font-medium text-gray-400">
                         Other
                       </div>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
-                      <div className="text-sm text-gray-500">
+                      <div className="text-sm text-gray-900">
                         {booking?.otherDetails ? booking?.otherDetails : "-"}
                       </div>
                     </td>
@@ -970,30 +970,30 @@ export default function BookingDetails() {
           <>
             <div className=" w-1/3 h-full">
               <div>
-                <div className="text-gray-400 my-3">TAXI DETAILS</div>
+                <div className="text-gray-900 my-3">TAXI DETAILS</div>
                 <div className="overflow-x-auto">
                   <table className="divide-y divide-gray-200">
                     <tbody className="bg-white divide-y divide-gray-200">
                       <tr>
                         <td className="py-4 whitespace-nowrap">
-                          <div className="text-sm font-medium text-gray-900">
+                          <div className="text-sm font-medium text-gray-400">
                             TAXI NUMBER
                           </div>
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap">
-                          <div className="text-sm text-gray-500">
+                          <div className="text-sm text-gray-900">
                             {booking?.taxi_id?.taxi_no}
                           </div>
                         </td>
                       </tr>
                       <tr>
                         <td className="py-4 whitespace-nowrap">
-                          <div className="text-sm font-medium text-gray-900">
+                          <div className="text-sm font-medium text-gray-400">
                             TAXI TYPE
                           </div>
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap">
-                          <div className="text-sm text-gray-500">
+                          <div className="text-sm text-gray-900">
                             {booking?.taxi_id?.taxi_type_id?.name}
                           </div>
                         </td>
@@ -1005,42 +1005,42 @@ export default function BookingDetails() {
             </div>
             <div className="w-1/3 h-full">
               <div>
-                <div className="text-gray-400 my-3">DRIVER DETAILS</div>
+                <div className="text-gray-900 my-3">DRIVER DETAILS</div>
                 <div className="overflow-x-auto">
                   <table className="divide-y divide-gray-200">
                     <tbody className="bg-white divide-y divide-gray-200">
                       <tr>
                         <td className="py-4 whitespace-nowrap">
-                          <div className="text-sm font-medium text-gray-900">
+                          <div className="text-sm font-medium text-gray-400">
                             DRIVE NAME
                           </div>
                         </td>
                         <td className="px-6 py-4">
-                          <div className="text-sm text-gray-500">
+                          <div className="text-sm text-gray-900">
                             {booking?.driver_id?.name}
                           </div>
                         </td>
                       </tr>
                       <tr>
                         <td className="py-4 whitespace-nowrap">
-                          <div className="text-sm font-medium text-gray-900">
+                          <div className="text-sm font-medium text-gray-400">
                             DRIVE MOBILE NO
                           </div>
                         </td>
                         <td className="px-6 py-4">
-                          <div className="text-sm text-gray-500">
+                          <div className="text-sm text-gray-900">
                             {booking?.driver_id?.mobile_no}
                           </div>
                         </td>
                       </tr>
                       <tr>
                         <td className="py-4 whitespace-nowrap">
-                          <div className="text-sm font-medium text-gray-900">
+                          <div className="text-sm font-medium text-gray-400">
                             DRIVE EMAIL
                           </div>
                         </td>
                         <td className="px-6 py-4">
-                          <div className="text-sm text-gray-500">
+                          <div className="text-sm text-gray-900">
                             {booking?.driver_id?.email_id}
                           </div>
                         </td>

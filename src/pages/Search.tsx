@@ -442,8 +442,8 @@ const Search: React.FC = () => {
               >
                 <div className="px-2 flex justify-between items-center">
                   <div>
-                    <div className="text-[#FDB813]">TRIP TYPE</div>
-                    <div className="text-white">{tripType}</div>
+                    <div className="text-[#FDB813]">Trip Type</div>
+                    <div className={`text-white ${tripType ? 'font-bold' : ''}`}>{tripType}</div>
                   </div>
                   <svg
                     className="ml-2"
@@ -483,9 +483,9 @@ const Search: React.FC = () => {
                     onClick={toggleFrom}
                   >
                     <div className="px-2 w-full">
-                      <div className="text-[#FDB813]">FROM</div>
+                      <div className="text-[#FDB813]">From</div>
                       <div
-                        className="text-white w-full"
+                        className={`text-white w-full ${from ? 'font-bold' : ''}`}
                         style={{
                           overflow: "hidden",
                           whiteSpace: "nowrap",
@@ -531,9 +531,9 @@ const Search: React.FC = () => {
                     onClick={toggleTo}
                   >
                     <div className="px-2 w-full">
-                      <div className="text-[#FDB813]">TO</div>
+                      <div className="text-[#FDB813]">To</div>
                       <div
-                        className="text-white w-full"
+                        className={`text-white w-full ${to ? 'font-bold' : ''}`}
                         style={{
                           overflow: "hidden",
                           whiteSpace: "nowrap",
@@ -572,9 +572,9 @@ const Search: React.FC = () => {
                     onClick={togglePickupCity}
                   >
                     <div className="px-2 w-full">
-                      <div className="text-[#FDB813]">PICKUP LOCATION</div>
+                      <div className="text-[#FDB813]">Pickup Location</div>
                       <div
-                        className="text-white w-full"
+                        className={`text-white w-full ${pickupCity ? 'font-bold' : ''}`}
                         style={{
                           overflow: "hidden",
                           whiteSpace: "nowrap",
@@ -611,8 +611,8 @@ const Search: React.FC = () => {
               `}
               >
                 <div className="px-2" onClick={togglePickupDatePicker}>
-                  <div className="text-[#FDB813]">PICKUP DATE</div>
-                  <div className="text-white">
+                  <div className="text-[#FDB813]">Pickup Date</div>
+                  <div className={`text-white ${pickupDate ? 'font-bold' : ''}`}>
                     {pickupDate?.format("D MMM YYYY")}
                   </div>
                 </div>
@@ -652,8 +652,8 @@ const Search: React.FC = () => {
                 onClick={togglePickupTime}
               >
                 <div className="px-2">
-                  <div className="text-[#FDB813]">PICKUP TIME</div>
-                  <div className="text-white">{pickupTime}</div>
+                  <div className="text-[#FDB813]">Pickup Time</div>
+                  <div className={`text-white ${pickupTime ? 'font-bold' : ''}`}>{pickupTime}</div>
                 </div>
                 <Select
                   open={pickupTimeOpen}
@@ -682,8 +682,8 @@ const Search: React.FC = () => {
                   {tripType === "Round Trip" ? (
                     <>
                       <div className="" onClick={toggleReturnDatePicker}>
-                        <div className="text-[#FDB813]">RETURN DATE</div>
-                        <div className="text-white">
+                        <div className="text-[#FDB813]">Return Date</div>
+                        <div className={`text-white ${returnDate ? 'font-bold' : ''}`}>
                           {returnDate?.format("D MMM YYYY")}
                         </div>
                       </div>
@@ -719,7 +719,7 @@ const Search: React.FC = () => {
                   ) : (
                     <>
                       <div className="" onClick={toggleReturnDatePicker}>
-                        <div className="text-[#FDB813]">RETURN DATE</div>
+                        <div className="text-[#FDB813]">Return Date</div>
                         <div className="text-white text-center">
                           --- --- ---
                         </div>
@@ -737,7 +737,7 @@ const Search: React.FC = () => {
                     onClick={toggleHourlyPackage}
                   >
                     <div className="px-2">
-                      <div className="text-[#FDB813]">SELECT PACKAGE</div>
+                      <div className="text-[#FDB813]">Select Package</div>
                       <div className="text-white">{hourlyPackage}</div>
                     </div>
                     <Select
