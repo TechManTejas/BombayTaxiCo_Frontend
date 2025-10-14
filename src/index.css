@@ -9,3 +9,75 @@
 .sticky-component:hover {
   width: 400px; /* Width when hovered */
 }
+
+/* Remove Ant Design's default border and shadow */
+.custom-select .ant-select-selector {
+  border: none !important;
+  box-shadow: none !important;
+  background: transparent !important;
+  padding-left: 0 !important;
+}
+
+/* Keep selected text bold and consistent */
+.custom-select .ant-select-selection-item,
+.custom-select .ant-select-selection-search-input {
+  font-weight: 700 !important;
+  color: #000 !important;
+  font-size: 1.3rem !important;
+  line-height: 1.5rem !important;
+}
+
+/* Ensure typed text (during search) matches style */
+.custom-select input {
+  font-weight: 700 !important;
+  color: #000 !important;
+  font-size: 1.3rem !important;
+}
+
+/* Placeholder styling */
+.custom-select .ant-select-selection-placeholder {
+  color: #999 !important;
+  font-weight: normal !important;
+}
+
+/* Keep dropdown hover border color */
+.group:hover .ant-select-selector {
+  border-color: #fdb813 !important;
+}
+
+/* Remove default Ant Design border and shadow */
+.dark-custom-select .ant-select-selector {
+  border: none !important;
+  box-shadow: none !important;
+  background: transparent !important;
+  padding-left: 0 !important;
+}
+
+/* Selected text style */
+.dark-custom-select .ant-select-selection-item,
+.dark-custom-select .ant-select-selection-search-input {
+  font-weight: 700 !important;
+  color: #fff !important;
+  font-size: 1rem !important;
+  line-height: 1rem !important;
+}
+
+/* Typed text in search input */
+.dark-custom-select input {
+  font-weight: 700 !important;
+  color: #fff !important;
+  font-size: 1rem !important;
+}
+
+/* Placeholder */
+.dark-custom-select .ant-select-selection-placeholder {
+  color: #999 !important;
+  font-weight: normal !important;
+}
+
+/* Dropdown hover styles */
+.dark-custom-select .ant-select-item-option-active,
+.dark-custom-select .ant-select-item-option-selected {
+  background-color: #fdb813 !important;
+  color: #000 !important;
+}

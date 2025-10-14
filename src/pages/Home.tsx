@@ -13,7 +13,7 @@ import {
   SafetyOutlined,
   UserOutlined,
 } from "@ant-design/icons";
-import { DatePicker, Dropdown, MenuProps, Segmented, message } from "antd";
+import { DatePicker, Dropdown, MenuProps, Segmented, Select, message } from "antd";
 import React, { useEffect, useState } from "react";
 import { Container } from "@mui/material";
 import axios from "../api/axios";
@@ -376,105 +376,123 @@ const Hero: React.FC = () => {
             className="lg:w-[1036px]
           "
           >
-            <div className="h-16 lg:h-max text-center space-y-4">
+            <div className="h-12 lg:h-max text-center space-y-4">
               {/* <div className="text-[#FDB813]">Welcome to Bombay Taxi Co.</div> */}
-              <h1 className="text-[1.6rem] lg:text-[3.2rem] font-bold text-white">
+              <h1 className="text-[1.4rem] lg:text-[3.2rem] font-bold text-white">
                 Enjoy Your Comfortable Trip
                 <span className="text-[#FDB813]">.</span>
               </h1>
             </div>
           </div>
-          <div className="flex flex-col items-center justify-center ">
-            <div className="rounded-2xl bg-white shadow-lg -mb-16 lg:-mb-6 z-10 border border-yellow-500">
-              <Segmented
-                value={activeTab}
-                className="rounded-2xl p-1"
-                onChange={(value) => {
-                  handleTabChange(value.toString());
-                }}
-                options={[
-                  {
-                    label: (
-                      <div className="lg:text-lg m-2">
-                        <div className="flex items-center">
-                          <div className="hidden">
-                            <OneWayTripIcon />
+          <div className="flex flex-col items-center justify-center w-screen lg:w-min">
+            
+              <div className="rounded-2xl lg:shadow-lg -mb-[68px] lg:-mb-6 z-10 w-full lg:w-min">
+                <div className="bg-white rounded-2xl mx-2 lg:mx-0 border border-yellow-500">
+
+                
+                <Segmented
+                  value={activeTab}
+                  className="w-full rounded-2xl p-1 flex"
+                  onChange={(value) => {
+                    handleTabChange(value.toString());
+                  }}
+                  options={[
+                    {
+                      label: (
+                        <div className="lg:text-lg m-2  w-full text-center">
+                          <div className="flex items-center">
+                            <div className="hidden">
+                              <OneWayTripIcon />
+                            </div>
+                            <span className="-mx-1.5 lg:mx-2 w-full text-center">One-Way Trip</span>
                           </div>
-                          <span className="-mx-1.5 lg:mx-2">One-Way Trip</span>
                         </div>
-                      </div>
-                    ),
-                    value: "One-Way Trip",
-                  },
-                  {
-                    label: (
-                      <div className="lg:text-lg m-2">
-                        <div className="flex items-center">
-                          <div className="hidden">
-                            <RoundTripIcon />
+                      ),
+                      value: "One-Way Trip",
+                      className: "flex-1 text-center justify-center",
+                    },
+                    {
+                      label: (
+                        <div className="lg:text-lg m-2 w-full text-center">
+                          <div className="flex items-center">
+                            <div className="hidden">
+                              <RoundTripIcon />
+                            </div>
+                            <span className="-mx-1.5 lg:mx-2 w-full text-center">Round Trip</span>
                           </div>
-                          <span className="-mx-1.5 lg:mx-2">Round Trip</span>
                         </div>
-                      </div>
-                    ),
-                    value: "Round Trip",
-                  },
-                  {
-                    label: (
-                      <div className="lg:text-lg m-2">
-                        <div className="flex items-center">
-                          <div className="hidden">
-                            <HourlyRentalIcon />
+                      ),
+                      value: "Round Trip",
+                      className: "flex-1 text-center justify-center",
+                    },
+                    {
+                      label: (
+                        <div className="lg:text-lg m-2 w-full text-center">
+                          <div className="flex items-center">
+                            <div className="hidden">
+                              <HourlyRentalIcon />
+                            </div>
+                            <span className="-mx-1.5 lg:mx-2 w-full text-center">Hourly Rental</span>
                           </div>
-                          <span className="-mx-1.5 lg:mx-2">Hourly Rental</span>
                         </div>
-                      </div>
-                    ),
-                    value: "Hourly Rental",
-                  },
-                ]}
-              />
-            </div>
+                      ),
+                      value: "Hourly Rental",
+                      className: "flex-1 text-center justify-center",
+                    },
+                  ]}
+                  style={{
+                    display: "flex",
+                    width: "100%",
+                  }}
+                />
+
+                </div>
+              </div>
+
             <div
-              className="bg-white rounded-3xl -mb-6 flex flex-col justify-center items-center shadow-lg py-8 px-6 pt-20 lg:pt-8
-              lg:px-6
+              className="bg-white lg:rounded-3xl -mb-6 flex flex-col justify-center items-center lg:shadow-lg py-8 px-2 pt-20 lg:pt-8
+              lg:px-6 w-full
             "
             >
               <div
-                className="w-full rounded gap-2
+                className="w-full rounded gap-2  flex flex-col lg:flex-row
                 lg:flex
               "
               >
                 {activeTab === "Hourly Rental" && (
-                  <div className="group w-full lg:w-[330px] p-3 pb-4 space-y-1 border-2 rounded-xl hover:border-[#FDB813] transition-all duration-300">
+                  <div className="group w-full lg:w-[330px] p-3 space-y-1 border-2 rounded-xl hover:border-[#FDB813] transition-all duration-300 h-20">
                     <div className="text-xs flex items-center gap-1">
                       {" "}
                       <From />
                       <div className="-ml-2">Pickup Location</div>
                     </div>
-                    <Dropdown
-                      menu={menuPropsPickupCity}
-                      placement="bottomLeft"
-                      className="w-full"
-                    >
-                      <button
-                        className={`text-[1.3rem] group-hover:text-[#FDB813] transition-all duration-300 w-full text-left ${
-                          pickupCity ? "font-bold" : ""
-                        }`}
-                        style={{
-                          border: "none",
-                          overflow: "hidden",
-                          whiteSpace: "nowrap",
-                          textOverflow: "ellipsis",
-                        }}
-                      >
-                        {pickupCity || "Enter a pickup city"}
-                      </button>
-                    </Dropdown>
+                    <Select
+                      showSearch
+                      placeholder="Enter a pickup city"
+                      value={pickupCity || undefined}
+                      className="w-full custom-select text-[1.3rem] font-bold"
+                      size="large"
+                      optionLabelProp="label"
+                      bordered={false}
+                      filterOption={(input, option) =>
+                        (option?.label ?? "")
+                          .toString()
+                          .toLowerCase()
+                          .includes(input.toLowerCase())
+                      }
+                      onChange={(value, option: any) => {
+                        setPickupCity(option.label);
+                        setPickupCityId(value);
+                      }}
+                      options={cities.map((city) => ({
+                        value: city._id,
+                        label: city.name,
+                      }))}
+                    />
                   </div>
                 )}
                 {activeTab !== "Hourly Rental" && (
-                  <div className="lg:flex gap-2 relative">
+                  <div className="lg:flex-row gap-2 relative flex flex-col">
                     {
                       <>
                         <div className="hidden absolute w-full h-full lg:flex justify-center items-center">
@@ -489,148 +507,177 @@ const Hero: React.FC = () => {
                         </div>
                       </>
                     }
-                    <div className="group w-[328px] lg:w-[228px]  p-3 pb-4 space-y-1 border-2 rounded-xl z-20 hover:border-[#FDB813] transition-all duration-300">
+                    <div className="group w-full lg:w-[228px]  p-3 space-y-1 border-2 rounded-xl z-20 hover:border-[#FDB813] transition-all duration-300 h-20">
                       <div className="text-xs flex items-center gap-1">
                         <From />
                         <div className="-ml-2">From</div>
                       </div>
-                      <Dropdown
-                        menu={menuPropsFrom}
-                        placement="bottomLeft"
-                        className="w-full"
-                      >
-                        <button
-                          className={`text-[1.3rem] group-hover:text-[#FDB813] transition-all duration-300 w-full text-left ${
-                            from ? "font-bold" : ""
-                          }`}
-                          style={{
-                            border: "none",
-                            overflow: "hidden",
-                            whiteSpace: "nowrap",
-                            textOverflow: "ellipsis",
-                          }}
-                        >
-                          {from || "Enter a pickup city"}
-                        </button>
-                      </Dropdown>
+                      <Select
+                        showSearch
+                        placeholder="Enter a pickup city"
+                        value={from || undefined}
+                        className="w-full custom-select text-[1.3rem] font-bold"
+                        size="large"
+                        optionLabelProp="label"
+                        bordered={false}
+                        filterOption={(input, option) =>
+                          (option?.label ?? "")
+                            .toString()
+                            .toLowerCase()
+                            .includes(input.toLowerCase())
+                        }
+                        onChange={(value, option: any) => {
+                          setFrom(option.label);
+                          setFromId(value);
+                        }}
+                        options={cities
+                          .filter((city) => city._id !== toId)
+                          .map((city) => ({
+                            value: city._id,
+                            label: city.name,
+                            // Display icon + city name in dropdown
+                            title: (
+                              <div className="flex items-center gap-2">
+                                <From />
+                                <span>{city.name}</span>
+                              </div>
+                            ),
+                          }))}
+                        optionRender={(option) => option.data.title}
+                      />
                     </div>
 
-                    <div className="group w-full lg:w-[228px] p-3 pb-4 space-y-1 border-2 rounded-xl z-20 hover:border-[#FDB813] transition-all duration-300">
+                    <div className="group w-full lg:w-[228px] p-3 space-y-1 border-2 rounded-xl z-20 hover:border-[#FDB813] transition-all duration-300 h-20">
                       <div className="text-xs flex items-center gap-1">
                         <EnvironmentFilled />
                         To
                       </div>
-                      <Dropdown
-                        menu={menuPropsTo}
-                        placement="bottomLeft"
-                        className="w-full"
-                      >
-                        <button
-                          className={`text-[1.3rem] group-hover:text-[#FDB813] transition-all duration-300 w-full text-left ${
-                            to ? "font-bold" : ""
-                          }`}
-                          style={{
-                            border: "none",
-                            overflow: "hidden",
-                            whiteSpace: "nowrap",
-                            textOverflow: "ellipsis",
-                          }}
-                        >
-                          {to ||
-                            `${
-                              activeTab === "One-Way Trip"
-                                ? "Enter a drop off city"
-                                : "Destination"
-                            }`}
-                        </button>
-                      </Dropdown>
+                      <Select
+                        showSearch
+                        placeholder={
+                          activeTab === "One-Way Trip"
+                            ? "Enter a drop off city"
+                            : "Destination"
+                        }
+                        value={to || undefined}
+                        className="w-full custom-select text-[1.3rem] font-bold"
+                        size="large"
+                        optionLabelProp="label"
+                        bordered={false}
+                        filterOption={(input, option) =>
+                          (option?.label ?? "")
+                            .toString()
+                            .toLowerCase()
+                            .includes(input.toLowerCase())
+                        }
+                        onChange={(value, option: any) => {
+                          setTo(option.label);
+                          setToId(value);
+                        }}
+                        options={cities
+                          .filter((city) => city._id !== fromId)
+                          .map((city) => ({
+                            value: city._id,
+                            label: city.name,
+                            // Show icon inside dropdown option
+                            title: (
+                              <div className="flex items-center gap-2">
+                                <EnvironmentFilled className="text-gray-600" />
+                                <span>{city.name}</span>
+                              </div>
+                            ),
+                          }))}
+                        optionRender={(option) => option.data.title}
+                      />
                     </div>
                   </div>
                 )}
-                <div className="group relative w-full lg:w-[164px] p-3 pb-4 space-y-1 border-2 rounded-xl hover:border-[#FDB813] transition-all duration-300">
-                  <div className="text-xs flex items-center gap-1">
-                    <FaCalendarAlt />
-                    Pickup Date
-                  </div>
-                  <div
-                    className={`text-[1.3rem] group-hover:text-[#FDB813] transition-all duration-300 ${
-                      pickupDate ? "font-bold" : ""
-                    }`}
-                    onClick={togglePickupDatePicker}
-                  >
-                    {pickupDate?.format("D MMM") ?? (
-                      <button className="text-xs text-left md:absolute">
-                        select a pickup date for the trip
-                      </button>
-                    )}{" "}
-                    <span className="text-base">
-                      {pickupDate?.format("YYYY")}
-                    </span>
-                  </div>
-                  <DatePicker
-                    className="absolute bottom-0 left-0 w-0 h-0"
-                    style={{
-                      visibility: "hidden",
-                    }}
-                    open={pickupDateOpen}
-                    onOpenChange={(open) => setPickupDateOpen(open)}
-                    onChange={handlePickupDateChange}
-                    disabledDate={(current: Dayjs | null) =>
-                      current
-                        ? current.isBefore(dayjs().startOf("day")) ||
-                          current.isAfter(dayjs().add(90, "days"))
-                        : false
-                    }
-                    // Highlight Sundays using dateRender
-                    dateRender={(currentDate) => {
-                      const isSunday = currentDate.day() === 0; // 0 represents Sunday in dayjs
-                      return (
-                        <div
-                          className={`ant-picker-cell-inner ${
-                            isSunday ? "bg-[#FDB813]" : ""
-                          }`}
-                        >
-                          {currentDate.date()}
-                        </div>
-                      );
-                    }}
-                  />
-                </div>
-                <div className="group w-full lg:w-[164px] p-3 pb-4 space-y-1 border-2 rounded-xl hover:border-[rgb(253,184,19)] transition-all duration-300">
-                  <div className="text-xs flex items-center gap-1">
-                    {" "}
-                    <FaClock />
-                    Pickup Time
-                  </div>
-                  <Dropdown menu={menuPropsTime} placement="bottomLeft">
-                    <button
+                <div className="flex flex-row gap-2">
+                  <div className="group relative w-full lg:w-[164px] p-3 pb-4 space-y-1 border-2 rounded-xl hover:border-[#FDB813] transition-all duration-300 h-20">
+                    <div className="text-xs flex items-center gap-1">
+                      <FaCalendarAlt />
+                      Pickup Date
+                    </div>
+                    <div
                       className={`text-[1.3rem] group-hover:text-[#FDB813] transition-all duration-300 ${
-                        pickupTime ? "font-bold" : ""
+                        pickupDate ? "font-bold" : ""
                       }`}
-                      style={{ border: "none" }}
+                      onClick={togglePickupDatePicker}
                     >
-                      {pickupTime ? (
-                        (() => {
-                          const [time, meridian] = pickupTime.split(" ");
-                          return (
-                            <span>
-                              {time}{" "}
-                              <span className="text-sm font-medium align-center">
-                                {meridian}
+                      {pickupDate?.format("D MMM") ?? (
+                        <button className="text-xs text-left md:absolute">
+                          select a pickup date for the trip
+                        </button>
+                      )}{" "}
+                      <span className="text-base">
+                        {pickupDate?.format("YYYY")}
+                      </span>
+                    </div>
+                    <DatePicker
+                      className="absolute bottom-0 left-0 w-0 h-0"
+                      style={{
+                        visibility: "hidden",
+                      }}
+                      open={pickupDateOpen}
+                      onOpenChange={(open) => setPickupDateOpen(open)}
+                      onChange={handlePickupDateChange}
+                      disabledDate={(current: Dayjs | null) =>
+                        current
+                          ? current.isBefore(dayjs().startOf("day")) ||
+                            current.isAfter(dayjs().add(90, "days"))
+                          : false
+                      }
+                      // Highlight Sundays using dateRender
+                      dateRender={(currentDate) => {
+                        const isSunday = currentDate.day() === 0; // 0 represents Sunday in dayjs
+                        return (
+                          <div
+                            className={`ant-picker-cell-inner ${
+                              isSunday ? "bg-[#FDB813]" : ""
+                            }`}
+                          >
+                            {currentDate.date()}
+                          </div>
+                        );
+                      }}
+                    />
+                  </div>
+                  <div className="group w-full lg:w-[164px] p-3 pb-4 space-y-1 border-2 rounded-xl hover:border-[rgb(253,184,19)] transition-all duration-300 h-20">
+                    <div className="text-xs flex items-center gap-1">
+                      {" "}
+                      <FaClock />
+                      Pickup Time
+                    </div>
+                    <Dropdown menu={menuPropsTime} placement="bottomLeft">
+                      <button
+                        className={`text-[1.3rem] group-hover:text-[#FDB813] transition-all duration-300 ${
+                          pickupTime ? "font-bold" : ""
+                        }`}
+                        style={{ border: "none" }}
+                      >
+                        {pickupTime ? (
+                          (() => {
+                            const [time, meridian] = pickupTime.split(" ");
+                            return (
+                              <span>
+                                {time}{" "}
+                                <span className="text-sm font-medium align-center">
+                                  {meridian}
+                                </span>
                               </span>
-                            </span>
-                          );
-                        })()
-                      ) : (
-                        <div className="text-xs text-left">
-                          Select a pickup time for the trip
-                        </div>
-                      )}
-                    </button>
-                  </Dropdown>
+                            );
+                          })()
+                        ) : (
+                          <div className="text-xs text-left">
+                            Select a pickup time for the trip
+                          </div>
+                        )}
+                      </button>
+                    </Dropdown>
+                  </div>
                 </div>
                 {activeTab !== "Hourly Rental" && (
-                  <div className="group relative w-full lg:w-[166px] p-3 pb-4 space-y-1 border-2 rounded-xl hover:border-[rgb(253,184,19)] transition-all duration-300">
+                  <div className="group relative w-full lg:w-[166px] p-3 pb-4 space-y-1 border-2 rounded-xl hover:border-[rgb(253,184,19)] transition-all duration-300 h-20">
                     <div className="text-xs flex items-center gap-1">
                       {" "}
                       <FaClock />
@@ -647,7 +694,7 @@ const Hero: React.FC = () => {
                           >
                             {returnDate?.format("D MMM") ?? (
                               <button className="text-xs text-left md:absolute">
-                                select a pickup date for the trip
+                                Select a pickup date for the trip
                               </button>
                             )}{" "}
                             <span className="text-base">
@@ -697,7 +744,7 @@ const Hero: React.FC = () => {
                 )}
                 {activeTab === "Hourly Rental" && (
                   <div>
-                    <div className="group w-[328px] lg:w-[300px] p-3 pb-4 space-y-1 border-2 rounded-xl hover:border-[rgb(253,184,19)] transition-all duration-300 h-full">
+                    <div className="group w-full lg:w-[300px] p-3 pb-4 space-y-1 border-2 rounded-xl hover:border-[rgb(253,184,19)] transition-all duration-300 h-20">
                       <div className="text-xs flex items-center gap-1">
                         {" "}
                         <CompassOutlined />
@@ -734,10 +781,10 @@ const Hero: React.FC = () => {
               )}
             </div>
 
-            <div className="w-full flex justify-center">
+            <div className="w-full flex justify-center px-2 lg:px-0">
               <button
                 disabled={showEmergency}
-                className="text-sm lg:text-base bg-[#FDB813] hover:bg-yellow-400 text-black font-semibold w-32 lg:w-40 h-12 rounded-lg border-yellow-500 z-10"
+                className="w-full text-sm lg:text-base bg-[#FDB813] hover:bg-yellow-400 text-black font-semibold lg:w-40 h-12 rounded-lg border-yellow-500 z-10"
                 onClick={handleLetsRideClick}
               >
                 SEE TAXI FARE
@@ -753,7 +800,7 @@ const Hero: React.FC = () => {
 const WhyChooseUs: React.FC = () => {
   return (
     <div className="flex w-full justify-center">
-      <div className="space-y-12 py-20 w-full container">
+      <div className="space-y-12 py-16 w-full container">
         <div className="text-center text-4xl">
           <div className="text-base pb-5 text-[#FDB813]">Why Choose Us?</div>
           <div className="text-[2.7rem] text-[#2a2a2a] font-bold">
@@ -824,97 +871,7 @@ const WhyChooseUs: React.FC = () => {
   );
 };
 
-// const PopularPackages: React.FC = () => {
-
-//   const packageData = [
-//     {
-//       imageUrl: TajMahal,
-//       title: 'Cabs From Agra To',
-//       destinations: [
-//         { name: 'New Delhi', distance: '552km (6hr 53min)' },
-//         { name: 'Gurgoan', distance: '552km (6hr 53min)' },
-//         { name: 'Noida', distance: '552km (6hr 53min)' },
-//         { name: 'Faridabad', distance: '552km (6hr 53min)' },
-//         { name: 'Ghaziabad', distance: '552km (6hr 53min)' },
-//       ],
-//     },
-//     {
-//       imageUrl: TajMahal,
-//       title: 'Cabs From Delhi To',
-//       destinations: [
-//         { name: 'Agra', distance: '200km (3hr 30min)' },
-//         { name: 'Shimla', distance: '350km (7hr)' },
-//         { name: 'Manali', distance: '500km (10hr)' },
-//         { name: 'Amritsar', distance: '450km (6hr 30min)' },
-//         { name: 'Dehradun', distance: '250km (5hr)' },
-//       ],
-//     },
-//     {
-//       imageUrl: TajMahal,
-//       title: 'Cabs From Mumbai To',
-//       destinations: [
-//         { name: 'Goa', distance: '600km (10hr)' },
-//         { name: 'Pune', distance: '150km (3hr)' },
-//         { name: 'Nashik', distance: '180km (4hr)' },
-//         { name: 'Shirdi', distance: '250km (5hr)' },
-//         { name: 'Lonavala', distance: '80km (2hr)' },
-//       ],
-//     },
-//     {
-//       imageUrl: TajMahal,
-//       title: 'Cabs From Bangalore To',
-//       destinations: [
-//         { name: 'Mysuru', distance: '150km (3hr)' },
-//         { name: 'Chennai', distance: '350km (6hr)' },
-//         { name: 'Ooty', distance: '300km (6hr 30min)' },
-//         { name: 'Coorg', distance: '250km (5hr)' },
-//         { name: 'Hampi', distance: '340km (7hr)' },
-//       ],
-//     },
-//     {
-//       imageUrl: TajMahal,
-//       title: 'Cabs From Kolkata To',
-//       destinations: [
-//         { name: 'Digha', distance: '180km (4hr)' },
-//         { name: 'Darjeeling', distance: '600km (12hr)' },
-//         { name: 'Sundarbans', distance: '100km (2hr 30min)' },
-//         { name: 'Puri', distance: '500km (10hr)' },
-//         { name: 'Bodh Gaya', distance: '550km (11hr)' },
-//       ],
-//     },
-//     {
-//       imageUrl: TajMahal,
-//       title: 'Cabs From Chennai To',
-//       destinations: [
-//         { name: 'Pondicherry', distance: '160km (3hr)' },
-//         { name: 'Mahabalipuram', distance: '60km (1hr 30min)' },
-//         { name: 'Kanchipuram', distance: '70km (2hr)' },
-//         { name: 'Tirupati', distance: '130km (3hr)' },
-//         { name: 'Vellore', distance: '140km (3hr 30min)' },
-//       ],
-//     },
-//   ];
-
-//   return (
-//     <>
-//       <div className='space-y-12 py-20'>
-//         <div className='text-center text-3xl font-medium'>
-//           Popular Packages
-//         </div>
-//         <div className='grid grid-cols-1 items-center justify-items-center
-//           lg:grid-cols-2
-//           xl:grid-cols-3
-//         '>
-//           {packageData.map((packageInfo, index) => (
-//             <PackageCard key={index} {...packageInfo} />
-//           ))}
-//         </div>
-//       </div>
-//     </>
-//   )
-// }
-
-const OurAchievement: React.FC = () => {
+export const OurAchievement: React.FC = () => {
   const [isVisible, elementRef] = useIntersectionObserver({});
   const [stats, setStats] = useState({
     fleet: 0,
@@ -957,7 +914,7 @@ const OurAchievement: React.FC = () => {
   }, [isVisible]);
 
   return (
-    <div ref={elementRef} className="my-24">
+    <div ref={elementRef} className="my-20">
       <div className="flex justify-center">
         <div
           className="rounded-3xl"
@@ -1052,7 +1009,7 @@ const OurAchievement: React.FC = () => {
   );
 };
 
-const StatsAndTestamonials: React.FC = () => {
+export const StatsAndTestamonials: React.FC = () => {
   const [isVisible, elementRef] = useIntersectionObserver({});
   const [stats, setStats] = useState({
     fleet: 0,
@@ -1349,15 +1306,14 @@ const AwsomeFeatures: React.FC = () => {
 
   return (
     <>
-      <div className="space-y-10 py-20 pt-40">
+      <div className="space-y-10 py-16 pt-40">
         <div
           className="flex flex-col justify-center items-center space-y-2 text-center
-        md:px-8
-          xl:px-32
-      "
+            md:px-8 xl:px-32
+          "
         >
           <div className="text-[#FDB813]">Our Features</div>
-          <div className="text-[2.7rem] text-[#2a2a2a] font-bold">
+          <div className="text-[1.5rem] lg:text-[2.7rem] text-[#2a2a2a] font-bold">
             Our Awesome Features
             <span className="text-[#FDB813]">.</span>
           </div>
@@ -1409,7 +1365,7 @@ const AwsomeFeatures: React.FC = () => {
 const OurBenefitsList: React.FC = () => {
   return (
     <>
-      <div className="space-y-10 py-20">
+      <div className="space-y-10 py-16">
         <div
           className="flex flex-col justify-center items-center space-y-2 text-center
           px-4
@@ -1600,7 +1556,7 @@ const OurBenefitsList: React.FC = () => {
 const EasyStep: React.FC = () => {
   return (
     <>
-      <div className="space-y-24 py-20">
+      <div className="space-y-24 py-16">
         <div
           className="flex flex-col justify-center items-center space-y-2 text-center
           px-4
@@ -1782,7 +1738,7 @@ const WhatWeAreOffering: React.FC = () => {
 
   return (
     <div className="">
-      <div className="flex flex-col justify-center items-center text-center space-y-2 py-20">
+      <div className="flex flex-col justify-center items-center text-center space-y-2 py-16">
         <div className="text-[#FDB813]">Ride In Comfort</div>
         <div className="text-[2.7rem] text-[#2a2a2a] font-bold">
           We Make Your Every Trip Comfortable
@@ -1847,43 +1803,45 @@ const Home: React.FC = () => {
       >
         <AwsomeFeatures />
       </div>
-      <Container>
-        <DividerWithoutLogo />
-      </Container>
-      <WhatWeAreOffering />
-      <Container>
+      <div className="hidden lg:block">
+        <Container>
+          <DividerWithoutLogo />
+        </Container>
+        <WhatWeAreOffering />
+        <Container>
+          <DividerWithLogo />
+        </Container>
+        <div
+          className="
+          px-4
+          sm:px-8
+          md:px-16
+          lg:px-20
+          xl:px-28
+          2xl:px-32
+        "
+        >
+          <OurBenefitsList />
+        </div>
+        <Container>
+          <DividerWithoutLogo />
+        </Container>
+        <WhyChooseUs />
+        <Container>
+          <DividerWithLogo />
+        </Container>
+        <Container>
+          <EasyStep />
+        </Container>
+        <Container>
+          <DividerWithoutLogo />
+        </Container>
+        <OurAchievement />
         <DividerWithLogo />
-      </Container>
-      <div
-        className="
-        px-4
-        sm:px-8
-        md:px-16
-        lg:px-20
-        xl:px-28
-        2xl:px-32
-      "
-      >
-        <OurBenefitsList />
+        <StatsAndTestamonials />
+        <CallUsNow />
+        <ReadyToBook />
       </div>
-      <Container>
-        <DividerWithoutLogo />
-      </Container>
-      <WhyChooseUs />
-      <Container>
-        <DividerWithLogo />
-      </Container>
-      <Container>
-        <EasyStep />
-      </Container>
-      <Container>
-        <DividerWithoutLogo />
-      </Container>
-      <OurAchievement />
-      <DividerWithLogo />
-      <StatsAndTestamonials />
-      <CallUsNow />
-      <ReadyToBook />
       <Footer />
     </div>
   );

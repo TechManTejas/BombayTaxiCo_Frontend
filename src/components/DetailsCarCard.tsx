@@ -100,44 +100,22 @@ const DetailsCarCard: React.FC<DetailsCarCardProps> = ({
                 "
         >
           <div className="space-y-3">
-            <div
-              className="
-                            
-                        "
-            >
-              <div
-                className="font-semibold
-                                text-base
-                                lg:text-2xl 
-                            "
-              >
+            <div>
+              <div className="font-semibold text-base lg:text-2xl">
                 {category}
               </div>
-              <div
-                className="
-                                text-sm
-                                lg:text-base
-                            "
-              >
+              <div className="text-sm lg:text-base">
                 {description}
               </div>
             </div>
             {features && (
-              <div className="space-y-1">
-                {/* <div
-                  className="text-sm font-medium
-                                hidden
-                                lg:block
-                            "
-                >
-                  AMENITIES
-                </div> */}
+              <>
                 <div
-                  className="flex-wrap flex w-36 lg:w-80"
+                  className="flex-wrap flex lg:w-80 gap-1"
                 >
                   {features.map((feature, index) => (
                     <div
-                      className="text-xs rounded lg:p-1.5 lg:px-3 m-1 bg-zinc-100 text-zinc-700"
+                      className="text-xs rounded lg:p-1.5 lg:px-3 bg-zinc-100 text-zinc-700"
                       key={index}
                     >
                       <div className="flex items-center gap-1">
@@ -156,21 +134,9 @@ const DetailsCarCard: React.FC<DetailsCarCardProps> = ({
                     </div>
                   ))}
                 </div>
-                {/* <div className='flex-wrap
-                                flex w-44
-                                lg:hidden
-                                lg:w-80
-                            '>
-                                    {features.map((feature, index) => (
-                                        <div key={index} className='flex items-center'>
-                                            <div>•</div><div className='text-xs'>{feature.feature}</div>
-                                        </div>
-                                    ))}
-                                </div> */}
-              </div>
+              </>
             )}
           </div>
-          <div className="m-3"></div>
           
           <div className="flex-shrink-0 flex flex-col items-end space-y-3">
             <div className="text-end my-1">
