@@ -55,7 +55,7 @@ const CarCard: React.FC<CarCardProps> = ({
 }) => {
   return (
     <div
-      className="bg-white rounded-lg"
+      className="bg-white rounded-3xl lg:rounded-lg p-2 lg:p-0 border border-gray-300"
       onClick={() => {
         if (window.innerWidth < 1024) {
           if (onBook) {
@@ -64,14 +64,8 @@ const CarCard: React.FC<CarCardProps> = ({
         }
       }}
     >
-      <div
-        className="border w-full flex rounded-lg gap-2
-                flex-row
-                p-1
-                lg:p-4
-            "
-      >
-        <div>
+      <div className="w-full flex rounded-lg gap-1 flex-row p-1 lg:p-4">
+        <div className="w-7/12 ">
           <div
             className="flex-shrink-0 bg-white flex justify-center items-center
                     h-16 lg:h-40
@@ -96,48 +90,22 @@ const CarCard: React.FC<CarCardProps> = ({
               />
             )}
           </div>
-          <div className="hidden lg:block text-xs text-zinc-400 lg:text-sm w-40">
+          <div className="text-xs text-zinc-400 lg:text-sm lg:w-40">
             {description}
           </div>
         </div>
-        <div className="lg:border-l border-gray-300 mx-2" />
-        <div
-          className="flex justify-between w-full
-                    flex-row
-                "
-        >
-          <div className="space-y-3">
-            <div
-              className="
-                            
-                        "
-            >
-              <div
-                className="font-semibold
-                                text-base
-                                lg:text-2xl 
-                            "
-              >
-                {category}
-              </div>
-              <div className="black lg:hidden text-xs text-zinc-400 lg:text-sm">
-                {description}
-              </div>
+        <div className="hidden lg:block lg:border-l border-gray-300 mx-1" />
+        <div className=" flex justify-between w-full flex-row">
+          <div className="lg:space-y-3">
+            <div className="font-semibold text-base lg:text-2xl">
+              {category}
             </div>
             {features && (
               <div className="space-y-1">
-                {/* <div
-                  className="text-sm font-medium
-                                hidden
-                                lg:block
-                            "
-                >
-                  AMENITIES
-                </div> */}
-                <div className="flex-wrap flex w-36 lg:w-80">
+                <div className="flex-wrap flex w-36 lg:w-80 gap-1">
                   {features.map((feature, index) => (
                     <div
-                      className="text-xs rounded lg:p-1.5 lg:px-3 m-1 bg-zinc-100 text-zinc-700"
+                      className="text-xs rounded lg:p-1.5 lg:px-3 bg-zinc-100 text-zinc-700"
                       key={index}
                     >
                       <div className="flex items-center gap-1">
@@ -156,36 +124,16 @@ const CarCard: React.FC<CarCardProps> = ({
                     </div>
                   ))}
                 </div>
-                {/* <div className='flex-wrap
-                                flex w-44
-                                lg:hidden
-                                lg:w-80
-                            '>
-                                    {features.map((feature, index) => (
-                                        <div key={index} className='flex items-center'>
-                                            <div>•</div><div className='text-xs'>{feature.feature}</div>
-                                        </div>
-                                    ))}
-                                </div> */}
               </div>
             )}
           </div>
-          <div className="m-3"></div>
-          <div className="lg:border-l border-gray-300 mx-2" />
-          <div>
-            <div className="lg:border-l border-gray-300 mx-2" />
+          
+        </div>
+        <div className="hidden lg:block lg:border-l border-gray-300 mx-1" />
+        <div className="w-2/4">
+            <div className="hidden lg:block lg:border-l border-gray-300" />
             <div className="flex-shrink-0 flex flex-col items-end space-y-3">
               <div className="text-end my-1">
-                {/* {parseInt(discount) > 0 && (
-                  <div
-                    className="font-bold text-[#FDB813]
-                                text-sm
-                                lg:text-base
-                                "
-                  >
-                    {discount}% OFF
-                  </div>
-                )} */}
                 <div className="space-x-3">
                   {parseInt(discount) > 0 && (
                     <span
@@ -216,7 +164,7 @@ const CarCard: React.FC<CarCardProps> = ({
                                         text-xs
                                     "
                   >
-                    Inclusive Of Toll & State Tax
+                    Prices From
                   </div>
                 ) : (
                   <div className="lg:w-60"></div>
@@ -224,7 +172,7 @@ const CarCard: React.FC<CarCardProps> = ({
               </div>
               {!preview && (
                 <div
-                  className="shadow-lg rounded-lg
+                  className="shadow-md rounded-lg
                                 hidden
                                 lg:block
                             "
@@ -238,7 +186,6 @@ const CarCard: React.FC<CarCardProps> = ({
                 </div>
               )}
             </div>
-          </div>
         </div>
       </div>
     </div>

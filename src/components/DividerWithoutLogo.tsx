@@ -6,7 +6,7 @@ export const DividerWithoutLogo = () => {
           clear: "left",
           borderBottom: "1px solid #e9e9e9",
           marginTop: "10px",
-          marginBottom: "20px",
+          marginBottom: "10px",
           position: "relative"
         }}/>
       </>

@@ -27,12 +27,12 @@ import { HourlyRentalIcon } from "../icons/HourlyRentalIcon";
 import { AirportTransferIcon } from "../icons/AirportTransfer";
 import { CorporateCarRentalIcon } from "../icons/CorporateCarRental";
 import { ReadyToBook } from "../components/ReadyToBook";
-import { FaRupeeSign } from "react-icons/fa";
 import { DividerWithLogo } from "../components/DividerWithLogo";
 import { DividerWithoutLogo } from "../components/DividerWithoutLogo";
 import { FlexibleCancellation } from "../icons/FlexibleCancellation";
 import { TransparentBilling } from "../icons/TransparentBilling";
 import { TransparentBillingYellow } from "../icons/TransparentBillingYellow";
+import { OurAchievement, StatsAndTestamonials } from "./Home";
 
 const BreadCrumb: React.FC = () => {
   const navigate = useNavigate();
@@ -65,7 +65,8 @@ const Badge: React.FC = () => {
     >
       <div className="bg-[#00000099] text-white space-y-1 rounded-3xl p-4 lg:p-24">
         <div className="text-center text-6xl font-bold">
-          <span className="text-[#FDB813]">About</span> Us<span className="text-[#FDB813]">.</span>
+          <span className="text-[#FDB813]">About</span> Us
+          <span className="text-[#FDB813]">.</span>
         </div>
         <div className="text-center text-sm">
           Reliable, affordable taxi services for safe and comfortable journeys.
@@ -91,9 +92,7 @@ const AboutBombayTaxiCompany: React.FC = () => {
             xl:w-1/2
           "
           >
-            <div className="text-3xl font-bold">
-              About Bombay Taxi Company
-            </div>
+            <div className="text-3xl font-bold">About Bombay Taxi Company</div>
             <div className="text-gray-700">
               We have been providing the best transportation service for over 7
               years. We offer one-way taxi, outstation taxi, local, corporate
@@ -144,26 +143,59 @@ const WhyChooseUs: React.FC = () => {
           className="flex flex-wrap gap-5 items-center justify-center
         "
         >
-          <WhyChooseUsCard
+          {/* <WhyChooseUsCard
             icon={<UserOutlined />}
             title="Personalized Rides"
             description="Book our services and adjust according to your need."
-          />
-          <WhyChooseUsCard
+          /> */}
+          <div className="bg-[#FDB813] flex flex-col justify-center items-center hover:border-2 w-60 h-60 rounded-xl  hover:border-yellow-500 space-y-2 shadow hover:shadow-xl transition-all">
+            <div className="bg-[#2A2A2A] text-2xl w-16 h-16 rounded-full flex text-white justify-center items-center mb-2">
+              <UserOutlined className="text-[#FDB813]" />
+            </div>
+            <div className="text-xl font-medium">
+              Personalized Rides<span className="text-[#FDB813]">.</span>
+            </div>
+            <div className="text-center text-sm w-48">
+              Book our services and adjust according to your need.
+            </div>
+          </div>
+          {/* <WhyChooseUsCard
             icon={<FlexibleCancellation />}
             title="Flexible Cancellation"
             description="Easy trip cancel through our user-friendly booking platform."
-          />
+          /> */}
+          <div className="bg-[#2A2A2A] flex flex-col justify-center items-center hover:border-2 w-60 h-60 rounded-xl  hover:border-yellow-500 space-y-2 shadow hover:shadow-xl transition-all text-white">
+            <div className="bg-[#FDB813] text-2xl w-16 h-16 rounded-full flex text-white justify-center items-center mb-2">
+              <FlexibleCancellation />
+            </div>
+            <div className="text-xl font-medium">
+              Flexible Cancellation<span className="text-[#FDB813]">.</span>
+            </div>
+            <div className="text-center text-sm w-48">
+              Easy trip cancel through our user-friendly booking platform.
+            </div>
+          </div>
           <WhyChooseUsCard
             icon={<TransparentBilling />}
             title="Transparent Billing"
             description="Competitive and budget-friendly prices for quality transportation."
           />
-          <WhyChooseUsCard
+          {/* <WhyChooseUsCard
             icon={<CarOutlined />}
             title="Largest Fleet"
             description="Choose from our extensive fleet for your transportation needs."
-          />
+          /> */}
+          <div className="bg-[#FDB813] flex flex-col justify-center items-center hover:border-2 w-60 h-60 rounded-xl  hover:border-yellow-500 space-y-2 shadow hover:shadow-xl transition-all">
+            <div className="bg-[#2A2A2A] text-2xl w-16 h-16 rounded-full flex text-white justify-center items-center mb-2">
+              <CarOutlined className="text-[#FDB813]" />
+            </div>
+            <div className="text-xl font-medium">
+              Largest Fleet<span className="text-[#FDB813]">.</span>
+            </div>
+            <div className="text-center text-sm w-48">
+              Choose from our extensive fleet for your transportation needs.
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -231,7 +263,7 @@ const EasyStep: React.FC = () => {
             "
             >
               <div className="h-20 w-20 bg-[#ffffff] rounded-2xl flex justify-center items-center border">
-              <TransparentBillingYellow />
+                <TransparentBillingYellow />
               </div>
               <div className="text-xl">Pay Your Taxi</div>
               <div className="text-gray-500 text-sm text-center">
@@ -419,8 +451,13 @@ const About: React.FC = () => {
         <DividerWithoutLogo />
       </Container>
       <WhatWeAreOffering />
+      <div className="lg:hidden">
+        <OurAchievement />
+        <DividerWithLogo />
+        <StatsAndTestamonials />
+      </div>
       <CallUsNow />
-      <ReadyToBook/>
+      <ReadyToBook />
       <Footer />
     </>
   );

@@ -1,11 +1,19 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { LeftOutlined } from "@ant-design/icons";
+import {
+  ArrowRightOutlined,
+  EnvironmentFilled,
+  FacebookFilled,
+  FacebookOutlined,
+  InstagramOutlined,
+  LeftOutlined,
+  MailFilled,
+  TwitterOutlined,
+} from "@ant-design/icons";
 import React, { useEffect, useState } from "react";
 import { DatePicker, Select, Spin, message, Collapse } from "antd";
 const { Panel } = Collapse;
 import { Option } from "antd/es/mentions";
 import dayjs, { Dayjs } from "dayjs";
-import { Footer } from "../components/Footer";
 import CarCard from "../components/CarCard";
 import { useLocation, useNavigate } from "react-router-dom";
 import axios from "../api/axios";
@@ -45,17 +53,17 @@ const WaitingAndDriverAllowance = (settings) => {
           "
             >
               <div className="font-light space-y-2">
-              <div className="flex justify-between">
-                <div>Driver Allowance</div>
-                <div>{settings?.parkingAndAirportEntry}</div>
-              </div>
-              <div className="flex justify-between">
-                <div>Waiting Charges</div>
-                <div>
-                  ₹ {settings?.waitingChargesPerMinute?.toLocaleString()}
+                <div className="flex justify-between">
+                  <div>Driver Allowance</div>
+                  <div>{settings?.parkingAndAirportEntry}</div>
+                </div>
+                <div className="flex justify-between">
+                  <div>Waiting Charges</div>
+                  <div>
+                    ₹ {settings?.waitingChargesPerMinute?.toLocaleString()}
+                  </div>
                 </div>
               </div>
-            </div>
             </div>
           </Panel>
         </Collapse>
@@ -87,7 +95,7 @@ const BillCard: React.FC<BillCardProps> = ({
 
   return (
     <>
-      <div className="min-w-[360px] max-w-xs w-full m-1 sticky top-36 text-sm">
+      <div className="min-w-[360px] lg:max-w-xs w-full lg:sticky lg:m-1 lg:top-36 text-sm">
         <div className="mb-3 p-3 border bg-white rounded-lg">
           <div>
             <div className="text-lg my-1 font-semibold">Fare Details</div>
@@ -166,9 +174,213 @@ const BillCard: React.FC<BillCardProps> = ({
             </div>
           </div>
         </div>
-        <WaitingAndDriverAllowance settings={settings}/>
+        <WaitingAndDriverAllowance settings={settings} />
       </div>
     </>
+  );
+};
+
+export const Footer: React.FC = () => {
+  const navigate = useNavigate();
+
+  return (
+    <div className="w-full flex justify-center lg:py-8">
+      <Container className="bg-[#2A2A2A] flex justify-center py-12 lg:rounded-3xl">
+        <div className="container px-6">
+          <div
+            className="flex justify-between
+          flex-col space-y-6
+          lg:flex-row lg:space-y-0
+        "
+          >
+            {/* ABOUT COMPANY  */}
+            <div className="space-y-6 md:w-96">
+              <div className="space-y-2">
+                <div className="text-white font-medium text-2xl">
+                  ABOUT COMPANY
+                </div>
+                <div className="w-20 border border-yellow-500"></div>
+              </div>
+              <div className="text-zinc-500">
+                Traveling one way, but worried about the return journey fare
+                that cab operators make your shell out needlessly? Now stop
+                worrying about return fares as we at Bombay Taxi Company have
+                exclusive one-way taxi fares for you. Our one-way taxi booking
+                service lets you enjoy all the conveniences of our signature car
+                rental services.
+              </div>
+              <div className="flex space-x-2">
+                <button className="h-10 w-10 border rounded-full border-zinc-500 text-zinc-500 hover:border-yellow-500 hover:text-[#FDB813] flex justify-center items-center">
+                  <FacebookFilled />
+                </button>
+                <button className="h-10 w-10 border rounded-full border-zinc-500 text-zinc-500 hover:border-yellow-500 hover:text-[#FDB813] flex justify-center items-center">
+                  <TwitterOutlined />
+                </button>
+                <button className="h-10 w-10 border rounded-full border-zinc-500 text-zinc-500 hover:border-yellow-500 hover:text-[#FDB813] flex justify-center items-center">
+                  <InstagramOutlined />
+                </button>
+                <button className="h-10 w-10 border rounded-full border-zinc-500 text-zinc-500 hover:border-yellow-500 hover:text-[#FDB813] flex justify-center items-center">
+                  <FacebookOutlined />
+                </button>
+              </div>
+            </div>
+            {/* QUICK LINK */}
+            <div className="hidden lg:block space-y-6">
+              <div className="space-y-2">
+                <div className="text-white font-medium text-2xl">
+                  QUICK LINK
+                </div>
+                <div className="w-20 border border-yellow-500"></div>
+              </div>
+              <div className="text-zinc-500 space-y-3">
+                {/* <button
+                className="flex items-center space-x-3 hover:text-[#FDB813] transition-all"
+                onClick={() => {
+                  navigate("/attach-taxi");
+                  window.scrollTo(0, 0);
+                }}
+              >
+                <ArrowRightOutlined />
+                <div>Attach Your Taxi</div>
+              </button> */}
+                <button
+                  className="flex items-center space-x-3 hover:text-[#FDB813] transition-all"
+                  onClick={() => {
+                    navigate("/about");
+                    window.scrollTo(0, 0);
+                  }}
+                >
+                  <ArrowRightOutlined />
+                  <div>About Us</div>
+                </button>
+                <button
+                  className="flex items-center space-x-3 hover:text-[#FDB813] transition-all"
+                  onClick={() => {
+                    navigate("/contact");
+                    window.scrollTo(0, 0);
+                  }}
+                >
+                  <ArrowRightOutlined />
+                  <div>Contact Us</div>
+                </button>
+                <button
+                  className="flex items-center space-x-3 hover:text-[#FDB813] transition-all"
+                  onClick={() => {
+                    navigate("/faqs");
+                    window.scrollTo(0, 0);
+                  }}
+                >
+                  <ArrowRightOutlined />
+                  <div>FAQs</div>
+                </button>
+                <button
+                  className="flex items-center space-x-3 hover:text-[#FDB813] transition-all"
+                  onClick={() => {
+                    navigate("/cancellation-policy");
+                    window.scrollTo(0, 0);
+                  }}
+                >
+                  <ArrowRightOutlined />
+                  <div>Cancellation Policy</div>
+                </button>
+                <button
+                  className="flex items-center space-x-3 hover:text-[#FDB813] transition-all"
+                  onClick={() => {
+                    navigate("/terms-conditions");
+                    window.scrollTo(0, 0);
+                  }}
+                >
+                  <ArrowRightOutlined />
+                  <div>Terms & Conditions</div>
+                </button>
+                <button
+                  className="flex items-center space-x-3 hover:text-[#FDB813] transition-all"
+                  onClick={() => {
+                    navigate("/privacy-policy");
+                    window.scrollTo(0, 0);
+                  }}
+                >
+                  <ArrowRightOutlined />
+                  <div>Privacy Policy</div>
+                </button>
+              </div>
+            </div>
+            {/* CONTACT DETAILS */}
+            <div className="hidden lg:block space-y-6">
+              <div className="space-y-2">
+                <div className="text-white font-medium text-2xl">
+                  CONTACT DETAILS
+                </div>
+                <div className="w-20 border border-yellow-500"></div>
+              </div>
+              <div className="text-zinc-500 space-y-5">
+                <div className="space-y-1">
+                  <div className="text-sm text-white font-medium">
+                    PHONE NUMBER
+                  </div>
+                  <div className="flex space-x-2">
+                    <div className="h-6 w-6 bg-[#FDB813] text-[#2A2A2A] text-xs flex justify-center items-center rounded">
+                      <span className="inline-block align-middle">
+                        <svg
+                          stroke="currentColor"
+                          fill="currentColor"
+                          strokeWidth={0}
+                          viewBox="0 0 24 24"
+                          color="#FDB813"
+                          style={{ color: "#000" }}
+                          height="1.2rem"
+                          width="1.2rem"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path fill="none" d="M0 0h24v24H0z" />
+                          <path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z" />
+                        </svg>
+                      </span>
+                    </div>
+                    <a
+                      href="tel:+916262744744"
+                      className="text-zinc-500 hover:text-[#FDB813] hover:underline"
+                    >
+                      +91-6262-744-744
+                    </a>
+                  </div>
+                </div>
+                <div className="space-y-1">
+                  <div className="text-sm text-white font-medium">
+                    EMAIL ADDRESS
+                  </div>
+                  <div className="flex space-x-2">
+                    <div className="h-6 w-6 bg-[#FDB813] text-[#2A2A2A] text-xs flex justify-center items-center rounded">
+                      <MailFilled />
+                    </div>
+                    <a
+                      href="mailto:bombaytaxicompany@gmail.com"
+                      className="text-zinc-500"
+                    >
+                      bombaytaxicompany@gmail.com
+                    </a>
+                  </div>
+                </div>
+                <div className="space-y-1">
+                  <div className="text-sm text-white font-medium">
+                    OFFICE LOCATION
+                  </div>
+                  <div className="flex space-x-2">
+                    <div className="h-6 w-6 bg-[#FDB813] text-[#2A2A2A] text-xs flex justify-center items-center rounded">
+                      <EnvironmentFilled />
+                    </div>
+                    <div className="text-zinc-500 max-w-sm">
+                      Office no. 1 Sai Society, Mhada Colony, <br />
+                      Laxmi Nagar, Ghatkopar East, Mumbai 400075
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </Container>
+    </div>
   );
 };
 
@@ -443,7 +655,11 @@ const Search: React.FC = () => {
                 <div className="px-2 flex justify-between items-center">
                   <div>
                     <div className="text-[#FDB813]">Trip Type</div>
-                    <div className={`text-white ${tripType ? 'font-bold' : ''}`}>{tripType}</div>
+                    <div
+                      className={`text-white ${tripType ? "font-bold" : ""}`}
+                    >
+                      {tripType}
+                    </div>
                   </div>
                   <svg
                     className="ml-2"
@@ -475,43 +691,36 @@ const Search: React.FC = () => {
 
               {tripType !== "Hourly Rental" && (
                 <div className="flex relative">
-                  <div
-                    className="relative bg-[#404040] mx-1 mr-2 py-2 rounded-lg text-sm hover:bg-gray-700 hover:cursor-pointer z-20
-                w-36
-                xl:w-44
-              "
-                    onClick={toggleFrom}
-                  >
+                  <div className="relative bg-[#404040] mx-1 mr-2 py-2 rounded-lg text-sm hover:bg-gray-700 hover:cursor-pointer z-20 w-36 xl:w-44">
                     <div className="px-2 w-full">
                       <div className="text-[#FDB813]">From</div>
-                      <div
-                        className={`text-white w-full ${from ? 'font-bold' : ''}`}
-                        style={{
-                          overflow: "hidden",
-                          whiteSpace: "nowrap",
-                          textOverflow: "ellipsis",
-                        }}
-                      >
-                        {from}
-                      </div>
                     </div>
-                    <Select
-                      open={fromOpen}
-                      className="absolute w-0 h-0"
-                      defaultValue="One Way Trip"
-                      style={{ visibility: "hidden", width: "100%" }}
-                      onChange={handleFromChange}
-                      onDropdownVisibleChange={(open) => setFromOpen(open)}
-                    >
-                      {cities
-                        .filter((c: ICity) => c._id != toId)
-                        .map((city) => (
-                          <Option key={city._id} value={city.name}>
-                            {city.name}
-                          </Option>
-                        ))}
-                      {/* Add more options as needed */}
-                    </Select>
+                    <div className="ml-2 -mt-1">
+                      <Select
+                        showSearch
+                        open={fromOpen}
+                        className="absolute w-full dark-custom-select"
+                        placeholder="Select a city"
+                        value={from || undefined}
+                        optionFilterProp="children"
+                        onChange={handleFromChange}
+                        onDropdownVisibleChange={(open) => setFromOpen(open)}
+                        filterOption={(input, option) =>
+                          (option?.children ?? "")
+                            .toString()
+                            .toLowerCase()
+                            .includes(input.toLowerCase())
+                        }
+                      >
+                        {cities
+                          .filter((c: ICity) => c._id !== toId)
+                          .map((city) => (
+                            <Select.Option key={city._id} value={city.name}>
+                              {city.name}
+                            </Select.Option>
+                          ))}
+                      </Select>
+                    </div>
                   </div>
 
                   <div className="absolute w-full h-full flex justify-center items-center">
@@ -523,84 +732,74 @@ const Search: React.FC = () => {
                     </button>
                   </div>
 
-                  <div
-                    className="relative bg-[#404040] mx-1 ml-2 py-2 rounded-lg text-sm hover:bg-gray-700 hover:cursor-pointer z-20
-                w-36
-                xl:w-44
-              "
-                    onClick={toggleTo}
-                  >
+                  <div className="relative bg-[#404040] mx-1 ml-2 py-2 rounded-lg text-sm hover:bg-gray-700 hover:cursor-pointer z-20 w-36 xl:w-44 h-14">
                     <div className="px-2 w-full">
                       <div className="text-[#FDB813]">To</div>
-                      <div
-                        className={`text-white w-full ${to ? 'font-bold' : ''}`}
-                        style={{
-                          overflow: "hidden",
-                          whiteSpace: "nowrap",
-                          textOverflow: "ellipsis",
-                        }}
-                      >
-                        {to}
-                      </div>
                     </div>
-                    <Select
-                      open={toOpen}
-                      className="absolute w-0 h-0"
-                      defaultValue="One Way Trip"
-                      style={{ visibility: "hidden", width: "100%" }}
-                      onChange={handleToChange}
-                      onDropdownVisibleChange={(open) => setToOpen(open)}
-                    >
-                      {cities
-                        .filter((c: ICity) => c._id != fromId)
-                        .map((city) => (
-                          <Option key={city._id} value={city.name}>
-                            {city.name}
-                          </Option>
-                        ))}
-                      {/* Add more options as needed */}
-                    </Select>
+                    <div className="ml-2 -mt-1">
+                      <Select
+                        showSearch
+                        open={toOpen}
+                        className="absolute w-full dark-custom-select"
+                        placeholder="Select a city"
+                        value={to || undefined}
+                        optionFilterProp="children"
+                        onChange={handleToChange}
+                        onDropdownVisibleChange={(open) => setToOpen(open)}
+                        filterOption={(input, option) =>
+                          (option?.children ?? "")
+                            .toString()
+                            .toLowerCase()
+                            .includes(input.toLowerCase())
+                        }
+                      >
+                        {cities
+                          .filter((c: ICity) => c._id !== fromId)
+                          .map((city) => (
+                            <Select.Option key={city._id} value={city.name}>
+                              {city.name}
+                            </Select.Option>
+                          ))}
+                      </Select>
+                    </div>
                   </div>
                 </div>
               )}
               {tripType === "Hourly Rental" && (
                 <>
                   <div
-                    className={`relative bg-[rgb(64,64,64)] mx-1 py-2 rounded-lg text-sm hover:bg-gray-700 hover:cursor-pointer
-                    ${tripType === "Hourly Rental" ? "w-48" : "w-36 xl:w-40"}
-                  `}
-                    onClick={togglePickupCity}
+                    className={`relative bg-[rgb(64,64,64)] mx-1 py-2 rounded-lg text-sm hover:bg-gray-700 hover:cursor-pointer h-14
+    ${tripType === "Hourly Rental" ? "w-48" : "w-36 xl:w-40"}`}
                   >
                     <div className="px-2 w-full">
                       <div className="text-[#FDB813]">Pickup Location</div>
-                      <div
-                        className={`text-white w-full ${pickupCity ? 'font-bold' : ''}`}
-                        style={{
-                          overflow: "hidden",
-                          whiteSpace: "nowrap",
-                          textOverflow: "ellipsis",
-                        }}
-                      >
-                        {pickupCity}
-                      </div>
                     </div>
-                    <Select
-                      open={pickupCityOpen}
-                      className="absolute w-0 h-0"
-                      defaultValue="One Way Trip"
-                      style={{ visibility: "hidden", width: "100%" }}
-                      onChange={handlePickupCityChange}
-                      onDropdownVisibleChange={(open) =>
-                        setPickupCityOpen(open)
-                      }
-                    >
-                      {cities.map((city) => (
-                        <Option key={city._id} value={city.name}>
-                          {city.name}
-                        </Option>
-                      ))}
-                      {/* Add more options as needed */}
-                    </Select>
+                    <div className="ml-2 -mt-1">
+                      <Select
+                        showSearch
+                        open={pickupCityOpen}
+                        className="absolute w-full dark-custom-select"
+                        placeholder="Select a city"
+                        value={pickupCity || undefined}
+                        optionFilterProp="children"
+                        onChange={handlePickupCityChange}
+                        onDropdownVisibleChange={(open) =>
+                          setPickupCityOpen(open)
+                        }
+                        filterOption={(input, option) =>
+                          (option?.children ?? "")
+                            .toString()
+                            .toLowerCase()
+                            .includes(input.toLowerCase())
+                        }
+                      >
+                        {cities.map((city) => (
+                          <Select.Option key={city._id} value={city.name}>
+                            {city.name}
+                          </Select.Option>
+                        ))}
+                      </Select>
+                    </div>
                   </div>
                 </>
               )}
@@ -612,7 +811,9 @@ const Search: React.FC = () => {
               >
                 <div className="px-2" onClick={togglePickupDatePicker}>
                   <div className="text-[#FDB813]">Pickup Date</div>
-                  <div className={`text-white ${pickupDate ? 'font-bold' : ''}`}>
+                  <div
+                    className={`text-white ${pickupDate ? "font-bold" : ""}`}
+                  >
                     {pickupDate?.format("D MMM YYYY")}
                   </div>
                 </div>
@@ -653,7 +854,11 @@ const Search: React.FC = () => {
               >
                 <div className="px-2">
                   <div className="text-[#FDB813]">Pickup Time</div>
-                  <div className={`text-white ${pickupTime ? 'font-bold' : ''}`}>{pickupTime}</div>
+                  <div
+                    className={`text-white ${pickupTime ? "font-bold" : ""}`}
+                  >
+                    {pickupTime}
+                  </div>
                 </div>
                 <Select
                   open={pickupTimeOpen}
@@ -683,7 +888,11 @@ const Search: React.FC = () => {
                     <>
                       <div className="" onClick={toggleReturnDatePicker}>
                         <div className="text-[#FDB813]">Return Date</div>
-                        <div className={`text-white ${returnDate ? 'font-bold' : ''}`}>
+                        <div
+                          className={`text-white ${
+                            returnDate ? "font-bold" : ""
+                          }`}
+                        >
                           {returnDate?.format("D MMM YYYY")}
                         </div>
                       </div>
@@ -738,7 +947,9 @@ const Search: React.FC = () => {
                   >
                     <div className="px-2">
                       <div className="text-[#FDB813]">Select Package</div>
-                      <div className="text-white">{hourlyPackage}</div>
+                      <div className="text-white font-bold">
+                        {hourlyPackage}
+                      </div>
                     </div>
                     <Select
                       open={hourlyPackageOpen}
@@ -782,14 +993,16 @@ const Search: React.FC = () => {
           <div
             className="flex container justify-center
             flex-col-reverse items-center
-            lg:flex-row lg:items-start gap-2
+            lg:flex-row lg:items-start lg:gap-2
           "
           >
-            <BillCard
-              routeDistance={distance || 0}
-              tripRates={tripRates}
-              tripType={tripType}
-            />
+            <div className="w-full lg:w-min px-4 lg:p-0">
+              <BillCard
+                routeDistance={distance || 0}
+                tripRates={tripRates}
+                tripType={tripType}
+                />
+              </div>
             <div className="w-full lg:w-[800px]">
               {loading ? (
                 // Display loading indicator here
@@ -798,9 +1011,9 @@ const Search: React.FC = () => {
                 </div>
               ) : tripRates.length > 0 ? (
                 // Map and display car cards here
-                <div className="space-y-3 pb-3">
+                <div className="lg:space-y-3 pb-3">
                   {tripRates.map((rate: any, index: number) => (
-                    <div className="my-1">
+                    <div className="m-2 my-4 lg:m-0 lg:my-1">
                       <CarCard
                         key={index}
                         category={rate.taxiType?.name || ""}
@@ -824,9 +1037,9 @@ const Search: React.FC = () => {
                 </div>
               )}
             </div>
-            <div className="lg:hidden w-full">
+            {/* <div className="lg:hidden w-full">
               <div
-                className="border w-full flex rounded-lg  gap-2 bg-white shadow-lg flex-row p-1"
+                className="border-2 w-full flex rounded-lg  bg-white flex-row"
                 onClick={() => {
                   navigate("/");
                 }}
@@ -860,11 +1073,7 @@ const Search: React.FC = () => {
                   </div>
                 </div>
               </div>
-              <div className="my-3 mx-6">
-                <div className="text-xl font-bold ">Book cabs</div>
-                <div className="text-sm">5 cab option(s)</div>
-              </div>
-            </div>
+            </div> */}
           </div>
         </div>
       </div>
