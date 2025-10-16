@@ -69,7 +69,6 @@ interface RazorpayOptions {
   };
 }
 
-
 const AllInOne = () => {
   return (
     <>
@@ -151,7 +150,9 @@ const AllInOne = () => {
                 </div>
               </div>
             </div>
-            <div className="font-medium text-2xl my-4">On Trip Do's & Don'ts</div>
+            <div className="font-medium text-2xl my-4">
+              On Trip Do's & Don'ts
+            </div>
             <div
               className="lg:flex gap-8
             lg:w-[730px]
@@ -273,7 +274,9 @@ const AllInOne = () => {
                 </div>
               </div>
             </div>
-          <div className="font-medium text-2xl my-4">Pre-boarding guidelines</div>
+            <div className="font-medium text-2xl my-4">
+              Pre-boarding guidelines
+            </div>
             <div
               className="lg:flex gap-8
             lg:w-[730px]
@@ -636,6 +639,8 @@ const Details: React.FC = () => {
   const [showConfirmationModal, setShowConfirmationModal] = useState(false);
   const [showCouponError, setShowCouponError] = useState(false);
   const [showCouponApplied, setShowCouponApplied] = useState(false);
+
+  console.log(state.taxi_rate)
 
   const tripType = state.tripType || null;
   const taxiRate = state.taxi_rate || null;
@@ -1179,80 +1184,103 @@ const Details: React.FC = () => {
                     >
                       <Panel header="Inclusions & Exclusions" key="1">
                         <div>
-                          <div className="lg:w-1/2">
-                            <div className="font-medium text-2xl mb-4">
-                              Inclusions
-                            </div>
-                            <div className="mx-4 mb-4">
-                              <ul className="list-disc space-y-2 text-sm">
-                                <li>State Tax</li>
-                                <li>Toll Charges</li>
-                                <li>
+                        <div className="lg:w-1/2 ">
+                    <div className="font-medium text-2xl mb-4">Inclusions</div>
+                    <div className="mb-4">
+                      <div className="space-y-2 text-sm">
+                        <div className="flex justify-between">
+                          <div>Base fare</div>
+                          <div>{settings?.baseFare}</div>
+                        </div>
+                        <div className="flex justify-between">
+                          <div>Vehicles & Fuel Charges</div>
+                          <div>{settings?.vehiclesAndFuelCharges}</div>
+                        </div>
+                        <div className="flex justify-between">
+                          <div>Distance Included</div>
+                          <div>
+                            {tripType === "Round Trip"
+                              ? route?.round_trip_km || 0
+                              : tripType === "Hourly Rental"
+                              ? kms.toString()
+                              : route?.one_way_trip_km || 0}{" "}
+                            Kms
+                          </div>
+                        </div>
+                        {tripType !== "Hourly Rental" && (
+                          <div className="flex justify-between">
+                            <div>Free Waiting / Halt Time</div>
+                            <div> 45 mins </div>
+                          </div>
+                        )}
+                        {tripType === "One-Way Trip" && (
+                          <div className="flex justify-between">
+                            <div>One Pickup & One Drop</div>
+                            <div>{settings?.onePickupAndDrop}</div>
+                          </div>
+                        )}
+                        {tripType === "Hourly Rental" && (
+                          <div className="flex justify-between">
+                            <div>Included Hours</div>
+                            <div>{hours} Hrs</div>
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+                        <div className="lg:w-1/2 ">
+                          <div className="font-medium text-2xl mb-4">Exclusions</div>
+                          <div className="mb-4">
+                            <div className="space-y-2 text-sm">
+                              <div className="flex justify-between">
+                                <div>
+                                  Extra KM Charges beyond{" "}
                                   {tripType === "Round Trip"
                                     ? route?.round_trip_km || 0
                                     : tripType === "Hourly Rental"
                                     ? kms.toString()
                                     : route?.one_way_trip_km || 0}{" "}
                                   Kms
-                                </li>
-                                <li>Driver Allowance</li>
-                                <li>
-                                  Only One Pickup and Drop
-                                  <span className="text-xs text-zinc-500">
-                                    {" "}
-                                    ( Only one included ){" "}
-                                  </span>
-                                </li>
-                              </ul>
+                                </div>
+                                <div>(As per model)</div>
+                              </div>
+
+                              {tripType !== "Hourly Rental" && (
+                                <div className="flex justify-between">
+                                <div>Tolls and State Permits </div>
+                                <div>{settings?.stateTollTax}</div>
+                              </div>
+                              )}
+
+                              <div className="flex justify-between">
+                                <div>
+                                  Waiting / Halt Charges <br />
+                                  after 45 Mins
+                                </div>
+                                <div>₹ {taxiRate.taxiType.price_hour}/Hour</div>
+                              </div>
+
+                              {tripType === "Round Trip" && (
+                                  <div className="flex justify-between">
+                                  <div>Driver Allowance</div>
+                                  <div>₹ 250/Day</div>
+                                </div>
+                              )
+                              }
+
+                              <div className="flex justify-between">
+                                <div>Chauffeur Night Allowance  <br /> (10:00 PM - 05:00 AM)</div>
+                                <div>₹ {settings?.nightChargePerDay?.toLocaleString()}/Night</div>
+                              </div>
+
+                              <div className="flex justify-between">
+                                <div>Parking Charges are payable  <br /> by guest as per actual</div>
+                                <div> (if applicable) </div>
+                              </div>
+
                             </div>
                           </div>
-                          <div className="lg:w-1/2">
-                            <div className="font-medium text-2xl mb-4">
-                              Exclusions
-                            </div>
-                            <div className="mx-4 mb-4">
-                              <ul className="list-disc space-y-2 text-sm">
-                                <li>
-                                  <div className="flex">
-                                    <div className="flex-grow">
-                                      Waiting Charges
-                                    </div>
-                                    <div className="flex-grow text-right w-24 font-semibold">
-                                      After 45 mins, ₹{" "}
-                                      {settings?.waitingChargesPerMinute?.toLocaleString()}
-                                    </div>
-                                  </div>
-                                </li>
-                                <li>
-                                  <div className="flex">
-                                    <div className="flex-grow">
-                                      Fare beyond{" "}
-                                      {tripType === "Round Trip"
-                                        ? route?.round_trip_km || 0
-                                        : tripType === "Hourly Rental"
-                                        ? kms.toString()
-                                        : route?.one_way_trip_km || 0}{" "}
-                                      Kms
-                                    </div>
-                                    <div className="text-right w-24 font-semibold">
-                                      {tripType === "Hourly Rental" ? (
-                                        <>
-                                          ₹ {taxiRate.taxiType.price_hour} /
-                                          hour
-                                        </>
-                                      ) : (
-                                        <>
-                                          ₹{" "}
-                                          {taxiRate.extraKmCharges?.toLocaleString()}{" "}
-                                          /Km
-                                        </>
-                                      )}
-                                    </div>
-                                  </div>
-                                </li>
-                              </ul>
-                            </div>
-                          </div>
+                        </div>
                         </div>
                       </Panel>
                     </Collapse>
@@ -1266,74 +1294,107 @@ const Details: React.FC = () => {
                 >
                   <div className="lg:w-1/2  p-4 ">
                     <div className="font-medium text-2xl mb-4">Inclusions</div>
-                    <div className="mx-4 mb-4">
-                      <ul className="list-disc space-y-2 text-sm">
-                        <li>State Tax</li>
-                        <li>Toll Charges</li>
-                        <li>
-                          {tripType === "Round Trip"
-                            ? route?.round_trip_km || 0
-                            : tripType === "Hourly Rental"
-                            ? kms.toString()
-                            : route?.one_way_trip_km || 0}{" "}
-                          Kms
-                        </li>
-                        <li>Driver Allowance</li>
-                        <li>
-                          Only One Pickup and Drop
-                          <span className="text-xs text-zinc-500">
-                            {" "}
-                            ( Only one included ){" "}
-                          </span>
-                        </li>
-                      </ul>
+                    <div className="mb-4">
+                      <div className="space-y-2 text-sm">
+                        <div className="flex justify-between">
+                          <div>Base fare</div>
+                          <div>{settings?.baseFare}</div>
+                        </div>
+                        <div className="flex justify-between">
+                          <div>Vehicles & Fuel Charges</div>
+                          <div>{settings?.vehiclesAndFuelCharges}</div>
+                        </div>
+                        <div className="flex justify-between">
+                          <div>Distance Included</div>
+                          <div>
+                            {tripType === "Round Trip"
+                              ? route?.round_trip_km || 0
+                              : tripType === "Hourly Rental"
+                              ? kms.toString()
+                              : route?.one_way_trip_km || 0}{" "}
+                            Kms
+                          </div>
+                        </div>
+                        {tripType !== "Hourly Rental" && (
+                          <div className="flex justify-between">
+                            <div>Free Waiting / Halt Time</div>
+                            <div> 45 mins </div>
+                          </div>
+                        )}
+                        {tripType === "One-Way Trip" && (
+                          <div className="flex justify-between">
+                            <div>One Pickup & One Drop</div>
+                            <div>{settings?.onePickupAndDrop}</div>
+                          </div>
+                        )}
+                        {tripType === "Hourly Rental" && (
+                          <div className="flex justify-between">
+                            <div>Included Hours</div>
+                            <div>{hours} Hrs</div>
+                          </div>
+                        )}
+                      </div>
                     </div>
                   </div>
                   <div className="border-r"></div>
                   <div className="lg:w-1/2  p-4 ">
                     <div className="font-medium text-2xl mb-4">Exclusions</div>
-                    <div className="mx-4 mb-4">
-                      <ul className="list-disc space-y-2 text-sm">
-                        <li>
-                          <div className="flex">
-                            <div className="flex-grow">Waiting Charges</div>
-                            <div className="flex-grow text-right w-24 font-semibold">
-                              After 45 mins, ₹{" "}
-                              {settings?.waitingChargesPerMinute?.toLocaleString()}
-                            </div>
+                    <div className="mb-4">
+                      <div className="space-y-2 text-sm">
+                        <div className="flex justify-between">
+                          <div>
+                            Extra KM Charges beyond{" "}
+                            {tripType === "Round Trip"
+                              ? route?.round_trip_km || 0
+                              : tripType === "Hourly Rental"
+                              ? kms.toString()
+                              : route?.one_way_trip_km || 0}{" "}
+                            Kms
                           </div>
-                        </li>
-                        <li>
-                          <div className="flex">
-                            <div className="flex-grow">
-                              Fare beyond{" "}
-                              {tripType === "Round Trip"
-                                ? route?.round_trip_km || 0
-                                : tripType === "Hourly Rental"
-                                ? kms.toString()
-                                : route?.one_way_trip_km || 0}{" "}
-                              Kms
-                            </div>
-                            <div className="text-right w-24 font-semibold">
-                              {tripType === "Hourly Rental" ? (
-                                <>₹ {taxiRate.taxiType.price_hour} / hour</>
-                              ) : (
-                                <>
-                                  ₹ {taxiRate.extraKmCharges?.toLocaleString()}{" "}
-                                  /Km
-                                </>
-                              )}
-                            </div>
+                          <div>(As per model)</div>
+                        </div>
+
+                        {tripType !== "Hourly Rental" && (
+                          <div className="flex justify-between">
+                          <div>Tolls and State Permits </div>
+                          <div>{settings?.stateTollTax}</div>
+                        </div>
+                        )}
+
+                        <div className="flex justify-between">
+                          <div>
+                            Waiting / Halt Charges <br />
+                            after 45 Mins
                           </div>
-                        </li>
-                      </ul>
+                          <div>₹ {taxiRate.taxiType.price_hour}/Hour</div>
+                        </div>
+
+                        {tripType === "Round Trip" && (
+                            <div className="flex justify-between">
+                            <div>Driver Allowance</div>
+                            <div>₹ 250/Day</div>
+                          </div>
+                        )
+                        }
+
+                        <div className="flex justify-between">
+                          <div>Chauffeur Night Allowance  <br /> (10:00 PM - 05:00 AM)</div>
+                          <div>₹ {settings?.nightChargePerDay?.toLocaleString()}/Night</div>
+                        </div>
+
+                        <div className="flex justify-between">
+                          <div>Parking Charges are payable  <br /> by guest as per actual</div>
+                          <div> (if applicable) </div>
+                        </div>
+
+                      </div>
                     </div>
                   </div>
                 </div>
               </>
               <>
                 <div className="lg:hidden">
-                  <AllInOne/>
+                  <AllInOne />
                 </div>
               </>
               <>
@@ -1811,7 +1872,7 @@ const Details: React.FC = () => {
               {/* <WaitingAndDriverAllowance /> */}
             </div>
             <>
-              <div className="min-w-full lg:min-w-[330px] max-w-xs lg:w-full m-3 sticky top-36">
+              <div className="min-w-full lg:min-w-[332px] max-w-xs lg:w-full m-3 sticky top-36">
                 <div className="bg-[#FEF0CF] p-4 text-xs rounded-t-lg">
                   Free Cancellation Before{" "}
                   {cancellationDeadline.format("D MMM YYYY, hh:mm A")} Ist
