@@ -185,6 +185,16 @@ const CarCard: React.FC<CarCardProps> = ({
                   </button>
                 </div>
               )}
+              {/* {!preview && (
+                <div className="rounded-lg">
+                  <button
+                    className="bg-[#FDB813] hover:bg-yellow-400 p-3 rounded-lg  h-full flex justify-center items-center text-xs font-medium lg:hidden w-32"
+                    onClick={onBook}
+                  >
+                    BOOK NOW
+                  </button>
+                </div>
+              )} */}
             </div>
         </div>
       </div>

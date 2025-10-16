@@ -1,6 +1,11 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import {
   ArrowRightOutlined,
+  CloseOutlined,
+  CompassOutlined,
+  DownOutlined,
+  EditFilled,
+  EditOutlined,
   EnvironmentFilled,
   FacebookFilled,
   FacebookOutlined,
@@ -8,9 +13,10 @@ import {
   LeftOutlined,
   MailFilled,
   TwitterOutlined,
+  UpOutlined,
 } from "@ant-design/icons";
 import React, { useEffect, useState } from "react";
-import { DatePicker, Select, Spin, message, Collapse } from "antd";
+import { DatePicker, Select, Spin, message, Collapse, Dropdown, Segmented, MenuProps } from "antd";
 const { Panel } = Collapse;
 import { Option } from "antd/es/mentions";
 import dayjs, { Dayjs } from "dayjs";
@@ -27,6 +33,11 @@ import { ITaxiType } from "../types/taxiTypes.types";
 import { generateDistanceOptions } from "../utils/GenerateDistanceOptions";
 import { Container } from "@mui/material";
 import { Swap } from "../icons/Swap";
+import { FaCalendarAlt, FaClock } from "react-icons/fa";
+import { From } from "../icons/From";
+import { HourlyRentalIcon } from "../icons/HourlyRentalIcon";
+import { RoundTripIcon } from "../icons/RoundTripIcon";
+import { OneWayTripIcon } from "../icons/OneWayTripIcon";
 
 interface BillCardProps {
   routeDistance: number;
@@ -175,6 +186,113 @@ const BillCard: React.FC<BillCardProps> = ({
           </div>
         </div>
         <WaitingAndDriverAllowance settings={settings} />
+      </div>
+    </>
+  );
+};
+
+const BillCardSticky: React.FC<BillCardProps> = ({
+  routeDistance,
+  tripRates,
+  tripType,
+}) => {
+  const [settings, setSettings] = useState<ISettings | null>(null);
+
+  useEffect(() => {
+    const fetchSettings = async () => {
+      try {
+        const response = await axios.get("/settings/get");
+
+        setSettings(response.data.settings);
+      } catch (error) {
+        console.error("Error fetching cities:", error);
+      }
+    };
+
+    fetchSettings();
+  }, []);
+
+  return (
+    <>
+      <div className="min-w-[360px] lg:max-w-xs w-full lg:sticky lg:m-1 lg:top-36 text-sm">
+        <div className="bg-white rounded-lg">
+          <div>
+            <div className="text-lg my-1 font-semibold">Fare Details</div>
+            <div className="font-light space-y-2">
+              <div className="flex justify-between">
+                <div>Base Fare</div>
+                <div>{settings?.baseFare}</div>
+              </div>
+              <div className="flex justify-between">
+                <div>GST(5% on Base Fare)</div>
+                <div>{settings?.gst}</div>
+              </div>
+              <div className="flex justify-between">
+                <div>State, Toll Tax</div>
+                <div>{settings?.stateTollTax}</div>
+              </div>
+              <div className="flex justify-between">
+                <div>Vehicles & Fuel Charges</div>
+                <div>{routeDistance}KM</div>
+              </div>
+              <div className="flex justify-between">
+                <div>One Pickup & Drop</div>
+                <div>{settings?.onePickupAndDrop}</div>
+              </div>
+            </div>
+          </div>
+          <hr className="my-3" />
+          <div>
+            <div className="text-lg my-1 font-semibold">Other Charges</div>
+            <div className="font-light space-y-2">
+              <div className="flex justify-between">
+                <div>Parking & Airport Entry</div>
+                <div>{settings?.parkingAndAirportEntry}</div>
+              </div>
+              <div className="flex justify-between">
+                <div>Waiting Charges</div>
+                <div>
+                  ₹ {settings?.waitingChargesPerMinute?.toLocaleString()}
+                </div>
+              </div>
+              <div className="flex justify-between">
+                <div>
+                  Night Charges <br /> (11 PM & 6 AM)
+                </div>
+                <div>₹ {settings?.nightChargePerDay?.toLocaleString()}</div>
+              </div>
+              <div className="flex justify-between">
+                <div>Extra Pickup/Drop</div>
+                <div>{settings?.extraPickupDropCharges?.toLocaleString()}</div>
+              </div>
+            </div>
+          </div>
+          <hr className="my-3" />
+          <div>
+            <div className="text-lg my-1 font-semibold">
+              {tripType !== "Hourly Rental" ? (
+                <>Extra Km Charges</>
+              ) : (
+                <>Extra Hr Charges</>
+              )}
+            </div>
+            <div className="font-light space-y-2">
+              {tripRates.map((tripRate: TripRate) => (
+                <div
+                  key={tripRate.taxiType._id}
+                  className="flex justify-between"
+                >
+                  <div>{tripRate.taxiType.name}</div>
+                  {tripType !== "Hourly Rental" ? (
+                    <div>₹ {tripRate.extraKmCharges}/KM</div>
+                  ) : (
+                    <div>₹ {tripRate.taxiType.price_hour}/hr</div>
+                  )}
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
       </div>
     </>
   );
@@ -388,8 +506,6 @@ const Search: React.FC = () => {
   const location = useLocation();
   const { state } = location;
 
-  console.log(state.pickupTime);
-
   const navigate = useNavigate();
 
   const [currentDate, setCurrentDate] = useState(dayjs());
@@ -433,6 +549,16 @@ const Search: React.FC = () => {
 
   const [cities, setCities] = useState<ICity[]>([]);
 
+  const [fairDetailsOpen, setFairDetailsOpen] = useState<boolean>(false);
+  const [searchOpen, setSearchOpen] = useState<boolean>(false);
+
+  const [activeTab, setActiveTab] = useState("One-Way Trip");
+  const [showEmergency, setShowEmergency] = useState<boolean>(false);
+
+  const handleTabChange = (key: string) => {
+    setActiveTab(key);
+  };
+
   useEffect(() => {
     const timeOptions = generateTimeOptions(pickupDate ?? dayjs());
     if (timeOptions.length === 0) {
@@ -452,6 +578,47 @@ const Search: React.FC = () => {
 
     return () => clearInterval(timer);
   }, []);
+
+  const menuTime: MenuProps["items"] = generateTimeOptions(
+      pickupDate ?? dayjs()
+    ).map((option, index) => ({
+      label: option.label,
+      key: option.key,
+      index: index,
+    }));
+  
+    const handleMenuClickTime = (e: any) => {
+      setPickupTime(e.key);
+      const selectedTime = menuTime?.find((item) => item?.key === e.key);
+  
+      const isToday = pickupDate?.isSame(dayjs(), "day");
+  
+      // Check if the index is 8 or less and the selected date is today
+      if (selectedTime && selectedTime?.index < 8 && isToday) {
+        setShowEmergency(true);
+      } else {
+        setShowEmergency(false);
+      }
+    };
+  
+    const handleMenuClickPackage = (e: any) => {
+      setHourlyPackage(e.key);
+    };
+
+  const menuDistance: MenuProps["items"] = generateDistanceOptions();
+  
+  
+    const menuPropsTime = {
+      items: menuTime,
+      onClick: handleMenuClickTime,
+      style: { height: "200px", overflow: "auto" },
+    };
+  
+    const menuPropsDistance = {
+      items: menuDistance,
+      onClick: handleMenuClickPackage,
+      style: { overflow: "auto" },
+    };
 
   const toggleTripType = () => {
     setTripTypeOpen(!tripTypeOpen);
@@ -593,6 +760,7 @@ const Search: React.FC = () => {
       console.error("Error making API request:", error);
     } finally {
       setLoading(false);
+      setSearchOpen(false)
     }
   };
 
@@ -637,7 +805,493 @@ const Search: React.FC = () => {
 
   return (
     <>
-      <div className="bg-[#ececf4] px-1 space-y-2">
+      <div
+        className={`${
+          fairDetailsOpen || searchOpen ? "" : "hidden"
+        } fixed top-0 left-0 w-screen h-screen bg-black opacity-70 z-50`}
+        onClick={() => {
+          setFairDetailsOpen(false);
+
+          setSearchOpen(false);
+        }}
+      />
+
+      {/* <div
+        className={`${
+          true ? "" : "hidden"
+        } fixed top-0 left-0 w-screen h-screen bg-black opacity-70`}
+        onClick={() => {
+          setSearchOpen(!searchOpen);
+        }}
+      /> */}
+
+      <div className={`${searchOpen ? '' : 'hidden'} fixed top-0 bg-white w-full z-[100]`}>
+      <div className="m-3 p-1 flex items-center justify-between bg-white rounded-md">
+            <button onClick={()=>{setSearchOpen(false)}} className="w-10 flex justify-center items-center text-gray-700 flex-shrink-0">
+              <CloseOutlined />
+            </button>
+          </div>
+        <div className="pb-3 flex flex-col items-center justify-center w-screen lg:w-min">
+            <div className="rounded-2xl lg:shadow-lg -mb-[68px] lg:-mb-6 z-10 w-full lg:w-min">
+                <div className="bg-white rounded-2xl mx-2 lg:mx-0 border border-yellow-500">
+
+                
+                <Segmented
+                  value={activeTab}
+                  className="w-full rounded-2xl p-1 flex"
+                  onChange={(value) => {
+                    handleTabChange(value.toString());
+                  }}
+                  options={[
+                    {
+                      label: (
+                        <div className="lg:text-lg m-2  w-full text-center">
+                          <div className="flex items-center">
+                            <div className="hidden">
+                              <OneWayTripIcon />
+                            </div>
+                            <span className="-mx-1.5 lg:mx-2 w-full text-center">One-Way Trip</span>
+                          </div>
+                        </div>
+                      ),
+                      value: "One-Way Trip",
+                      className: "flex-1 text-center justify-center",
+                    },
+                    {
+                      label: (
+                        <div className="lg:text-lg m-2 w-full text-center">
+                          <div className="flex items-center">
+                            <div className="hidden">
+                              <RoundTripIcon />
+                            </div>
+                            <span className="-mx-1.5 lg:mx-2 w-full text-center">Round Trip</span>
+                          </div>
+                        </div>
+                      ),
+                      value: "Round Trip",
+                      className: "flex-1 text-center justify-center",
+                    },
+                    {
+                      label: (
+                        <div className="lg:text-lg m-2 w-full text-center">
+                          <div className="flex items-center">
+                            <div className="hidden">
+                              <HourlyRentalIcon />
+                            </div>
+                            <span className="-mx-1.5 lg:mx-2 w-full text-center">Hourly Rental</span>
+                          </div>
+                        </div>
+                      ),
+                      value: "Hourly Rental",
+                      className: "flex-1 text-center justify-center",
+                    },
+                  ]}
+                  style={{
+                    display: "flex",
+                    width: "100%",
+                  }}
+                />
+
+                </div>
+            </div>
+
+            <div
+                className="bg-white lg:rounded-3xl -mb-6 flex flex-col justify-center items-center lg:shadow-lg py-8 px-2 pt-20 lg:pt-8
+                lg:px-6 w-full
+              "
+              >
+                <div
+                  className="w-full rounded gap-2  flex flex-col lg:flex-row
+                  lg:flex
+                "
+                >
+                  {activeTab === "Hourly Rental" && (
+                    <div className="group w-full lg:w-[330px] p-3 space-y-1 border-2 rounded-xl hover:border-[#FDB813] transition-all duration-300 h-20">
+                      <div className="text-xs flex items-center gap-1">
+                        {" "}
+                        <From />
+                        <div className="-ml-2">Pickup Location</div>
+                      </div>
+                      <Select
+                        showSearch
+                        placeholder="Enter a pickup city"
+                        value={pickupCity || undefined}
+                        className="w-full custom-select text-[1.3rem] font-bold"
+                        size="large"
+                        optionLabelProp="label"
+                        bordered={false}
+                        suffixIcon={null}        
+                        removeIcon={null}        
+                        menuItemSelectedIcon={null} 
+                        filterOption={(input, option) =>
+                          (option?.label ?? "")
+                            .toString()
+                            .toLowerCase()
+                            .includes(input.toLowerCase())
+                        }
+                        onChange={(value, option: any) => {
+                          setPickupCity(option.label);
+                          setPickupCityId(value);
+                        }}
+                        onInputKeyDown={(e) => {
+                          if (e.key === "Backspace" && !e.target.value) {
+                            setPickupCity("");
+                            setPickupCityId(null);
+                          }
+                        }}
+                        options={cities.map((city) => ({
+                          value: city._id,
+                          label: city.name,
+                        }))}
+                      />
+                    </div>
+                  )}
+                  {activeTab !== "Hourly Rental" && (
+                    <div className="lg:flex-row gap-2 relative flex flex-col">
+                      {
+                        <>
+                          <div className="hidden absolute w-full h-full lg:flex justify-center items-center">
+                            <button
+                              className="bg-white z-30 border rounded-xl border-yellow-500"
+                              onClick={switchValues}
+                            >
+                              <div className="border rounded-xl p-1 text-xl hover:bg-gray-200 shadow-lg">
+                                <Swap />
+                              </div>
+                            </button>
+                          </div>
+                        </>
+                      }
+                      <div className="group w-full lg:w-[228px]  p-3 space-y-1 border-2 rounded-xl z-20 hover:border-[#FDB813] transition-all duration-300 h-20">
+                        <div className="text-xs flex items-center gap-1">
+                          <From />
+                          <div className="-ml-2">From</div>
+                        </div>
+                        <Select
+                          showSearch
+                          placeholder="Enter a pickup city"
+                          value={from || undefined}
+                          className="w-full custom-select text-[1.3rem] font-bold"
+                          size="large"
+                          optionLabelProp="label"
+                          bordered={false}
+                          suffixIcon={null}        
+                          removeIcon={null}        
+                          menuItemSelectedIcon={null} 
+                          filterOption={(input, option) =>
+                            (option?.label ?? "")
+                              .toString()
+                              .toLowerCase()
+                              .includes(input.toLowerCase())
+                          }
+                          onChange={(value, option: any) => {
+                            setFrom(option.label);
+                            setFromId(value);
+                          }}
+                          onInputKeyDown={(e) => {
+                            if (e.key === "Backspace" && !e.target.value) {
+                              setFrom("");
+                              setFromId(null);
+                            }
+                          }}
+                          options={cities
+                            .filter((city) => city._id !== toId)
+                            .map((city) => ({
+                              value: city._id,
+                              label: city.name,
+                              // Display icon + city name in dropdown
+                              title: (
+                                <div className="flex items-center gap-2">
+                                  <From />
+                                  <span>{city.name}</span>
+                                </div>
+                              ),
+                            }))}
+                          optionRender={(option) => option.data.title}
+                        />
+                      </div>
+
+                      <div className="group w-full lg:w-[228px] p-3 space-y-1 border-2 rounded-xl z-20 hover:border-[#FDB813] transition-all duration-300 h-20">
+                        <div className="text-xs flex items-center gap-1">
+                          <EnvironmentFilled />
+                          To
+                        </div>
+                        <Select
+                          showSearch
+                          placeholder={
+                            activeTab === "One-Way Trip"
+                              ? "Enter a drop off city"
+                              : "Destination"
+                          }
+                          value={to || undefined}
+                          className="w-full custom-select text-[1.3rem] font-bold"
+                          size="large"
+                          optionLabelProp="label"
+                          bordered={false}
+                          suffixIcon={null}        
+                          removeIcon={null}        
+                          menuItemSelectedIcon={null} 
+                          filterOption={(input, option) =>
+                            (option?.label ?? "")
+                              .toString()
+                              .toLowerCase()
+                              .includes(input.toLowerCase())
+                          }
+                          onChange={(value, option: any) => {
+                            setTo(option.label);
+                            setToId(value);
+                          }}
+                          onInputKeyDown={(e) => {
+                            if (e.key === "Backspace" && !e.target.value) {
+                              setTo("");
+                              setToId(null);
+                            }
+                          }}
+                          options={cities
+                            .filter((city) => city._id !== fromId)
+                            .map((city) => ({
+                              value: city._id,
+                              label: city.name,
+                              // Show icon inside dropdown option
+                              title: (
+                                <div className="flex items-center gap-2">
+                                  <EnvironmentFilled className="text-gray-600" />
+                                  <span>{city.name}</span>
+                                </div>
+                              ),
+                            }))}
+                          optionRender={(option) => option.data.title}
+                        />
+                      </div>
+                    </div>
+                  )}
+                  <div className="flex flex-row gap-2">
+                    <div className="group relative w-full lg:w-[164px] p-3 pb-4 space-y-1 border-2 rounded-xl hover:border-[#FDB813] transition-all duration-300 h-20">
+                      <div className="text-xs flex items-center gap-1">
+                        <FaCalendarAlt />
+                        Pickup Date
+                      </div>
+                      <div
+                        className={`text-[1.3rem] group-hover:text-[#FDB813] transition-all duration-300 ${
+                          pickupDate ? "font-bold" : ""
+                        }`}
+                        onClick={togglePickupDatePicker}
+                      >
+                        {pickupDate?.format("D MMM") ?? (
+                          <button className="text-xs text-left md:absolute">
+                            select a pickup date for the trip
+                          </button>
+                        )}{" "}
+                        <span className="text-base">
+                          {pickupDate?.format("YYYY")}
+                        </span>
+                      </div>
+                      <DatePicker
+                        className="absolute bottom-0 left-0 w-0 h-0"
+                        style={{
+                          visibility: "hidden",
+                        }}
+                        open={pickupDateOpen}
+                        onOpenChange={(open) => setPickupDateOpen(open)}
+                        onChange={handlePickupDateChange}
+                        disabledDate={(current: Dayjs | null) =>
+                          current
+                            ? current.isBefore(dayjs().startOf("day")) ||
+                              current.isAfter(dayjs().add(90, "days"))
+                            : false
+                        }
+                        // Highlight Sundays using dateRender
+                        dateRender={(currentDate) => {
+                          const isSunday = currentDate.day() === 0; // 0 represents Sunday in dayjs
+                          return (
+                            <div
+                              className={`ant-picker-cell-inner ${
+                                isSunday ? "bg-[#FDB813]" : ""
+                              }`}
+                            >
+                              {currentDate.date()}
+                            </div>
+                          );
+                        }}
+                      />
+                    </div>
+                    <div className="group w-full lg:w-[164px] p-3 pb-4 space-y-1 border-2 rounded-xl hover:border-[rgb(253,184,19)] transition-all duration-300 h-20">
+                      <div className="text-xs flex items-center gap-1">
+                        {" "}
+                        <FaClock />
+                        Pickup Time
+                      </div>
+                      <Dropdown menu={menuPropsTime} placement="bottomLeft">
+                        <button
+                          className={`text-[1.3rem] group-hover:text-[#FDB813] transition-all duration-300 ${
+                            pickupTime ? "font-bold" : ""
+                          }`}
+                          style={{ border: "none" }}
+                        >
+                          {pickupTime ? (
+                            (() => {
+                              const [time, meridian] = pickupTime.split(" ");
+                              return (
+                                <span>
+                                  {time}{" "}
+                                  <span className="text-sm font-medium align-center">
+                                    {meridian}
+                                  </span>
+                                </span>
+                              );
+                            })()
+                          ) : (
+                            <div className="text-xs text-left">
+                              Select a pickup time for the trip
+                            </div>
+                          )}
+                        </button>
+                      </Dropdown>
+                    </div>
+                  </div>
+                  {activeTab !== "Hourly Rental" && (
+                    <div className="group relative w-full lg:w-[166px] p-3 pb-4 space-y-1 border-2 rounded-xl hover:border-[rgb(253,184,19)] transition-all duration-300 h-20">
+                      <div className="text-xs flex items-center gap-1">
+                        {" "}
+                        <FaClock />
+                        Return Date
+                      </div>
+                      <div>
+                        {activeTab === "Round Trip" ? (
+                          <>
+                            <div
+                              className={`text-[1.3rem] group-hover:text-[#FDB813] transition-all duration-300 ${
+                                returnDate ? "font-bold" : ""
+                              }`}
+                              onClick={toggleReturnDatePicker}
+                            >
+                              {returnDate?.format("D MMM") ?? (
+                                <button className="text-xs text-left md:absolute">
+                                  Select a pickup date for the trip
+                                </button>
+                              )}{" "}
+                              <span className="text-base">
+                                {returnDate?.format("YYYY")}
+                              </span>
+                            </div>
+                            <DatePicker
+                              className="absolute bottom-0 left-0 w-0 h-0"
+                              style={{
+                                visibility: "hidden",
+                              }}
+                              open={returnDateOpen}
+                              onOpenChange={(open) => setReturnDateOpen(open)}
+                              onChange={handleReturnDateChange}
+                              disabledDate={(current: Dayjs | null) =>
+                                current
+                                  ? current.isBefore(pickupDate, "day") ||
+                                    current.isAfter(dayjs().add(90, "days"))
+                                  : false
+                              }
+                              dateRender={(currentDate) => {
+                                const isSunday = currentDate.day() === 0; // 0 represents Sunday in dayjs
+                                return (
+                                  <div
+                                    className={`ant-picker-cell-inner ${
+                                      isSunday ? "bg-[#FDB813]" : ""
+                                    }`}
+                                  >
+                                    {currentDate.date()}
+                                  </div>
+                                );
+                              }}
+                            />
+                          </>
+                        ) : (
+                          <>
+                            <button
+                              className="text-xs text-left group-hover:text-[#FDB813] md:absolute"
+                              onClick={() => setActiveTab("Round Trip")}
+                            >
+                              Add return date for bigger discount
+                            </button>
+                          </>
+                        )}
+                      </div>
+                    </div>
+                  )}
+                  {activeTab === "Hourly Rental" && (
+                    <div>
+                      <div className="group w-full lg:w-[300px] p-3 pb-4 space-y-1 border-2 rounded-xl hover:border-[rgb(253,184,19)] transition-all duration-300 h-20">
+                        <div className="text-xs flex items-center gap-1">
+                          {" "}
+                          <CompassOutlined />
+                          Select Package
+                        </div>
+                        <Dropdown menu={menuPropsDistance} placement="bottomLeft">
+                          <button
+                            className={`text-[1.3rem] group-hover:text-[#FDB813] transition-all duration-300 ${
+                              hourlyPackage ? "font-bold" : ""
+                            }`}
+                            style={{ border: "none" }}
+                          >
+                            {hourlyPackage || (
+                              <div className="text-xs ">Select a package</div>
+                            )}
+                          </button>
+                        </Dropdown>
+                      </div>
+                    </div>
+                  )}
+                </div>
+                {showEmergency && (
+                  <div className="text-red-600 w-[328px] lg:w-11/12 text-center pt-2">
+                    You have selected a time that is within 2 hours of the current
+                    time, in case there is an emergency call us on
+                    <br />
+                    <a
+                      href="tel:+916262744744"
+                      className="text-blue-600 underline"
+                    >
+                      +91-6262-744-744
+                    </a>
+                  </div>
+                )}
+            </div>
+
+            <div className="w-full flex justify-center px-2 lg:px-0">
+                <button
+                  disabled={showEmergency}
+                  className="w-full text-sm lg:text-base bg-[#FDB813] hover:bg-yellow-400 text-black font-semibold lg:w-40 h-12 rounded-lg border-yellow-500 z-10"
+                  onClick={onSearch}
+                >
+                  SEE TAXI FARE
+                </button>
+            </div>
+        </div>
+      </div>
+
+      <div className="lg:hidden bg-white p-0.5 shadow sticky top-0 z-40  h-full w-full">
+          <div className="m-1 p-1 border flex items-center justify-between bg-white rounded-md">
+            {/* Left Arrow */}
+            <button onClick={()=>{navigate(-1);}} className="w-10 flex justify-center items-center text-gray-700 flex-shrink-0">
+              <LeftOutlined />
+            </button>
+
+            {/* Route & Time Info */}
+            <div className="w-full min-w-0 overflow-hidden">
+              <div className="font-semibold text-[15px] leading-tight text-gray-900 flex items-center gap-1 overflow-hidden whitespace-nowrap text-ellipsis">
+                <div className="truncate">{from}</div>
+                <div className="flex-shrink-0">to</div>
+                <div className="truncate">{to}</div>
+              </div>
+              <div className="text-gray-700 text-[14px] truncate">{pickupDate?.format("D MMM YYYY")}, {pickupTime}</div>
+            </div>
+
+            {/* Edit Button */}
+            <button onClick={()=>{setSearchOpen(true)}} className="w-10 flex justify-center items-center text-yellow-600 cursor-pointer flex-shrink-0">
+              <EditFilled />
+            </button>
+          </div>
+      </div>
+      
+
+      <div className="bg-[#ececf4] lg:space-y-2">
         <div
           className="justify-center w-full
           hidden
@@ -704,6 +1358,9 @@ const Search: React.FC = () => {
                         value={from || undefined}
                         optionFilterProp="children"
                         onChange={handleFromChange}
+                        suffixIcon={null}
+                        removeIcon={null}
+                        menuItemSelectedIcon={null}
                         onDropdownVisibleChange={(open) => setFromOpen(open)}
                         filterOption={(input, option) =>
                           (option?.children ?? "")
@@ -711,6 +1368,12 @@ const Search: React.FC = () => {
                             .toLowerCase()
                             .includes(input.toLowerCase())
                         }
+                        onInputKeyDown={(e) => {
+                        if (e.key === "Backspace" && !e.target.value) {
+                          setFrom("");
+                          setFromId(null);
+                        }
+                      }}
                       >
                         {cities
                           .filter((c: ICity) => c._id !== toId)
@@ -745,6 +1408,9 @@ const Search: React.FC = () => {
                         value={to || undefined}
                         optionFilterProp="children"
                         onChange={handleToChange}
+                        suffixIcon={null}
+                        removeIcon={null}
+                        menuItemSelectedIcon={null}
                         onDropdownVisibleChange={(open) => setToOpen(open)}
                         filterOption={(input, option) =>
                           (option?.children ?? "")
@@ -752,6 +1418,12 @@ const Search: React.FC = () => {
                             .toLowerCase()
                             .includes(input.toLowerCase())
                         }
+                        onInputKeyDown={(e) => {
+                          if (e.key === "Backspace" && !e.target.value) {
+                            setTo("");
+                            setToId(null);
+                          }
+                        }}
                       >
                         {cities
                           .filter((c: ICity) => c._id !== fromId)
@@ -783,6 +1455,9 @@ const Search: React.FC = () => {
                         value={pickupCity || undefined}
                         optionFilterProp="children"
                         onChange={handlePickupCityChange}
+                        suffixIcon={null}
+                        removeIcon={null}
+                        menuItemSelectedIcon={null}
                         onDropdownVisibleChange={(open) =>
                           setPickupCityOpen(open)
                         }
@@ -792,6 +1467,12 @@ const Search: React.FC = () => {
                             .toLowerCase()
                             .includes(input.toLowerCase())
                         }
+                        onInputKeyDown={(e) => {
+                          if (e.key === "Backspace" && !e.target.value) {
+                            setPickupCity("");
+                            setPickupCityId(null);
+                          }
+                        }}
                       >
                         {cities.map((city) => (
                           <Select.Option key={city._id} value={city.name}>
@@ -972,11 +1653,6 @@ const Search: React.FC = () => {
                 </>
               )}
 
-              {/* <div className='w-32 bg-[#404040] mx-1 p-2 rounded-lg text-sm'>
-                <div className='text-[#FDB813]'>DROP TIME</div>
-                <div className='text-white'>24:00</div>
-              </div> */}
-
               <button
                 className="bg-yellow-500 hover:bg-yellow-400 mx-1 h-full rounded-lg flex justify-center items-center font-medium
                 w-32
@@ -989,6 +1665,7 @@ const Search: React.FC = () => {
             </div>
           </div>
         </div>
+
         <div className="flex justify-center">
           <div
             className="flex container justify-center
@@ -996,13 +1673,13 @@ const Search: React.FC = () => {
             lg:flex-row lg:items-start lg:gap-2
           "
           >
-            <div className="w-full lg:w-min px-4 lg:p-0">
+            <div className="hidden lg:block w-full lg:w-min px-4 lg:p-0">
               <BillCard
                 routeDistance={distance || 0}
                 tripRates={tripRates}
                 tripType={tripType}
-                />
-              </div>
+              />
+            </div>
             <div className="w-full lg:w-[800px]">
               {loading ? (
                 // Display loading indicator here
@@ -1013,7 +1690,7 @@ const Search: React.FC = () => {
                 // Map and display car cards here
                 <div className="lg:space-y-3 pb-3">
                   {tripRates.map((rate: any, index: number) => (
-                    <div className="m-2 my-4 lg:m-0 lg:my-1">
+                    <div className="m-2 my-2.5 lg:m-0 lg:my-1">
                       <CarCard
                         key={index}
                         category={rate.taxiType?.name || ""}
@@ -1077,6 +1754,7 @@ const Search: React.FC = () => {
           </div>
         </div>
       </div>
+
       <div className="flex justify-center py-8">
         <Container className="container text-center space-x-1">
           <span className="text-zinc-800 font-semibold">Disclaimer:</span>
@@ -1093,6 +1771,34 @@ const Search: React.FC = () => {
       </div>
       {/* <ReadyToBook/> */}
       <Footer />
+      <div className={`${searchOpen? 'hidden' : ''} lg:hidden sticky bottom-0 h-full w-full z-50`}>
+        <div className={`${fairDetailsOpen ? "" : "hidden"}`}>
+          <div className="bg-white p-3">
+            <BillCardSticky
+              routeDistance={distance || 0}
+              tripRates={tripRates}
+              tripType={tripType}
+            />
+          </div>
+        </div>
+        <div
+          className="w-full flex justify-between items-center bg-[#333333] p-3"
+          onClick={() => {
+            setFairDetailsOpen(!fairDetailsOpen);
+          }}
+        >
+          <div className="space-y-1">
+            <button className="text-white flex items-center space-x-2">
+              Fair Details &nbsp;{" "}
+              <div>{fairDetailsOpen ? <DownOutlined /> : <UpOutlined />}</div>
+            </button>
+            <div className="text-xs text-zinc-400">
+              Other charges and Extra km charges
+            </div>
+          </div>
+          <div></div>
+        </div>
+      </div>
     </>
   );
 };
