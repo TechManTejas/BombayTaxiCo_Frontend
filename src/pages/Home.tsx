@@ -514,6 +514,18 @@ const Hero: React.FC = () => {
                             </div>
                           </button>
                         </div>
+                        <div className="absolute flex justify-end right-0 w-full h-full lg:hidden mr-4">
+                          <div className="h-full flex flex-col justify-around items-end">
+                            <button
+                              className="bg-white z-30 border rounded-xl border-yellow-500"
+                              onClick={switchValues}
+                              >
+                              <div className="border rounded-xl p-1 text-xl hover:bg-gray-200 shadow-lg">
+                                <Swap />
+                              </div>
+                            </button>
+                            </div>
+                        </div>
                       </>
                     }
                     <div className="group w-full lg:w-[228px]  p-3 space-y-1 border-2 rounded-xl z-20 hover:border-[#FDB813] transition-all duration-300 h-20">
