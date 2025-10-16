@@ -43,6 +43,7 @@ interface BillCardProps {
   routeDistance: number;
   tripRates: any;
   tripType: string;
+  hourlyPackage: string
 }
 
 interface TripRate {
@@ -87,6 +88,7 @@ const BillCard: React.FC<BillCardProps> = ({
   routeDistance,
   tripRates,
   tripType,
+  hourlyPackage
 }) => {
   const [settings, setSettings] = useState<ISettings | null>(null);
 
@@ -94,7 +96,7 @@ const BillCard: React.FC<BillCardProps> = ({
     const fetchSettings = async () => {
       try {
         const response = await axios.get("/settings/get");
-
+        console.log(response.data.settings);
         setSettings(response.data.settings);
       } catch (error) {
         console.error("Error fetching cities:", error);
@@ -116,6 +118,10 @@ const BillCard: React.FC<BillCardProps> = ({
                 <div>{settings?.baseFare}</div>
               </div>
               <div className="flex justify-between">
+                <div>Vehicles & Fuel Charges</div>
+                <div>{settings?.vehiclesAndFuelCharges}</div>
+              </div>
+              <div className="flex justify-between">
                 <div>GST(5% on Base Fare)</div>
                 <div>{settings?.gst}</div>
               </div>
@@ -124,13 +130,30 @@ const BillCard: React.FC<BillCardProps> = ({
                 <div>{settings?.stateTollTax}</div>
               </div>
               <div className="flex justify-between">
-                <div>Vehicles & Fuel Charges</div>
+                <div>Included Kms</div>
                 <div>{routeDistance}KM</div>
               </div>
-              <div className="flex justify-between">
-                <div>One Pickup & Drop</div>
-                <div>{settings?.onePickupAndDrop}</div>
-              </div>
+              {tripType === "One-Way Trip" && (
+                <div className="flex justify-between">
+                  <div>One Pickup & Drop</div>
+                  <div>{settings?.onePickupAndDrop}</div>
+                </div>
+                )
+              }
+              {tripType === "Round Trip" && (
+                <div className="flex justify-between">
+                  <div>Timing (1 day) </div>
+                  <div> 12:01 AM To 11:59 PM </div>
+                </div>
+                )
+              }
+              {tripType === "Hourly Rental" && (
+                <div className="flex justify-between">
+                  <div>Included Hrs</div>
+                  <div>{String(hourlyPackage.match(/^\d+/)?.[0] || "0").padStart(2, "0")} Hrs </div>
+                </div>
+                )
+              }
             </div>
           </div>
           <hr className="my-3" />
@@ -142,21 +165,38 @@ const BillCard: React.FC<BillCardProps> = ({
                 <div>{settings?.parkingAndAirportEntry}</div>
               </div>
               <div className="flex justify-between">
-                <div>Waiting Charges</div>
+                <div>Waiting Charges <br /> (After 45 mins)</div>
                 <div>
                   ₹ {settings?.waitingChargesPerMinute?.toLocaleString()}
                 </div>
               </div>
+              {tripType === "Round Trip" && (
+                <div className="flex justify-between">
+                  <div>Driver Allowance</div>
+                  <div>₹ 250/Day</div>
+                </div>
+                )
+              }
+              {tripType === "Hourly Rental" && (
+                <div className="flex justify-between">
+                  <div>Beyond {String(hourlyPackage.match(/^\d+/)?.[0] || "0").padStart(2, "0")} Hours</div>
+                  <div>₹ 100/hour</div>
+                </div>
+                )
+              }
               <div className="flex justify-between">
                 <div>
                   Night Charges <br /> (11 PM & 6 AM)
                 </div>
-                <div>₹ {settings?.nightChargePerDay?.toLocaleString()}</div>
+                <div>₹ {settings?.nightChargePerDay?.toLocaleString()}/Night</div>
               </div>
-              <div className="flex justify-between">
-                <div>Extra Pickup/Drop</div>
-                <div>{settings?.extraPickupDropCharges?.toLocaleString()}</div>
-              </div>
+              {tripType === "One-Way Trip" && (
+                <div className="flex justify-between">
+                  <div>Extra Pickup/Drop</div>
+                  <div>{settings?.extraPickupDropCharges?.toLocaleString()}</div>
+                </div>
+                )
+              }
             </div>
           </div>
           <hr className="my-3" />
@@ -185,7 +225,7 @@ const BillCard: React.FC<BillCardProps> = ({
             </div>
           </div>
         </div>
-        <WaitingAndDriverAllowance settings={settings} />
+        {/* <WaitingAndDriverAllowance settings={settings} /> */}
       </div>
     </>
   );
@@ -195,6 +235,7 @@ const BillCardSticky: React.FC<BillCardProps> = ({
   routeDistance,
   tripRates,
   tripType,
+  hourlyPackage
 }) => {
   const [settings, setSettings] = useState<ISettings | null>(null);
 
@@ -216,12 +257,16 @@ const BillCardSticky: React.FC<BillCardProps> = ({
     <>
       <div className="min-w-[360px] lg:max-w-xs w-full lg:sticky lg:m-1 lg:top-36 text-sm">
         <div className="bg-white rounded-lg">
-          <div>
+        <div>
             <div className="text-lg my-1 font-semibold">Fare Details</div>
             <div className="font-light space-y-2">
               <div className="flex justify-between">
                 <div>Base Fare</div>
                 <div>{settings?.baseFare}</div>
+              </div>
+              <div className="flex justify-between">
+                <div>Vehicles & Fuel Charges</div>
+                <div>{settings?.vehiclesAndFuelCharges}</div>
               </div>
               <div className="flex justify-between">
                 <div>GST(5% on Base Fare)</div>
@@ -232,13 +277,30 @@ const BillCardSticky: React.FC<BillCardProps> = ({
                 <div>{settings?.stateTollTax}</div>
               </div>
               <div className="flex justify-between">
-                <div>Vehicles & Fuel Charges</div>
+                <div>Included Kms</div>
                 <div>{routeDistance}KM</div>
               </div>
-              <div className="flex justify-between">
-                <div>One Pickup & Drop</div>
-                <div>{settings?.onePickupAndDrop}</div>
-              </div>
+              {tripType === "One-Way Trip" && (
+                <div className="flex justify-between">
+                  <div>One Pickup & Drop</div>
+                  <div>{settings?.onePickupAndDrop}</div>
+                </div>
+                )
+              }
+              {tripType === "Round Trip" && (
+                <div className="flex justify-between">
+                  <div>Timing (1 day) </div>
+                  <div> 12:01 AM To 11:59 PM </div>
+                </div>
+                )
+              }
+              {tripType === "Hourly Rental" && (
+                <div className="flex justify-between">
+                  <div>Included Hrs</div>
+                  <div>{String(hourlyPackage.match(/^\d+/)?.[0] || "0").padStart(2, "0")} Hrs </div>
+                </div>
+                )
+              }
             </div>
           </div>
           <hr className="my-3" />
@@ -250,21 +312,38 @@ const BillCardSticky: React.FC<BillCardProps> = ({
                 <div>{settings?.parkingAndAirportEntry}</div>
               </div>
               <div className="flex justify-between">
-                <div>Waiting Charges</div>
+                <div>Waiting Charges <br /> (After 45 mins)</div>
                 <div>
                   ₹ {settings?.waitingChargesPerMinute?.toLocaleString()}
                 </div>
               </div>
+              {tripType === "Round Trip" && (
+                <div className="flex justify-between">
+                  <div>Driver Allowance</div>
+                  <div>₹ 250/Day</div>
+                </div>
+                )
+              }
+              {tripType === "Hourly Rental" && (
+                <div className="flex justify-between">
+                  <div>Beyond {String(hourlyPackage.match(/^\d+/)?.[0] || "0").padStart(2, "0")} Hours</div>
+                  <div>₹ 100/hour</div>
+                </div>
+                )
+              }
               <div className="flex justify-between">
                 <div>
                   Night Charges <br /> (11 PM & 6 AM)
                 </div>
-                <div>₹ {settings?.nightChargePerDay?.toLocaleString()}</div>
+                <div>₹ {settings?.nightChargePerDay?.toLocaleString()}/Night</div>
               </div>
-              <div className="flex justify-between">
-                <div>Extra Pickup/Drop</div>
-                <div>{settings?.extraPickupDropCharges?.toLocaleString()}</div>
-              </div>
+              {tripType === "One-Way Trip" && (
+                <div className="flex justify-between">
+                  <div>Extra Pickup/Drop</div>
+                  <div>{settings?.extraPickupDropCharges?.toLocaleString()}</div>
+                </div>
+                )
+              }
             </div>
           </div>
           <hr className="my-3" />
@@ -949,19 +1028,31 @@ const Search: React.FC = () => {
                   {activeTab !== "Hourly Rental" && (
                     <div className="lg:flex-row gap-2 relative flex flex-col">
                       {
-                        <>
-                          <div className="hidden absolute w-full h-full lg:flex justify-center items-center">
-                            <button
-                              className="bg-white z-30 border rounded-xl border-yellow-500"
-                              onClick={switchValues}
-                            >
-                              <div className="border rounded-xl p-1 text-xl hover:bg-gray-200 shadow-lg">
-                                <Swap />
-                              </div>
-                            </button>
-                          </div>
-                        </>
-                      }
+                                            <>
+                                              <div className="hidden absolute w-full h-full lg:flex justify-center items-center">
+                                                <button
+                                                  className="bg-white z-30 border rounded-xl border-yellow-500"
+                                                  onClick={switchValues}
+                                                >
+                                                  <div className="border rounded-xl p-1 text-xl hover:bg-gray-200 shadow-lg">
+                                                    <Swap />
+                                                  </div>
+                                                </button>
+                                              </div>
+                                              <div className="absolute flex justify-end right-0 w-full h-full lg:hidden mr-4">
+                                                <div className="h-full flex flex-col justify-around items-end">
+                                                  <button
+                                                    className="bg-white z-30 border rounded-xl border-yellow-500"
+                                                    onClick={switchValues}
+                                                    >
+                                                    <div className="border rounded-xl p-1 text-xl hover:bg-gray-200 shadow-lg">
+                                                      <Swap />
+                                                    </div>
+                                                  </button>
+                                                  </div>
+                                              </div>
+                                            </>
+                                          }
                       <div className="group w-full lg:w-[228px]  p-3 space-y-1 border-2 rounded-xl z-20 hover:border-[#FDB813] transition-all duration-300 h-20">
                         <div className="text-xs flex items-center gap-1">
                           <From />
@@ -1678,6 +1769,7 @@ const Search: React.FC = () => {
                 routeDistance={distance || 0}
                 tripRates={tripRates}
                 tripType={tripType}
+                hourlyPackage={hourlyPackage}
               />
             </div>
             <div className="w-full lg:w-[800px]">
@@ -1778,6 +1870,7 @@ const Search: React.FC = () => {
               routeDistance={distance || 0}
               tripRates={tripRates}
               tripType={tripType}
+              hourlyPackage={hourlyPackage}
             />
           </div>
         </div>

@@ -352,7 +352,7 @@ const UserNavbar: React.FC = () => {
                     </div>
                 </div>
             </div>
-            <div className="bg-white]">
+            <div className="bg-white">
                 <nav className="bg-secondary mx-auto container rounded-xl drop-shadow flex justify-between items-center content-center">
                     <div className="p-4 w-52 md:w-72 hover:cursor-pointer">
                         <span
