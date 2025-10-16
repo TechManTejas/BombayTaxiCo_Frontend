@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useEffect, useState } from "react";
 import DetailsCarCard from "../components/DetailsCarCard";
-import RightArrow from "../assets/images/right-arrow.png"
+import RightArrow from "../assets/images/right-arrow.png";
 import {
   Button,
   Checkbox,
@@ -23,11 +23,15 @@ import { useLocation, useNavigate } from "react-router-dom";
 
 import { ISettings } from "../types/settings.types";
 import { IRoute } from "../types/routes.types";
-import { ArrowRightOutlined, DownOutlined, SwapOutlined, UpOutlined } from "@ant-design/icons";
+import {
+  ArrowRightOutlined,
+  DownOutlined,
+  SwapOutlined,
+  UpOutlined,
+} from "@ant-design/icons";
 import dayjs, { Dayjs } from "dayjs";
 import { Context } from "../context/context.provider";
 import { BookingConfirmed } from "../components/BookingConfirmed";
-import { FaArrowRight } from "react-icons/fa";
 
 const { Panel } = Collapse;
 
@@ -64,6 +68,259 @@ interface RazorpayOptions {
     color: string;
   };
 }
+
+
+const AllInOne = () => {
+  return (
+    <>
+      <div className="bg-white border my-3 rounded-lg">
+        <Collapse accordion className="bg-white rounded-2xl border-none">
+          <Panel header="Read before you book!" key="1">
+            {/* <div className="font-medium text-2xl mb-4">Read before you book!</div> */}
+            <div
+              className="lg:flex gap-8
+                    lg:w-[730px]
+                    "
+            >
+              <div className="lg:w-1/2 space-y-4">
+                <div className="space-y-2">
+                  <div className="font-bold">Cab Category</div>
+                  <div className="w-full text-zinc-500 text-sm">
+                    The booking will be for cab type HATCHBACK and we do not
+                    commit on providing the preferred cab model (Indica, Swift
+                    or similar)
+                  </div>
+                </div>
+                <div className="space-y-2">
+                  <div className="font-bold">Hilly Regions</div>
+                  <div className="w-full text-zinc-500 text-sm">
+                    AC will be switched off in hilly areas
+                  </div>
+                </div>
+                <div className="space-y-2">
+                  <div className="font-bold">Luggage Policy</div>
+                  <div className="w-full text-zinc-500 text-sm">
+                    HATCHBACK has space for 1 Luggage Bag. In case the car
+                    happens to be CNG, the luggage space will be lesser. However
+                    depending on the number of passengers, luggage can be
+                    adjusted in seating area with driver consent.
+                  </div>
+                </div>
+                <div className="space-y-2">
+                  <div className="font-bold">Driver Details</div>
+                  <div className="w-full text-zinc-500 text-sm">
+                    Driver details will be shared up to 30 mins prior to
+                    departure. Incase the driver/cab that reaches you for pick
+                    up is different from what we have communicated, please don't
+                    board the cab and call us for assistance.
+                  </div>
+                </div>
+              </div>
+              <div className="lg:w-1/2 space-y-4">
+                <div className="space-y-2">
+                  <div className="font-bold">Stops</div>
+                  <div className="w-full text-zinc-500 text-sm">
+                    This is a point to point booking and only one stop for meals
+                    is included.
+                  </div>
+                </div>
+                <div className="space-y-2">
+                  <div className="font-bold">Waiting Charges</div>
+                  <div className="w-full text-zinc-500 text-sm">
+                    Driver would wait maximum 45 minutes from your scheduled
+                    pickup time at your pickup location. Post this, your trip
+                    may get cancelled without any refund. If there is a mutual
+                    agreement between customer and driver, waiting charges would
+                    be Rs 2.0/min.
+                  </div>
+                </div>
+                <div className="space-y-2">
+                  <div className="font-bold">Delays</div>
+                  <div className="w-full text-zinc-500 text-sm">
+                    Due to traffic or any other unavoidable reason, pickup may
+                    be delayed by 30 mins.
+                  </div>
+                </div>
+                <div className="space-y-2">
+                  <div className="font-bold">Receipts</div>
+                  <div className="w-full text-zinc-500 text-sm">
+                    You need to collect receipts from the driver for any extra
+                    charges paid directly to the driver during the trip. MMT is
+                    not liable to provide invoices for such amounts.
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="font-medium text-2xl my-4">On Trip Do's & Don'ts</div>
+            <div
+              className="lg:flex gap-8
+            lg:w-[730px]
+          "
+            >
+              <div className="space-y-1 text-sm">
+                <div className="w-full">
+                  ● You have booked our eco-friendly / cng service tier. Your
+                  trip will be served with a *vehicle fueled by cng*
+                </div>
+                <div className="w-full">
+                  ● When you book our value or cng service tiers, we only
+                  promise to provide a vehicle of a certain category (compact,
+                  sedan, suv etc). We do not guarantee a specific model of car.
+                  To choose a specific vehicle model you must book in premium
+                  service tier.
+                </div>
+                <div className="w-full">
+                  ● On-journey stops or waypoints are not allowed unless part of
+                  itinerary and written in this confirmation email.
+                </div>
+                <div className="w-full">
+                  ● A single 15-minute complimentary on journey break is
+                  included for point-to-point trips longer than 4 hours.
+                </div>
+                <div className="w-full">
+                  ● 30 min rest for driver and/or change of vehicle for more
+                  than 4 hours continuous drive is customary. This is to ensure
+                  safe driving.
+                </div>
+                <div className="w-full">
+                  ● Drivable kms in your quote are estimates. You will be billed
+                  for the actual distance travelled. If you have not provided
+                  the exact address before your pickup the booking amount is
+                  estimate for travel from city center to city center. Actual
+                  distance travelled may differ based on exact addresses and/or
+                  itinerary.
+                </div>
+                <div className="w-full">
+                  ● Driver may not agree to any changes to route or itinerary.
+                  Any changes, additions of waypoints, pick-up points, drop
+                  points, halts, destination cities or sightseeing spots are
+                  absolutely not authorized unless they are added to your
+                  itinerary and confirmed in writing through a booking
+                  confirmation email. Changes to itinerary may lead to price
+                  changes.
+                </div>
+                <div className="w-full">
+                  ● Ac may be switched off only in hilly regions (high altitude)
+                  to prevent engine overload.
+                </div>
+                <div className="w-full">
+                  ● "You agree to make payments for your trip as per the
+                  following payment schedule. (1) advance payment to Bombay taxi
+                  company at time of booking. (2) 50% of remaining payable
+                  amount to driver upon boarding (3) daily part payments of
+                  remaining amount to driver in equal parts "
+                </div>
+              </div>
+            </div>
+            <div className="font-medium text-2xl my-4">Other Terms</div>
+            <div
+              className="lg:flex gap-8
+            lg:w-[730px]
+          "
+            >
+              <div className="space-y-1 text-sm">
+                <div className="w-full">
+                  ● You have booked our eco-friendly / cng service tier. Your
+                  trip will be served with a *vehicle fueled by cng*
+                </div>
+                <div className="w-full">
+                  ● When you book our value or cng service tiers, we only
+                  promise to provide a vehicle of a certain category (compact,
+                  sedan, suv etc). We do not guarantee a specific model of car.
+                  To choose a specific vehicle model you must book in premium
+                  service tier.
+                </div>
+                <div className="w-full">
+                  ● On-journey stops or waypoints are not allowed unless part of
+                  itinerary and written in this confirmation email.
+                </div>
+                <div className="w-full">
+                  ● A single 15-minute complimentary on journey break is
+                  included for point-to-point trips longer than 4 hours.
+                </div>
+                <div className="w-full">
+                  ● 30 min rest for driver and/or change of vehicle for more
+                  than 4 hours continuous drive is customary. This is to ensure
+                  safe driving.
+                </div>
+                <div className="w-full">
+                  ● Drivable kms in your quote are estimates. You will be billed
+                  for the actual distance travelled. If you have not provided
+                  the exact address before your pickup the booking amount is
+                  estimate for travel from city center to city center. Actual
+                  distance travelled may differ based on exact addresses and/or
+                  itinerary.
+                </div>
+                <div className="w-full">
+                  ● Driver may not agree to any changes to route or itinerary.
+                  Any changes, additions of waypoints, pick-up points, drop
+                  points, halts, destination cities or sightseeing spots are
+                  absolutely not authorized unless they are added to your
+                  itinerary and confirmed in writing through a booking
+                  confirmation email. Changes to itinerary may lead to price
+                  changes.
+                </div>
+                <div className="w-full">
+                  ● Ac may be switched off only in hilly regions (high altitude)
+                  to prevent engine overload.
+                </div>
+                <div className="w-full">
+                  ● "You agree to make payments for your trip as per the
+                  following payment schedule. (1) advance payment to Bombay taxi
+                  company at time of booking. (2) 50% of remaining payable
+                  amount to driver upon boarding (3) daily part payments of
+                  remaining amount to driver in equal parts "
+                </div>
+              </div>
+            </div>
+          <div className="font-medium text-2xl my-4">Pre-boarding guidelines</div>
+            <div
+              className="lg:flex gap-8
+            lg:w-[730px]
+          "
+            >
+              <div className="space-y-1 text-sm">
+                <div className="w-full">
+                  ● Check identification of the driver
+                </div>
+                <div className="w-full">
+                  ● Are there changes in your trip start address ? -- first
+                  update the pickup address with Bombay taxi company. For safety
+                  and security reasons, driver is unable start the trip from a
+                  location other than the one provided in the booking.
+                </div>
+                <div className="w-full">
+                  ● Do not ride if the vehicle is not commercially licensed.
+                  (yellow license plate)
+                </div>
+                <div className="w-full">
+                  ● Do not ride if the vehicle and/or driver information do not
+                  match the information provided by Bombay taxi company.
+                </div>
+                <div className="w-full">
+                  ● Bombay taxi company shall not be responsible or liable in
+                  any manner if you choose to ride in a vehicle that is not
+                  commercially licensed or ride with a driver or vehicle other
+                  than the one that we have assigned to you.
+                </div>
+                <div className="w-full">
+                  ● You may ask the driver for identification to ensure that you
+                  are riding with the correct driver. Drivers may ask for your
+                  identification too. Failure to provide identification will
+                  make your booking subject to cancellation at your cost.
+                </div>
+                <div className="w-full">
+                  ● Provide the one-time password (otp) to the driver to start
+                  the trip.
+                </div>
+              </div>
+            </div>
+          </Panel>
+        </Collapse>
+      </div>
+    </>
+  );
+};
 
 const ReadBeforeYouBook = () => {
   return (
@@ -388,15 +645,16 @@ const Details: React.FC = () => {
   const pickupTime = state.pickupTime || null;
   const pickupCityId = state.pickupCityId || null;
   const hourlyPackage = state.hourlyPackage || null;
-  const [hours, _, kms, __] = state.hourlyPackage.split(' ').map((value: string) => parseInt(value));
+  const [hours, _, kms, __] = state.hourlyPackage
+    .split(" ")
+    .map((value: string) => parseInt(value));
 
   useEffect(() => {
     window.scrollTo({
       top: 0,
-      behavior: "smooth" // Use "auto" if you don't want a smooth scroll
+      behavior: "smooth", // Use "auto" if you don't want a smooth scroll
     });
   }, []);
-  
 
   const cancellationDeadline = dayjs(
     `${pickupDate.format("YYYY-MM-DD")} ${pickupTime}`
@@ -433,7 +691,7 @@ const Details: React.FC = () => {
       // Reset states before making API call
       setShowCouponError(false);
       setShowCouponApplied(false);
-      
+
       const response = await axios.post("/coupons/apply-coupon", {
         couponCode,
         amount: taxiRate.discountedPrice,
@@ -442,11 +700,11 @@ const Details: React.FC = () => {
       setCouponDiscountedAmount(response.data.discountedAmount);
       setCouponId(response.data.couponId);
       setShowCouponApplied(true); // Show coupon applied status
-      setShowCouponError(false);  // Ensure error is reset
+      setShowCouponError(false); // Ensure error is reset
       message.success("Coupons applied successfully!");
     } catch (error: any) {
       setCouponDiscountedAmount(0); // Reset discount amount on error
-      setShowCouponApplied(false);  // Hide coupon applied status
+      setShowCouponApplied(false); // Hide coupon applied status
 
       // Check if the coupon was invalid or expired
       if (error.response && error.response.status === 404) {
@@ -467,7 +725,7 @@ const Details: React.FC = () => {
     setCouponCode("");
     setCouponDiscountedAmount(0);
     setShowCouponApplied(false); // Hide coupon applied status when cleared
-    setShowCouponError(false);   // Reset coupon error status
+    setShowCouponError(false); // Reset coupon error status
   };
 
   const onChange = (e: RadioChangeEvent) => {
@@ -741,8 +999,7 @@ const Details: React.FC = () => {
           "
           >
             <div className="px-1">
-              <div className="my-3">
-              </div>
+              <div className="my-3"></div>
               <DetailsCarCard
                 carImage={taxiRate.taxiType?.image}
                 category={taxiRate.taxiType?.name || ""}
@@ -750,7 +1007,9 @@ const Details: React.FC = () => {
                 features={taxiRate.taxiType?.car_features || []}
                 originalPrice={taxiRate.originalPrice || ""}
                 discountedPrice={taxiRate.discountedPrice || ""}
-                discount={taxiRate.taxiType.discount_percentage.toString() || ""}
+                discount={
+                  taxiRate.taxiType.discount_percentage.toString() || ""
+                }
                 preview
               />
               <div className="bg-white border-b border-x rounded-b-lg p-4">
@@ -865,13 +1124,17 @@ const Details: React.FC = () => {
                         <div className="text-sm text-slate-500">
                           Pickup Location
                         </div>
-                        <div className="text-sm font-bold">{state?.pickupCity}</div>
+                        <div className="text-sm font-bold">
+                          {state?.pickupCity}
+                        </div>
                       </div>
                       <div className="flex flex-col gap-1 items-end">
                         <div className="text-sm text-slate-500">
                           Drop-Off Location
                         </div>
-                        <div className="text-sm font-bold">{state?.pickupCity}</div>
+                        <div className="text-sm font-bold">
+                          {state?.pickupCity}
+                        </div>
                       </div>
                     </div>
                     <div className="flex items-center">
@@ -908,11 +1171,98 @@ const Details: React.FC = () => {
                 )}
               </div>
               <>
+                <div className="lg:hidden">
+                  <div className="bg-white border my-3 rounded-lg">
+                    <Collapse
+                      accordion
+                      className="bg-white rounded-2xl border-none"
+                    >
+                      <Panel header="Inclusions & Exclusions" key="1">
+                        <div>
+                          <div className="lg:w-1/2">
+                            <div className="font-medium text-2xl mb-4">
+                              Inclusions
+                            </div>
+                            <div className="mx-4 mb-4">
+                              <ul className="list-disc space-y-2 text-sm">
+                                <li>State Tax</li>
+                                <li>Toll Charges</li>
+                                <li>
+                                  {tripType === "Round Trip"
+                                    ? route?.round_trip_km || 0
+                                    : tripType === "Hourly Rental"
+                                    ? kms.toString()
+                                    : route?.one_way_trip_km || 0}{" "}
+                                  Kms
+                                </li>
+                                <li>Driver Allowance</li>
+                                <li>
+                                  Only One Pickup and Drop
+                                  <span className="text-xs text-zinc-500">
+                                    {" "}
+                                    ( Only one included ){" "}
+                                  </span>
+                                </li>
+                              </ul>
+                            </div>
+                          </div>
+                          <div className="lg:w-1/2">
+                            <div className="font-medium text-2xl mb-4">
+                              Exclusions
+                            </div>
+                            <div className="mx-4 mb-4">
+                              <ul className="list-disc space-y-2 text-sm">
+                                <li>
+                                  <div className="flex">
+                                    <div className="flex-grow">
+                                      Waiting Charges
+                                    </div>
+                                    <div className="flex-grow text-right w-24 font-semibold">
+                                      After 45 mins, ₹{" "}
+                                      {settings?.waitingChargesPerMinute?.toLocaleString()}
+                                    </div>
+                                  </div>
+                                </li>
+                                <li>
+                                  <div className="flex">
+                                    <div className="flex-grow">
+                                      Fare beyond{" "}
+                                      {tripType === "Round Trip"
+                                        ? route?.round_trip_km || 0
+                                        : tripType === "Hourly Rental"
+                                        ? kms.toString()
+                                        : route?.one_way_trip_km || 0}{" "}
+                                      Kms
+                                    </div>
+                                    <div className="text-right w-24 font-semibold">
+                                      {tripType === "Hourly Rental" ? (
+                                        <>
+                                          ₹ {taxiRate.taxiType.price_hour} /
+                                          hour
+                                        </>
+                                      ) : (
+                                        <>
+                                          ₹{" "}
+                                          {taxiRate.extraKmCharges?.toLocaleString()}{" "}
+                                          /Km
+                                        </>
+                                      )}
+                                    </div>
+                                  </div>
+                                </li>
+                              </ul>
+                            </div>
+                          </div>
+                        </div>
+                      </Panel>
+                    </Collapse>
+                  </div>
+                </div>
                 <div
-                  className="flex  bg-white my-3 rounded-lg shadow-lg border
-                  flex-col
-                  lg:flex-row
-                "
+                  className="lg:flex  bg-white my-3 rounded-lg shadow-lg border
+                    hidden
+                    lg:flex-row
+                  "
                 >
                   <div className="lg:w-1/2  p-4 ">
                     <div className="font-medium text-2xl mb-4">Inclusions</div>
@@ -966,23 +1316,24 @@ const Details: React.FC = () => {
                             </div>
                             <div className="text-right w-24 font-semibold">
                               {tripType === "Hourly Rental" ? (
-                                  <>
-                                    ₹ {taxiRate.taxiType.price_hour} / hour
-                                  </>
-                                ):
-                                (
-                                  <>
-                                     ₹ {taxiRate.extraKmCharges?.toLocaleString()} /Km
-                                  </>
-                                )
-                              }
-                             
+                                <>₹ {taxiRate.taxiType.price_hour} / hour</>
+                              ) : (
+                                <>
+                                  ₹ {taxiRate.extraKmCharges?.toLocaleString()}{" "}
+                                  /Km
+                                </>
+                              )}
                             </div>
                           </div>
                         </li>
                       </ul>
                     </div>
                   </div>
+                </div>
+              </>
+              <>
+                <div className="lg:hidden">
+                  <AllInOne/>
                 </div>
               </>
               <>
@@ -1451,14 +1802,16 @@ const Details: React.FC = () => {
                   </Form>
                 </div>
               </>
-              <ReadBeforeYouBook />
-              <OnTripDosAndDonts />
-              <OtherTerms />
-              <PreBoardingGuidelines />
+              <div className="hidden lg:block">
+                <ReadBeforeYouBook />
+                <OnTripDosAndDonts />
+                <OtherTerms />
+                <PreBoardingGuidelines />
+              </div>
               {/* <WaitingAndDriverAllowance /> */}
             </div>
             <>
-              <div className="min-w-full lg:min-w-[320px] max-w-xs lg:w-full m-3 sticky top-36">
+              <div className="min-w-full lg:min-w-[330px] max-w-xs lg:w-full m-3 sticky top-36">
                 <div className="bg-[#FEF0CF] p-4 text-xs rounded-t-lg">
                   Free Cancellation Before{" "}
                   {cancellationDeadline.format("D MMM YYYY, hh:mm A")} Ist
@@ -1516,11 +1869,15 @@ const Details: React.FC = () => {
                       </Space.Compact>
                       {/* Display relevant text based on coupon status */}
                       {showCouponError && (
-                        <p className="text-red-500 mt-2 text-sm">Coupon is expired or invalid.</p>
+                        <p className="text-red-500 mt-2 text-sm">
+                          Coupon is expired or invalid.
+                        </p>
                       )}
 
                       {showCouponApplied && !showCouponError && (
-                        <p className="text-green-500 mt-2 text-sm">Coupon applied successfully!</p>
+                        <p className="text-green-500 mt-2 text-sm">
+                          Coupon applied successfully!
+                        </p>
                       )}
                     </div>
                   </div>
@@ -1542,7 +1899,9 @@ const Details: React.FC = () => {
                             ₹ {taxiRate.originalPrice?.toLocaleString()}
                           </div>
                           <div className="text-2xl font-bold">
-                            ₹ {couponDiscountedAmount || taxiRate.discountedPrice?.toLocaleString()}
+                            ₹{" "}
+                            {couponDiscountedAmount ||
+                              taxiRate.discountedPrice?.toLocaleString()}
                           </div>
                         </div>
                       </div>

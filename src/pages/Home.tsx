@@ -404,7 +404,7 @@ const Hero: React.FC = () => {
                             <div className="hidden">
                               <OneWayTripIcon />
                             </div>
-                            <span className="-mx-1.5 lg:mx-2 w-full text-center">One-Way Trip</span>
+                            <span className="-ml-1.5 w-full text-center">One-Way Trip</span>
                           </div>
                         </div>
                       ),
@@ -418,7 +418,7 @@ const Hero: React.FC = () => {
                             <div className="hidden">
                               <RoundTripIcon />
                             </div>
-                            <span className="-mx-1.5 lg:mx-2 w-full text-center">Round Trip</span>
+                            <span className="-ml-1.5 w-full text-center">Round Trip</span>
                           </div>
                         </div>
                       ),
@@ -432,7 +432,7 @@ const Hero: React.FC = () => {
                             <div className="hidden">
                               <HourlyRentalIcon />
                             </div>
-                            <span className="-mx-1.5 lg:mx-2 w-full text-center">Hourly Rental</span>
+                            <span className="-ml-1.5 w-full text-center">Hourly Rental</span>
                           </div>
                         </div>
                       ),
@@ -474,6 +474,9 @@ const Hero: React.FC = () => {
                       size="large"
                       optionLabelProp="label"
                       bordered={false}
+                      suffixIcon={null}        
+                      removeIcon={null}        
+                      menuItemSelectedIcon={null} 
                       filterOption={(input, option) =>
                         (option?.label ?? "")
                           .toString()
@@ -483,6 +486,12 @@ const Hero: React.FC = () => {
                       onChange={(value, option: any) => {
                         setPickupCity(option.label);
                         setPickupCityId(value);
+                      }}
+                      onInputKeyDown={(e) => {
+                        if (e.key === "Backspace" && !e.target.value) {
+                          setPickupCity("");
+                          setPickupCityId(null);
+                        }
                       }}
                       options={cities.map((city) => ({
                         value: city._id,
@@ -520,6 +529,9 @@ const Hero: React.FC = () => {
                         size="large"
                         optionLabelProp="label"
                         bordered={false}
+                        suffixIcon={null}        
+                        removeIcon={null}        
+                        menuItemSelectedIcon={null} 
                         filterOption={(input, option) =>
                           (option?.label ?? "")
                             .toString()
@@ -529,6 +541,12 @@ const Hero: React.FC = () => {
                         onChange={(value, option: any) => {
                           setFrom(option.label);
                           setFromId(value);
+                        }}
+                        onInputKeyDown={(e) => {
+                          if (e.key === "Backspace" && !e.target.value) {
+                            setFrom("");
+                            setFromId(null);
+                          }
                         }}
                         options={cities
                           .filter((city) => city._id !== toId)
@@ -564,6 +582,9 @@ const Hero: React.FC = () => {
                         size="large"
                         optionLabelProp="label"
                         bordered={false}
+                        suffixIcon={null}        
+                        removeIcon={null}        
+                        menuItemSelectedIcon={null} 
                         filterOption={(input, option) =>
                           (option?.label ?? "")
                             .toString()
@@ -573,6 +594,12 @@ const Hero: React.FC = () => {
                         onChange={(value, option: any) => {
                           setTo(option.label);
                           setToId(value);
+                        }}
+                        onInputKeyDown={(e) => {
+                          if (e.key === "Backspace" && !e.target.value) {
+                            setTo("");
+                            setToId(null);
+                          }
                         }}
                         options={cities
                           .filter((city) => city._id !== fromId)
