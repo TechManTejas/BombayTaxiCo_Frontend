@@ -25,5 +25,20 @@ describe('CallUsNow Component', () => {
     const mainDiv = container.firstChild as HTMLElement
     expect(mainDiv).toHaveClass('hidden', 'bg-[#FDB813]', 'h-60')
   })
+
+  test('renders phone icon in link', () => {
+    render(<CallUsNow />)
+
+    const phoneLink = screen.getByRole('link', { name: /\+91-6262-744-744/i })
+    expect(phoneLink).toBeInTheDocument()
+    expect(phoneLink.querySelector('svg')).toBeInTheDocument()
+  })
+
+  test('has correct text content', () => {
+    render(<CallUsNow />)
+
+    expect(screen.getByText('Call 24 Hour Service Available')).toBeInTheDocument()
+    expect(screen.getByText(/Call Now & Book Your Taxi/)).toBeInTheDocument()
+  })
 })
 

@@ -40,5 +40,31 @@ describe('ServiceCard Component', () => {
     const mainDiv = container.firstChild as HTMLElement
     expect(mainDiv).toHaveClass('relative', 'w-[320px]', 'h-[340px]', 'select-none')
   })
+
+  test('renders with different props', () => {
+    const differentProps = {
+      icon: <span>🚕</span>,
+      feature: 'Airport Transfer',
+      title: 'Airport Service',
+      description: 'Reliable airport transfer service',
+      detailsUrl: '/services/airport',
+      image: '/airport.jpg'
+    }
+
+    render(
+      <BrowserRouter>
+        <ServiceCard {...differentProps} />
+      </BrowserRouter>
+    )
+
+    expect(screen.getByText('Airport Service')).toBeInTheDocument()
+    expect(screen.getByText('Reliable airport transfer service')).toBeInTheDocument()
+  })
+
+  test('renders icon correctly', () => {
+    render(<MockServiceCard />)
+
+    expect(screen.getByText('🚗')).toBeInTheDocument()
+  })
 })
 
