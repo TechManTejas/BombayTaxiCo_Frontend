@@ -93,5 +93,136 @@ describe('DetailsCarCard Component', () => {
       expect(mockOnBook).not.toHaveBeenCalled()
     }
   })
+
+  test('renders price information correctly', () => {
+    render(<DetailsCarCard {...defaultProps} />)
+    expect(screen.getByText('Inclusive Of Toll & Sate Tax')).toBeInTheDocument()
+  })
+
+  test('formats discounted price with commas', () => {
+    render(<DetailsCarCard {...defaultProps} discountedPrice="10000" />)
+    expect(screen.getByText(/10,000/)).toBeInTheDocument()
+  })
+
+  test('formats original price with commas', () => {
+    render(<DetailsCarCard {...defaultProps} originalPrice="15000" />)
+    expect(screen.getByText(/15,000/)).toBeInTheDocument()
+  })
+
+  test('handles large price values', () => {
+    render(<DetailsCarCard {...defaultProps} discountedPrice="100000" originalPrice="120000" />)
+    expect(screen.getByText(/100,000/)).toBeInTheDocument()
+    expect(screen.getByText(/120,000/)).toBeInTheDocument()
+  })
+
+  test('displays discount percentage', () => {
+    render(<DetailsCarCard {...defaultProps} discount="30" />)
+    expect(screen.getByText(/30/)).toBeInTheDocument()
+  })
+
+  test('handles zero discount', () => {
+    render(<DetailsCarCard {...defaultProps} discount="0" />)
+    expect(screen.getByText('Sedan')).toBeInTheDocument()
+  })
+
+  test('renders category name', () => {
+    render(<DetailsCarCard {...defaultProps} category="SUV" />)
+    expect(screen.getByText('SUV')).toBeInTheDocument()
+  })
+
+  test('renders description text', () => {
+    render(<DetailsCarCard {...defaultProps} description="Premium SUV for family trips" />)
+    expect(screen.getByText('Premium SUV for family trips')).toBeInTheDocument()
+  })
+
+  test('handles empty features array', () => {
+    render(<DetailsCarCard {...defaultProps} features={[]} />)
+    expect(screen.getByText('Sedan')).toBeInTheDocument()
+    expect(screen.getByText('BOOK NOW')).toBeInTheDocument()
+  })
+
+  test('handles features without icons', () => {
+    const featuresWithoutIcons: Feature[] = [{ feature: 'Manual Gear' }]
+    render(<DetailsCarCard {...defaultProps} features={featuresWithoutIcons} />)
+    expect(screen.getByText('Manual Gear')).toBeInTheDocument()
+  })
+
+  test('handles multiple features', () => {
+    const multipleFeatures: Feature[] = [
+      { icon: 'Air Conditioning', feature: 'AC' },
+      { icon: 'Bags', feature: '4 Bags' },
+      { icon: 'Automatic Transmission', feature: 'Auto' },
+      { feature: 'Manual' }
+    ]
+    render(<DetailsCarCard {...defaultProps} features={multipleFeatures} />)
+    expect(screen.getByText('AC')).toBeInTheDocument()
+    expect(screen.getByText('4 Bags')).toBeInTheDocument()
+    expect(screen.getByText('Auto')).toBeInTheDocument()
+    expect(screen.getByText('Manual')).toBeInTheDocument()
+  })
+
+  test('handles boundary width for mobile detection', () => {
+    Object.defineProperty(window, 'innerWidth', { writable: true, configurable: true, value: 1023 })
+    render(<DetailsCarCard {...defaultProps} />)
+    const card = screen.getByText('Sedan').closest('div')
+    if (card) {
+      fireEvent.click(card)
+      expect(mockOnBook).toHaveBeenCalledTimes(1)
+    }
+  })
+
+  test('handles boundary width for desktop detection', () => {
+    Object.defineProperty(window, 'innerWidth', { writable: true, configurable: true, value: 1024 })
+    render(<DetailsCarCard {...defaultProps} />)
+    const card = screen.getByText('Sedan').closest('div')
+    if (card) {
+      fireEvent.click(card)
+      expect(mockOnBook).not.toHaveBeenCalled()
+    }
+  })
+
+  test('handles undefined onBook callback', () => {
+    render(<DetailsCarCard {...defaultProps} onBook={undefined} />)
+    const card = screen.getByText('Sedan').closest('div')
+    if (card) {
+      fireEvent.click(card)
+      expect(card).toBeInTheDocument()
+    }
+  })
+
+  test('renders car image when provided', () => {
+    render(<DetailsCarCard {...defaultProps} carImage="test-image.jpg" />)
+    const images = screen.getAllByRole('img')
+    expect(images.length).toBeGreaterThan(0)
+  })
+
+  test('renders default car image when carImage is undefined', () => {
+    render(<DetailsCarCard {...defaultProps} carImage="undefined" />)
+    const images = screen.getAllByRole('img')
+    expect(images.length).toBeGreaterThan(0)
+  })
+
+  test('BOOK NOW button is clickable when not in preview', () => {
+    render(<DetailsCarCard {...defaultProps} />)
+    const bookButton = screen.getByText('BOOK NOW')
+    expect(bookButton).toBeInTheDocument()
+    fireEvent.click(bookButton)
+    expect(mockOnBook).toHaveBeenCalledTimes(1)
+  })
+
+  test('handles different screen sizes for mobile click', () => {
+    const widths = [320, 480, 768, 1023]
+    widths.forEach(width => {
+      Object.defineProperty(window, 'innerWidth', { writable: true, configurable: true, value: width })
+      const { unmount } = render(<DetailsCarCard {...defaultProps} />)
+      const card = screen.getByText('Sedan').closest('div')
+      if (card) {
+        fireEvent.click(card)
+        expect(mockOnBook).toHaveBeenCalled()
+      }
+      unmount()
+      vi.clearAllMocks()
+    })
+  })
 })
 
