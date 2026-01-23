@@ -89,5 +89,19 @@ describe('Footer Component', () => {
     const aboutButton = screen.getByText('About Us').closest('button')
     expect(aboutButton).toBeInTheDocument()
   })
+
+  test('renders all social media buttons', () => {
+    render(<MockFooter />)
+
+    const buttons = screen.getAllByRole('button')
+    expect(buttons.length).toBeGreaterThanOrEqual(4)
+  })
+
+  test('renders company information correctly', () => {
+    render(<MockFooter />)
+
+    expect(screen.getByText('ABOUT COMPANY')).toBeInTheDocument()
+    expect(screen.getByText(/Traveling one way/)).toBeInTheDocument()
+  })
 })
 

@@ -64,5 +64,31 @@ describe('MyContextProvider', () => {
 
     consoleSpy.mockRestore()
   })
+
+  test('updates authentication state when token is set', () => {
+    localStorage.setItem('token', 'new-token')
+
+    const { rerender } = render(
+      <MyContextProvider>
+        <TestComponent />
+      </MyContextProvider>
+    )
+
+    expect(screen.getByTestId('user-auth')).toHaveTextContent('true')
+  })
+
+  test('handles both user and admin tokens', () => {
+    localStorage.setItem('token', 'user-token')
+    localStorage.setItem('admin-token', 'admin-token')
+
+    render(
+      <MyContextProvider>
+        <TestComponent />
+      </MyContextProvider>
+    )
+
+    expect(screen.getByTestId('user-auth')).toHaveTextContent('true')
+    expect(screen.getByTestId('admin-auth')).toHaveTextContent('true')
+  })
 })
 

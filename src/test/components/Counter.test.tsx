@@ -86,5 +86,32 @@ describe('useCounter Hook', () => {
 
     expect(result.current).toBe(1000)
   })
+
+  test('handles negative end value', () => {
+    const { result } = renderHook(() => useCounter(-5, 100))
+
+    act(() => {
+      vi.advanceTimersByTime(100)
+    })
+
+    expect(result.current).toBe(0)
+  })
+
+  test('handles zero duration', () => {
+    const { result } = renderHook(() => useCounter(10, 0))
+
+    expect(result.current).toBe(0)
+  })
+
+  test('updates count incrementally', () => {
+    const { result } = renderHook(() => useCounter(10, 100))
+
+    act(() => {
+      vi.advanceTimersByTime(50)
+    })
+
+    expect(result.current).toBeGreaterThan(0)
+    expect(result.current).toBeLessThanOrEqual(10)
+  })
 })
 

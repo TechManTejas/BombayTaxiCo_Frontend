@@ -122,4 +122,36 @@ describe('CarCard Component', () => {
 
     expect(screen.getByText('₹ 10,000')).toBeInTheDocument()
   })
+
+  test('handles empty features array', () => {
+    render(<CarCard {...defaultProps} features={[]} />)
+
+    expect(screen.getByText('Sedan')).toBeInTheDocument()
+  })
+
+  test('handles missing onBook callback', () => {
+    render(<CarCard {...defaultProps} onBook={undefined} />)
+
+    const bookButton = screen.getByText('BOOK NOW')
+    fireEvent.click(bookButton)
+    // Should not throw error
+    expect(bookButton).toBeInTheDocument()
+  })
+
+  test('renders with different discount values', () => {
+    const { rerender } = render(<CarCard {...defaultProps} discount="0" />)
+    expect(screen.queryByText('₹ 1,000')).not.toBeInTheDocument()
+
+    rerender(<CarCard {...defaultProps} discount="50" />)
+    expect(screen.getByText('₹ 1,000')).toBeInTheDocument()
+  })
+
+  test('handles feature without icon', () => {
+    const featuresWithoutIcon: Feature[] = [
+      { feature: 'Manual Transmission' }
+    ]
+    render(<CarCard {...defaultProps} features={featuresWithoutIcon} />)
+
+    expect(screen.getByText('Manual Transmission')).toBeInTheDocument()
+  })
 })

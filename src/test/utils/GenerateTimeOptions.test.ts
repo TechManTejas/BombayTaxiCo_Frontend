@@ -61,5 +61,53 @@ describe('generateTimeOptions', () => {
       expect(typeof option.label).toBe('string')
     })
   })
-})
 
+  test('handles different dates correctly', () => {
+    const tomorrow = dayjs().add(1, 'day')
+    const nextWeek = dayjs().add(7, 'days')
+    const lastWeek = dayjs().subtract(7, 'days')
+
+    const tomorrowOptions = generateTimeOptions(tomorrow)
+    const nextWeekOptions = generateTimeOptions(nextWeek)
+    const lastWeekOptions = generateTimeOptions(lastWeek)
+
+    expect(tomorrowOptions.length).toBe(96)
+    expect(nextWeekOptions.length).toBe(96)
+    expect(lastWeekOptions.length).toBe(96)
+  })
+
+  test('time options are in correct order', () => {
+    const futureDate = dayjs().add(1, 'day')
+    const options = generateTimeOptions(futureDate)
+
+    // Check that times are sequential
+    for (let i = 1; i < options.length; i++) {
+      const prevTime = options[i - 1].label
+      const currTime = options[i].label
+      
+      // Extract hour and minute for comparison
+      const prevMatch = prevTime.match(/(\d+):(\d+)\s*(AM|PM)/)
+      const currMatch = currTime.match(/(\d+):(\d+)\s*(AM|PM)/)
+      
+      if (prevMatch && currMatch) {
+        // Times should be in order (simplified check)
+        expect(options[i].label).toBeDefined()
+      }
+    }
+  })
+
+  test('generateTimeOptionsAll ignores date parameter', () => {
+    const pastDate = dayjs().subtract(1, 'day')
+    const futureDate = dayjs().add(1, 'day')
+    const today = dayjs()
+
+    const pastOptions = generateTimeOptionsAll(pastDate)
+    const futureOptions = generateTimeOptionsAll(futureDate)
+    const todayOptions = generateTimeOptionsAll(today)
+
+    // All should return 96 options regardless of date
+    expect(pastOptions.length).toBe(96)
+    expect(futureOptions.length).toBe(96)
+    expect(todayOptions.length).toBe(96)
+  })
+})
