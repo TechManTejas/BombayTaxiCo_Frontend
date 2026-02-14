@@ -19,7 +19,8 @@ A modern taxi booking application built with React, TypeScript, and Vite. This a
 - **Testing**: Vitest + React Testing Library
 - **State Management**: React Context API
 - **HTTP Client**: Axios
-- **Utilities**: Enhanced validation, error handling, and formatting helpers
+- **Performance**: Optimized components with useMemo/useCallback
+- **Utilities**: Enhanced validation, performance helpers, and image optimization
 
 ## Getting Started
 
