@@ -9,7 +9,7 @@ import { IUser } from "./user.types";
 
 export enum BookingStatus {
     New = 'New',
-    Resheduled = 'Rescheduled',
+    Rescheduled = 'Rescheduled', // Fixed typo: was Resheduled
     Confirmed = 'Confirmed',
     OnRide = 'On Ride',
     Completed = 'Completed',

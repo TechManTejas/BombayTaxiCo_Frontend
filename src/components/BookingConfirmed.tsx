@@ -1,26 +1,60 @@
-import { Result } from "antd";
+import { Result, Button } from "antd";
+import { useLocation, useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
 
 export const BookingConfirmed = () => {
+  const location = useLocation();
+  const navigate = useNavigate();
+  const [bookingDetails, setBookingDetails] = useState<any>(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    // Get booking details from location state or localStorage
+    const booking = location.state?.booking || 
+                   JSON.parse(localStorage.getItem('lastBooking') || 'null');
+    
+    if (booking) {
+      setBookingDetails(booking);
+      // Store in localStorage for persistence
+      localStorage.setItem('lastBooking', JSON.stringify(booking));
+    }
+    setLoading(false);
+  }, [location]);
+
+  const handleViewDetails = () => {
+    if (bookingDetails?.booking_number) {
+      navigate(`/bookings/${bookingDetails.booking_number}`);
+    }
+  };
+
+  const handleBookAnother = () => {
+    navigate('/booking');
+  };
+
+  if (loading) {
+    return <div className="p-6 text-center">Loading booking details...</div>;
+  }
+
   return (
     <div className="p-6 max-w-lg mx-auto bg-white items-center space-x-4">
       <Result
         className="w-full"
         status="success"
         title={<span>
-          {/* ✅  */}
           YOUR BOOKING IS{" "}
           <span className="text-[#FDB813]">CONFIRMED!</span>
         </span>}
-        subTitle="Thank You For Booking With Us"
+        subTitle={`Booking #${bookingDetails?.booking_number || 'N/A'} - Thank You For Booking With Us`}
+        extra={[
+          <Button key="details" type="primary" onClick={handleViewDetails}>
+            View Booking Details
+          </Button>,
+          <Button key="book" onClick={handleBookAnother}>
+            Book Another Trip
+          </Button>
+        ]}
       />
       <div className="flex flex-col">
-        {/* <div className="text-xl font-semibold text-gray-900">
-          <span>
-            YOUR BOOKING IS{" "}
-            <span className="text-[#FDB813]">CONFIRMED!</span>
-          </span>
-        </div> */}
-        {/* <p className="text-gray-700 pt-2"></p> */}
         <p className="text-red-600 pt-2 text-center">
           You Will Soon Receive An E-mail Confirmation
         </p>
@@ -39,3 +73,5 @@ export const BookingConfirmed = () => {
     </div>
   );
 };
+
+export default BookingConfirmed;

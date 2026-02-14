@@ -9,6 +9,11 @@ const useCounter = (end: number, duration: number): number => {
     // First set the initial count
     setCount(start);
 
+    // Handle edge cases: zero, negative, or invalid end values
+    if (end <= 0 || duration <= 0) {
+      return;
+    }
+
     // Calculate how many times the counter will update
     // Handle edge cases to prevent division by zero
     if (end <= 0 || duration <= 0) {
