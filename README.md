@@ -8,6 +8,8 @@ A modern taxi booking application built with React, TypeScript, and Vite. This a
 - **Admin Dashboard**: Manage drivers, vehicles, bookings, and routes
 - **Responsive Design**: Works seamlessly on desktop and mobile devices
 - **Real-time Updates**: Live booking status and driver tracking
+- **Enhanced Validation**: Comprehensive input validation and sanitization
+- **Type Safety**: Fixed booking status enums and improved type definitions
 
 ## Tech Stack
 
