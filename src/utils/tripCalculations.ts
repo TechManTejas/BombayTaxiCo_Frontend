@@ -26,7 +26,8 @@ export const calculateExtraKmCharges = (
   includedKm: number | null | undefined,
   ratePerKm: number | null | undefined
 ): number => {
-  if (!actualKm || !includedKm || !ratePerKm) return 0;
+  if (!actualKm || !includedKm) return 0;
+  if (ratePerKm === null || ratePerKm === undefined || isNaN(ratePerKm)) return 0;
   if (actualKm <= includedKm) return 0;
   const extraKm = actualKm - includedKm;
   return Math.round(extraKm * ratePerKm);
@@ -60,9 +61,10 @@ export const parseHourlyPackage = (
   packageStr: string | null | undefined
 ): { hours: number; kms: number } => {
   if (!packageStr) return { hours: 0, kms: 0 };
-  const parts = packageStr.split(' ');
-  const hours = parseInt(parts[0]) || 0;
-  const kms = parseInt(parts[2]) || 0;
+  const numbers = packageStr.match(/\d+/g);
+  if (!numbers || numbers.length < 2) return { hours: 0, kms: 0 };
+  const hours = parseInt(numbers[0]) || 0;
+  const kms = parseInt(numbers[1]) || 0;
   return { hours, kms };
 };
 
