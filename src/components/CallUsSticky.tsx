@@ -50,4 +50,6 @@ const StickyCallUs = () => {
   );
 };
 
-export default StickyCallUs;
+// Add export alias for test compatibility
+const CallUsSticky = StickyCallUs;
+export default CallUsSticky;

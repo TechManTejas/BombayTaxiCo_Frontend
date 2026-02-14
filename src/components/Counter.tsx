@@ -10,6 +10,10 @@ const useCounter = (end: number, duration: number): number => {
     setCount(start);
 
     // Calculate how many times the counter will update
+    // Handle edge cases to prevent division by zero
+    if (end <= 0 || duration <= 0) {
+      return;
+    }
     const interval = duration / end;
 
     // Update the count every `interval` milliseconds
