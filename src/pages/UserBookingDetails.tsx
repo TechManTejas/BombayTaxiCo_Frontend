@@ -94,7 +94,7 @@ export default function UserBookingDetails() {
   const isBookingCancelledByUser =
     booking?.booking_status === BookingStatus.CancelledByUser;
 
-  const totalAmount = "₹" + booking.base_fare || "₹0";
+  const totalAmount = booking.base_fare ? "₹" + booking.base_fare : "₹0";
   const paymentsTotal =
     booking.payments?.reduce(
       (sum: any, payment: any) => sum + payment.amount / 100,
