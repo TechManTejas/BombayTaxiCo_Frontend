@@ -1,4 +1,24 @@
-# React + TypeScript + Vite
+# Bombay Taxi Company - Frontend
+
+A modern taxi booking application built with React, TypeScript, and Vite. This application provides a seamless booking experience for customers and comprehensive management tools for administrators.
+
+## Features
+
+- **Customer Interface**: Book taxis, view packages, manage bookings
+- **Admin Dashboard**: Manage drivers, vehicles, bookings, and routes
+- **Responsive Design**: Works seamlessly on desktop and mobile devices
+- **Real-time Updates**: Live booking status and driver tracking
+
+## Tech Stack
+
+- **Frontend**: React 18 + TypeScript
+- **Build Tool**: Vite
+- **Styling**: Tailwind CSS + Ant Design
+- **Testing**: Vitest + React Testing Library
+- **State Management**: React Context API
+- **HTTP Client**: Axios
+
+## Getting Started
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
