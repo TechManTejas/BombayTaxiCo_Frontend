@@ -47,7 +47,12 @@ export const throttle = <T extends (...args: any[]) => any>(
 export const memoize = <T extends (...args: any[]) => any>(func: T): T => {
   const cache = new Map();
   return ((...args: Parameters<T>) => {
-    const key = JSON.stringify(args);
+    let key: string;
+    try {
+      key = JSON.stringify(args);
+    } catch {
+      return func(...args);
+    }
     if (cache.has(key)) {
       return cache.get(key);
     }
