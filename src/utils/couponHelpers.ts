@@ -10,7 +10,7 @@ export const isValidCouponCode = (code: string | null | undefined): boolean => {
   if (!code) return false;
   const trimmed = code.trim();
   if (trimmed.length < 4 || trimmed.length > 20) return false;
-  return /^[A-Za-z0-9]+$/.test(trimmed);
+  return /^[A-Za-z0-9_-]+$/.test(trimmed);
 };
 
 /**
@@ -25,8 +25,8 @@ export const calculateDiscountedPrice = (
   discountPercent: number | null | undefined,
   maxDiscount?: number | null
 ): number => {
-  if (!originalPrice || originalPrice <= 0) return 0;
-  if (!discountPercent || discountPercent <= 0) return originalPrice;
+  if (originalPrice === null || originalPrice === undefined || isNaN(originalPrice) || originalPrice <= 0) return 0;
+  if (discountPercent === null || discountPercent === undefined || isNaN(discountPercent) || discountPercent <= 0) return originalPrice;
   
   const pct = Math.min(discountPercent, 100);
   let discount = originalPrice * (pct / 100);

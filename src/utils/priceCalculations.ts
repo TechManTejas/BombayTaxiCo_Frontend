@@ -8,7 +8,8 @@
  */
 export const formatPrice = (amount: number | null | undefined): string => {
   if (amount === null || amount === undefined) return '₹0';
-  return `₹${amount}`;
+  if (isNaN(amount)) return '₹0';
+  return `₹${Math.round(amount)}`;
 };
 
 /**
@@ -26,7 +27,7 @@ export const calculateDueAmount = (
     0
   ) ?? 0;
 
-  return `₹${baseFare - paymentsTotal}`;
+  return `₹${Math.round(baseFare - paymentsTotal)}`;
 };
 
 /**
