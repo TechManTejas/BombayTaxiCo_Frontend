@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import Logo from "../../assets/images/logo.webp";
-import { Button, message } from "antd";
+import { Button, message, Spin } from "antd";
 import { LeftOutlined } from "@ant-design/icons";
 import { useReactToPrint } from "react-to-print";
 import { useLocation } from "react-router-dom";
@@ -16,6 +16,7 @@ import domtoimage from "dom-to-image";
 const InvoiceDetails: React.FC = () => {
   const { state } = useLocation();
   const invoice: IInvoice = state?.invoice;
+  const [isSending, setIsSending] = useState(false);
 
   const componentRef = useRef(null);
   const handlePrint = useReactToPrint({
@@ -33,8 +34,14 @@ const InvoiceDetails: React.FC = () => {
   };
 
   const handleSend = async () => {
+    if (!invoice?.booking?.user_id?.email_id) {
+      message.error("Customer email not available");
+      return;
+    }
+
+    setIsSending(true);
     try {
-      const pdfBlob = await printToPdfBlob(componentRef.current); // Hypothetical function
+      const pdfBlob = await printToPdfBlob(componentRef.current);
 
       const formData = new FormData();
       formData.append("invoice", pdfBlob, "invoice.pdf");
@@ -55,6 +62,9 @@ const InvoiceDetails: React.FC = () => {
       console.log("Response:", response.data);
     } catch (error) {
       console.error("Error:", error);
+      message.error("Failed to send invoice. Please try again.");
+    } finally {
+      setIsSending(false);
     }
   };
 
@@ -102,9 +112,10 @@ const InvoiceDetails: React.FC = () => {
                 id="btn-invoice"
                 className="text-gray-100 bg-[#FDB813] border border-yellow-500 hover:text-white hover:bg-[#FDB813] hover:ring-0 focus:bg-[#FDB813] focus:border-yellow-600 space-x-2"
                 onClick={handleSend}
+                disabled={isSending}
               >
-                <FontAwesomeIcon icon={faPaperPlane} />
-                <span>Send Invoice</span>
+                {isSending ? <Spin size="small" /> : <FontAwesomeIcon icon={faPaperPlane} />}
+                <span>{isSending ? "Sending..." : "Send Invoice"}</span>
               </Button>
             </div>
           </div>

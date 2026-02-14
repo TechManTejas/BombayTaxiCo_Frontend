@@ -26,7 +26,7 @@ export const CallUsNow: React.FC = () => {
         </div>
         <a
           href="tel:+916262744744"
-          className="text-xl font-medium hover:underline flex items-center gap-1"
+          className="text-xl font-medium hover:underline hover:text-yellow-200 flex items-center gap-1 transition-colors"
         >
           <span>
             <svg
