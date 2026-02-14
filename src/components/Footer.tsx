@@ -212,3 +212,7 @@ export const Footer: React.FC = () => {
     </div>
   );
 };
+
+// Add default export for test compatibility
+const FooterExport = Footer;
+export default FooterExport;
