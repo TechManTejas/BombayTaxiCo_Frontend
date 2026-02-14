@@ -36,6 +36,8 @@ export const calculateAdvancePayment = (
   price: number,
   percentage: string | number
 ): string => {
+  if (price === null || price === undefined || isNaN(price)) return '0';
   const pct = typeof percentage === 'string' ? parseInt(percentage) || 0 : percentage;
+  if (isNaN(pct)) return '0';
   return Math.round(price * (pct / 100)).toLocaleString();
 };

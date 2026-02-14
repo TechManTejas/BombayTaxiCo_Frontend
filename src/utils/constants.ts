@@ -15,6 +15,10 @@ export const VALIDATION_RULES = {
     MIN_LENGTH: 2,
     MAX_LENGTH: 50,
   },
+  PASSENGERS: {
+    MIN: 1,
+    MAX: 8,
+  },
 } as const;
 
 export const ERROR_MESSAGES = {
