@@ -81,3 +81,5 @@ export const HourlyRental = () => {
         </div>
     )
 }
+
+export default HourlyRental
