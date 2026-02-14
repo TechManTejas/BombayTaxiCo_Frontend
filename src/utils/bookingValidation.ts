@@ -94,7 +94,8 @@ export const validateBookingData = (data: BookingData): ValidationResult => {
  * @returns Sanitized string
  */
 export const sanitizeInput = (input: string): string => {
-  return input
+  if (input === null || input === undefined) return '';
+  return String(input)
     .replace(/</g, '&lt;')
     .replace(/>/g, '&gt;')
     .replace(/"/g, '&quot;')
