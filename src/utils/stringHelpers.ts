@@ -19,5 +19,7 @@ export const safeString = (value: any): string => {
  * @returns Truncated string
  */
 export const truncate = (str: string, maxLength: number): string => {
+  if (str === null || str === undefined) return '';
+  if (maxLength < 0) return '';
   return str.length > maxLength ? str.substring(0, maxLength) + '...' : str;
 };

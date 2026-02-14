@@ -21,7 +21,7 @@ export const generateTimeOptions = (date: Dayjs): { label: string; key: string }
     const ampm = hours >= 12 ? 'PM' : 'AM';
 
     const formattedHours = (hours % 12 === 0 ? 12 : hours % 12).toString().padStart(2, '0');
-    const formattedMinutes = minutes === 0 ? '00' : minutes;
+    const formattedMinutes = minutes.toString().padStart(2, '0');
 
     const timeString = `${formattedHours}:${formattedMinutes} ${ampm}`;
 
@@ -44,7 +44,7 @@ export const generateTimeOptionsAll = (date: Dayjs): { label: string; key: strin
     const ampm = hours >= 12 ? 'PM' : 'AM';
 
     const formattedHours = (hours % 12 === 0 ? 12 : hours % 12).toString().padStart(2, '0');
-    const formattedMinutes = minutes === 0 ? '00' : minutes;
+    const formattedMinutes = minutes.toString().padStart(2, '0');
 
     const timeString = `${formattedHours}:${formattedMinutes} ${ampm}`;
 
