@@ -28,3 +28,7 @@ export const confirmation = (message: string): Promise<boolean> => {
     });
   });
 };
+
+// Add default export for test compatibility
+const Confirmation = confirmation;
+export default Confirmation;

@@ -73,3 +73,5 @@ export const BookingConfirmed = () => {
     </div>
   );
 };
+
+export default BookingConfirmed;
