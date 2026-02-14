@@ -80,7 +80,7 @@ const DetailsCarCard: React.FC<DetailsCarCardProps> = ({
         >
           {carImage !== "undefined" ? (
             <img
-              src={import.meta.env.VITE_BASE_URL + "/" + carImage || Car}
+              src={carImage ? import.meta.env.VITE_BASE_URL + "/" + carImage : Car}
               className="object-fit
                                 h-16 lg:h-32
                                 w-20 lg:w-40

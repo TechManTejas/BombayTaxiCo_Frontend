@@ -8,8 +8,10 @@
  * @returns True if valid Indian phone number
  */
 export const isValidIndianPhone = (phone: string): boolean => {
-  if (!phone) return false;
-  const cleanPhone = phone.replace(/\D/g, '');
+  if (phone === null || phone === undefined) return false;
+  const str = String(phone);
+  if (!str) return false;
+  const cleanPhone = str.replace(/\D/g, '');
   return /^[6-9]\d{9}$/.test(cleanPhone);
 };
 
@@ -30,5 +32,6 @@ export const isValidEmail = (email: string): boolean => {
  * @returns Digits only or empty string
  */
 export const extractDigits = (input: string): string => {
-  return input ? input.replace(/\D/g, '') : '';
+  if (input === null || input === undefined) return '';
+  return String(input).replace(/\D/g, '');
 };

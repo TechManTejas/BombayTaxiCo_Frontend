@@ -11,6 +11,8 @@
  * @returns Safe division result or fallback value
  */
 export const safeDivide = (numerator: number, denominator: number, fallback: number = 0): number => {
+  if (numerator === null || numerator === undefined || isNaN(numerator)) return fallback;
+  if (denominator === null || denominator === undefined || isNaN(denominator)) return fallback;
   if (denominator === 0) {
     return fallback;
   }
@@ -34,5 +36,7 @@ export const isValidNumber = (value: any): boolean => {
  * @returns Clamped value
  */
 export const clamp = (value: number, min: number, max: number): number => {
+  if (value === null || value === undefined || isNaN(value)) return min;
+  if (min > max) return min;
   return Math.min(Math.max(value, min), max);
 };

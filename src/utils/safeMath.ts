@@ -10,6 +10,8 @@
  * @returns Safe division result
  */
 export const safeDivide = (a: number, b: number, fallback: number = 0): number => {
+  if (a === null || a === undefined || isNaN(a)) return fallback;
+  if (b === null || b === undefined || isNaN(b)) return fallback;
   return b === 0 ? fallback : a / b;
 };
 
