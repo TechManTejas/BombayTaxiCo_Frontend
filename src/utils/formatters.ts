@@ -8,12 +8,14 @@
  * @returns Formatted phone number
  */
 export const formatPhoneNumber = (phone: string): string => {
-  if (!phone) return '';
-  const cleanPhone = phone.replace(/\D/g, '');
+  if (phone === null || phone === undefined) return '';
+  const str = String(phone);
+  if (!str) return '';
+  const cleanPhone = str.replace(/\D/g, '');
   if (cleanPhone.length === 10) {
     return `${cleanPhone.slice(0, 5)}-${cleanPhone.slice(5)}`;
   }
-  return phone;
+  return str;
 };
 
 /**
