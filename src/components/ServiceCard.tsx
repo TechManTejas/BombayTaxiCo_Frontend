@@ -1,7 +1,7 @@
 import { ArrowRightOutlined } from "@ant-design/icons";
 import Icon from "@ant-design/icons/lib/components/Icon";
 import { Button } from "antd";
-import { ReactNode, useCallback, useMemo } from "react";
+import { ReactNode } from "react";
 import { useNavigate } from "react-router-dom";
 
 interface ServiceCardProps {
@@ -57,18 +57,13 @@ export const ServiceCard: React.FC<ServiceCardProps> = ({
   detailsUrl,
   image
 }) => {
-  const navigate = useNavigate();
+  const navigate = useNavigate(); // Initialize useNavigate hook
 
-  // Memoize click handler to prevent recreation on every render
-  const handleReadDetails = useCallback(() => {
+  // Function to handle redirection when "READ DETAILS" is clicked
+  const handleReadDetails = () => {
     navigate(detailsUrl);
     window.scroll(0, 0);
-  }, [navigate, detailsUrl]);
-
-  // Memoize image URL to prevent recreation
-  const imageUrl = useMemo(() => {
-    return image || "/placeholder-image.jpg";
-  }, [image]);
+  };
 
   console.log(feature);
 
@@ -78,7 +73,7 @@ export const ServiceCard: React.FC<ServiceCardProps> = ({
         {icon}
       </div>
       <div className="relative w-[320px] h-[200px] justify-center rounded-3xl"> 
-        <img src={imageUrl} className="absolute top-8 left-0 bg-zinc-200 h-[200px] rounded-3xl z-20"/>
+        <img src={image} className="absolute top-8 left-0 bg-zinc-200 h-[200px] rounded-3xl z-20"/>
       </div>
       <div className="absolute bottom-0 left-0 right-0 bg-[#FDB813] h-[160px] rounded-3xl mx-8 p-4 flex flex-col items-center gap-2 z-30">
         <div className="text-xl">{title}</div>

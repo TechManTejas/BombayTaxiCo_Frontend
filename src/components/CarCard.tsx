@@ -1,4 +1,4 @@
-import React, { useMemo, useCallback } from "react";
+import React from "react";
 import Car from "../assets/images/car.png";
 
 import AirConditioning from "../icons/Air Conditioning.svg";
@@ -12,7 +12,6 @@ import Passanger from "../icons/Passanger.svg";
 import RoofTopCarrier from "../icons/Roof Top Carrier.svg";
 import StandardSeat from "../icons/Standard Seat.svg";
 
-// Move outside component to prevent recreation on every render
 const featureIconMap = {
   "Air Conditioning": AirConditioning,
   "Automatic Transmission": AutomaticTransmission,
@@ -24,7 +23,7 @@ const featureIconMap = {
   Passenger: Passanger,
   "Roof Top Carrier": RoofTopCarrier,
   "Standard Seat": StandardSeat,
-} as const;
+};
 
 export interface Feature {
   icon?: string;
@@ -54,42 +53,16 @@ const CarCard: React.FC<CarCardProps> = ({
   carImage,
   onBook,
 }) => {
-  // Memoize click handler to prevent recreation on every render
-  const handleClick = useCallback(() => {
-    if (window.innerWidth < 1024 && onBook) {
-      onBook();
-    }
-  }, [onBook]);
-
-  // Memoize image URL to prevent recreation
-  const imageUrl = useMemo(() => {
-    return carImage && carImage !== "undefined" 
-      ? import.meta.env.VITE_BASE_URL + "/" + carImage 
-      : Car;
-  }, [carImage]);
-
-  // Memoize features rendering to prevent unnecessary recalculations
-  const renderedFeatures = useMemo(() => {
-    return features.map((feature, index) => {
-      const IconComponent = featureIconMap[feature.feature as keyof typeof featureIconMap];
-      return (
-        <div key={index} className="flex items-center gap-1">
-          {IconComponent && (
-            <img
-              src={IconComponent}
-              alt={feature.feature}
-              className="w-4 h-4 object-contain"
-            />
-          )}
-          <span className="text-xs lg:text-sm">{feature.feature}</span>
-        </div>
-      );
-    });
-  }, [features]);
   return (
     <div
       className="bg-white rounded-3xl lg:rounded-lg p-2 lg:p-0 border border-gray-300"
-      onClick={handleClick}
+      onClick={() => {
+        if (window.innerWidth < 1024) {
+          if (onBook) {
+            onBook();
+          }
+        }
+      }}
     >
       <div className="w-full flex rounded-lg gap-1 flex-row p-1 lg:p-4">
         <div className="w-7/12 ">
@@ -99,23 +72,21 @@ const CarCard: React.FC<CarCardProps> = ({
                     w-20 lg:w-40
                     "
           >
-            {imageUrl ? (
+            {carImage !== "undefined" ? (
               <img
-                src={imageUrl}
+                src={import.meta.env.VITE_BASE_URL + "/" + carImage || Car}
                 className="object-fit
                         h-16 lg:h-32
-                        w-16 lg:w-32
-                        "
-                alt={category}
+                        w-20 lg:w-40
+                            "
               />
             ) : (
               <img
                 src={Car}
                 className="object-fit
-                        h-16 lg:h-32
-                        w-16 lg:w-32
-                        "
-                alt={category}
+                            h-16 lg:h-32
+                            w-20 lg:w-40
+                            "
               />
             )}
           </div>
