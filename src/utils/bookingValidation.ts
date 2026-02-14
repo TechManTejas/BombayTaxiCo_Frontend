@@ -28,6 +28,10 @@ export interface BookingData {
 export const validateBookingData = (data: BookingData): ValidationResult => {
   const errors: string[] = [];
 
+  if (!data) {
+    return { isValid: false, errors: ['Booking data is required'] };
+  }
+
   // Email validation
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   if (!data.emailId || !emailRegex.test(data.emailId)) {
@@ -110,6 +114,10 @@ export const sanitizeInput = (input: string): string => {
  * @returns Validated and sanitized booking data
  */
 export const validateAndSanitizeBooking = (data: BookingData): ValidationResult & { sanitizedData: Partial<BookingData> } => {
+  if (!data) {
+    return { isValid: false, errors: ['Booking data is required'], sanitizedData: {} };
+  }
+
   const sanitizedData: Partial<BookingData> = {
     emailId: sanitizeInput(data.emailId),
     contactNumber: sanitizeInput(data.contactNumber),
