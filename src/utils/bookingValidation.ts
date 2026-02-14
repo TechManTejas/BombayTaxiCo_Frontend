@@ -36,7 +36,7 @@ export const validateBookingData = (data: BookingData): ValidationResult => {
 
   // Phone validation (Indian phone numbers)
   const phoneRegex = /^[6-9]\d{9}$/;
-  const cleanContactNumber = data.contactNumber.replace(/\D/g, '');
+  const cleanContactNumber = data.contactNumber ? data.contactNumber.replace(/\D/g, '') : '';
   if (!cleanContactNumber || !phoneRegex.test(cleanContactNumber)) {
     errors.push('Please enter a valid 10-digit phone number');
   }
