@@ -23,6 +23,7 @@ export const formatPhoneNumber = (phone: string): string => {
  * @returns Formatted currency string
  */
 export const formatCurrency = (amount: number, currency: string = 'INR'): string => {
+  if (amount === null || amount === undefined || isNaN(amount)) return '₹0.00';
   return new Intl.NumberFormat('en-IN', {
     style: 'currency',
     currency: currency,
@@ -36,6 +37,8 @@ export const formatCurrency = (amount: number, currency: string = 'INR'): string
  * @returns Truncated text
  */
 export const truncateText = (text: string, maxLength: number): string => {
-  if (!text) return '';
-  return text.length > maxLength ? `${text.substring(0, maxLength)}...` : text;
+  if (text === null || text === undefined) return '';
+  const str = String(text);
+  if (maxLength < 0) return '';
+  return str.length > maxLength ? `${str.substring(0, maxLength)}...` : str;
 };
