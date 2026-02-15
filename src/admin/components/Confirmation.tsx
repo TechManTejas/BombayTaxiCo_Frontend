@@ -18,13 +18,17 @@ export const confirmation = (message: string): Promise<boolean> => {
       onOk: handleConfirm,
       onCancel: handleCancel,
       okButtonProps: {
-        className: 'bg-[#FDB813]',
+        className: 'bg-[#FDB813] text-white',
       },
       cancelButtonProps: {
-        className: 'bg-[#FDB813]',
+        className: 'bg-[#FDB813] text-white',
       },
       okText: 'Yes',
       cancelText: 'Cancel',
     });
   });
 };
+
+// Add default export for test compatibility
+const Confirmation = confirmation;
+export default Confirmation;
