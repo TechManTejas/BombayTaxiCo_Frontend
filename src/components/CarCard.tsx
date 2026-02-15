@@ -20,7 +20,7 @@ const featureIconMap = {
   "Cab Boot Space": CabBootSpace,
   CNG: CNG,
   "Comfort Seat": ComfortSeat,
-  Diesel: Disel,
+  "Diesel": Disel,
   Passenger: Passanger,
   "Roof Top Carrier": RoofTopCarrier,
   "Standard Seat": StandardSeat,

@@ -11,7 +11,7 @@ export enum BookingStatus {
     New = 'New',
     Rescheduled = 'Rescheduled', // Fixed typo: was Resheduled
     Confirmed = 'Confirmed',
-    OnRide = 'On Ride',
+    OnRide = 'OnRide',
     Completed = 'Completed',
     Cancelled = 'Cancelled',
     CancelledByUser = 'CancelledByUser',
