@@ -20,7 +20,6 @@ const Sidebar: React.FC = () => {
 
     // Extract the last part of the pathname after the last slash ("/")
     const currentPath = location.pathname.split('/').pop() || '';
-    console.log(currentPath)
 
     // Map the path to the corresponding menu key
     const defaultSelectedKey = {
