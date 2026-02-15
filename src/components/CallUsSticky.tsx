@@ -16,7 +16,7 @@ const StickyCallUs = () => {
             <ArrowRightOutlined />
           </span>
           <div className="flex flex-col items-center font-extrabold">
-            {":SU LLAC".split("").map((char, index) => (
+            {"CALL US".split("").map((char, index) => (
               <span
                 key={index}
                 className="transform font-bold -rotate-90 -mb-3"
